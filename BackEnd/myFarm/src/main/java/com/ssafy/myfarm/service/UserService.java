@@ -44,7 +44,7 @@ public class UserService {
         return user.get();
     }
 
-    public List<User> findFollower(String userId) {
+    public List<User> findFollower(String id) {
         userRepository
     }
 }
