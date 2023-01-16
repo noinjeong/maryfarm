@@ -14,10 +14,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     // 백엔드 서버에서 uuid를 사용한 id 입력
-    @Id @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private String id;
+    private Long id;
     private String email;
     private String password;
     private String nickname;

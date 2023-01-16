@@ -16,7 +16,7 @@ public class ArticleService {
         Article saveArticle = articleRepository.save(article);
         return saveArticle;
     }
-    public Article findArticle(final String id) {
+    public Article findArticle(final Long id) {
         return articleRepository.findById(id).get();
     }
 }

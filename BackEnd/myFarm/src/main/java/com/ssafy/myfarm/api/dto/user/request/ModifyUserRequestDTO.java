@@ -1,6 +1,5 @@
 package com.ssafy.myfarm.api.dto.user.request;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDTO {
+public class ModifyUserRequestDTO {
     private Long id;
-    private String email;
-    private String password;
+    private String nickName;
 }

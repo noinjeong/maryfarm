@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserResponseDTO {
-    private String id;
+    private Long id;
     private String email;
     private String nickname;
     private String birthday;

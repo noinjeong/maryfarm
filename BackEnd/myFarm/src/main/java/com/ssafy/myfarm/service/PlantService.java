@@ -16,7 +16,7 @@ public class PlantService {
         Plant savePlant = plantRepository.save(plant);
         return savePlant;
     }
-    public Plant findPlant(final String id) {
+    public Plant findPlant(final Long id) {
         return plantRepository.findById(id).get();
     }
 }

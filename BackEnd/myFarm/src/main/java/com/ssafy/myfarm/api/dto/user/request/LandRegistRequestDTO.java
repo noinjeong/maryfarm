@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LandRegistRequestDTO {
-    private String id;
+    private Long id;
     private Land land;
 }

@@ -1,4 +1,4 @@
-package com.ssafy.myfarm.domain.chat;
+package com.ssafy.myfarm.domain.tag;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,14 +10,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Message {
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "message_id")
+    @Column(name = "tag_id")
     private Long id;
-    private String content;
-    private String timestamp;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id")
-    private Room room;
+    private String name;
 }

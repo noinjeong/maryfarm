@@ -1,6 +1,6 @@
 package com.ssafy.myfarm.api.controller.user;
 
-import com.ssafy.myfarm.api.dto.user.request.CreateRequestDTO;
+import com.ssafy.myfarm.api.dto.user.request.CreateUserRequestDTO;
 import com.ssafy.myfarm.api.dto.user.request.LoginRequestDTO;
 import com.ssafy.myfarm.api.dto.user.response.UserResponseDTO;
 import com.ssafy.myfarm.domain.user.User;
@@ -40,7 +40,7 @@ class UserControllerTest {
     @DisplayName("saveUser")
     void saveUser() throws Exception {
         //given
-        CreateRequestDTO dto = CreateRequestDTO.of("baek@ssafy.com", "1234", "seungbum", "19961111");
+        CreateUserRequestDTO dto = CreateUserRequestDTO.of("baek@ssafy.com", "1234", "seungbum", "19961111");
         String url = "http://localhost:"+port+"/api/auth/user/signup";
         //when
         ResponseEntity<UserResponseDTO> response = restTemplate.postForEntity(url, dto, UserResponseDTO.class);

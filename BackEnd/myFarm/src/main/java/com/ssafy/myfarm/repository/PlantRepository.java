@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface PlantRepository extends JpaRepository<Plant, String> {
-    Optional<Plant> findById(String id);
+public interface PlantRepository extends JpaRepository<Plant, Long> {
+    Optional<Plant> findById(Long id);
 }

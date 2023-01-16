@@ -23,7 +23,7 @@ public class UserService {
         User saveUser = userRepository.save(user);
         return saveUser;
     }
-    public User findUser(final String id) { return userRepository.findById(id).get(); }
+    public User findUser(final Long id) { return userRepository.findById(id).get(); }
     public User loginUser(final String email, final String password) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent() && password.equals(user.get().getPassword())) {
@@ -32,19 +32,15 @@ public class UserService {
         return null;
     }
     @Transactional
-    public void updateUser(final String id, final String nickname) {
+    public void updateUser(final Long id, final String nickname) {
         Optional<User> user = userRepository.findById(id);
         user.get().setNickname(nickname);
     }
 
     @Transactional
-    public User registLand(String id, Land land) {
+    public User registLand(Long id, Land land) {
         Optional<User> user = userRepository.findById(id);
         user.get().setLand(land);
         return user.get();
-    }
-
-    public List<User> findFollower(String id) {
-        userRepository
     }
 }

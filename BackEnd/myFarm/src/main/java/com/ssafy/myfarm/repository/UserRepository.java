@@ -7,10 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, String> {
-    Optional<User> findById(String id);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findById(Long id);
     Optional<User> findByEmail(String email);
-
-    @Query("select u from User u where ")
-    List<User> findFollower(String id);
 }
