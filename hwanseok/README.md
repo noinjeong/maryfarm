@@ -1,42 +1,10 @@
 # 마리팜 My Little Farm
 " 나만의 작은 농장, 마리팜!
 
-
-## Member & Role 👪
-" 3반 8팀의 노익장
-
-### MEMBER
-
 ### 강환석(팀장)
 - FrontEnd
 - 프로젝트 관리(바지 사장)
 - 영상 제작 및 발표자료 준비
-
-### 장유범(프론트앤드 장)
-- FrontEnd
-- 앱 개발
-
-### 김진희(PM)
-- FrontEnd
-- 앱 개발
-- 프로젝트 문서화
-
-
-### 김관섭(이장님)
-- FrontEnd
-- 앱 개발
-- 발표 및 발표자료 제작
-
-### 김이삭(백앤드 장)
-- Auth 인증 센터 구축
-- 소켓 기반 채팅창 구축
-- CD/CI 구축 및 배포
-- BackEnd
-
-### 백승범(서버 장)
-- CD/CI 구축 및 배포
-- BackEnd
-
 
 ## Project Summary 📙
 " Duration
@@ -58,15 +26,11 @@
 
 ### 🎈 Usage
 💻 Front-end
-- 예정 -
-💻 Back-end
-- 예정 -
+- 
 
 ### 🔨Tech Stack
 기술스택
 
-Common : Sock.js
-BackEnd : Spring, JPA , Docker, MySQL, JWT, Jenkins
 FrontEnd : Android Studio
 
 ### 📚 ERD
@@ -114,6 +78,7 @@ tech stack
 ### 5. 개인 공부
 [SSAFY 모바일 트랙](https://edu.ssafy.com/)
 [안드로이드 어플 만들기](https://www.inflearn.com/course/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%95%B1%EA%B0%9C%EB%B0%9C-%EA%B8%B0%EC%88%A0%EB%85%B8%ED%8A%B8/dashboard)
+
 
 [카카오 MAP API](https://apis.map.kakao.com/android/guide/)
 [AI 화면 인식 병충해 탐색 모델](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=525)
