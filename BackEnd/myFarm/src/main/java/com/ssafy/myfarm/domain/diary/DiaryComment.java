@@ -24,4 +24,13 @@ public class DiaryComment extends BaseTimeEntity {
     private User user;
     private String content;
     private int likes;
+
+    public static DiaryComment of(Diary diary, User user, String content) {
+        DiaryComment diaryComment = new DiaryComment();
+        diaryComment.diary = diary;
+        diaryComment.user = user;
+        diaryComment.content = content;
+        diaryComment.likes = 0;
+        return diaryComment;
+    }
 }

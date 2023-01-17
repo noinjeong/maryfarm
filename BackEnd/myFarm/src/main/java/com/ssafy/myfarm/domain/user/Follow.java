@@ -1,10 +1,8 @@
 package com.ssafy.myfarm.domain.user;
 
-import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -12,14 +10,26 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow {
+    /*
+        Follow의 sender와 receiver 조합이 중복되는 경우는
+        프론트엔드에서 팔로우 버튼을 누르면 언팔로우 버튼으로 바뀌는
+        상황을 만들어 프론트엔드에서 해결해야 함.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
-    private User followingUser;
+    private User senderUser;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "receiver_id")
-    private User followedUser;
+    private User receiverUser;
+
+    public static Follow of(User sender, User receiver) {
+        Follow follow = new Follow();
+        follow.senderUser = sender;
+        follow.receiverUser = receiver;
+        return follow;
+    }
 }

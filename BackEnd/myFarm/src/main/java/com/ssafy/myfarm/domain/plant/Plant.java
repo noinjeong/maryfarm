@@ -4,7 +4,6 @@ import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -19,5 +18,12 @@ public class Plant {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-    private String nickname;
+    private String name;
+
+    public static Plant of(User user, String name) {
+        Plant plant = new Plant();
+        plant.user = user;
+        plant.name = name;
+        return plant;
+    }
 }

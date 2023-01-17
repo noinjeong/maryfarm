@@ -1,5 +1,6 @@
 package com.ssafy.myfarm.domain.tag;
 
+import com.ssafy.myfarm.domain.plant.Plant;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,14 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
     private String name;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "plant_id")
+    private Plant plant;
+
+    public static Tag of(Plant plant, String name) {
+        Tag tag = new Tag();
+        tag.plant = plant;
+        tag.name = name;
+        return tag;
+    }
 }

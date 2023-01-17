@@ -16,10 +16,20 @@ public class Notify {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notify_id")
     private Long id;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private String content;
-    private int active;
+    private boolean active;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public static Notify of(Type type, String content, boolean active, User user) {
+        Notify notify = new Notify();
+        notify.type = type;
+        notify.content = content;
+        notify.active = active;
+        notify.user = user;
+        return notify;
+    }
 }

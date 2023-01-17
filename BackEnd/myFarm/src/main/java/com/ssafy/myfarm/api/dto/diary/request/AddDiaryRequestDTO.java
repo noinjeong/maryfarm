@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateDiaryRequestDTO {
+public class AddDiaryRequestDTO {
     private Long plantId;
+    private Long userId;
     private String title;
     private String content;
 }
