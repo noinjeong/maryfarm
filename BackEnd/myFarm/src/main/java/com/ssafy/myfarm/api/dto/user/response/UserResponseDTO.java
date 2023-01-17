@@ -1,6 +1,7 @@
 package com.ssafy.myfarm.api.dto.user.response;
 
 import com.ssafy.myfarm.domain.FileInfo;
+import com.ssafy.myfarm.domain.Land;
 import com.ssafy.myfarm.domain.user.Tier;
 import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
@@ -18,7 +19,8 @@ public class UserResponseDTO {
     private String birthday;
     private Tier tier;
     private FileInfo fileinfo;
-    public static UserResponseDTO from (User user) {
+    private Land land;
+    public static UserResponseDTO of(User user) {
         UserResponseDTO dto = new UserResponseDTO();
         dto.id = user.getId();
         dto.email = user.getEmail();
@@ -26,6 +28,7 @@ public class UserResponseDTO {
         dto.birthday = user.getBirthday();
         dto.tier = user.getTier();
         dto.fileinfo = user.getFileInfo();
+        dto.land = user.getLand();
         return dto;
     }
 }

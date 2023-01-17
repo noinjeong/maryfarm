@@ -24,26 +24,27 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
         User user = User.of(dto.getEmail(), dto.getPassword(), dto.getNickname(), dto.getBirthday(), "user", Tier.씨앗);
         User saveUser = userService.saveUser(user);
-        UserResponseDTO resultDto = UserResponseDTO.from(saveUser);
+        UserResponseDTO resultDto = UserResponseDTO.of(saveUser);
         return ResponseEntity.ok(resultDto);
     }
 
     @PostMapping("/auth/user/signin")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO dto) {
         User user = userService.loginUser(dto.getEmail(), dto.getPassword());
-        UserResponseDTO resultDto = UserResponseDTO.from(user);
+        UserResponseDTO resultDto = UserResponseDTO.of(user);
         return ResponseEntity.ok(resultDto);
     }
 
     @PutMapping("/user/modify")
     public ResponseEntity<?> modifyUser(@RequestBody ModifyUserRequestDTO dto) {
-        userService.updateUser(dto.getId(),dto.getNickName());
-        return ResponseEntity.ok(null);
+        userService.updateUser(dto.getId(),dto.getNickname());
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/user/land/regist")
     public ResponseEntity<?> registLand(@RequestBody LandRegistRequestDTO dto) {
-        User user = userService.registLand(dto.getId(), dto.getLand());
-        return ResponseEntity.ok(user);
+        User user = userService.registLand(dto.getId(), dto.getLatitude(),dto.getLongitude());
+        UserResponseDTO resultDto = UserResponseDTO.of(user);
+        return ResponseEntity.ok(resultDto);
     }
 }

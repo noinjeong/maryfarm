@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LandRegistRequestDTO {
     private Long id;
-    private Land land;
+    private String latitude;
+    private String longitude;
 }

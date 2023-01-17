@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModifyUserRequestDTO {
     private Long id;
-    private String nickName;
+    private String nickname;
 }

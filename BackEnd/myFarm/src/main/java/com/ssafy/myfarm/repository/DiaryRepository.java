@@ -21,5 +21,5 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
             " FROM Diary d" +
             " JOIN Plant p ON p.id = d.plant.id" +
             " WHERE p.id = :id")
-    List<Diary> findDiarysByPlant(@Param("id") String plantId);
+    List<Diary> findDiarysByPlant(@Param("id") Long plantId);
 }

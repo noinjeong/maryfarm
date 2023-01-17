@@ -37,8 +37,9 @@ public class UserService {
     }
 
     @Transactional
-    public User registLand(Long id, Land land) {
+    public User registLand(Long id, String latitude, String longitude) {
         Optional<User> user = userRepository.findById(id);
+        Land land = new Land(latitude, longitude);
         user.get().setLand(land);
         return user.get();
     }

@@ -107,7 +107,7 @@ public class DiaryService {
         return result;
     }
 
-    public List<Diary> searchDiarysByPlant(String plantId) {
+    public List<Diary> searchDiarysByPlant(Long plantId) {
         return diaryRepository.findDiarysByPlant(plantId);
     }
 }
