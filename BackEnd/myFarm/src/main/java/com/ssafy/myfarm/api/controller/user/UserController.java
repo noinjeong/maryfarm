@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/auth/user/signup")
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
         User user = User.of(dto.getEmail(), dto.getPassword(), dto.getNickname(), dto.getBirthday(), "user", Tier.씨앗);
-        User saveUser = userService.joinUser(user);
+        User saveUser = userService.saveUser(user);
         UserResponseDTO resultDto = UserResponseDTO.from(saveUser);
         return ResponseEntity.ok(resultDto);
     }

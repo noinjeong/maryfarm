@@ -5,6 +5,7 @@ import com.ssafy.myfarm.domain.user.Follow;
 import com.ssafy.myfarm.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,6 @@ public class FollowController {
 
     public ResponseEntity<?> FollowUser(@RequestBody CreateFollowRequestDTO dto) {
         Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
-
+        return new ResponseEntity<Follow>(follow, HttpStatus.OK);
     }
 }

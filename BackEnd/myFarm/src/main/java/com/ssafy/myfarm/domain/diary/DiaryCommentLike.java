@@ -1,11 +1,9 @@
 package com.ssafy.myfarm.domain.diary;
 
-import com.ssafy.myfarm.domain.board.ArticleComment;
 import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -19,7 +17,7 @@ public class DiaryCommentLike {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "diary_comment_id")
-    private ArticleComment comment;
+    private DiaryComment comment;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
