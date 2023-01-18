@@ -31,4 +31,9 @@ public class Diary extends BaseTimeEntity {
         diary.plant = plant;
         return diary;
     }
+
+    // 비즈니스 로직
+    public void addLike() {
+        this.likes+=1;
+    }
 }

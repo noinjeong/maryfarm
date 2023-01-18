@@ -1,4 +1,4 @@
-package com.ssafy.myfarm.api.dto.user.request;
+package com.ssafy.myfarm.api.dto.plant.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModifyUserRequestDTO {
-    private Long id;
-    private String nickname;
+public class PlantSearchRequestDTO {
+    private String text;
 }

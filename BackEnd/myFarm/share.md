@@ -8,7 +8,7 @@ mysql -u root -p
 Enter passowrd : 1234
 mysql> create database farm;
 ````
-
 #2 김이삭 01 18
 
 Jenkins 빌드를 위한 테스트
+

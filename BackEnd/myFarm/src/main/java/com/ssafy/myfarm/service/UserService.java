@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public User joinUser(final User user) {
+    public User saveUser(final User user) {
         User saveUser = userRepository.save(user);
         return saveUser;
     }
@@ -38,8 +37,9 @@ public class UserService {
     }
 
     @Transactional
-    public User registLand(Long id, Land land) {
+    public User registLand(Long id, String latitude, String longitude) {
         Optional<User> user = userRepository.findById(id);
+        Land land = new Land(latitude, longitude);
         user.get().setLand(land);
         return user.get();
     }

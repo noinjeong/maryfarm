@@ -13,7 +13,13 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Query(value = "SELECT d" +
             " FROM Diary d" +
             " JOIN Plant p ON d.plant.id = p.id" +
-            " JOIN Follow f ON p.user.id = f.followedUser.id" +
-            " WHERE f.followingUser.id = :id AND d.id < :lastPostId")
+            " JOIN Follow f ON p.user.id = f.receiverUser.id" +
+            " WHERE f.senderUser.id = :id AND d.id < :lastPostId")
     List<Diary> findFollowersDiary(@Param("id") Long id, @Param("lastPostId") Long lastPostId, Pageable pageable);
+
+    @Query(value = "SELECT d" +
+            " FROM Diary d" +
+            " JOIN Plant p ON p.id = d.plant.id" +
+            " WHERE p.id = :id")
+    List<Diary> findDiarysByPlant(@Param("id") Long plantId);
 }

@@ -21,4 +21,11 @@ public class DiaryLike {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public static DiaryLike of(Diary diary, User user) {
+        DiaryLike diaryLike = new DiaryLike();
+        diaryLike.diary = diary;
+        diaryLike.user = user;
+        return diaryLike;
+    }
 }
