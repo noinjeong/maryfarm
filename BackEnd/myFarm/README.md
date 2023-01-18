@@ -11,12 +11,14 @@ My Little Farm 프로젝트 백엔드 버전 및 설명 스크립트
 
 ## 기술스택 및 라이브러리
 
-| Project | Version | Description |
-| ------- | ------- | ----------- |
-| Java    | 1.8     |             |
-| Gradle  | 3.6.3   | Build Tool  |
-| MySQL   |         |             |
-|         |         |             |
+| Project      | Version | Description |
+| -------      | ------- | ----------- |
+| Java         | 1.8     |             |
+| Spring Boot  | 1.8     |             |
+| Tomcat       | 1.8     |             |
+| Gradle       | x.x.x   | Build Tool  |
+| MySQL        | x.x.x   |             |
+|              |         |             |
 
 <!-- 필수 항목 -->
 
