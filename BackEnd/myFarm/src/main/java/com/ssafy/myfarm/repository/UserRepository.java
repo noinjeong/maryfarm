@@ -8,13 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findById(Long id);
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, String> {
+    Optional<User> findById(String id);
 
     @Query(value = "SELECT u" +
             " FROM User u" +
             " RIGHT JOIN Follow f ON f.senderUser.id = u.id" +
             " WHERE f.receiverUser.id = :id")
-    List<User> findFollower(@Param("id") Long userId);
+    List<User> findFollower(@Param("id") String id);
 }

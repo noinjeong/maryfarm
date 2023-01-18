@@ -1,4 +1,4 @@
-package com.ssafy.myfarm.api.dto.user.request;
+package com.ssafy.myfarm.api.dto.diary.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LandRegistRequestDTO {
+public class FollowerDiaryRequestDTO {
     private Long userid;
-    private String latitude;
-    private String longitude;
 }

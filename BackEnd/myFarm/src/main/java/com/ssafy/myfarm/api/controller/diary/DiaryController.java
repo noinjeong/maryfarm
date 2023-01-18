@@ -100,4 +100,13 @@ public class DiaryController {
         }
         return ResponseEntity.ok(resultDtos);
     }
+    @PostMapping("/diary/follower")
+    public ResponseEntity<?> FollowerDiary(@RequestBody FollowerDiaryRequestDTO dto) {
+        List<Diary> list = diaryService.findFollowerDiary(dto.getUserid());
+        List<DiaryResponseDTO> resultDtos = new ArrayList<>();
+        for(Diary d : list) {
+            resultDtos.add(DiaryResponseDTO.of(d));
+        }
+        return ResponseEntity.ok(resultDtos);
+    }
 }

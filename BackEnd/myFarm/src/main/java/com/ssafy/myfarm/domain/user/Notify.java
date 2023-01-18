@@ -1,6 +1,5 @@
 package com.ssafy.myfarm.domain.user;
 
-import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +11,10 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notify {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "notify_id")
-    private Long id;
+    private String id;
     @Enumerated(EnumType.STRING)
     private Type type;
     private String content;

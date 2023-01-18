@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequestDTO {
-    private Long id;
-    private String email;
-    private String password;
+    private String kakaoid;
     private String nickname;
-    private String birthday;
 }

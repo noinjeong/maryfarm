@@ -13,21 +13,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserResponseDTO {
-    private Long id;
-    private String email;
+    private String userid;
     private String nickname;
-    private String birthday;
     private Tier tier;
-    private FileInfo fileinfo;
+    private String profilepath;
     private Land land;
     public static UserResponseDTO of(User user) {
         UserResponseDTO dto = new UserResponseDTO();
-        dto.id = user.getId();
-        dto.email = user.getEmail();
+        dto.userid = user.getId();
         dto.nickname = user.getNickname();
-        dto.birthday = user.getBirthday();
         dto.tier = user.getTier();
-        dto.fileinfo = user.getFileInfo();
+        dto.profilepath = user.getProfilepath();
         dto.land = user.getLand();
         return dto;
     }

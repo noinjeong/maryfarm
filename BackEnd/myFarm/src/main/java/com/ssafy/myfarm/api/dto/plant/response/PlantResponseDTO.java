@@ -1,7 +1,6 @@
 package com.ssafy.myfarm.api.dto.plant.response;
 
 import com.ssafy.myfarm.domain.plant.Plant;
-import com.ssafy.myfarm.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlantResponseDTO {
-    private Long id;
+    private Long plantid;
     private String name;
 
     public static PlantResponseDTO of(Plant plant) {
         PlantResponseDTO dto = new PlantResponseDTO();
-        dto.id = plant.getId();
+        dto.plantid = plant.getId();
         dto.name = plant.getName();
         return dto;
     }
