@@ -1,5 +1,6 @@
 package com.ssafy.myfarm.domain.plant;
 
+import com.ssafy.myfarm.domain.BaseTimeEntity;
 import com.ssafy.myfarm.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Plant {
+public class Plant extends BaseTimeEntity {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "plant_id")

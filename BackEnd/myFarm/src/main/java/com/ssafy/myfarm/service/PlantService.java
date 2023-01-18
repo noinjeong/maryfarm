@@ -27,14 +27,8 @@ public class PlantService {
     @Transactional
     public Plant savePlant(String userId, String name) {
         Optional<User> user = userRepository.findById(userId);
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Plant plant = Plant.of(user.get(), name+simpleDateFormat.format(date));
+        Plant plant = Plant.of(user.get(), name);
         Plant savePlant = plantRepository.save(plant);
-        // 태그 등록 시작
-        Tag tag = Tag.of(savePlant, name);
-        Tag saveTag = tagRepository.save(tag);
-        // 태그 등록 종료
         return savePlant;
     }
 
