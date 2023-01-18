@@ -25,7 +25,7 @@ public class PlantService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     @Transactional
-    public Plant savePlant(Long userId, String name) {
+    public Plant savePlant(String userId, String name) {
         Optional<User> user = userRepository.findById(userId);
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -38,11 +38,7 @@ public class PlantService {
         return savePlant;
     }
 
-    public Plant findPlant(final Long id) {
+    public Plant findPlant(final String id) {
         return plantRepository.findById(id).get();
-    }
-
-    public List<Plant> searchPlantByTag(String text) {
-        return plantRepository.findPlantByTag(text);
     }
 }

@@ -1,5 +1,7 @@
 package com.ssafy.myfarm.domain.tag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.myfarm.domain.diary.Diary;
 import com.ssafy.myfarm.domain.plant.Plant;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,13 +19,15 @@ public class Tag {
     @Column(name = "tag_id")
     private String id;
     private String name;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "plant_id")
-    private Plant plant;
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
 
-    public static Tag of(Plant plant, String name) {
+    public static Tag of(Diary diary, String name) {
         Tag tag = new Tag();
-        tag.plant = plant;
+        tag.diary = diary;
+        diary.getTags().add(tag);
         tag.name = name;
         return tag;
     }

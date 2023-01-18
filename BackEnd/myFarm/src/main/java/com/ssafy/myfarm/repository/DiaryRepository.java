@@ -24,9 +24,15 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
             " WHERE f.senderUser.id = :id")
     List<Diary> findFollowersDiary(@Param("id") String id);
 
+    // FROM의 주체와 SELECT로 가져오는 엔티티가 달라서 안될수도...
+    @Query(value = "SELECT DISTINCT d" +
+            " FROM Diary d" +
+            " JOIN FETCH Tag t ON t.diary.id = d.id" +
+            " WHERE t.name = :text")
+    List<Diary> findDiarysByTag(@Param("text") String text);
+
     @Query(value = "SELECT d" +
             " FROM Diary d" +
-            " JOIN Plant p ON p.id = d.plant.id" +
-            " WHERE p.id = :id")
-    List<Diary> findDiarysByPlant(@Param("id") String id);
+            " WHERE d.plant.id = :id")
+    List<Diary> findDiaryGroup(@Param("id") String id);
 }

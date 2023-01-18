@@ -2,12 +2,15 @@ package com.ssafy.myfarm.domain.diary;
 
 import com.ssafy.myfarm.domain.BaseTimeEntity;
 import com.ssafy.myfarm.domain.plant.Plant;
+import com.ssafy.myfarm.domain.tag.Tag;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +26,9 @@ public class Diary extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "plant_id")
     private Plant plant;
+
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+    private List<Tag> tags = new ArrayList<>();
 
     public static Diary of(String title, String content, Plant plant) {
         Diary diary = new Diary();

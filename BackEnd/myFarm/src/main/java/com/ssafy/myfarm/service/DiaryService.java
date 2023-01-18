@@ -111,7 +111,11 @@ public class DiaryService {
         return result;
     }
 
-    public List<Diary> searchDiarysByPlant(Long plantId) {
-        return diaryRepository.findDiarysByPlant(plantId);
+    public List<Diary> searchDiarysByTag(String text) {
+        return diaryRepository.findDiarysByTag(text);
+    }
+
+    public List<Diary> searchDiaryGroup(String plantId) {
+        return diaryRepository.findDiaryGroup(plantId);
     }
 }

@@ -2,6 +2,9 @@ package com.ssafy.myfarm.api.controller.diary;
 
 import com.ssafy.myfarm.api.dto.diary.request.*;
 import com.ssafy.myfarm.api.dto.diary.response.DiaryResponseDTO;
+import com.ssafy.myfarm.api.dto.diary.response.DiarySearchResponseDTO;
+import com.ssafy.myfarm.api.dto.plant.request.PlantSearchRequestDTO;
+import com.ssafy.myfarm.api.dto.plant.response.PlantResponseDTO;
 import com.ssafy.myfarm.domain.FileInfo;
 import com.ssafy.myfarm.domain.diary.Diary;
 import com.ssafy.myfarm.domain.diary.DiaryComment;
@@ -91,13 +94,24 @@ public class DiaryController {
         DiaryComment diaryComment = diaryService.saveDiaryComment(dto.getDiaryid(),dto.getUserid(),dto.getContent());
         return ResponseEntity.ok().build();
     }
-    @PostMapping("/diary/search")
-    public ResponseEntity<?> searchDiarys(@RequestBody SearchDiaryRequestDTO dto) {
-        List<Diary> list = diaryService.searchDiarysByPlant(dto.getPlantid());
+    @PostMapping("/diary/plant/search/{plantid}")
+    public ResponseEntity<?> searchDiarysByPlant(@PathVariable("plantid") String id) {
+        List<Diary> list = diaryService.searchDiaryGroup(id);
         List<DiaryResponseDTO> resultDtos = new ArrayList<>();
         for(Diary d : list) {
             resultDtos.add(DiaryResponseDTO.of(d));
         }
+        return ResponseEntity.ok(resultDtos);
+    }
+    @PostMapping("/diary/tag/search")
+    public ResponseEntity<?> searchPlant(@RequestBody SearchByTagRequestDTO dto) {
+        List<Diary> list = diaryService.searchDiarysByTag(dto.getText());
+        List<DiarySearchResponseDTO> resultDtos = new ArrayList<>();
+        for(Diary d : list) {
+            List<Diary> group = diaryService.searchDiaryGroup(d.getPlant().getId());
+            new DiarySearchResponseDTO(d,group);
+        }
+
         return ResponseEntity.ok(resultDtos);
     }
     @PostMapping("/diary/follower")
