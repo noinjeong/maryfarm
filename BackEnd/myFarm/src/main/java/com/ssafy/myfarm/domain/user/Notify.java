@@ -15,15 +15,15 @@ public class Notify {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "notify_id")
     private String id;
-    @Enumerated(EnumType.STRING)
-    private Type type;
-    private String content;
-    private boolean active;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+    @Enumerated(EnumType.STRING)
+    private AlarmType type;
+    private String content;
+    private Boolean active;
 
-    public static Notify of(Type type, String content, boolean active, User user) {
+    public static Notify of(AlarmType type, String content, boolean active, User user) {
         Notify notify = new Notify();
         notify.type = type;
         notify.content = content;

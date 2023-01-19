@@ -25,9 +25,9 @@ public class PlantService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     @Transactional
-    public Plant savePlant(String userId, String name) {
+    public Plant savePlant(String userId, String title, String name) {
         Optional<User> user = userRepository.findById(userId);
-        Plant plant = Plant.of(user.get(), name);
+        Plant plant = Plant.of(user.get(), title, name);
         Plant savePlant = plantRepository.save(plant);
         return savePlant;
     }

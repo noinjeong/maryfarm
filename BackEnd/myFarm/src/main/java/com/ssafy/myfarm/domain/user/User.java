@@ -2,7 +2,6 @@ package com.ssafy.myfarm.domain.user;
 
 import com.ssafy.myfarm.domain.Land;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -16,19 +15,19 @@ public class User {
     @Column(name = "user_id")
     private String id;
     private String nickname;
-    @Embedded
-    private Land land;
-    private String profilepath;
     @Enumerated(EnumType.STRING)
     private Tier tier;
+    @Embedded
+    private Land land;
+    private String profilePath;
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
     public void setLand(Land land) {
         this.land = land;
     }
-    public void setProfilepath(String path) {
-        this.profilepath = path;
+    public void setProfilePath(String path) {
+        this.profilePath = path;
     }
     // 정적 팩토리 메서드
     public static User of(String id, String nickname, Tier tier) {

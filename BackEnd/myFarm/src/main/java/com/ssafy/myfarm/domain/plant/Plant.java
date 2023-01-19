@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,10 +22,16 @@ public class Plant extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
     private String name;
+    private String title;
+    private LocalDateTime harvestTime;
+    private Boolean active;
+    // active true/수확안함  false/수확함
 
-    public static Plant of(User user, String name) {
+    public static Plant of(User user, String title, String name) {
         Plant plant = new Plant();
         plant.user = user;
+        plant.active = true;
+        plant.title = title;
         plant.name = name;
         return plant;
     }

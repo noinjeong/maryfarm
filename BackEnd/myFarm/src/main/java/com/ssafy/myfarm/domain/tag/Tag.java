@@ -18,11 +18,11 @@ public class Tag {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "tag_id")
     private String id;
-    private String name;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "diary_id")
     private Diary diary;
+    private String name;
 
     public static Tag of(Diary diary, String name) {
         Tag tag = new Tag();

@@ -15,9 +15,9 @@ public class Message {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "message_id")
     private String id;
-    private String content;
-    private String timestamp;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id")
     private Room room;
+    private String content;
+    private String timestamp;
 }

@@ -1,5 +1,5 @@
 package com.ssafy.myfarm.domain.user;
 
-public enum Type {
+public enum AlarmType {
     FollowRequest, FollowerUpload, MyFarm, Push
 }

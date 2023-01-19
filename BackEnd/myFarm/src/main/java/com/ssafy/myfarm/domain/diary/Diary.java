@@ -20,22 +20,25 @@ public class Diary extends BaseTimeEntity {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_id")
     private String id;
-    private String title;
-    private String content;
-    private int likes;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "plant_id")
     private Plant plant;
+    private String content;
+    private Integer likes;
+    private String imagePath;
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
-    public static Diary of(String title, String content, Plant plant) {
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public static Diary of(Plant plant, String content) {
         Diary diary = new Diary();
-        diary.title = title;
+        diary.plant = plant;
         diary.content = content;
         diary.likes = 0;
-        diary.plant = plant;
         return diary;
     }
 

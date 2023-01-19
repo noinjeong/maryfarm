@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddDiaryRequestDTO {
-    private Long plantid;
-    private Long userid;
-    private String title;
+    private String plantid;
     private String content;
 }
