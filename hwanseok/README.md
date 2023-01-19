@@ -84,3 +84,8 @@ tech stack
 [AI 화면 인식 병충해 탐색 모델](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=525)
 [AI 화면 인식 병충해 탐색 모델 학습용 사진](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=153)
 
+
+
+### 6. UI용 참고 사이트
+[마테리얼3.0](https://m3.material.io/)
+[구글 open ui](https://kmshack.github.io/AndroidUICollection/)
