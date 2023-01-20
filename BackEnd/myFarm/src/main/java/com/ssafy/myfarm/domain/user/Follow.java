@@ -3,6 +3,7 @@ package com.ssafy.myfarm.domain.user;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,10 +16,10 @@ public class Follow {
         프론트엔드에서 팔로우 버튼을 누르면 언팔로우 버튼으로 바뀌는
         상황을 만들어 프론트엔드에서 해결해야 함.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "follow_id")
-    private Long id;
+    private String id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
     private User senderUser;

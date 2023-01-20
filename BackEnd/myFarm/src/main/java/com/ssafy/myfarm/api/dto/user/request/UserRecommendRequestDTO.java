@@ -7,7 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModifyUserRequestDTO {
+public class UserRecommendRequestDTO {
+
     private String userid;
-    private String nickname;
+    private String magnitude;
+    private String color;
+    private String season;
+    private String price;
+    private String size;
+    private String period;
 }

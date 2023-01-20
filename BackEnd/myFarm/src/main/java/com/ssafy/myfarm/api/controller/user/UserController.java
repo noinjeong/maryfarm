@@ -1,5 +1,6 @@
 package com.ssafy.myfarm.api.controller.user;
 
+import com.ssafy.myfarm.api.dto.user.request.UserRecommendRequestDTO;
 import com.ssafy.myfarm.api.dto.user.request.CreateUserRequestDTO;
 import com.ssafy.myfarm.api.dto.user.request.LandRegistRequestDTO;
 import com.ssafy.myfarm.api.dto.user.request.LoginRequestDTO;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class UserController {
 
     @PostMapping("/auth/user/signup")
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
-        User user = User.of(dto.getEmail(), dto.getPassword(), dto.getNickname(), dto.getBirthday(), "user", Tier.씨앗);
+        User user = User.of(dto.getKakaoid(), dto.getNickname(),Tier.씨앗);
         User saveUser = userService.saveUser(user);
         UserResponseDTO resultDto = UserResponseDTO.of(saveUser);
         return ResponseEntity.ok(resultDto);
@@ -30,21 +32,30 @@ public class UserController {
 
     @PostMapping("/auth/user/signin")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO dto) {
-        User user = userService.loginUser(dto.getEmail(), dto.getPassword());
-        UserResponseDTO resultDto = UserResponseDTO.of(user);
-        return ResponseEntity.ok(resultDto);
+        User user = userService.loginUser(dto.getKakaoid());
+        if(user==null) return ResponseEntity.ok(0);
+        else return ResponseEntity.ok(1);
     }
 
     @PutMapping("/user/modify")
-    public ResponseEntity<?> modifyUser(@RequestBody ModifyUserRequestDTO dto) {
-        userService.updateUser(dto.getId(),dto.getNickname());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
+        // 아직 이미지 저장은 없음
+        User user = userService.updateUser(dto.getUserid(), dto.getNickname());
+        UserResponseDTO resultDto = UserResponseDTO.of(user);
+        return ResponseEntity.ok(resultDto);
     }
 
     @PostMapping("/user/land/regist")
     public ResponseEntity<?> registLand(@RequestBody LandRegistRequestDTO dto) {
-        User user = userService.registLand(dto.getId(), dto.getLatitude(),dto.getLongitude());
+        User user = userService.registLand(dto.getUserid(), dto.getLatitude(),dto.getLongitude());
         UserResponseDTO resultDto = UserResponseDTO.of(user);
         return ResponseEntity.ok(resultDto);
+    }
+    @PostMapping("/user/recommend")
+    public ResponseEntity<?> recommendPlant(@RequestBody UserRecommendRequestDTO dto) {
+        String fullCode = dto.getMagnitude()+"/"+dto.getColor()+"/"+dto.getSeason()+"/"
+                +dto.getPrice()+"/"+dto.getSize()+"/"+dto.getPeriod();
+        userService.saveRecommend(dto.getUserid(),fullCode);
+        return ResponseEntity.ok().build();
     }
 }

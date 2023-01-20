@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface PlantRepository extends JpaRepository<Plant, Long> {
-    Optional<Plant> findById(Long id);
+public interface PlantRepository extends JpaRepository<Plant, String> {
+    Optional<Plant> findById(String id);
 
     @Query(value = "SELECT DISTINCT p" +
             " FROM Plant p" +

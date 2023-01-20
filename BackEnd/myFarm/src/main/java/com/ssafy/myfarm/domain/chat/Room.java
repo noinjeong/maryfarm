@@ -13,10 +13,10 @@ import javax.persistence.*;
 // 프록시 객체 생성만을 위한 생성자라 Protected로 사용제한
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "room_id")
-    private Long id;
+    private String id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user1_id")
     private User followingUser;

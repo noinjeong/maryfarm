@@ -62,9 +62,13 @@ public class DiaryService {
         return saveDiary;
     }
 
-    public List<Diary> findFollowerDiary(final Long userId, final Long lastPostId) {
-        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("id").descending());
-        return diaryRepository.findFollowersDiary(userId, lastPostId, pageRequest);
+//    public List<Diary> findFollowerDiary(final Long userId, final Long lastPostId) {
+//        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("id").descending());
+//        return diaryRepository.findFollowersDiary(userId, lastPostId, pageRequest);
+//    }
+
+    public List<Diary> findFollowerDiary(final Long userId) {
+        return diaryRepository.findFollowersDiary(userId);
     }
 
     @Transactional
