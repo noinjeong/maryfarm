@@ -210,3 +210,6 @@ Jenkins 이미지 → Jenkins를 실행하려면 swapfile로 RAM을 늘려줄 �
 [[SpringBoot] 게시판 (5) - AWS EC2에 배포하기 (feat. AWS RDS)](https://victorydntmd.tistory.com/338)
 
 gradle web project 배포
+
+---
+CI/CD jenkin 인프런 강의 진행 중
