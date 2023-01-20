@@ -1,32 +1,24 @@
 package com.ssafy.myfarm.api.controller.diary;
 
 import com.ssafy.myfarm.api.dto.diary.request.*;
-import com.ssafy.myfarm.api.dto.diary.response.DiaryResponseDTO;
+import com.ssafy.myfarm.api.dto.diary.response.DetailDiaryResponseDTO;
 import com.ssafy.myfarm.api.dto.diary.response.DiarySearchResponseDTO;
+import com.ssafy.myfarm.api.dto.diary.response.DiaryToHomeResponseDTO;
 import com.ssafy.myfarm.api.dto.diary.response.FollowingDiaryResponseDTO;
-import com.ssafy.myfarm.api.dto.diary.response.GroupedDiaryDTO;
-import com.ssafy.myfarm.api.dto.plant.request.PlantSearchRequestDTO;
-import com.ssafy.myfarm.api.dto.plant.response.PlantResponseDTO;
-import com.ssafy.myfarm.domain.FileInfo;
 import com.ssafy.myfarm.domain.diary.Diary;
 import com.ssafy.myfarm.domain.diary.DiaryComment;
-import com.ssafy.myfarm.domain.diary.DiaryImage;
 import com.ssafy.myfarm.domain.diary.DiaryLike;
 import com.ssafy.myfarm.domain.plant.Plant;
 import com.ssafy.myfarm.service.DiaryService;
 import com.ssafy.myfarm.service.PlantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -65,10 +57,10 @@ public class DiaryController {
     @PostMapping("/diary/tag/search")
     public ResponseEntity<?> searchPlant(@RequestBody SearchByTagRequestDTO dto) {
         List<Diary> list = diaryService.searchDiarysByTag(dto.getText());
-        List<DiaryResponseDTO> resultDtos = new ArrayList<>();
+        List<DiarySearchResponseDTO> resultDtos = new ArrayList<>();
         for(Diary d : list) {
             List<Diary> group = diaryService.searchDiaryGroup(d.getPlant().getId());
-            resultDtos.add(DiaryResponseDTO.of(d,group));
+            resultDtos.add(DiarySearchResponseDTO.of(d,group));
         }
         return ResponseEntity.ok(resultDtos);
     }
@@ -78,6 +70,27 @@ public class DiaryController {
         List<FollowingDiaryResponseDTO> resultDtos = new ArrayList<>();
         for(Diary d : list) {
             resultDtos.add(FollowingDiaryResponseDTO.of(d));
+        }
+        return ResponseEntity.ok(resultDtos);
+    }
+
+    @GetMapping("/diary/user/{userId}")
+    public ResponseEntity<?> DiaryToHome(@PathVariable("userId") String userId) {
+        List<Plant> list = plantService.searchPlantsByUserId(userId);
+        List<DiaryToHomeResponseDTO> resultDtos = new ArrayList<>();
+        for(Plant p : list) {
+            Diary diary = diaryService.searchEarlyDiaryByPlant(p.getId());
+            resultDtos.add(DiaryToHomeResponseDTO.of(diary));
+        }
+        return ResponseEntity.ok(resultDtos);
+    }
+
+    @GetMapping("/diary/plant/{plantId}")
+    public ResponseEntity<?> DetailDiary(@PathVariable("plantId") String plantId) {
+        List<Diary> list = diaryService.searchDiarysByPlantId(plantId);
+        List<DetailDiaryResponseDTO> resultDtos = new ArrayList<>();
+        for(Diary d : list) {
+            resultDtos.add(DetailDiaryResponseDTO.of(d));
         }
         return ResponseEntity.ok(resultDtos);
     }

@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupedDiaryDTO {
+public class GroupedDiaryForSearchDTO {
     private String diaryid;
     private String imagepath;
 
-    public static GroupedDiaryDTO of(Diary diary) {
-        GroupedDiaryDTO dto = new GroupedDiaryDTO();
+    public static GroupedDiaryForSearchDTO of(Diary diary) {
+        GroupedDiaryForSearchDTO dto = new GroupedDiaryForSearchDTO();
         dto.diaryid = diary.getId();
         dto.imagepath = diary.getImagePath();
         return dto;

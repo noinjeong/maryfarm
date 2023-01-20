@@ -5,6 +5,7 @@ import com.ssafy.myfarm.domain.user.Tier;
 import com.ssafy.myfarm.domain.user.User;
 import com.ssafy.myfarm.repository.PlantRepository;
 import com.ssafy.myfarm.repository.UserRepository;
+import com.ssafy.myfarm.service.DiaryService;
 import com.ssafy.myfarm.service.PlantService;
 import com.ssafy.myfarm.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +30,14 @@ public class InitDb {
     static class InitService {
         private final UserService userService;
         private final PlantService plantService;
+        private final DiaryService diaryService;
         public void dbInit() {
-            for(int i=0;i<=30;i++) {
+            for(int i=1;i<=30;i++) {
                 String si = Integer.toString(i);
-                User user = User.of("baek" + si + "@ssafy.com", "1234", "ssafy" + si, "199611" + si, "user", Tier.씨앗);
+                User user = User.of(si+si+si+si, "user"+si, Tier.씨앗);
                 User saveUser = userService.saveUser(user);
-                plantService.savePlant(saveUser.getId(), "딸기" + si);
+                Plant plant = plantService.savePlant(saveUser.getId(), "방가방가" + si, "딸기");
+                diaryService.saveDiary(plant.getId(),"#왕감자"+si+" 를 심었어요");
             }
         }
     }

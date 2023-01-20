@@ -1,6 +1,5 @@
 package com.ssafy.myfarm.service;
 
-import com.ssafy.myfarm.domain.FileInfo;
 import com.ssafy.myfarm.domain.diary.Diary;
 import com.ssafy.myfarm.domain.diary.DiaryComment;
 import com.ssafy.myfarm.domain.diary.DiaryLike;
@@ -12,12 +11,16 @@ import com.ssafy.myfarm.domain.user.User;
 import com.ssafy.myfarm.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional(readOnly = true)
@@ -93,19 +96,33 @@ public class DiaryService {
     }
 
     private List<String> HashTagParsing(String content) {
-        String[] tags = content.split("#([A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣](?:(?:[A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣]))?)(\\s)");
         List<String> result = new ArrayList<>();
-        for(String s: tags) {
+        Pattern p = Pattern.compile("#([A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣](?:(?:[A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_ㄱ-ㅎㅏ-ㅣ가-힣]))?)(\\s)");
+        Matcher m = p.matcher(content);
+        while(m.find()) {
+            String s = m.group();
             result.add(s.substring(1,s.length()-1));
         }
         return result;
     }
 
     public List<Diary> searchDiarysByTag(String text) {
-        return diaryRepository.findDiarysByTag(text);
+        return diaryRepository.findDiaryByTag(text);
     }
 
     public List<Diary> searchDiaryGroup(String plantId) {
         return diaryRepository.findDiaryGroup(plantId);
+    }
+
+    public List<Diary> searchDiaryByUserId(String userId) {
+        return diaryRepository.findDiaryByUserId(userId);
+    }
+
+    public Diary searchEarlyDiaryByPlant(String plantId) {
+        return diaryRepository.findEarlyDiaryByPlantId(plantId, PageRequest.of(0,1)).get(0);
+    }
+
+    public List<Diary> searchDiarysByPlantId(String plantId) {
+        return diaryRepository.findDiaryByPlantId(plantId);
     }
 }
