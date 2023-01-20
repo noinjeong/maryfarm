@@ -1,7 +1,6 @@
 package com.example.mylittlefarm;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.nfc.Tag;
 import android.os.Bundle;
