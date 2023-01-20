@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface PlantRepository extends JpaRepository<Plant, String> {
     Optional<Plant> findById(String id);
 
-    @Query(value = "SELECT DISTINCT p" +
-            " FROM Plant p" +
-            " RIGHT JOIN Tag t ON t.plant.id = p.id" +
-            " WHERE t.name = :name")
-    List<Plant> findPlantByTag(@Param("name") String text);
+//    @Query(value = "SELECT DISTINCT p" +
+//            " FROM Plant p" +
+//            " RIGHT JOIN Tag t ON t.plant.id = p.id" +
+//            " WHERE t.name = :name")
+//    List<Plant> findPlantByTag(@Param("name") String text);
 }

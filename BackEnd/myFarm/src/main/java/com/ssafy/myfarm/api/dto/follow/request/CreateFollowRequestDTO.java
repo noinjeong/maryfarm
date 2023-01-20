@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateFollowRequestDTO {
-    private Long senderid;
-    private Long receiverid;
+    private String senderid;
+    private String receiverid;
 }

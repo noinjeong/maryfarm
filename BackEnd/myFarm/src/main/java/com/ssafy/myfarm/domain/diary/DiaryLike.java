@@ -16,17 +16,17 @@ public class DiaryLike {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_like_id")
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "diary_id")
-    private Diary diary;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
 
-    public static DiaryLike of(Diary diary, User user) {
+    public static DiaryLike of(User user, Diary diary) {
         DiaryLike diaryLike = new DiaryLike();
-        diaryLike.diary = diary;
         diaryLike.user = user;
+        diaryLike.diary = diary;
         return diaryLike;
     }
 }
