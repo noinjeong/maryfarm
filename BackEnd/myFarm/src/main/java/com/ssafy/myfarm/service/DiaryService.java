@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -35,10 +36,10 @@ public class DiaryService {
     private final UserRepository userRepository;
     private final NotifyRepository notifyRepository;
     @Transactional
-    public Diary saveDiary(final String plantId, final String content) {
+    public Diary saveDiary(final String plantId, final String content, final String imagePath) {
         Optional<Plant> plant = plantRepository.findById(plantId);
         String userId = plant.get().getUser().getId();
-        Diary diary = Diary.of(plant.get(),content);
+        Diary diary = Diary.of(plant.get(),content,imagePath);
         /*
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */

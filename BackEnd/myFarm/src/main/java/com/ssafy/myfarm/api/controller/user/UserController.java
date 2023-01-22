@@ -9,6 +9,8 @@ import com.ssafy.myfarm.api.dto.user.response.UserResponseDTO;
 import com.ssafy.myfarm.domain.user.Tier;
 import com.ssafy.myfarm.domain.user.User;
 import com.ssafy.myfarm.service.UserService;
+import com.ssafy.myfarm.util.file.dto.FileDetail;
+import com.ssafy.myfarm.util.file.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
+    private final FileUploadService fileUploadService;
 
     @PostMapping("/auth/user/signup")
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
@@ -39,8 +42,8 @@ public class UserController {
 
     @PutMapping("/user/modify")
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
-        // 아직 이미지 저장은 없음
-        User user = userService.updateUser(dto.getUserid(), dto.getNickname());
+        FileDetail saveFile = fileUploadService.save(image);
+        User user = userService.updateUser(dto.getUserid(), dto.getNickname(),saveFile.getPath());
         UserResponseDTO resultDto = UserResponseDTO.of(user);
         return ResponseEntity.ok(resultDto);
     }

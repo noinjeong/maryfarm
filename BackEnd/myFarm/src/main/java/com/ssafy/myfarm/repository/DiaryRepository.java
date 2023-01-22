@@ -33,9 +33,9 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
             " JOIN FETCH Tag t ON t.diary.id = d.id" +
             " JOIN FETCH Plant p ON p.id = d.plant.id" +
             " JOIN FETCH User u ON u.id = p.user.id" +
-            " WHERE t.name = :text" +
-            " GROUP BY d.plant.id" +
-            " ORDER BY d.createdDate desc")
+            " WHERE t.name = :text")
+//            " GROUP BY d.plant.id" +
+//            " ORDER BY d.createdDate desc")
 //            " LIMIT 1")
     List<Diary> findDiaryByTag(@Param("text") String text);
 

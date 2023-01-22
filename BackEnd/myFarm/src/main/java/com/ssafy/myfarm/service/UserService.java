@@ -34,9 +34,10 @@ public class UserService {
         return null;
     }
     @Transactional
-    public User updateUser(final String id, final String nickname) {
+    public User updateUser(final String id, final String nickname, final String profilePath) {
         Optional<User> user = userRepository.findById(id);
         user.get().setNickname(nickname);
+        user.get().setProfilePath(profilePath);
         return user.get();
     }
 

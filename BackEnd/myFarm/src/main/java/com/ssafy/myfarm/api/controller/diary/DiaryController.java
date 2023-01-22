@@ -11,6 +11,8 @@ import com.ssafy.myfarm.domain.diary.DiaryLike;
 import com.ssafy.myfarm.domain.plant.Plant;
 import com.ssafy.myfarm.service.DiaryService;
 import com.ssafy.myfarm.service.PlantService;
+import com.ssafy.myfarm.util.file.dto.FileDetail;
+import com.ssafy.myfarm.util.file.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService diaryService;
     private final PlantService plantService;
+    private final FileUploadService fileUploadService;
     @PostMapping("/diary/init")
     public ResponseEntity<?> initDiary(@RequestPart MultipartFile image, @RequestPart InitDiaryRequestDTO dto) throws IOException {
         /*
@@ -35,13 +38,15 @@ public class DiaryController {
             의존성 관리에 더 바람직함. Diary 객체를 넘겨주려면 Diary 객체에 대한 의존성이 생김.
          */
         Plant savePlant = plantService.savePlant(dto.getUserid(),dto.getTitle(),dto.getName());
-        Diary saveDiary = diaryService.saveDiary(savePlant.getId(),dto.getContent());
-        return ResponseEntity.ok(saveDiary.getId());
+        FileDetail saveFile = fileUploadService.save(image);
+        Diary saveDiary = diaryService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath());
+        return ResponseEntity.ok(DetailDiaryResponseDTO.of(saveDiary));
     }
     @PostMapping("/diary/add")
     public ResponseEntity<?> addDiary(@RequestPart MultipartFile image, @RequestPart AddDiaryRequestDTO dto) throws IOException {
-        Diary saveDiary = diaryService.saveDiary(dto.getPlantid(), dto.getContent());
-        return ResponseEntity.ok(saveDiary.getId());
+        FileDetail saveFile = fileUploadService.save(image);
+        Diary saveDiary = diaryService.saveDiary(dto.getPlantid(), dto.getContent(), saveFile.getPath());
+        return ResponseEntity.ok(DetailDiaryResponseDTO.of(saveDiary));
     }
     @PostMapping("/diary/like")
     public ResponseEntity<?> giveDiaryLike(@RequestBody DiaryLikeRequestDTO dto) {

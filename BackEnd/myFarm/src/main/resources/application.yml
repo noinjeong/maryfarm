@@ -18,3 +18,16 @@ decorator:
 logging:
   level:
     p6spy: debug
+
+cloud:
+  aws:
+    s3:
+      bucket: maryfarm.bucket
+    credentials:
+      access-key: AKIA6GNIUYRRMAH6K36J
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
