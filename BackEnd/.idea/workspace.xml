@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="91f8abd9-0621-4f58-a29b-9c911dd5cca0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/7.6/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/7.6/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/7.6/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/7.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/7.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/MyFarmApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/MyFarmApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/controller/diary/DiaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/controller/diary/DiaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/controller/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/controller/user/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/diary/request/CreateDiaryRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/diary/response/CreateDiaryResponseDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/CreateUserRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/CreateUserRequestDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/LandRegistRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/LandRegistRequestDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/LoginRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/LoginRequestDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/ModifyUserRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/request/ModifyUserRequestDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/response/UserResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/api/dto/user/response/UserResponseDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/Land.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/Land.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/Article.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleComment.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleComment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleCommentLike.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleCommentLike.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleLike.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleLike.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleReComment.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/ArticleReComment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/board/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/chat/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/chat/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/chat/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/chat/Room.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/Diary.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/Diary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryComment.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryComment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryCommentLike.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryCommentLike.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryImage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryLike.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryLike.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/diary/DiaryTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/plant/Plant.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/plant/Plant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/plant/PlantTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/tag/Tag.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/tag/Tag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Badge.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Badge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Follow.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Follow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Notify.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/Notify.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/UserBadge.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/domain/user/UserBadge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/ArticleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/ArticleRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/DiaryImageRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/DiaryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/DiaryRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/PlantRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/PlantRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/ArticleService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/DiaryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/DiaryService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/PlantService.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/PlantService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/main/com/ssafy/myfarm/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFarm/bin/test/com/ssafy/myfarm/api/controller/user/UserControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/myFarm/bin/test/com/ssafy/myfarm/api/controller/user/UserControllerTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/myFarm">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/myFarm">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="myFarm" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="myFarm" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="myFarm" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="ProjectId" id="2Kncozaevsud7PgsChS6cZya8f1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="91f8abd9-0621-4f58-a29b-9c911dd5cca0" name="Changes" comment="" />
+      <created>1674613967786</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674613967786</updated>
+      <workItem from="1674613969017" duration="2656000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
