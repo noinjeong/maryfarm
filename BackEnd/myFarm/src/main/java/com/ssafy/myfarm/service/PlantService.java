@@ -32,7 +32,7 @@ public class PlantService {
         return savePlant;
     }
 
-    public Plant findPlant(final String id) {
-        return plantRepository.findById(id).get();
+    public List<Plant> searchPlantsByUserId(String userId) {
+        return plantRepository.findByUser_Id(userId);
     }
 }

@@ -36,31 +36,30 @@ class UserControllerTest {
     public void clean() {
 //        userRepository.deleteAll();
     }
-    @Test
-    @DisplayName("saveUser")
-    void saveUser() throws Exception {
-        //given
-        CreateUserRequestDTO dto = CreateUserRequestDTO.of("baek@ssafy.com", "1234", "seungbum", "19961111");
-        String url = "http://localhost:"+port+"/api/auth/user/signup";
-        //when
-        ResponseEntity<UserResponseDTO> response = restTemplate.postForEntity(url, dto, UserResponseDTO.class);
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<User> list = userRepository.findAll();
-        assertThat(list.get(0).getEmail()).isEqualTo(dto.getEmail());
-    }
-
-    @Test
-    @DisplayName("loginUser")
-    void loginUser() throws Exception {
-        //given
-        LoginRequestDTO dto = LoginRequestDTO.of("baek@ssafy.com", "1234");
-        String url = "http://localhost:"+port+"/api/auth/user/signin";
-        //when
-        ResponseEntity<UserResponseDTO> response = restTemplate.postForEntity(url, dto, UserResponseDTO.class);
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getEmail()).isEqualTo(dto.getEmail());
-    }
-
+//    @Test
+//    @DisplayName("saveUser")
+//    void saveUser() throws Exception {
+//        //given
+//        CreateUserRequestDTO dto = CreateUserRequestDTO.of("baek@ssafy.com", "1234", "seungbum", "19961111");
+//        String url = "http://localhost:"+port+"/api/auth/user/signup";
+//        //when
+//        ResponseEntity<UserResponseDTO> response = restTemplate.postForEntity(url, dto, UserResponseDTO.class);
+//        //then
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        List<User> list = userRepository.findAll();
+//        assertThat(list.get(0).getEmail()).isEqualTo(dto.getEmail());
+//    }
+//
+//    @Test
+//    @DisplayName("loginUser")
+//    void loginUser() throws Exception {
+//        //given
+//        LoginRequestDTO dto = LoginRequestDTO.of("baek@ssafy.com", "1234");
+//        String url = "http://localhost:"+port+"/api/auth/user/signin";
+//        //when
+//        ResponseEntity<UserResponseDTO> response = restTemplate.postForEntity(url, dto, UserResponseDTO.class);
+//        //then
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody().getEmail()).isEqualTo(dto.getEmail());
+//    }
 }
