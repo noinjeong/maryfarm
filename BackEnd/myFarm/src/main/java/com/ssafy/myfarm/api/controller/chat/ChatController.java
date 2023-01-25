@@ -1,7 +1,13 @@
 package com.ssafy.myfarm.api.controller.chat;
 
+import com.ssafy.myfarm.api.dto.user.response.UserResponseDTO;
 import com.ssafy.myfarm.domain.chat.Message;
 import com.ssafy.myfarm.util.chat.constants.KafkaConstants;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,13 @@ public class ChatController {
     @Autowired
     private KafkaTemplate<String, Message> kafkaTemplate;
 
+    @Operation(summary = "채팅 메시지 저장", description = "채팅 메시지를 저장합니다.", tags = { "Chat Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @PostMapping(value = "/api/send", consumes = "application/json", produces = "application/json")
     public void sendMessage(@RequestBody Message message) {
         message.setTimestamp(LocalDateTime.now().toString());
@@ -35,6 +48,7 @@ public class ChatController {
         }
     }
 
+    @Operation(hidden = true)
     //    -------------- WebSocket API ----------------
     @MessageMapping("/sendMessage")
     @SendTo("/topic/group")
@@ -43,6 +57,7 @@ public class ChatController {
         return message;
     }
 
+    @Operation(hidden = true)
     @MessageMapping("/newUser")
     @SendTo("/topic/group")
     public Message addUser(@Payload Message message,
