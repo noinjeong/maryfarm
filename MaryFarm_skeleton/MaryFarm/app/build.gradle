@@ -48,9 +48,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 //    장유범 의존성
-    implementation "com.kakao.sdk:v2-user:2.8.3" // 카카오 로그인
-    implementation "com.github.bumptech.glide:glide:4.11.0" // 로그인 프로필 이미지
-
     implementation 'androidx.viewpager2:viewpager2:1.0.0' // 뷰페이저2
     implementation 'me.relex:circleindicator:2.1.6' // 뷰페이저 위치표시용 지시자
     implementation "androidx.recyclerview:recyclerview:1.1.0" // 리사이클러뷰
