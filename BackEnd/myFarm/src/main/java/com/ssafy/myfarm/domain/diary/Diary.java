@@ -34,6 +34,10 @@ public class Diary extends BaseTimeEntity {
         this.imagePath = imagePath;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public static Diary of(Plant plant, String content, String imagePath) {
         Diary diary = new Diary();
         diary.plant = plant;
@@ -47,4 +51,5 @@ public class Diary extends BaseTimeEntity {
     public void addLike() {
         this.likes+=1;
     }
+
 }
