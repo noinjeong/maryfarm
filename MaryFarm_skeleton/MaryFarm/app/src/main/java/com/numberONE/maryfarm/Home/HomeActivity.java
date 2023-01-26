@@ -1,6 +1,8 @@
 package com.numberONE.maryfarm.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -14,12 +16,19 @@ public class HomeActivity extends AppCompatActivity {
 
     private FragmentStateAdapter adapter;
     private int num_page = 2 ;
+    private static String TAG="HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // 회원가입 시 아이디 값 확인용
+        Intent intent =getIntent();
+        String param = intent.getStringExtra("user_id");
+        Log.d(TAG, "onCreate: "+param);
+        binding.id.setText(param);
 
         //Adapter
         adapter=new HomeAdapter(this, num_page);

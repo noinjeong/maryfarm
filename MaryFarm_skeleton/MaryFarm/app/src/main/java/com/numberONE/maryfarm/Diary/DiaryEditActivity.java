@@ -161,7 +161,7 @@ public class DiaryEditActivity extends AppCompatActivity {
             ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
             byte[] bytes= stream.toByteArray();
 
-            Intent intent = new Intent(this , test.class);
+            Intent intent = new Intent(this , DiaryEditActivity.class);
             intent.putExtra("image",bytes );
             intent.putExtra("title",binding.title.getText().toString());
             intent.putExtra("plants_type",binding.plantsType.getText().toString());
