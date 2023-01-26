@@ -57,5 +57,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'   // 이미지 로딩 라이브러리
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2' // 이미지 로딩 라이브러리
 // 장유범 의존성 끝
-
+// jinny
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1' // 달력 라이브러리
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1' // 시간
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 }
