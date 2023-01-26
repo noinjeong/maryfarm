@@ -73,6 +73,27 @@ public class DiaryController {
         return ResponseEntity.ok(DetailDiaryResponseDTO.of(saveDiary));
     }
 
+    @Operation(summary = "일지 수정", description = "일지를 수정합니다.", tags = { "Diary Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PutMapping("/diary/modify")
+    public ResponseEntity<?> modifyDiary(@RequestPart MultipartFile image, @RequestPart ModifyDiaryRequestDTO dto) throws IOException {
+        // 사진을 바꾸지 않는다면 image가 null값이 들어오므로 따로 처리안해줘도 됨.
+        Diary updateDiary = null;
+        if(!image.isEmpty()) {
+            FileDetail saveFile = fileUploadService.save(image);
+            updateDiary = diaryService.updateDiaryContentAndImage(dto.getDiaryid(), dto.getContent(), saveFile.getPath());
+        } else {
+            updateDiary = diaryService.updateDiaryContent(dto.getDiaryid(), dto.getContent());
+        }
+        return ResponseEntity.ok(DetailDiaryResponseDTO.of(updateDiary));
+    }
+
     @Operation(summary = "일지 좋아요 등록", description = "일지에 좋아요를 등록합니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),

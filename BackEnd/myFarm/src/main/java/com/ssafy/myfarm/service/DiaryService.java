@@ -68,6 +68,19 @@ public class DiaryService {
 //        return diaryRepository.findFollowersDiary(userId, lastPostId, pageRequest);
 //    }
 
+    public Diary updateDiaryContent(String diaryid, String content) {
+        Optional<Diary> diary = diaryRepository.findById(diaryid);
+        diary.get().setContent(content);
+        return diary.get();
+    }
+
+    public Diary updateDiaryContentAndImage(String diaryid, String content, String path) {
+        Optional<Diary> diary = diaryRepository.findById(diaryid);
+        diary.get().setContent(content);
+        diary.get().setImagePath(path);
+        return diary.get();
+    }
+
     public List<Diary> findFollowerDiary(final String userId) {
         return diaryRepository.findFollowersDiary(userId);
     }
