@@ -19,8 +19,8 @@ public class Article extends BaseTimeEntity {
     private String id;
     private String title;
     private String content;
-    private int views;
-    private int likes;
+    private Integer views;
+    private Integer likes;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "board_id")
     private Board board;

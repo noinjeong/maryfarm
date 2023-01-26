@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiaryCommentRequestDTO {
-    private Long diaryid;
-    private Long userid;
+    private String diaryid;
+    private String userid;
     private String content;
 }

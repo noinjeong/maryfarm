@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LandRegistRequestDTO {
-    private Long userid;
+    private String userid;
     private String latitude;
     private String longitude;
 }

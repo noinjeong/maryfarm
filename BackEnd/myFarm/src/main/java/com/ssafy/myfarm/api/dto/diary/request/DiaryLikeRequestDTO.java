@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DiaryLikeRequestDTO {
     //나의 아이디
-    private Long diaryid;
-    private Long userid;
+    private String diaryid;
+    private String userid;
 }

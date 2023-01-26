@@ -21,14 +21,4 @@ import java.util.List;
 @RequestMapping("/api")
 public class PlantController {
     private final PlantService plantService;
-
-    @PostMapping("/plant/search")
-    public ResponseEntity<?> searchPlant(@RequestBody PlantSearchRequestDTO dto) {
-        List<Plant> list = plantService.searchPlantByTag(dto.getText());
-        List<PlantResponseDTO> resultDtos = new ArrayList<>();
-        for(Plant p : list) {
-            resultDtos.add(PlantResponseDTO.of(p));
-        }
-        return ResponseEntity.ok(resultDtos);
-    }
 }

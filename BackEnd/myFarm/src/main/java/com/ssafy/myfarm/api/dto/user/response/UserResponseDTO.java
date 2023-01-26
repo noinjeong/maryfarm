@@ -1,6 +1,5 @@
 package com.ssafy.myfarm.api.dto.user.response;
 
-import com.ssafy.myfarm.domain.FileInfo;
 import com.ssafy.myfarm.domain.Land;
 import com.ssafy.myfarm.domain.user.Tier;
 import com.ssafy.myfarm.domain.user.User;
@@ -23,7 +22,7 @@ public class UserResponseDTO {
         dto.userid = user.getId();
         dto.nickname = user.getNickname();
         dto.tier = user.getTier();
-        dto.profilepath = user.getProfilepath();
+        dto.profilepath = user.getProfilePath();
         dto.land = user.getLand();
         return dto;
     }

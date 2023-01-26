@@ -16,10 +16,10 @@ public class DiaryCommentLike {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_comment_like_id")
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "diary_comment_id")
-    private DiaryComment comment;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "diary_comment_id")
+    private DiaryComment comment;
 }

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowerDiaryRequestDTO {
-    private Long userid;
+    private String userid;
 }

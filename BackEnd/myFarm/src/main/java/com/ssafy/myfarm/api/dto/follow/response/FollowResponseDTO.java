@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowResponseDTO {
-    private Long followid;
+    private String followid;
 
     public static FollowResponseDTO of(Follow follow) {
         FollowResponseDTO dto = new FollowResponseDTO();

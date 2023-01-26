@@ -2,7 +2,7 @@ package com.ssafy.myfarm.service;
 
 import com.ssafy.myfarm.domain.user.Follow;
 import com.ssafy.myfarm.domain.user.Notify;
-import com.ssafy.myfarm.domain.user.Type;
+import com.ssafy.myfarm.domain.user.AlarmType;
 import com.ssafy.myfarm.domain.user.User;
 import com.ssafy.myfarm.repository.FollowRepository;
 import com.ssafy.myfarm.repository.NotifyRepository;
@@ -24,7 +24,7 @@ public class FollowService {
     private final NotifyRepository notifyRepository;
 
     @Transactional
-    public Follow saveFollow(Long senderId, Long receiverId) {
+    public Follow saveFollow(String senderId, String receiverId) {
         Optional<User> sender = userRepository.findById(senderId);
         Optional<User> receiver = userRepository.findById(receiverId);
         Follow follow = Follow.of(sender.get(), receiver.get());
@@ -32,7 +32,7 @@ public class FollowService {
 
         // 알람 생성 시작
         String content = sender.get().getNickname() + "님이 내 농장 이웃이 되었어요!";
-        Notify notify = Notify.of(Type.FollowRequest, content, true, receiver.get());
+        Notify notify = Notify.of(AlarmType.FollowRequest, content, true, receiver.get());
         Notify saveNotify = notifyRepository.save(notify);
         // 알람 생성 끝
         return saveFollow;

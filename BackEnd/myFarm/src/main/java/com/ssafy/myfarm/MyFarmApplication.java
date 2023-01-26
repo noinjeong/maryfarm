@@ -1,5 +1,6 @@
 package com.ssafy.myfarm;
 
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,5 +21,9 @@ public class MyFarmApplication {
     @Bean
     public AuditorAware<String> auditorProvider() {
         return () -> Optional.of(UUID.randomUUID().toString());
+    }
+    @Bean
+    Hibernate5Module hibernate5Module() {
+        return new Hibernate5Module();
     }
 }

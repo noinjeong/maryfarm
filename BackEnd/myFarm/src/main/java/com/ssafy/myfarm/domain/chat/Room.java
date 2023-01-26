@@ -19,8 +19,15 @@ public class Room {
     private String id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user1_id")
-    private User followingUser;
+    private User user1;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user2_id")
-    private User followedUser;
+    private User user2;
+
+    public static Room of(User user1, User user2) {
+        Room room = new Room();
+        room.user1 = user1;
+        room.user2 = user2;
+        return room;
+    }
 }

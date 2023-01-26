@@ -25,24 +25,14 @@ public class PlantService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     @Transactional
-    public Plant savePlant(Long userId, String name) {
+    public Plant savePlant(String userId, String title, String name) {
         Optional<User> user = userRepository.findById(userId);
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Plant plant = Plant.of(user.get(), name+simpleDateFormat.format(date));
+        Plant plant = Plant.of(user.get(), title, name);
         Plant savePlant = plantRepository.save(plant);
-        // 태그 등록 시작
-        Tag tag = Tag.of(savePlant, name);
-        Tag saveTag = tagRepository.save(tag);
-        // 태그 등록 종료
         return savePlant;
     }
 
-    public Plant findPlant(final Long id) {
-        return plantRepository.findById(id).get();
-    }
-
-    public List<Plant> searchPlantByTag(String text) {
-        return plantRepository.findPlantByTag(text);
+    public List<Plant> searchPlantsByUserId(String userId) {
+        return plantRepository.findByUser_Id(userId);
     }
 }

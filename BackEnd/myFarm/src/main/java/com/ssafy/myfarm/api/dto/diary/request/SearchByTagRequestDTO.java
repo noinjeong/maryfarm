@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchDiaryRequestDTO {
-    private Long plantid;
+public class SearchByTagRequestDTO {
+    private String text;
 }

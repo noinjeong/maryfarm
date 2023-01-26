@@ -24,7 +24,7 @@ public class DiaryComment extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
     private String content;
-    private int likes;
+    private Integer likes;
 
     public static DiaryComment of(Diary diary, User user, String content) {
         DiaryComment diaryComment = new DiaryComment();
