@@ -161,7 +161,7 @@ public class DiaryEditActivity extends AppCompatActivity {
             ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
             byte[] bytes= stream.toByteArray();
 
-            Intent intent = new Intent(this , DiaryEditActivity.class); // 이동할 주소 임시로 자신으로 해놨음
+            Intent intent = new Intent(this , DiaryEditActivity.class);
             intent.putExtra("image",bytes );
             intent.putExtra("title",binding.title.getText().toString());
             intent.putExtra("plants_type",binding.plantsType.getText().toString());
