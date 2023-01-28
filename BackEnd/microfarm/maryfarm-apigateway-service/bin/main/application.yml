@@ -1,0 +1,9 @@
+server:
+  port: 8000
+spring:
+  cloud:
+    gateway:
+      default-filters:
+
+    routes:
+

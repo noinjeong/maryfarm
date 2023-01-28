@@ -1,0 +1,15 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: maryfarm-discovery-service
+  cloud:
+    config:
+      uri: http://127.0.0.1:8081
+      name: maryfarm-user-service
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

@@ -18,3 +18,32 @@ decorator:
 logging:
   level:
     p6spy: debug
+
+cloud:
+  aws:
+    s3:
+      bucket: maryfarm.bucket
+    credentials:
+      access-key: AKIA6GNIUYRRMAH6K36J
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /api/**
