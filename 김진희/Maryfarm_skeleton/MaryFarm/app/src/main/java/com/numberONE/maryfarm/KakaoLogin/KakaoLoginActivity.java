@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.sdk.user.UserApiClient;
-import com.numberONE.maryfarm.Home.HomeActivity;
+import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.R;
 
 import java.security.MessageDigest;
@@ -81,7 +81,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
 
                 // user의 id(key값) 넘겨주기
                 Intent intent = new Intent(KakaoLoginActivity.this,
-                        HomeActivity.class);
+                        HomeFragment.class);
                 intent.putExtra("user_id",user_id);
                 startActivity(intent);
 
