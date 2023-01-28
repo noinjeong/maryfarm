@@ -1,6 +1,6 @@
 package com.ssafy.maryfarmplantservice.api.dto.diary.response;
 
-import com.ssafy.myfarm.domain.diary.Diary;
+import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class DiaryToHomeResponseDTO {
 
     public static DiaryToHomeResponseDTO of(Diary diary) {
         DiaryToHomeResponseDTO dto = new DiaryToHomeResponseDTO();
-        dto.plantid = diary.getPlant().getId();
+        dto.plantId = diary.getPlant().getId();
         dto.title = diary.getPlant().getTitle();
         dto.imagepath = diary.getImagePath();
         return dto;

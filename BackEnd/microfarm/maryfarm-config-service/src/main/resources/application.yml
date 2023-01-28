@@ -4,8 +4,23 @@ server:
 spring:
   application:
     name: maryfarm-config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  profiles:
+    active: native
   cloud:
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
     config:
       server:
         git:
-          uri: https://github.com/jungboke/spring-cloud-config
+        native:
+          search-locations: file:///Users/Baek/Desktop/S08P12B308/config-repo
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

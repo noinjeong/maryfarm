@@ -2,6 +2,7 @@ package com.ssafy.maryfarmplantservice.api.dto.diary.response;
 
 import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.tag.TagResponseDTO;
+import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.tag.Tag;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,10 @@ public class DetailDiaryResponseDTO {
     private String imagepath;
     private List<TagResponseDTO> taglist = new ArrayList<>();
 
-    public static DetailDiaryResponseDTO of(Diary diary) {
+    public static DetailDiaryResponseDTO of(Diary diary, UserResponseDTO userDto) {
         DetailDiaryResponseDTO dto = new DetailDiaryResponseDTO();
         dto.diaryId = diary.getId();
-        dto.plant = PlantResponseDTO.of(diary.getPlant());
+        dto.plant = PlantResponseDTO.of(diary.getPlant(),userDto);
         dto.content = diary.getContent();
         dto.likes = diary.getLikes();
         dto.imagepath = diary.getImagePath();

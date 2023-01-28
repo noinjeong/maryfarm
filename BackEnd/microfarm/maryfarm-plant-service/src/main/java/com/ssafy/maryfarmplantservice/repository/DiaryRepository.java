@@ -17,20 +17,11 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
 //            " WHERE f.senderUser.id = :id AND d.id < :lastPostId")
 //    List<Diary> findFollowersDiary(@Param("id") Long id, @Param("lastPostId") Long lastPostId, Pageable pageable);
 
-    @Query(value = "SELECT d" +
-            " FROM Diary d" +
-            " JOIN FETCH Plant p ON d.plant.id = p.id" +
-            " JOIN Follow f ON p.user.id = f.receiverUser.id" +
-            " JOIN FETCH User u ON p.user.id = u.id" +
-            " WHERE f.senderUser.id = :id")
-    List<Diary> findFollowersDiary(@Param("id") String id);
-
     // FROM의 주체와 SELECT로 가져오는 엔티티가 달라서 안될수도...
     @Query(value = "SELECT d" +
             " FROM Diary d" +
             " JOIN FETCH Tag t ON t.diary.id = d.id" +
             " JOIN FETCH Plant p ON p.id = d.plant.id" +
-            " JOIN FETCH User u ON u.id = p.user.id" +
             " WHERE t.name = :text")
 //            " GROUP BY d.plant.id" +
 //            " ORDER BY d.createdDate desc")
@@ -46,7 +37,7 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
     @Query(value = "SELECT d" +
             " FROM Diary d" +
             " JOIN FETCH Plant p ON p.id = d.plant.id" +
-            " WHERE p.user.id = :id")
+            " WHERE p.userId = :id")
     List<Diary> findDiaryByUserId(@Param("id") String id);
 
     @Query(value = "SELECT d" +
@@ -60,7 +51,8 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
             " FROM Diary d" +
             " JOIN FETCH Tag t ON t.diary.id = d.id" +
             " JOIN FETCH Plant p ON p.id = d.plant.id" +
-            " JOIN FETCH User u ON p.user.id = u.id" +
             " WHERE d.plant.id = :id")
     List<Diary> findDiaryByPlantId(@Param("id") String id);
+
+    List<Diary> findTop5ByOrderByLikesDesc();
 }

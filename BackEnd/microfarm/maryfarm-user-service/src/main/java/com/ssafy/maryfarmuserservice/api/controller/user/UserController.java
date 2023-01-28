@@ -18,6 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -55,6 +58,23 @@ public class UserController {
         User user = userService.loginUser(dto.getKakaoId());
         if(user==null) return ResponseEntity.ok(0);
         else return ResponseEntity.ok(1);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> searchUser(@PathVariable("userId") String userId) {
+        User user = userService.findUser(userId);
+        UserResponseDTO dto = UserResponseDTO.of(user);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/user/followers/{userId}")
+    public ResponseEntity<?> searchFollower(@PathVariable("userId") String userId) {
+        List<User> list = userService.searchFollowers(userId);
+        List<UserResponseDTO> resultDtos = new ArrayList<>();
+        for(User u : list) {
+            resultDtos.add(UserResponseDTO.of(u));
+        }
+        return ResponseEntity.ok(resultDtos);
     }
 
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = { "User Controller" })

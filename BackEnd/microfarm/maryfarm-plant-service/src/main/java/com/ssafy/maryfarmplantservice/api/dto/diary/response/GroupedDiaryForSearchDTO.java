@@ -1,6 +1,6 @@
 package com.ssafy.maryfarmplantservice.api.dto.diary.response;
 
-import com.ssafy.myfarm.domain.diary.Diary;
+import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public class GroupedDiaryForSearchDTO {
 
     public static GroupedDiaryForSearchDTO of(Diary diary) {
         GroupedDiaryForSearchDTO dto = new GroupedDiaryForSearchDTO();
-        dto.diaryid = diary.getId();
+        dto.diaryId = diary.getId();
         dto.imagepath = diary.getImagePath();
         return dto;
     }

@@ -1,5 +1,9 @@
 package com.ssafy.maryfarmplantservice.service;
 
+import com.ssafy.maryfarmplantservice.client.dto.notify.CreateNotifyRequestDTO;
+import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
+import com.ssafy.maryfarmplantservice.client.service.notify.NotifyServiceClient;
+import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryComment;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryLike;
@@ -28,22 +32,24 @@ public class DiaryService {
     private final DiaryLikeRepository diaryLikeRepository;
     private final DiaryCommentRepository diaryCommentRepository;
     private final TagRepository tagRepository;
+    private final UserServiceClient userServiceClient;
+    private final NotifyServiceClient notifyServiceClient;
     @Transactional
     public Diary saveDiary(final String plantId, final String content, final String imagePath) {
         Optional<Plant> plant = plantRepository.findById(plantId);
-        String userId = plant.get().getUser().getId();
         Diary diary = Diary.of(plant.get(),content,imagePath);
         /*
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */
         Diary saveDiary = diaryRepository.save(diary);
         // 알람 생성 시작
-        Optional<User> user = userRepository.findById(userId);
-        String notifyContent = user.get().getNickname()+"님이 새로운 일지를 올렸어요!";
-        List<User> follower = userRepository.findFollower(userId);
-        for(User u:follower) {
-            Notify notify = Notify.of(AlarmType.FollowerUpload, notifyContent, true, u);
-            notifyRepository.save(notify);
+        String userId = plant.get().getUserId();
+        UserResponseDTO userDto = userServiceClient.searchUser(userId);
+        String notifyContent = userDto.getNickname()+"님이 새로운 일지를 올렸어요!";
+        List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
+        for(UserResponseDTO u : followerDto) {
+            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId());
+            notifyServiceClient.saveNotify(notifyDto);
         }
         // 알람 생성 종료
         // 태그 파싱 및 등록 시작
@@ -60,13 +66,14 @@ public class DiaryService {
 //        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("id").descending());
 //        return diaryRepository.findFollowersDiary(userId, lastPostId, pageRequest);
 //    }
-
+    @Transactional
     public Diary updateDiaryContent(String diaryid, String content) {
         Optional<Diary> diary = diaryRepository.findById(diaryid);
         diary.get().setContent(content);
         return diary.get();
     }
 
+    @Transactional
     public Diary updateDiaryContentAndImage(String diaryid, String content, String path) {
         Optional<Diary> diary = diaryRepository.findById(diaryid);
         diary.get().setContent(content);
@@ -74,15 +81,10 @@ public class DiaryService {
         return diary.get();
     }
 
-    public List<Diary> findFollowerDiary(final String userId) {
-        return diaryRepository.findFollowersDiary(userId);
-    }
-
     @Transactional
     public DiaryLike saveDiaryLike(String diaryId, String userId) {
         Optional<Diary> diary = diaryRepository.findById(diaryId);
-        Optional<User> user = userRepository.findById(userId);
-        DiaryLike diaryLike = DiaryLike.of(user.get(), diary.get());
+        DiaryLike diaryLike = DiaryLike.of(userId, diary.get());
         DiaryLike saveDiaryLike = diaryLikeRepository.save(diaryLike);
         return saveDiaryLike;
     }
@@ -96,8 +98,7 @@ public class DiaryService {
     @Transactional
     public DiaryComment saveDiaryComment(String diaryId, String userId, String content) {
         Optional<Diary> diary = diaryRepository.findById(diaryId);
-        Optional<User> user = userRepository.findById(userId);
-        DiaryComment diaryComment = DiaryComment.of(diary.get(), user.get(), content);
+        DiaryComment diaryComment = DiaryComment.of(diary.get(), userId, content);
         DiaryComment saveDiaryComment = diaryCommentRepository.save(diaryComment);
         return saveDiaryComment;
     }
@@ -131,5 +132,9 @@ public class DiaryService {
 
     public List<Diary> searchDiarysByPlantId(String plantId) {
         return diaryRepository.findDiaryByPlantId(plantId);
+    }
+
+    public List<Diary> searchDiarysTopLike() {
+        return diaryRepository.findTop5ByOrderByLikesDesc();
     }
 }

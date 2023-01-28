@@ -20,13 +20,12 @@ public class PlantService {
     private final TagRepository tagRepository;
     @Transactional
     public Plant savePlant(String userId, String title, String name) {
-        Optional<User> user = userRepository.findById(userId);
-        Plant plant = Plant.of(user.get(), title, name);
+        Plant plant = Plant.of(userId,title,name);
         Plant savePlant = plantRepository.save(plant);
         return savePlant;
     }
 
     public List<Plant> searchPlantsByUserId(String userId) {
-        return plantRepository.findByUser_Id(userId);
+        return plantRepository.findByUserId(userId);
     }
 }

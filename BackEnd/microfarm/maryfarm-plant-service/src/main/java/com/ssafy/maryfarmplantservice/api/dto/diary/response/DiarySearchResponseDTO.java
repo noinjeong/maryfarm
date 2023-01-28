@@ -2,6 +2,7 @@ package com.ssafy.maryfarmplantservice.api.dto.diary.response;
 
 import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.tag.TagResponseDTO;
+import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.tag.Tag;
 import lombok.AllArgsConstructor;
@@ -24,9 +25,9 @@ public class DiarySearchResponseDTO {
 
     private List<GroupedDiaryForSearchDTO> diarygroup = new ArrayList<>();
 
-    public static DiarySearchResponseDTO of(Diary diary, List<Diary> diarygroup) {
+    public static DiarySearchResponseDTO of(Diary diary, UserResponseDTO userDto, List<Diary> diarygroup) {
         DiarySearchResponseDTO dto = new DiarySearchResponseDTO();
-        dto.plant = PlantResponseDTO.of(diary.getPlant());
+        dto.plant = PlantResponseDTO.of(diary.getPlant(),userDto);
         dto.content = diary.getContent();
         dto.likes = diary.getLikes();
         dto.imagepath = diary.getImagePath();

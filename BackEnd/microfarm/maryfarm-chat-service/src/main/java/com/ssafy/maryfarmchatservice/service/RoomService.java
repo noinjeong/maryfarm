@@ -16,6 +16,7 @@ import java.util.Optional;
 public class RoomService {
     private final RoomRepository roomRepository;
 
+    @Transactional
     public Room saveRoom(String senderId, String receiverId) {
         Room room = Room.of(senderId, receiverId);
         return roomRepository.save(room);

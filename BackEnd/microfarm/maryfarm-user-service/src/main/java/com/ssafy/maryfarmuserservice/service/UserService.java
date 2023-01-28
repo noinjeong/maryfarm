@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,9 +50,14 @@ public class UserService {
         return user.get();
     }
 
+    @Transactional
     public void saveRecommend(String id, String fullCode) {
         Optional<User> user = userRepository.findById(id);
         Recommend recommend = Recommend.of(user.get(), fullCode);
         recommendRepository.save(recommend);
+    }
+
+    public List<User> searchFollowers(String userId) {
+        return userRepository.findFollower(userId);
     }
 }

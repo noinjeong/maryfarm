@@ -14,16 +14,14 @@ import lombok.NoArgsConstructor;
 public class UserResponseDTO {
     private String userId;
     private String nickname;
-    private Tier tier;
+    private String tier;
     private String profilepath;
-    private Land land;
     public static UserResponseDTO of(User user) {
         UserResponseDTO dto = new UserResponseDTO();
         dto.userId = user.getId();
         dto.nickname = user.getNickname();
-        dto.tier = user.getTier();
+        dto.tier = user.getTier().name();
         dto.profilepath = user.getProfilePath();
-        dto.land = user.getLand();
         return dto;
     }
 }

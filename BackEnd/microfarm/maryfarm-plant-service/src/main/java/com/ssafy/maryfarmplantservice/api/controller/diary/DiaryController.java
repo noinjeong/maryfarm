@@ -5,6 +5,9 @@ import com.ssafy.maryfarmplantservice.api.dto.diary.response.DetailDiaryResponse
 import com.ssafy.maryfarmplantservice.api.dto.diary.response.DiarySearchResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.diary.response.DiaryToHomeResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.diary.response.FollowingDiaryResponseDTO;
+import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
+import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
+import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryComment;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryLike;
@@ -27,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,11 +40,12 @@ public class DiaryController {
     private final DiaryService diaryService;
     private final PlantService plantService;
     private final FileUploadService fileUploadService;
+    private final UserServiceClient userServiceClient;
 
     @Operation(summary = "일지 시작", description = "작물을 등록함과 동시에 일지를 시작합니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
-                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
@@ -54,13 +59,13 @@ public class DiaryController {
         Plant savePlant = plantService.savePlant(dto.getUserId(),dto.getTitle(),dto.getName());
         FileDetail saveFile = fileUploadService.save(image);
         Diary saveDiary = diaryService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath());
-        return ResponseEntity.ok(DetailDiaryResponseDTO.of(saveDiary));
+        return ResponseEntity.ok(saveDiary.getId());
     }
 
     @Operation(summary = "일지 추가", description = "일지를 추가로 등록합니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
-                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
@@ -68,14 +73,14 @@ public class DiaryController {
     @PostMapping("/diary/add")
     public ResponseEntity<?> addDiary(@RequestPart MultipartFile image, @RequestPart AddDiaryRequestDTO dto) throws IOException {
         FileDetail saveFile = fileUploadService.save(image);
-        Diary saveDiary = diaryService.saveDiary(dto.getPlantid(), dto.getContent(), saveFile.getPath());
-        return ResponseEntity.ok(DetailDiaryResponseDTO.of(saveDiary));
+        Diary saveDiary = diaryService.saveDiary(dto.getPlantId(), dto.getContent(), saveFile.getPath());
+        return ResponseEntity.ok(saveDiary.getId());
     }
 
     @Operation(summary = "일지 수정", description = "일지를 수정합니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
-                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
@@ -86,38 +91,40 @@ public class DiaryController {
         Diary updateDiary = null;
         if(!image.isEmpty()) {
             FileDetail saveFile = fileUploadService.save(image);
-            updateDiary = diaryService.updateDiaryContentAndImage(dto.getDiaryid(), dto.getContent(), saveFile.getPath());
+            updateDiary = diaryService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent(), saveFile.getPath());
         } else {
-            updateDiary = diaryService.updateDiaryContent(dto.getDiaryid(), dto.getContent());
+            updateDiary = diaryService.updateDiaryContent(dto.getDiaryId(), dto.getContent());
         }
-        return ResponseEntity.ok(DetailDiaryResponseDTO.of(updateDiary));
+        return ResponseEntity.ok(updateDiary.getId());
     }
 
     @Operation(summary = "일지 좋아요 등록", description = "일지에 좋아요를 등록합니다.", tags = { "Diary Controller" })
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping("/diary/like")
     public ResponseEntity<?> giveDiaryLike(@RequestBody DiaryLikeRequestDTO dto) {
-        DiaryLike diaryLike = diaryService.saveDiaryLike(dto.getDiaryid(),dto.getUserid());
-        diaryService.addLike(dto.getDiaryid());
-        return ResponseEntity.ok().build();
+        DiaryLike diaryLike = diaryService.saveDiaryLike(dto.getDiaryId(),dto.getUserId());
+        diaryService.addLike(dto.getDiaryId());
+        return ResponseEntity.ok(diaryLike.getId());
     }
 
     @Operation(summary = "일지 댓글 등록", description = "일지에 댓글을 등록합니다.", tags = { "Diary Controller" })
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping("/diary/comment")
     public ResponseEntity<?> giveDiaryComment(@RequestBody DiaryCommentRequestDTO dto) {
-        DiaryComment diaryComment = diaryService.saveDiaryComment(dto.getDiaryid(),dto.getUserid(),dto.getContent());
-        return ResponseEntity.ok().build();
+        DiaryComment diaryComment = diaryService.saveDiaryComment(dto.getDiaryId(),dto.getUserId(),dto.getContent());
+        return ResponseEntity.ok(diaryComment.getId());
     }
 
     @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Controller" })
@@ -134,7 +141,8 @@ public class DiaryController {
         List<DiarySearchResponseDTO> resultDtos = new ArrayList<>();
         for(Diary d : list) {
             List<Diary> group = diaryService.searchDiaryGroup(d.getPlant().getId());
-            resultDtos.add(DiarySearchResponseDTO.of(d,group));
+            UserResponseDTO userDto = userServiceClient.searchUser(d.getPlant().getUserId());
+            resultDtos.add(DiarySearchResponseDTO.of(d,userDto,group));
         }
         return ResponseEntity.ok(resultDtos);
     }
@@ -147,12 +155,15 @@ public class DiaryController {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PostMapping("/diary/follower")
-    public ResponseEntity<?> FollowerDiary(@RequestBody FollowerDiaryRequestDTO dto) {
-        List<Diary> list = diaryService.findFollowerDiary(dto.getUserid());
+    @GetMapping("/diary/follower/{userId}")
+    public ResponseEntity<?> FollowerDiary(@PathVariable("userId") String userId) {
+        List<UserResponseDTO> userDtos = userServiceClient.searchFollower(userId);
         List<FollowingDiaryResponseDTO> resultDtos = new ArrayList<>();
-        for(Diary d : list) {
-            resultDtos.add(FollowingDiaryResponseDTO.of(d));
+        for(UserResponseDTO u : userDtos) {
+            List<Diary> list = diaryService.searchDiaryByUserId(u.getUserId());
+            for(Diary d : list) {
+                resultDtos.add(FollowingDiaryResponseDTO.of(d,u));
+            }
         }
         return ResponseEntity.ok(resultDtos);
     }
@@ -165,6 +176,9 @@ public class DiaryController {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
+    /*
+        자신의 홈 화면에 작물 당 최신일지 들을 표시함.
+     */
     @GetMapping("/diary/user/{userId}")
     public ResponseEntity<?> DiaryToHome(@PathVariable("userId") String userId) {
         List<Plant> list = plantService.searchPlantsByUserId(userId);
@@ -189,7 +203,27 @@ public class DiaryController {
         List<Diary> list = diaryService.searchDiarysByPlantId(plantId);
         List<DetailDiaryResponseDTO> resultDtos = new ArrayList<>();
         for(Diary d : list) {
-            resultDtos.add(DetailDiaryResponseDTO.of(d));
+            UserResponseDTO userDto = userServiceClient.searchUser(d.getPlant().getUserId());
+            resultDtos.add(DetailDiaryResponseDTO.of(d,userDto));
+        }
+        return ResponseEntity.ok(resultDtos);
+    }
+
+    @Operation(summary = "작물 일지 추천", description = "좋아요 순 상위 5개 작물 일지를 가져옵니다.", tags = { "Diary Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @GetMapping("/diary/top")
+    public ResponseEntity<?> searchTopDiary() {
+        List<Diary> list = diaryService.searchDiarysTopLike();
+        List<DetailDiaryResponseDTO> resultDtos = new ArrayList<>();
+        for(Diary d : list) {
+            UserResponseDTO userDto = userServiceClient.searchUser(d.getPlant().getUserId());
+            resultDtos.add(DetailDiaryResponseDTO.of(d,userDto));
         }
         return ResponseEntity.ok(resultDtos);
     }

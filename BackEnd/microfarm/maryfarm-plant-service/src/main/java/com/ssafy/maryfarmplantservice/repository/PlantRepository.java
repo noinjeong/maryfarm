@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PlantRepository extends JpaRepository<Plant, String> {
     Optional<Plant> findById(String id);
 
-    List<Plant> findByUser_Id(String id);
+    List<Plant> findByUserId(String id);
 
 //    @Query(value = "SELECT DISTINCT p" +
 //            " FROM Plant p" +

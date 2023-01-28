@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class FollowController {
     private final FollowService followService;
-    private final NotifyServiceClient notifyServiceClient;
 
     @Operation(summary = "팔로우 요청", description = "다른 유저를 팔로우합니다.", tags = { "Follow Controller" })
     @ApiResponses({
@@ -38,13 +37,6 @@ public class FollowController {
     @PostMapping("/follow/following")
     public ResponseEntity<?> FollowUser(@RequestBody CreateFollowRequestDTO dto) {
         Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
-        // 알람 생성 시작
-        String content = follow.getSenderUser().getNickname() + "님이 내 농장 이웃이 되었어요!";
-//        Notify notify = Notify.of(AlarmType.FollowRequest, content, true, receiver.get());
-//        Notify saveNotify = notifyRepository.save(notify);
-        CreateNotifyRequestDTO requestDTO = new CreateNotifyRequestDTO("FollowRequest", content, dto.getReceiverId());
-        notifyServiceClient.saveNotify(requestDTO);
-        // 알람 생성 끝
         FollowResponseDTO resultDto = FollowResponseDTO.of(follow);
         return ResponseEntity.ok(resultDto);
     }
