@@ -1,4 +1,4 @@
-package com.numberONE.maryfarm.Home.Calendar;
+package com.numberONE.maryfarm.ui.home.FarmFeed;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.numberONE.maryfarm.databinding.FragmentCalendarBinding;
+import com.numberONE.maryfarm.databinding.FragmentPheedBinding;
 
-public class CalendarFragment extends Fragment {
+public class PheedFragment extends Fragment {
 
-    FragmentCalendarBinding binding;
+    private FragmentPheedBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentCalendarBinding.inflate(inflater,container,false);
+        binding = FragmentPheedBinding.inflate(inflater,container,false);
         ViewGroup view = binding.getRoot();
-
         return view;
     }
 }
