@@ -1,9 +1,47 @@
 server:
   port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 spring:
+  application:
+    name: maryfarm-apigateway-service
   cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      name: maryfarm-apigateway-service
     gateway:
-      default-filters:
-
-    routes:
-
+      routes:
+        - id: maryfarm-user-service
+          uri: lb://MARYFARM-USER-SERVICE
+          predicates:
+            - Path=/maryfarm-user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/maryfarm-user-service/(?<segment>.*), /$\{segment}
+        - id: maryfarm-notify-service
+          uri: lb://MARYFARM-NOTIFY-SERVICE
+          predicates:
+            - Path=/maryfarm-notify-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/maryfarm-notify-service/(?<segment>.*), /$\{segment}
+        - id: maryfarm-chat-service
+          uri: lb://MARYFARM-CHAT-SERVICE
+          predicates:
+            - Path=/maryfarm-chat-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/maryfarm-chat-service/(?<segment>.*), /$\{segment}
+        - id: maryfarm-plant-service
+          uri: lb://MARYFARM-PLANT-SERVICE
+          predicates:
+            - Path=/maryfarm-plant-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/maryfarm-plant-service/(?<segment>.*), /$\{segment}
