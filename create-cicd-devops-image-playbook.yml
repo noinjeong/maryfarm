@@ -1,0 +1,19 @@
+- hosts: ansible
+#   become: true
+
+  tasks:
+  - name: create a docker image with deployed waf file
+    command: docker build -t isakggong/cicd-project-ansible .
+    args:
+        chdir: /root
+
+  - name: push the image on Docker Hub
+    command: docker push isakggong/cicd-project-ansible
+
+  - name: remove the docker image from the ansible server
+    command: docker rmi isakggong/cicd-project-ansible
+    ignore_errors: yes
+
+  - name: remove anonymous docker image
+    command: docker rmi $(docker images -f "dangling=true" -q)
+    ignore_errors: yes
