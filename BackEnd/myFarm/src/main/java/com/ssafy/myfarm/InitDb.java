@@ -41,6 +41,8 @@ public class InitDb {
                 User user = User.of(si+si+si+si, "user"+si, Tier.씨앗);
                 User saveUser = userService.saveUser(user);
                 Plant plant = plantService.savePlant(saveUser.getId(), "방가방가" + si, "딸기");
+                Plant temp = Plant.of(saveUser, "hello", "baek");
+                Plant saveTemp = plantService.savePlant(saveUser.getId(), "방방", "감자");
                 diaryService.saveDiary(plant.getId(),"#왕감자"+si+" 를 심었어요",null);
                 diaryService.saveDiary(plant.getId(),"#왕감자"+si+" 를 수확했어요",null);
                 if(beforeSaveUser!=null) {
