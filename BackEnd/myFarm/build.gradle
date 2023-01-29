@@ -5,6 +5,12 @@ plugins {
     id "org.sonarqube" version "3.3"
 }
 
+sonar {
+    properties {
+        property "sonar.projectKey", "maryFarm"
+    }
+}
+
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
