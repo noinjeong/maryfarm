@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmuserservice.kafka.dto.user;
+package com.ssafy.maryfarmuserservice.kafka.dto.follow;
 
 import com.ssafy.maryfarmuserservice.kafka.dto.Schema;
 import com.ssafy.maryfarmuserservice.kafka.dto.user.UserPayload;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class KafkaUser {
+public class KafkaFollow {
     private Schema schema;
-    private UserPayload payload;
+    private FollowPayload payload;
 }

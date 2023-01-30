@@ -4,6 +4,7 @@ import com.ssafy.maryfarmuserservice.client.dto.notify.CreateNotifyRequestDTO;
 import com.ssafy.maryfarmuserservice.client.service.notify.NotifyServiceClient;
 import com.ssafy.maryfarmuserservice.domain.user.Follow;
 import com.ssafy.maryfarmuserservice.domain.user.User;
+import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.repository.FollowRepository;
 import com.ssafy.maryfarmuserservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class FollowService {
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
     private final NotifyServiceClient notifyServiceClient;
-
+    private final UserProducer userProducer;
     @Transactional
     public Follow saveFollow(String senderId, String receiverId) {
         Optional<User> sender = userRepository.findById(senderId);

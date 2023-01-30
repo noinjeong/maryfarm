@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Payload {
+public class UserPayload {
     private String user_id;
     private String nickname;
     private String tier;

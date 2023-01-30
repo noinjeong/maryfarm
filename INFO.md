@@ -50,3 +50,10 @@
 18. 8083 port는 KafkaConnector가 사용중이라 변경해줘야 함.
 19. 현재 토픽의 삭제 정책을 1분으로 해놔서 나중에 배포할 때 수정해줘야 함.
 20. kafka에서 connector가 db에 저장할 때 id가 null값이라도 JPA가 애플리케이션 시작할 때 ddl로 만들어주는 테이블 설정때문에 자동난수 설정 가능할지도...??
+21. Config server의 basedir은 사용자마다 달라질 수 있어서 조심해야함.
+22. config -> discovery -> gateway -> notify -> user -> plant 순으로 실행해야 함.
+23. MSA 배포과정에서 아래 오류가 발생할 수 있음.
+    ```
+      Error running MaryfarmUserServiceApplication. Command line is too long. Shorten the command line via JAR manifest or via a classpath file and rerun.
+    ```
+24.

@@ -4,6 +4,7 @@ import com.ssafy.maryfarmuserservice.api.dto.user.request.*;
 import com.ssafy.maryfarmuserservice.api.dto.user.response.UserResponseDTO;
 import com.ssafy.maryfarmuserservice.domain.user.Tier;
 import com.ssafy.maryfarmuserservice.domain.user.User;
+import com.ssafy.maryfarmuserservice.kafka.dto.user.UserDTO;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.service.UserService;
 import com.ssafy.maryfarmuserservice.util.file.dto.FileDetail;
@@ -43,10 +44,9 @@ public class UserController {
 //        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
 //        User saveUser = userService.saveUser(user);
 //        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
-        User user = User.of(dto.getKakaoId(),dto.getNickname(), Tier.씨앗);
-        User saveUser = userProducer.send("user", user);
-        UserResponseDTO resultDto = UserResponseDTO.of(saveUser);
-        return ResponseEntity.ok(resultDto);
+        UserDTO user = new UserDTO(dto.getKakaoId(), dto.getNickname(), "씨앗", null, null, null);
+        UserDTO saveUser = userProducer.send("user", user);
+        return ResponseEntity.ok(saveUser.getUser_id());
     }
 
     @Operation(summary = "로그인 요청", description = "회원 정보를 통해 로그인합니다.", tags = { "User Controller" })

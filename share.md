@@ -30,7 +30,7 @@ docker run -d -p 9411:9411 openzipkin/zipkin
 #5 백승범 01 29
 
 ```
-1. Kafka와 Zookeeper, mysql를 같이 실행하는 docker-compose.yml 파일을 실행
+1. Kafka와 Zookeeper, mysql를 같이 실행하는 docker-compose.yml 파일을 실행 / `docker-compose up -d`
 2. mysql의 내부에 farm, user, notify, plant, calendar, char, board db 생성 / 위의 mysql container 참고
 2. kafka container에 들어가 `/opt/kafka_2.13-2.8.1` 경로에 connectors dir 생성
 3. connectors dir에 jdbc-connector.zip 전송후 압축해제 `docker cp confluentinc-kafka-connect-jdbc-10.6.0.zip kafka:/opt/kafka_2.13-2.8.1/connectors/`
@@ -39,6 +39,18 @@ docker run -d -p 9411:9411 openzipkin/zipkin
 5. `connect-distributed.sh /opt/kafka/config/connect-distributed.properties`로 kafka connect 실행
 7. `curl --location --request GET 'localhost:8083/connector-plugins'` 로 jdbcSinkConnector가 커넥트에 들어갔는지 확인
 8. `docker cp mysql-connector-java-8.0.27.jar kafka:/opt/kafka_2.13-2.8.1/connectors/confluentinc-kafka-connect-jdbc-10.6.0/lib/`를 통해 mysql driver를 전송
+```
+
+Topic 생성 명령어
+
+```
+bin/kafka-topics.sh \
+      --create \
+      --bootstrap-server 127.0.0.1:9092 \
+      --partitions 3 \
+      --replication-factor 1 \
+      --config retention.ms=60000 \
+      --topic user
 ```
 
 커넥터 생성 명령어
