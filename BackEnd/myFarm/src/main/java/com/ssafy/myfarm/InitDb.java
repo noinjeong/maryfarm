@@ -1,11 +1,8 @@
 package com.ssafy.myfarm;
 
 import com.ssafy.myfarm.domain.plant.Plant;
-import com.ssafy.myfarm.domain.user.Follow;
 import com.ssafy.myfarm.domain.user.Tier;
 import com.ssafy.myfarm.domain.user.User;
-import com.ssafy.myfarm.repository.PlantRepository;
-import com.ssafy.myfarm.repository.UserRepository;
 import com.ssafy.myfarm.service.DiaryService;
 import com.ssafy.myfarm.service.FollowService;
 import com.ssafy.myfarm.service.PlantService;
