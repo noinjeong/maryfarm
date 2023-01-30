@@ -11,31 +11,24 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="33dp"
         android:background="@android:color/transparent"
         android:src="@android:mipmap/sym_def_app_icon"
         app:civ_border_color="#000000"
         app:civ_border_overlay="true"
-        app:civ_border_width="5dp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="35dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="false"
-        android:scaleType="fitCenter"
-        app:srcCompat="@android:mipmap/sym_def_app_icon"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:civ_border_width="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="75dp"
+        android:layout_height="29dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="@+id/circle_iv"
+        tools:layout_editor_absoluteX="157dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
