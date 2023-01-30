@@ -41,9 +41,7 @@ public class FollowController {
     })
     @PostMapping("/follow/following")
     public ResponseEntity<?> FollowUser(@RequestBody CreateFollowRequestDTO dto) {
-//        Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
-        FollowDTO follow = new FollowDTO(UUID.randomUUID().toString(), dto.getSenderId(), dto.getReceiverId());
-        followProducer.send("user",follow);
-        return ResponseEntity.ok(follow.getFollow_id());
+        Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
+        return ResponseEntity.ok(follow.getId());
     }
 }

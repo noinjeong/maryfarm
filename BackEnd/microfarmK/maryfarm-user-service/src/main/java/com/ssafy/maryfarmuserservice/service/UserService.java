@@ -51,10 +51,11 @@ public class UserService {
     }
 
     @Transactional
-    public void saveRecommend(String id, String fullCode) {
+    public Recommend saveRecommend(String id, String fullCode) {
         Optional<User> user = userRepository.findById(id);
         Recommend recommend = Recommend.of(user.get(), fullCode);
-        recommendRepository.save(recommend);
+        Recommend saveRecommend = recommendRepository.save(recommend);
+        return saveRecommend;
     }
 
     public List<User> searchFollowers(String userId) {

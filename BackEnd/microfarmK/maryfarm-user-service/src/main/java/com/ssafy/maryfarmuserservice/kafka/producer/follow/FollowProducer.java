@@ -37,7 +37,7 @@ public class FollowProducer {
             .name("follow")
             .build();
 
-    public Follow send(String topic, FollowDTO follow) {
+    public FollowDTO send(String topic, FollowDTO follow) {
         // 변수가 많아 생성자가 너무 길어져서 Builder로 깔끔하게 생성
         FollowPayload payload = FollowPayload.builder()
                 .follow_id(follow.getFollow_id())

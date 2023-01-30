@@ -16,7 +16,8 @@ public class Follow {
         프론트엔드에서 팔로우 버튼을 누르면 언팔로우 버튼으로 바뀌는
         상황을 만들어 프론트엔드에서 해결해야 함.
      */
-    @Id
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "follow_id")
     private String id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

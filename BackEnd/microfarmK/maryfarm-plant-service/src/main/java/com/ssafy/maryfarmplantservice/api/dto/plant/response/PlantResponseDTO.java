@@ -18,6 +18,8 @@ public class PlantResponseDTO {
     private String title;
     private LocalDateTime harvesttime;
     private boolean active;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
     public static PlantResponseDTO of(Plant plant, UserResponseDTO userDto) {
         PlantResponseDTO dto = new PlantResponseDTO();
         dto.plantId = plant.getId();

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +29,14 @@ public class PlantService {
 
     public List<Plant> searchPlantsByUserId(String userId) {
         return plantRepository.findByUserId(userId);
+    }
+
+    public Plant findPlant(String plantId) {
+        Optional<Plant> plant = plantRepository.findById(plantId);
+        return plant.get();
+    }
+
+    public List<Plant> searchPlantByMonth(String userId, LocalDateTime yearMonth) {
+        return plantRepository.findPlantByMonth(userId,yearMonth);
     }
 }
