@@ -43,6 +43,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -58,9 +60,13 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2' // 이미지 로딩 라이브러리
 // 장유범 의존성 끝
 
+// jinny
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1' // 달력 라이브러리
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1' // 시간
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
-// 강환석 의존성
-    implementation fileTree(dir: 'libs', include: ['*.jar']) // 사진을 동그랗게 잘라줍니다.
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-// 강환석 의존성 끝
+// hwanseok
+    implementation 'de.hdodenhof:circleimageview:3.1.0' // 사진을 동그랗게 잘라줍니다.
+
 }

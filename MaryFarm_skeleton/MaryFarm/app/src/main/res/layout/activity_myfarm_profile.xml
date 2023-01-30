@@ -6,29 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".MyfarmProfile.MyfarmProfileActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circle_iv"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="33dp"
-        android:background="@android:color/transparent"
-        android:src="@android:mipmap/sym_def_app_icon"
-        app:civ_border_color="#000000"
-        app:civ_border_overlay="true"
-        app:civ_border_width="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="75dp"
-        android:layout_height="29dp"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="@+id/circle_iv"
-        tools:layout_editor_absoluteX="157dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/profile_default"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicator"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:text="김 마리"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintTop_toTopOf="@+id/profile_image"
+        tools:layout_editor_absoluteX="166dp" />
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
