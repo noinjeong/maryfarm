@@ -40,6 +40,8 @@ public class ChatController {
         try {
             //Sending the message to kafka topic queue
             kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
