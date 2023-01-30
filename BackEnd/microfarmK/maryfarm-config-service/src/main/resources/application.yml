@@ -18,7 +18,7 @@ spring:
       server:
         git:
         native:
-          search-locations: file:///Users/SSAFY/Desktop/S08P12B308/config-repo
+          search-locations: file:///Users/Baek/Desktop/S08P12B308/config-repo
 management:
   endpoints:
     web:

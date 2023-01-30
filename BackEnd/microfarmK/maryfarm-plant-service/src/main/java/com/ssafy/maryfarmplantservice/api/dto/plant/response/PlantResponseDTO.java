@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class PlantResponseDTO {
     private UserResponseDTO user;
     private String name;
     private String title;
-    private LocalDateTime harvesttime;
+    private LocalDateTime harvestTime;
     private boolean active;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
@@ -26,7 +27,7 @@ public class PlantResponseDTO {
         dto.user = userDto;
         dto.name = plant.getName();
         dto.title = plant.getTitle();;
-        dto.harvesttime = plant.getHarvestTime();
+        dto.harvestTime = plant.getHarvestTime();
         dto.active = plant.getActive();
         return dto;
     }

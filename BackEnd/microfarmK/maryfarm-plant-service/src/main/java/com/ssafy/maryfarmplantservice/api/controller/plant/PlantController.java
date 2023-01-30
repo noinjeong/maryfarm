@@ -66,12 +66,26 @@ public class PlantController {
     })
     @PostMapping("/plant/month/search")
     public ResponseEntity<?> searchPlant(@RequestBody MonthPlantSearchRequestDTO dto) throws IOException {
-        List<Plant> list = plantService.searchPlantByMonth(dto.getUserId(),dto.getYearMonth());
+        List<Plant> list = plantService.searchPlantByMonth(dto.getUserId(),dto.getYear(),dto.getMonth());
         List<PlantSearchByMonthResposeDTO> resultDtos = new ArrayList<>();
         for(Plant p : list) {
             resultDtos.add(PlantSearchByMonthResposeDTO.of(p));
         }
         return ResponseEntity.ok(resultDtos);
+    }
+
+    @Operation(summary = "작물 재배 처리", description = "작물을 재배 처리합니다.", tags = { "Plant Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PutMapping("/plant/harvest/{plantId}")
+    public ResponseEntity<?> doHarvest(@PathVariable("plantId") String plantId) throws IOException {
+        plantService.doHarvest(plantId);
+        return ResponseEntity.ok(1);
     }
 
 }

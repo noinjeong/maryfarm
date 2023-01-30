@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmplantservice.api.dto.plant.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MonthPlantSearchRequestDTO {
     private String userId;
-    @DateTimeFormat(pattern = "yyyy-MM")
-    private LocalDateTime yearMonth;
+    private Integer year;
+    private Integer month;
 }

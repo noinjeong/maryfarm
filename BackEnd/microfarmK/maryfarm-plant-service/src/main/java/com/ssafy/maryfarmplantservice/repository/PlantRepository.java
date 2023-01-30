@@ -3,6 +3,7 @@ package com.ssafy.maryfarmplantservice.repository;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -14,11 +15,15 @@ public interface PlantRepository extends JpaRepository<Plant, String> {
 
     List<Plant> findByUserId(String id);
 
-    @Query(value = "SELECT p" +
-        " FROM Plant p" +
-        " WHERE (p.userId = :user)" +
-        " AND ((p.active = true) OR (p.harvestTime = :yearMonth))")
-    List<Plant> findPlantByMonth(String userId, LocalDateTime yearMonth);
+//    @Query(value = "select p" +
+//        " FROM Plant p" +
+//        " WHERE (p.userId = :userId)" +
+//        " AND ((p.active = true) OR (p.harvestTime = :yearMonth))")
+    @Query(value = "select *" +
+                " from plant" +
+                " where plant.user_id = :userId" +
+                " and ((plant.active = true) or ((year(plant.harvest_time) = :year) and (month(plant.harvest_time) = :month)))",nativeQuery = true)
+    List<Plant> findPlantByMonth(@Param("userId") String userId, @Param("year") Integer year, @Param("month") Integer month);
 
 //    @Query(value = "SELECT DISTINCT p" +
 //            " FROM Plant p" +

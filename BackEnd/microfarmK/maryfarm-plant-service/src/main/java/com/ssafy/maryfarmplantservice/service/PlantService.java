@@ -36,7 +36,14 @@ public class PlantService {
         return plant.get();
     }
 
-    public List<Plant> searchPlantByMonth(String userId, LocalDateTime yearMonth) {
-        return plantRepository.findPlantByMonth(userId,yearMonth);
+    public List<Plant> searchPlantByMonth(String userId, Integer year, Integer month) {
+        return plantRepository.findPlantByMonth(userId,year,month);
+    }
+
+    @Transactional
+    public void doHarvest(String plantId) {
+        Optional<Plant> plant = plantRepository.findById(plantId);
+        plant.get().setHarvestTime(LocalDateTime.now());
+        plant.get().setActive(false);
     }
 }

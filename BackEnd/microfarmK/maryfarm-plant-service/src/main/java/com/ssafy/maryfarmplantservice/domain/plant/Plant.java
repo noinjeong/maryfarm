@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,9 +22,18 @@ public class Plant extends BaseTimeEntity {
     private String userId;
     private String name;
     private String title;
+    @Column(name = "harvest_time")
     private LocalDateTime harvestTime;
     private Boolean active;
     // active true/수확안함  false/수확함
+
+    public void setHarvestTime(LocalDateTime harvestTime) {
+        this.harvestTime = harvestTime;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     public static Plant of(String userId, String title, String name) {
         Plant plant = new Plant();
