@@ -11,6 +11,7 @@
         android:required="true" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".KakaoLogin.KakaoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,7 +23,7 @@
         android:theme="@style/Theme.MaryFarm"
         tools:targetApi="31">
         <activity
-            android:name=".DiaryModifyActivity"
+            android:name=".Diary.DiaryModifyActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
