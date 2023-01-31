@@ -83,4 +83,4 @@
     }
     ```
 
-28. 현재 Event Driven Architecture가 적용된 부분은 Notify가 Follow, Diary 생성을 마킹, Room이 Chat 생성을 마킹임.
+28. 현재 Event Driven Architecture가 적용된 부분은 Notify가 Follow, Diary 생성을 마킹임.
