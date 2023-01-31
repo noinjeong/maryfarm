@@ -7,16 +7,15 @@
     tools:context=".Home.HomeActivity"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="아이디 체크 "/>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="아이디 체크 "/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"

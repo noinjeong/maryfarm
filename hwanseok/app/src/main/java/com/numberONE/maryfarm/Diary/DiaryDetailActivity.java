@@ -1,8 +1,10 @@
 package com.numberONE.maryfarm.Diary;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.numberONE.maryfarm.R;
 
 public class DiaryDetailActivity extends AppCompatActivity {
 
