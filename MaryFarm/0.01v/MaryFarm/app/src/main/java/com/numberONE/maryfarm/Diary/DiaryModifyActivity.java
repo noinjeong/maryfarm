@@ -1,12 +1,5 @@
 package com.numberONE.maryfarm.Diary;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +8,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.databinding.ActivityDiaryModifyBinding;
@@ -132,7 +131,7 @@ public class DiaryModifyActivity extends AppCompatActivity {
 
         // 저장 버튼 클릭 -> DB에 정보를 저장하고 이동
         binding.saveBtn.setOnClickListener(view -> {
-            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
+            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기 ㄴㅇ
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
             byte[] bytes= stream.toByteArray();

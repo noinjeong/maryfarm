@@ -124,5 +124,12 @@
         android:layout_toRightOf="@id/myfarm_title"
         android:layout_alignTop="@+id/myfarm_title"/>
 
+    <!-- 관섭 - 버튼 클릭시 디테일 페이지로 이동   -->
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="화면전환 (Detail page)"
+        android:gravity="center"/>
 
 </RelativeLayout>
