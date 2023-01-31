@@ -24,9 +24,6 @@ public interface RetrofitApiSerivce {
     @POST("diary/init")
     Call<UserData> postInitFeed(@Body UserData user);
 
-    @GET("diary/user/{id}")
-    Call<article> get(@Path("id") String id);
-
 //    diary api 끝
 
 }

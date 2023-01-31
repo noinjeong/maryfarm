@@ -71,4 +71,12 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1' // 시간
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+// kimcalm 의존성
+    //더보기 구현
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'
+    //사진 원하는 모양으로 자르기
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
