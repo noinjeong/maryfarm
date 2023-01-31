@@ -1,8 +1,10 @@
 package com.numberONE.maryfarm.Board;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.numberONE.maryfarm.R;
 
 public class BoardActivity extends AppCompatActivity {
 

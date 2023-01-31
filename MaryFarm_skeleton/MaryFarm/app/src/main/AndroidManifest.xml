@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 인터넷 사용 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 카메라 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 카메라 권한 설정 -->
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".KakaoLogin.KakaoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,7 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaryFarm"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Diary.DiaryModifyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MyfarmProfile.MyPageActivity"
             android:exported="false">
@@ -78,14 +86,19 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeActivity"
+            android:name=".Home.Calendar.DynamicSettersActivity"
             android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
         <activity
             android:name=".MyfarmProfile.FarmsProfileActivity"
             android:exported="false">
@@ -103,11 +116,13 @@
         <activity
             android:name=".KakaoLogin.KakaoLoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -115,26 +130,33 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
-                <data
-                    android:host="oauth"
-                    android:scheme="kakaof059c3fbe021d13fa0a5ffa33e906bf8" />
-            </intent-filter>
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt; -->
+            <!-- <data -->
+            <!-- android:host="oauth" -->
+            <!-- android:scheme="kakao2d4ab065b4f4050039cdc9af3e888398" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <provider
@@ -146,9 +168,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
-
     </application>
 
 </manifest>
