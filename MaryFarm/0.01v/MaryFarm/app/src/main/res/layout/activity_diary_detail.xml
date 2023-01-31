@@ -52,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/endDate"
-                    android:layout_width="154dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ing"
                     android:layout_marginLeft="5dp"/>
@@ -79,13 +79,35 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/diaryDetailImages"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginTop="10dp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/sample3" />
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/diaryDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="center"
+                android:src="@drawable/sample3" />
+
+            <ImageButton
+                android:id="@+id/pickBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pick_btn"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
