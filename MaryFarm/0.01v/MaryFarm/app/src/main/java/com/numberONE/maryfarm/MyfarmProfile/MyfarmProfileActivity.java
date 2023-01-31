@@ -8,6 +8,13 @@ import com.numberONE.maryfarm.R;
 
 public class MyfarmProfileActivity extends AppCompatActivity {
 
+//    MyAdapter adapter = new MyAdapter(itemList);
+//    recyclerView.setAdapter(adapter);
+//
+//    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//    recyclerView.setAdapter(new YourAdapter(yourDataList));
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
