@@ -1,6 +1,7 @@
 package com.ssafy.maryfarmchatservice.api.controller.chat;
 
 import com.ssafy.maryfarmchatservice.domain.chat.Message;
+import com.ssafy.maryfarmchatservice.repository.MessageRepository;
 import com.ssafy.maryfarmchatservice.util.chat.constants.KafkaConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,9 +25,8 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin
 @RequestMapping("/api")
 public class ChatController {
-    @Autowired
-    private KafkaTemplate<String, Message> kafkaTemplate;
-
+    private final KafkaTemplate<String, Message> kafkaTemplate;
+    private final MessageRepository messageRepository;
     @Operation(summary = "채팅 메시지 저장", description = "채팅 메시지를 저장합니다.", tags = { "Chat Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -39,7 +39,8 @@ public class ChatController {
         message.setTimestamp(LocalDateTime.now().toString());
         try {
             //Sending the message to kafka topic queue
-            kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
+            Message saveMessage = messageRepository.save(message);
+            kafkaTemplate.send("message", saveMessage).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }

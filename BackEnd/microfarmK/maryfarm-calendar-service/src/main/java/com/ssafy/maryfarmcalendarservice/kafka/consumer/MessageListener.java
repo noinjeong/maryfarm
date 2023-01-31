@@ -17,7 +17,7 @@ import java.util.Map;
 @Slf4j
 public class MessageListener {
     @KafkaListener(
-            topics = KafkaConstants.KAFKA_TOPIC,
+            topics = "calendar",
             groupId = KafkaConstants.GROUP_ID
     )
     public void listen(String message) {

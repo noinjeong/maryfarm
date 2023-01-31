@@ -41,9 +41,10 @@ public class PlantService {
     }
 
     @Transactional
-    public void doHarvest(String plantId) {
+    public Plant doHarvest(String plantId) {
         Optional<Plant> plant = plantRepository.findById(plantId);
         plant.get().setHarvestTime(LocalDateTime.now());
         plant.get().setActive(false);
+        return plant.get();
     }
 }

@@ -8,6 +8,8 @@ import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
+import com.ssafy.maryfarmplantservice.kafka.dto.Status;
+import com.ssafy.maryfarmplantservice.kafka.producer.plant.PlantProducer;
 import com.ssafy.maryfarmplantservice.service.PlantService;
 import com.ssafy.maryfarmplantservice.util.file.dto.FileDetail;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +37,7 @@ import java.util.List;
 public class PlantController {
     private final PlantService plantService;
     private final UserServiceClient userServiceClient;
+    private final PlantProducer plantProducer;
     @Operation(summary = "특정 작물 조회", description = "특정 작물의 정보를 조회합니다.", tags = { "Plant Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -84,7 +87,8 @@ public class PlantController {
     })
     @PutMapping("/plant/harvest/{plantId}")
     public ResponseEntity<?> doHarvest(@PathVariable("plantId") String plantId) throws IOException {
-        plantService.doHarvest(plantId);
+        Plant plant = plantService.doHarvest(plantId);
+        plantProducer.send("plant",plant, Status.U);
         return ResponseEntity.ok(1);
     }
 

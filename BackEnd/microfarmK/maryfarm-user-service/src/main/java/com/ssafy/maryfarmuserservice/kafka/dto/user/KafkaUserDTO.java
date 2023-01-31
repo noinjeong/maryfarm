@@ -1,15 +1,15 @@
 package com.ssafy.maryfarmuserservice.kafka.dto.user;
 
-import com.ssafy.maryfarmuserservice.domain.Land;
-import com.ssafy.maryfarmuserservice.domain.user.Tier;
+import com.ssafy.maryfarmuserservice.domain.user.User;
+import com.ssafy.maryfarmuserservice.kafka.dto.Status;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class KafkaUserDTO {
-    private String command;
-    private String id;
-    private String nickname;
-    private Tier tier;
-    private Land land;
-    private String profilePath;
+    private Status status;
+    private User user;
 }

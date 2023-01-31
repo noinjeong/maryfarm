@@ -13,17 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessageListener {
     @Autowired
     SimpMessagingTemplate template;
-    @Autowired
-    MessageRepository messageRepository;
 
     @KafkaListener(
-            topics = KafkaConstants.KAFKA_TOPIC,
+            topics = "message",
             groupId = KafkaConstants.GROUP_ID
     )
     public void listen(Message message) {
-        Message saveMessage = messageRepository.save(message);
         System.out.println("sending via kafka listener..");
-        System.out.println("/topic/group/" + saveMessage.getRoomId());
-        template.convertAndSend("/topic/group/" + saveMessage.getRoomId(), saveMessage);
+        System.out.println("/topic/group/" + message.getRoomId());
+        template.convertAndSend("/topic/group/" + message.getRoomId(), message);
     }
 }

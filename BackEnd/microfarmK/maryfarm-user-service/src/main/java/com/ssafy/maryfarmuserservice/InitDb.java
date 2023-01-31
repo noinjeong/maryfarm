@@ -31,7 +31,6 @@ public class InitDb {
             User saveUser1 = userService.saveUser(user);
             User user2 = User.of("1234567", "seung", Tier.씨앗);
             User saveUser2 = userService.saveUser(user2);
-            followService.saveFollow(saveUser1.getId(),saveUser2.getId());
         }
     }
 }

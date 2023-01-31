@@ -31,11 +31,6 @@ public class FollowService {
         Optional<User> receiver = userRepository.findById(receiverId);
         Follow follow = Follow.of(sender.get(), receiver.get());
         Follow saveFollow = followRepository.save(follow);
-        // 알람 생성 시작
-        String content = follow.getSenderUser().getNickname() + "님이 내 농장 이웃이 되었어요!";
-        CreateNotifyRequestDTO requestDTO = new CreateNotifyRequestDTO("FollowRequest", content, receiverId);
-        notifyServiceClient.saveNotify(requestDTO);
-        // 알람 생성 끝
         return saveFollow;
     }
 }

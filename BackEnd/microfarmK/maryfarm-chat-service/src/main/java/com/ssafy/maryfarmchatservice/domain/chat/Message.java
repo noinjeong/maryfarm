@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,5 +24,5 @@ public class Message {
     @Column(name = "user_id")
     private String userId;
     private String content;
-    private String timestamp;
+    private LocalDateTime timestamp;
 }

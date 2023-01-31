@@ -5,7 +5,7 @@ import com.ssafy.maryfarmuserservice.api.dto.user.response.UserResponseDTO;
 import com.ssafy.maryfarmuserservice.domain.user.Recommend;
 import com.ssafy.maryfarmuserservice.domain.user.Tier;
 import com.ssafy.maryfarmuserservice.domain.user.User;
-import com.ssafy.maryfarmuserservice.kafka.dto.user.UserDTO;
+import com.ssafy.maryfarmuserservice.kafka.dto.Status;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.service.UserService;
 import com.ssafy.maryfarmuserservice.util.file.dto.FileDetail;
@@ -31,6 +31,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final FileUploadService fileUploadService;
+    private final UserProducer userProducer;
     @Operation(summary = "회원 가입 요청", description = "회원 정보를 등록합니다.", tags = { "User Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -43,6 +44,7 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
         User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
         User saveUser = userService.saveUser(user);
+        userProducer.send("user",saveUser, Status.C);
         return ResponseEntity.ok(saveUser.getId());
     }
 
@@ -90,6 +92,7 @@ public class UserController {
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
         FileDetail saveFile = fileUploadService.save(image);
         User user = userService.updateUser(dto.getUserId(), dto.getNickname(),saveFile.getPath());
+        userProducer.send("user",user,Status.U);
         return ResponseEntity.ok(user.getId());
     }
 

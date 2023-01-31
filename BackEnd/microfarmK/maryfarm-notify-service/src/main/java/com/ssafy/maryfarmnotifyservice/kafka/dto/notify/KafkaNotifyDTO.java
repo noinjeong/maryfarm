@@ -1,14 +1,16 @@
 package com.ssafy.maryfarmnotifyservice.kafka.dto.notify;
 
 import com.ssafy.maryfarmnotifyservice.domain.notify.AlarmType;
+import com.ssafy.maryfarmnotifyservice.domain.notify.Notify;
+import com.ssafy.maryfarmnotifyservice.kafka.dto.Status;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class KafkaNotifyDTO {
-    private String command;
-    private String id;
-    private String userId;
-    private AlarmType type;
-    private String content;
-    private Boolean active;
+    private Status status;
+    private Notify notify;
 }

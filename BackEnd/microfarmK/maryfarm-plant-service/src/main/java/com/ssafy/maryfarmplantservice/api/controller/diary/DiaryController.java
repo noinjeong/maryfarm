@@ -12,6 +12,9 @@ import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryComment;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryLike;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
+import com.ssafy.maryfarmplantservice.kafka.dto.Status;
+import com.ssafy.maryfarmplantservice.kafka.producer.diary.DiaryProducer;
+import com.ssafy.maryfarmplantservice.kafka.producer.plant.PlantProducer;
 import com.ssafy.maryfarmplantservice.service.DiaryService;
 import com.ssafy.maryfarmplantservice.service.PlantService;
 import com.ssafy.maryfarmplantservice.util.file.dto.FileDetail;
@@ -41,6 +44,8 @@ public class DiaryController {
     private final PlantService plantService;
     private final FileUploadService fileUploadService;
     private final UserServiceClient userServiceClient;
+    private final DiaryProducer diaryProducer;
+    private final PlantProducer plantProducer;
 
     @Operation(summary = "일지 시작", description = "작물을 등록함과 동시에 일지를 시작합니다.", tags = { "Diary Controller" })
     @ApiResponses({
@@ -57,8 +62,10 @@ public class DiaryController {
             의존성 관리에 더 바람직함. Diary 객체를 넘겨주려면 Diary 객체에 대한 의존성이 생김.
          */
         Plant savePlant = plantService.savePlant(dto.getUserId(),dto.getTitle(),dto.getName());
+        plantProducer.send("plant",savePlant, Status.C);
         FileDetail saveFile = fileUploadService.save(image);
         Diary saveDiary = diaryService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath());
+        diaryProducer.send("diary",saveDiary,Status.C);
         return ResponseEntity.ok(saveDiary.getId());
     }
 
@@ -74,6 +81,7 @@ public class DiaryController {
     public ResponseEntity<?> addDiary(@RequestPart MultipartFile image, @RequestPart AddDiaryRequestDTO dto) throws IOException {
         FileDetail saveFile = fileUploadService.save(image);
         Diary saveDiary = diaryService.saveDiary(dto.getPlantId(), dto.getContent(), saveFile.getPath());
+        diaryProducer.send("diary",saveDiary,Status.C);
         return ResponseEntity.ok(saveDiary.getId());
     }
 
@@ -92,8 +100,10 @@ public class DiaryController {
         if(!image.isEmpty()) {
             FileDetail saveFile = fileUploadService.save(image);
             updateDiary = diaryService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent(), saveFile.getPath());
+            diaryProducer.send("diary",updateDiary,Status.U);
         } else {
             updateDiary = diaryService.updateDiaryContent(dto.getDiaryId(), dto.getContent());
+            diaryProducer.send("diary",updateDiary,Status.U);
         }
         return ResponseEntity.ok(updateDiary.getId());
     }
@@ -109,7 +119,8 @@ public class DiaryController {
     @PostMapping("/diary/like")
     public ResponseEntity<?> giveDiaryLike(@RequestBody DiaryLikeRequestDTO dto) {
         DiaryLike diaryLike = diaryService.saveDiaryLike(dto.getDiaryId(),dto.getUserId());
-        diaryService.addLike(dto.getDiaryId());
+        Diary diary = diaryService.addLike(dto.getDiaryId());
+        diaryProducer.send("diary",diary,Status.U);
         return ResponseEntity.ok(diaryLike.getId());
     }
 

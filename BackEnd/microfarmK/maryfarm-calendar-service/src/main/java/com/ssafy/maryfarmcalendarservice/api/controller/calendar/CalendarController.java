@@ -4,6 +4,8 @@ import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.RegistCalendar
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.SearchCalendarRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.response.SearchCalendarResponseDTO;
 import com.ssafy.maryfarmcalendarservice.domain.calendar.Calendar;
+import com.ssafy.maryfarmcalendarservice.kafka.dto.Status;
+import com.ssafy.maryfarmcalendarservice.kafka.producer.calendar.CalendarProducer;
 import com.ssafy.maryfarmcalendarservice.service.CalendarService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,6 +26,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class CalendarController {
     private final CalendarService calendarService;
+    private final CalendarProducer calendarProducer;
 
     @Operation(summary = "특정 년월일의 달력 정보 조회", description = "특정 년월일에 해당하는 자신의 달력 정보를 조회합니다.", tags = { "Calendar Controller" })
     @ApiResponses({
@@ -45,6 +48,10 @@ public class CalendarController {
     @PostMapping("/calendar/regist")
     public ResponseEntity<?> RegistCalendar(@RequestBody RegistCalendarRequestDTO dto) {
         Calendar calendar = calendarService.registCalendar(dto);
+        /*
+            생성, 업데이트 둘다 save 메서드로 해결하므로 아직 Update처리는 못해줌.
+         */
+        calendarProducer.send("calendar",calendar, Status.C);
         return ResponseEntity.ok(1);
     }
 }
