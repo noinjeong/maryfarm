@@ -7,6 +7,8 @@ import com.ssafy.maryfarmchatservice.client.dto.UserResponseDTO;
 import com.ssafy.maryfarmchatservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmchatservice.domain.chat.Message;
 import com.ssafy.maryfarmchatservice.domain.chat.Room;
+import com.ssafy.maryfarmchatservice.kafka.dto.Status;
+import com.ssafy.maryfarmchatservice.kafka.producer.room.RoomProducer;
 import com.ssafy.maryfarmchatservice.service.MessageService;
 import com.ssafy.maryfarmchatservice.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +32,7 @@ public class RoomController {
     private final RoomService roomService;
     private final MessageService messageService;
     private final UserServiceClient userServiceClient;
+    private final RoomProducer roomProducer;
     @Operation(summary = "채팅방 등록", description = "채팅방을 등록합니다.", tags = { "Room Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -41,6 +44,7 @@ public class RoomController {
     @PostMapping("/room/init")
     public ResponseEntity<?> saveRoom(@RequestBody InitRoomRequestDTO dto) {
         Room room = roomService.saveRoom(dto.getSenderId(), dto.getReceiverId());
+        roomProducer.send("room",room, Status.C);
         return ResponseEntity.ok(room.getId());
     }
 
