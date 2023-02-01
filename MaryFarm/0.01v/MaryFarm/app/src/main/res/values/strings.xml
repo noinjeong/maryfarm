@@ -89,4 +89,19 @@
 그걸 알게 됐죠...
     </string>
 
+    <string name="flower_language">
+        꽃말 : %s
+    </string>
+
+    <string name="flower_blooming">
+        개화시기 : %s
+    </string>
+
+    <string name="flower_area">
+        분포지역 : %s
+    </string>
+
+    <string name="flower_size">
+        크기 : %s
+    </string>
 </resources>
