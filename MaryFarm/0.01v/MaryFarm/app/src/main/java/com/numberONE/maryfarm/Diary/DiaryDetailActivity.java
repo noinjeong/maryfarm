@@ -1,5 +1,8 @@
 package com.numberONE.maryfarm.Diary;
 
+import static com.numberONE.maryfarm.R.*;
+import static com.numberONE.maryfarm.R.id.nav_view;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,10 +50,10 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary_detail);
+        setContentView(layout.activity_diary_detail);
 
         // 좋아요 구현
-        likeCount = (TextView) findViewById(R.id.like_Count);
+        likeCount = (TextView) findViewById(id.like_Count);
         likeCount.setText(likeCnt+"");
 
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
@@ -85,7 +88,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         });
 
         // 추천 버튼 클릭시, 추천 페이지로 화면 이동
-        ImageButton pickBtn = (ImageButton) findViewById(R.id.pickBtn);
+        ImageButton pickBtn = (ImageButton) findViewById(id.pickBtn);
         pickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,24 +99,24 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         });
         
         // 댓글목록 리싸이클러뷰 출력
-        RecyclerView recyclerView = findViewById(R.id.commentsView);
+        RecyclerView recyclerView = findViewById(id.commentsView);
 
         List<CommentItem> items = new ArrayList<CommentItem>();
-        items.add(new CommentItem(R.drawable.a,"김관섭","안녕하세요 김관섭입니다"));
-        items.add(new CommentItem(R.drawable.b,"박수용","안녕하세요 박수용입니다"));
-        items.add(new CommentItem(R.drawable.c,"이석우","안녕하세요 이석우입니다"));
-        items.add(new CommentItem(R.drawable.d,"조민규","안녕하세요 조민규입니다"));
+        items.add(new CommentItem(drawable.a,"김관섭","안녕하세요 김관섭입니다"));
+        items.add(new CommentItem(drawable.b,"박수용","안녕하세요 박수용입니다"));
+        items.add(new CommentItem(drawable.c,"이석우","안녕하세요 이석우입니다"));
+        items.add(new CommentItem(drawable.d,"조민규","안녕하세요 조민규입니다"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CommentAdapter(getApplicationContext(),items));
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        BottomNavigationView navView = findViewById(nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.menu_bottom_home, R.id.menu_bottom_chat, R.id.menu_bottom_write, R.id.menu_bottom_alarm, R.id.menu_bottom_farm)
+                id.menu_bottom_home, id.menu_bottom_chat, id.menu_bottom_write, id.menu_bottom_alarm, id.menu_bottom_farm)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavController navController = Navigation.findNavController(this, id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
@@ -122,28 +125,28 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     public void showPopBtn(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.inflate(R.menu.menu_diary_detail);
+        popupMenu.inflate(menu.menu_diary_detail);
         popupMenu.show();
     }
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.editDiary:
+            case id.editDiary:
                 Intent intent = new Intent(DiaryDetailActivity.this, DiaryModifyActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
-            case R.id.addDiary:
+            case id.addDiary:
                 Intent intent1 = new Intent(DiaryDetailActivity.this, DiaryAddActivity.class);
                 startActivity(intent1);
                 finish();
                 return true;
-            case R.id.plantComplete:
+            case id.plantComplete:
                 Toast.makeText(this, "🌱🌻🌼 축 재배완료! 🥕🥦🌶", Toast.LENGTH_LONG).show();
                 String koreaNow = LocalDate.now(ZoneId.of("Asia/Seoul")).toString();
                 Log.d("dd", "korea date "+koreaNow);
 
-                TextView endDate = findViewById(R.id.endDate);
+                TextView endDate = findViewById(id.endDate);
                 endDate.setText(koreaNow);
 
                 return true;
