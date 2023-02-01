@@ -2,12 +2,9 @@ package com.ssafy.maryfarmuserservice.api.controller.follow;
 
 import com.ssafy.maryfarmuserservice.api.dto.follow.request.CreateFollowRequestDTO;
 import com.ssafy.maryfarmuserservice.api.dto.follow.response.FollowResponseDTO;
-import com.ssafy.maryfarmuserservice.client.dto.notify.CreateNotifyRequestDTO;
-import com.ssafy.maryfarmuserservice.client.service.notify.NotifyServiceClient;
 import com.ssafy.maryfarmuserservice.domain.user.Follow;
-import com.ssafy.maryfarmuserservice.kafka.dto.follow.FollowDTO;
+import com.ssafy.maryfarmuserservice.kafka.dto.Status;
 import com.ssafy.maryfarmuserservice.kafka.producer.follow.FollowProducer;
-import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.service.FollowService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,8 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,9 +36,8 @@ public class FollowController {
     })
     @PostMapping("/follow/following")
     public ResponseEntity<?> FollowUser(@RequestBody CreateFollowRequestDTO dto) {
-//        Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
-        FollowDTO follow = new FollowDTO(UUID.randomUUID().toString(), dto.getSenderId(), dto.getReceiverId());
-        followProducer.send("user",follow);
-        return ResponseEntity.ok(follow.getFollow_id());
+        Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
+        followProducer.send("follow",follow, Status.C);
+        return ResponseEntity.ok(follow.getId());
     }
 }

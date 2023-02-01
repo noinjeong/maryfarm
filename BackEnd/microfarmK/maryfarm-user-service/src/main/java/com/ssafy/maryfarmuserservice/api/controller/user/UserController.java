@@ -2,9 +2,10 @@ package com.ssafy.maryfarmuserservice.api.controller.user;
 
 import com.ssafy.maryfarmuserservice.api.dto.user.request.*;
 import com.ssafy.maryfarmuserservice.api.dto.user.response.UserResponseDTO;
+import com.ssafy.maryfarmuserservice.domain.user.Recommend;
 import com.ssafy.maryfarmuserservice.domain.user.Tier;
 import com.ssafy.maryfarmuserservice.domain.user.User;
-import com.ssafy.maryfarmuserservice.kafka.dto.user.UserDTO;
+import com.ssafy.maryfarmuserservice.kafka.dto.Status;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.service.UserService;
 import com.ssafy.maryfarmuserservice.util.file.dto.FileDetail;
@@ -41,12 +42,10 @@ public class UserController {
     })
     @PostMapping("/auth/user/signup")
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
-//        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
-//        User saveUser = userService.saveUser(user);
-//        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
-        UserDTO user = new UserDTO(dto.getKakaoId(), dto.getNickname(), "씨앗", null, null, null);
-        UserDTO saveUser = userProducer.send("user", user);
-        return ResponseEntity.ok(saveUser.getUser_id());
+        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
+        User saveUser = userService.saveUser(user);
+        userProducer.send("user",saveUser, Status.C);
+        return ResponseEntity.ok(saveUser.getId());
     }
 
     @Operation(summary = "로그인 요청", description = "회원 정보를 통해 로그인합니다.", tags = { "User Controller" })
@@ -93,8 +92,8 @@ public class UserController {
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
         FileDetail saveFile = fileUploadService.save(image);
         User user = userService.updateUser(dto.getUserId(), dto.getNickname(),saveFile.getPath());
-        UserResponseDTO resultDto = UserResponseDTO.of(user);
-        return ResponseEntity.ok(resultDto);
+        userProducer.send("user",user,Status.U);
+        return ResponseEntity.ok(user.getId());
     }
 
     @Operation(summary = "실제 텃밭 등록", description = "실제 텃밭 주소를 등록합니다.", tags = { "User Controller" })
@@ -108,8 +107,7 @@ public class UserController {
     @PostMapping("/user/land/regist")
     public ResponseEntity<?> registLand(@RequestBody LandRegistRequestDTO dto) {
         User user = userService.registLand(dto.getUserId(), dto.getLatitude(),dto.getLongitude());
-        UserResponseDTO resultDto = UserResponseDTO.of(user);
-        return ResponseEntity.ok(resultDto);
+        return ResponseEntity.ok(user.getId());
     }
 
     @Operation(summary = "추천용 응답 저장", description = "작물 추천을 받기 위한 응답을 저장합니다.", tags = { "User Controller" })
@@ -123,7 +121,7 @@ public class UserController {
     public ResponseEntity<?> recommendPlant(@RequestBody UserRecommendRequestDTO dto) {
         String fullCode = dto.getMagnitude()+"/"+dto.getColor()+"/"+dto.getSeason()+"/"
                 +dto.getPrice()+"/"+dto.getSize()+"/"+dto.getPeriod();
-        userService.saveRecommend(dto.getUserId(),fullCode);
-        return ResponseEntity.ok().build();
+        Recommend recommend = userService.saveRecommend(dto.getUserId(), fullCode);
+        return ResponseEntity.ok(recommend.getId());
     }
 }

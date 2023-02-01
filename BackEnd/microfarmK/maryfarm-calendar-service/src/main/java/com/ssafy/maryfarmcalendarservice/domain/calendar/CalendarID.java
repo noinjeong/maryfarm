@@ -1,12 +1,19 @@
 package com.ssafy.maryfarmcalendarservice.domain.calendar;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.ssafy.maryfarmcalendarservice.formatter.LocalDateTimeDeserializer;
+import com.ssafy.maryfarmcalendarservice.formatter.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Embeddable
@@ -15,7 +22,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CalendarID implements Serializable {
     @Column(name = "plant_id")
-    private String id;
+    private String plantId;
     @Column(name = "regist_date")
-    private LocalDateTime registDate;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDate registDate;
 }

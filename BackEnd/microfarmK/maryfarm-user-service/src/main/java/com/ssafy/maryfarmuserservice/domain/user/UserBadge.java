@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserBadge {
-    @Id
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "user_badge_id")
     private String id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

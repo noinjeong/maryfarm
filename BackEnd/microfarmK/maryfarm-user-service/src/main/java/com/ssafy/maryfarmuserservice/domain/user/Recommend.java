@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recommend {
-    @Id
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "notify_id")
     private String id;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
