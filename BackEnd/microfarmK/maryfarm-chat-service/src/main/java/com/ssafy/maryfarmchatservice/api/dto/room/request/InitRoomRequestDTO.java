@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmchatservice.api.dto.chat.request;
+package com.ssafy.maryfarmchatservice.api.dto.room.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

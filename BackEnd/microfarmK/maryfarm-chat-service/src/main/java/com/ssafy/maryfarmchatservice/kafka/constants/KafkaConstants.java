@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmchatservice.util.chat.constants;
+package com.ssafy.maryfarmchatservice.kafka.constants;
 
 public class KafkaConstants {
     public static final String GROUP_ID = "chat-service";

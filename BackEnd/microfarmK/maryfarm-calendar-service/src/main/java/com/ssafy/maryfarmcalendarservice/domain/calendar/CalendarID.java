@@ -1,6 +1,10 @@
 package com.ssafy.maryfarmcalendarservice.domain.calendar;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.ssafy.maryfarmcalendarservice.formatter.LocalDateTimeDeserializer;
+import com.ssafy.maryfarmcalendarservice.formatter.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +24,7 @@ public class CalendarID implements Serializable {
     @Column(name = "plant_id")
     private String plantId;
     @Column(name = "regist_date")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDate registDate;
 }

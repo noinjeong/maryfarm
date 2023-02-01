@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmchatservice.util.chat.config;
+package com.ssafy.maryfarmchatservice.kafka.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

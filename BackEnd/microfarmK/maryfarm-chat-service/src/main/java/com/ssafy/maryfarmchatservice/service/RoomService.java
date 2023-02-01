@@ -24,7 +24,7 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public List<Room> findMyRoom(String userId) {
+    public List<Room> findByUser(String userId) {
         return roomRepository.findRoomBySenderIdOrReceiverId(userId, userId);
     }
 }

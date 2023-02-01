@@ -220,6 +220,24 @@ public class DiaryController {
         return ResponseEntity.ok(resultDtos);
     }
 
+    @Operation(summary = "작물 일지 댓글 조회", description = "특정 작물 일지의 댓글들을 가져옵니다.", tags = { "Diary Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @GetMapping("/diary/comment/{diaryId}")
+    public ResponseEntity<?> SearchDiaryComment(@PathVariable("diaryId") String diaryId) {
+        List<DiaryComment> list = diaryService.searchDiaryComments(diaryId);
+        List<DiaryCommentResponseDTO> resultDtos = new ArrayList<>();
+        for(DiaryComment c : list) {
+            resultDtos.add(DiaryCommentResponseDTO.of(c));
+        }
+        return ResponseEntity.ok(resultDtos);
+    }
+
     @Operation(summary = "작물 일지 추천", description = "좋아요 순 상위 5개 작물 일지를 가져옵니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",

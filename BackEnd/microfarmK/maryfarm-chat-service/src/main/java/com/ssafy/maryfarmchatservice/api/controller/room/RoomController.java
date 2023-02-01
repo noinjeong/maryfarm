@@ -1,10 +1,11 @@
 package com.ssafy.maryfarmchatservice.api.controller.room;
 
-import com.ssafy.maryfarmchatservice.api.dto.chat.request.InitRoomRequestDTO;
-import com.ssafy.maryfarmchatservice.api.dto.chat.response.RoomResponseDTO;
+import com.ssafy.maryfarmchatservice.api.dto.room.request.InitRoomRequestDTO;
+import com.ssafy.maryfarmchatservice.api.dto.room.response.RoomResponseDTO;
 import com.ssafy.maryfarmchatservice.api.dto.room.response.SearchRoomResponseDTO;
 import com.ssafy.maryfarmchatservice.client.dto.UserResponseDTO;
 import com.ssafy.maryfarmchatservice.client.service.user.UserServiceClient;
+import com.ssafy.maryfarmchatservice.domain.chat.Message;
 import com.ssafy.maryfarmchatservice.domain.chat.Room;
 import com.ssafy.maryfarmchatservice.service.MessageService;
 import com.ssafy.maryfarmchatservice.service.RoomService;
@@ -40,18 +41,30 @@ public class RoomController {
     @PostMapping("/room/init")
     public ResponseEntity<?> saveRoom(@RequestBody InitRoomRequestDTO dto) {
         Room room = roomService.saveRoom(dto.getSenderId(), dto.getReceiverId());
-        return ResponseEntity.ok(RoomResponseDTO.of(room));
+        return ResponseEntity.ok(room.getId());
     }
 
+    @Operation(summary = "채팅방 리스트", description = "자신의 채팅방들을 가져옵니다.", tags = { "Room Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = SearchRoomResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @GetMapping("/room/search/{userId}")
     public ResponseEntity<?> searchMyRoom(@PathVariable("userId") String userId) {
-        List<Room> list = roomService.findMyRoom(userId);
+        List<Room> list = roomService.findByUser(userId);
         List<SearchRoomResponseDTO> resultDtos = new ArrayList<>();
         for(Room r : list) {
-            String latestMessage = messageService.searchLatestMessage(r.getId());
+            Message latestMessage = messageService.searchLatestMessage(r.getId());
+            if(latestMessage==null) {
+                return ResponseEntity.noContent().build();
+            }
             String opponentId = r.getReceiverId() == userId ? r.getReceiverId() : r.getSenderId();
             UserResponseDTO userResponseDTO = userServiceClient.searchUser(opponentId);
-            resultDtos.add(new SearchRoomResponseDTO(userResponseDTO,))
+            resultDtos.add(new SearchRoomResponseDTO(userResponseDTO,latestMessage.getContent()));
         }
+        return ResponseEntity.ok(resultDtos);
     }
 }

@@ -138,4 +138,8 @@ public class DiaryService {
     public List<Diary> searchDiarysTopLike() {
         return diaryRepository.findTop5ByOrderByLikesDesc();
     }
+
+    public List<DiaryComment> searchDiaryComments(String diaryId) {
+        return diaryCommentRepository.findByDiary_Id(diaryId);
+    }
 }
