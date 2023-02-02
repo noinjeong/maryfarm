@@ -68,6 +68,8 @@ FrontEnd : Android Studio
 ### 📜 API 명세
 API 명세서
 - [ 마리팜 API 명세서 ](https://www.notion.so/API-609e8ceec3044dcfb5c6f835f22b741d)
+🛰️ Swagger
+- [ 마리팜 test용 Swagger ](http://54.180.86.161:8080/swagger-ui/index.html)
 
 ### 🔖 컨밴션
  - [Java Convention](https://www.notion.so/Java-Convention-c06f899ca87b46fd974a32a74a6e0cdd)
@@ -86,10 +88,17 @@ tech stack
 시스템구조도
 - [ 마리팜 시스템 아키텍처 ](https://www.notion.so/948b7d60922e46789aeeeff70ecb127b)
 
+### 📆 JIRA
+업무 관리
+- [ 마리팜 JIRA ](https://ssafy.atlassian.net/jira/software/c/projects/S08P12B308/boards/1454/roadmap)
+
 ### 🚜시퀀스 다이어그램
 다이어그램
 - [Chat Diagram](https://www.notion.so/Chat-Diagram-c73c103c26df405fbb0b6cb9901e7744)
 - [Login Diagram](https://www.notion.so/Login-Diagram-f0a75377f1f54f22b85a24c0de75af33)
+
+### 🐳 배포
+- [마리팜 배포 절차](https://www.notion.so/isakggong-7b8dac0f154849e0a157f20882a9c024)
 
 ### 📚 자료 조사 내역
 - [마리팜 데이터 조사](https://www.notion.so/b397288648964e50be9b57c4616de556)
