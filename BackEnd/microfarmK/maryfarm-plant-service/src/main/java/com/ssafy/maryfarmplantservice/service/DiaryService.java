@@ -161,7 +161,7 @@ public class DiaryService {
 
     @Transactional
     @Scheduled(cron = "0 0/1 * * * ?")
-    public void deleteViewCntCacheFromRedis() {
+    public void deleteLikeCntCacheFromRedis() {
         Set<String> redisKeys = redisTemplate.keys("diaryLikeCnt*");
         Iterator<String> it = redisKeys.iterator();
         while (it.hasNext()) {

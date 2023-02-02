@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,6 +98,7 @@ public class ArticleController {
     @GetMapping("/board/search/{articleId}")
     public ResponseEntity<?> searchDetailArticle(@PathVariable("articleId") String articleId) throws IOException {
         Article article = articleService.searchArticle(articleId);
+        articleService.addViews(articleId);
         List<ArticleComment> comments = articleService.searchArticleComment(articleId);
         List<CommentResponseDTO> commentDtos = new ArrayList<>();
         for(ArticleComment c : comments) {
