@@ -36,7 +36,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toTopOf="@+id/profile_image2"
         tools:layout_editor_absoluteX="176dp"
-        tools:text="Farmer_Name" />
+        tools:text="Farmer_Name"
+        tools:ignore="MissingConstraints" />
 
     <View
         android:id="@+id/farm_page_underline"
@@ -51,13 +52,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="400dp"
-        android:layout_height="500dp"
-        android:layout_marginStart="4dp"
-        android:foregroundGravity="bottom"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="224dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/farm_page_underline">
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
