@@ -51,7 +51,7 @@
 19. 현재 토픽의 삭제 정책을 1분으로 해놔서 나중에 배포할 때 수정해줘야 함.
 20. kafka에서 connector가 db에 저장할 때 id가 null값이라도 JPA가 애플리케이션 시작할 때 ddl로 만들어주는 테이블 설정때문에 자동난수 설정 가능할지도...??
 21. Config server의 basedir은 사용자마다 달라질 수 있어서 조심해야함.
-22. config -> discovery -> gateway -> notify -> user -> plant 순으로 실행해야 함.
+22. config -> discovery -> gateway -> notify -> user -> plant -> chat -> board -> calendar 순으로 실행해야 함.
 23. MSA 배포과정에서 아래 오류가 발생할 수 있음.
     ```
       Error running MaryfarmUserServiceApplication. Command line is too long. Shorten the command line via JAR manifest or via a classpath file and rerun.
@@ -85,3 +85,7 @@
 
 28. 현재 Event Driven Architecture가 적용된 부분은 Notify가 Follow, Diary 생성을 마킹임.
 29. springboot 최신버전부터는 application-{profile}.yml의 분리는 `spring.config.use-legacy-processing=true` 를 붙여야 가능해짐.
+30. redis를 사용하려면 starter-redis, cache 라이브러리를 추가하고, `@EnableCaching`를 main()에 붙여주고, yml에 redis 환경설정을 추가해주고, RedisConfig 클래스를 생성해줘야함.
+31. `@EnableScheduling`를 main()에 붙여주면, SpringBoot내에서 cron scheduling 기능을 이용할 수 있음.
+32. devTools 때문에 캐시에 있던 데이터를 가져오던 과정에서 ClassCastException이 발생함. 이는 `.defaultCacheConfig(Thread.currentThread().getContextClassLoader())` 로 설정변경을 해서 해결함.
+33. 게시판 전체 데이터를 캐시로 활용할려 했는데, 누가 글을 쓰면 유동적으로 변해야 하는 데이터가 캐시에서는 변하지 않고 유지되고 있기 때문에 캐시로 사용하기에는 바람직하지 않은 것 같음.

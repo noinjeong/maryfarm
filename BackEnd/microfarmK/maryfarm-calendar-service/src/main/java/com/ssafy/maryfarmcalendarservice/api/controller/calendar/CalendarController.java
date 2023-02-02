@@ -3,6 +3,8 @@ package com.ssafy.maryfarmcalendarservice.api.controller.calendar;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.RegistCalendarRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.SearchCalendarRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.response.SearchCalendarResponseDTO;
+import com.ssafy.maryfarmcalendarservice.client.dto.plant.PlantResponseDTO;
+import com.ssafy.maryfarmcalendarservice.client.service.plant.PlantServiceClient;
 import com.ssafy.maryfarmcalendarservice.domain.calendar.Calendar;
 import com.ssafy.maryfarmcalendarservice.kafka.dto.Status;
 import com.ssafy.maryfarmcalendarservice.kafka.producer.calendar.CalendarProducer;
@@ -27,6 +29,7 @@ import java.util.List;
 public class CalendarController {
     private final CalendarService calendarService;
     private final CalendarProducer calendarProducer;
+    private final PlantServiceClient plantServiceClient;
 
     @Operation(summary = "특정 년월일의 달력 정보 조회", description = "특정 년월일에 해당하는 자신의 달력 정보를 조회합니다.", tags = { "Calendar Controller" })
     @ApiResponses({
@@ -41,7 +44,8 @@ public class CalendarController {
         List<Calendar> list = calendarService.searchCalendar(dto);
         List<SearchCalendarResponseDTO> resultDtos = new ArrayList<>();
         for(Calendar c : list) {
-            resultDtos.add(SearchCalendarResponseDTO.of(c));
+            PlantResponseDTO plantResponseDTO = plantServiceClient.searchPlant(c.getId().getPlantId());
+            resultDtos.add(SearchCalendarResponseDTO.of(c,plantResponseDTO));
         }
         return ResponseEntity.ok(resultDtos);
     }

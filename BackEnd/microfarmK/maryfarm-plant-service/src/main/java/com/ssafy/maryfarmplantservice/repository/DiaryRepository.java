@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DiaryRepository extends JpaRepository<Diary, String> {
 
@@ -27,6 +28,8 @@ public interface DiaryRepository extends JpaRepository<Diary, String> {
 //            " ORDER BY d.createdDate desc")
 //            " LIMIT 1")
     List<Diary> findDiaryByTag(@Param("text") String text);
+
+    Optional<Diary> findById(String diaryId);
 
     @Query(value = "SELECT d" +
             " FROM Diary d" +

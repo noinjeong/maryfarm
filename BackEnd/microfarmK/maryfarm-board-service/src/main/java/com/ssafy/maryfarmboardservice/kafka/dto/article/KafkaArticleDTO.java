@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmboardservice.kafka.dto.board;
+package com.ssafy.maryfarmboardservice.kafka.dto.article;
 
 import com.ssafy.maryfarmboardservice.domain.board.Article;
 import com.ssafy.maryfarmboardservice.kafka.dto.Status;

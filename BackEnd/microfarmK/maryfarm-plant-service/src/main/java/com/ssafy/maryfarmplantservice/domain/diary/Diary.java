@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Diary extends BaseTimeEntity {
+public class Diary extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_id")
@@ -48,8 +49,8 @@ public class Diary extends BaseTimeEntity {
     }
 
     // 비즈니스 로직
-    public void addLike() {
-        this.likes+=1;
+    public void addLike(Integer cnt) {
+        this.likes+=cnt;
     }
 
 }

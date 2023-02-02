@@ -1,10 +1,10 @@
-package com.ssafy.maryfarmboardservice.kafka.producer.board;
+package com.ssafy.maryfarmboardservice.kafka.producer.article;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.maryfarmboardservice.domain.board.Article;
 import com.ssafy.maryfarmboardservice.kafka.dto.Status;
-import com.ssafy.maryfarmboardservice.kafka.dto.board.KafkaArticleDTO;
+import com.ssafy.maryfarmboardservice.kafka.dto.article.KafkaArticleDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
