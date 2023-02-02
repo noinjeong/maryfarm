@@ -28,28 +28,38 @@
                 android:id="@+id/calendar_water"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_water"/>
+                android:src="@drawable/calendar_water"
+                android:background="@color/white"
+                android:layout_marginHorizontal="5dp"/>
             <ImageButton
                 android:id="@+id/calendar_scissors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/calendar_scissors"
+                android:background="@color/white"
+                android:layout_marginHorizontal="5dp"
                 />
             <ImageButton
                 android:id="@+id/calendar_pill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_pill"/>
+                android:src="@drawable/calendar_pill"
+                android:background="@color/white"
+                android:layout_marginHorizontal="5dp"/>
             <ImageButton
                 android:id="@+id/calendar_shovel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_shovel"/>
+                android:src="@drawable/calendar_shovel"
+                android:background="@color/white"
+                android:layout_marginHorizontal="5dp"/>
             <ImageButton
                 android:id="@+id/calendar_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_note"/>
+                android:src="@drawable/calendar_note"
+                android:background="@color/white"
+                android:layout_marginHorizontal="5dp"/>
         </LinearLayout>
     </LinearLayout>
 

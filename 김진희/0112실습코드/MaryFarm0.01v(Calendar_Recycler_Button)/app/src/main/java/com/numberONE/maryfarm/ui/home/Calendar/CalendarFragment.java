@@ -3,6 +3,7 @@ package com.numberONE.maryfarm.ui.home.Calendar;
 import static android.content.ContentValues.TAG;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_RANGE;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,7 @@ import com.prolificinteractive.materialcalendarview.OnRangeSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter;
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
@@ -49,7 +52,9 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -129,9 +134,50 @@ public class CalendarFragment extends Fragment {
         CalendarPickPlantAdapter.setOnItemClickListener(new CalendarPickPlantAdapter.OnItemClickListener() {
             //동작 구현
             @Override
-            public void onItemClick(View v, int pos) {
-                Log.i(TAG, "onItemClick: 버튼 눌림"+ pos);
-                
+            public void onItemClick(View v, int pos, int id) {
+                ImageButton calendar_water = v.findViewById(R.id.calendar_water);
+                ImageButton calendar_scissors = v.findViewById(R.id.calendar_scissors);
+                ImageButton calendar_pill = v.findViewById(R.id.calendar_pill);
+                ImageButton calendar_shovel = v.findViewById(R.id.calendar_shovel);
+                ImageButton calendar_note = v.findViewById(R.id.calendar_note);
+                switch (v.getId()) {
+                    case R.id.calendar_water:
+                        if ( id == 1 ) {
+                            widget.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(widget.getSelectedDate()), getActivity()));
+                        } else {
+                            DayViewDecorator EventDecorator = null;
+                            widget.removeDecorator(EventDecorator);                        }
+                        break;
+                    case R.id.calendar_scissors:
+                        if ( id == 1 ) {
+                            widget.addDecorator(new EventDecorator(Color.CYAN, Collections.singleton(widget.getSelectedDate()), getActivity()));
+                        } else {
+                            DayViewDecorator EventDecorator = null;
+                            widget.removeDecorator(EventDecorator);                        }
+                        break;
+                    case R.id.calendar_pill:
+                        if ( id == 1 ) {
+                            widget.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(widget.getSelectedDate()), getActivity()));
+                        } else {
+                            DayViewDecorator EventDecorator = null;
+                            widget.removeDecorator(EventDecorator);                        }
+                        break;
+                    case R.id.calendar_shovel:
+                        if ( id == 1 ) {
+                            widget.addDecorator(new EventDecorator(Color.RED, Collections.singleton(widget.getSelectedDate()), getActivity()));
+                        } else {
+                            DayViewDecorator EventDecorator = null;
+                            widget.removeDecorator(EventDecorator);
+                        }
+                        break;
+                    case R.id.calendar_note:
+                        if ( id == 1 ) {
+                            widget.addDecorator(new EventDecorator(Color.YELLOW, Collections.singleton(widget.getSelectedDate()), getActivity()));                        }
+                        else {
+                            DayViewDecorator EventDecorator = null;
+                            widget.removeDecorator(EventDecorator);                        }
+                        break;
+                }
             }
         });
     // 식물 목록 리사이클러뷰 생성
@@ -378,6 +424,29 @@ public class CalendarFragment extends Fragment {
         @Override
         public void decorate(DayViewFacade view) {
             view.addSpan(new ForegroundColorSpan(Color.BLUE));
+        }
+    }
+    public class EventDecorator implements DayViewDecorator {
+
+//        private final Drawable drawable;
+        private int color;
+        private HashSet<CalendarDay> dates;
+
+        public EventDecorator(int color, Collection<CalendarDay> dates, Activity context) {
+//            drawable = context.getResources().getDrawable(R.drawable.more);
+            this.color = color;
+            this.dates = new HashSet<>(dates);
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+//            view.setSelectionDrawable(drawable);
+            view.addSpan(new DotSpan(5, color)); // 날자밑에 점
         }
     }
 }
