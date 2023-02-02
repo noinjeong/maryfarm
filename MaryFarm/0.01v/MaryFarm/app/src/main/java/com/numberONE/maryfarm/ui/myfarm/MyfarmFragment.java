@@ -94,6 +94,7 @@ public class MyfarmFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+
             }
         });
         return view;
