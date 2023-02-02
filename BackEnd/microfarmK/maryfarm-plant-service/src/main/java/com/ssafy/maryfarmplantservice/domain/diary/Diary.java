@@ -48,8 +48,8 @@ public class Diary extends BaseTimeEntity {
     }
 
     // 비즈니스 로직
-    public void addLike() {
-        this.likes+=1;
+    public void addLike(Integer cnt) {
+        this.likes+=cnt;
     }
 
 }

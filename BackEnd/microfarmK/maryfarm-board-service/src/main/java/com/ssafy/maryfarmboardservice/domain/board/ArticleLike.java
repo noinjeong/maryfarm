@@ -20,4 +20,5 @@ public class ArticleLike {
     private Article article;
     @Column(name = "user_id")
     private String userId;
+
 }

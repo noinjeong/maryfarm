@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmcalendarservice.api.dto.calendar.response;
 
+import com.ssafy.maryfarmcalendarservice.client.dto.plant.PlantResponseDTO;
 import com.ssafy.maryfarmcalendarservice.domain.calendar.Calendar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,16 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchCalendarResponseDTO {
-    private String plantId;
+    private PlantResponseDTO plant;
     private Boolean water;
     private Boolean branch;
     private Boolean nutrients;
     private Boolean division;
     private String memo;
 
-    public static SearchCalendarResponseDTO of(Calendar calendar) {
+    public static SearchCalendarResponseDTO of(Calendar calendar, PlantResponseDTO plant) {
         SearchCalendarResponseDTO dto = new SearchCalendarResponseDTO();
-        dto.plantId = calendar.getId().getPlantId();
+        dto.plant = plant;
         dto.water = calendar.getWater();
         dto.branch = calendar.getBranch();
         dto.nutrients = calendar.getNutrients();

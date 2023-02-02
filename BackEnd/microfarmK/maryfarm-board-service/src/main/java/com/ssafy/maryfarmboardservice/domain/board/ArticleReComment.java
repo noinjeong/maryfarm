@@ -21,5 +21,7 @@ public class ArticleReComment extends BaseTimeEntity {
     private ArticleComment comment;
     @Column(name = "user_id")
     private String userId;
+    @Column(name = "user_name")
+    private String userName;
     private String content;
 }

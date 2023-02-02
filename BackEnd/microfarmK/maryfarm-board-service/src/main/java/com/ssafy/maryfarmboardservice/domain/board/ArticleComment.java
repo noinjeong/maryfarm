@@ -21,6 +21,18 @@ public class ArticleComment extends BaseTimeEntity {
     private Article article;
     @Column(name = "user_id")
     private String userId;
+    @Column(name = "user_name")
+    private String userName;
     private String content;
-    private String likes;
+    private Integer likes;
+
+    public static ArticleComment of(Article article, String userId, String userName, String content) {
+        ArticleComment comment = new ArticleComment();
+        comment.article = article;
+        comment.userId = userId;
+        comment.userName = userName;
+        comment.content = content;
+        comment.likes = 0;
+        return comment;
+    }
 }

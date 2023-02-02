@@ -88,3 +88,6 @@ echo '
 
 '| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
 ```
+
+#6 백승범 02 02
+`docker run -d -p 6379:6379 --name redis redis` 를 통해 redis container 생성

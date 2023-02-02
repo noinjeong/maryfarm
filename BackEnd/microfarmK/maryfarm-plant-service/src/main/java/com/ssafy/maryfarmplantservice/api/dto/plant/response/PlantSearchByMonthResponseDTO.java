@@ -5,14 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlantSearchByMonthResposeDTO {
+public class PlantSearchByMonthResponseDTO {
     private String id;
     private String userId;
     private String name;
@@ -22,8 +20,8 @@ public class PlantSearchByMonthResposeDTO {
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
 
-    public static PlantSearchByMonthResposeDTO of(Plant plant) {
-        PlantSearchByMonthResposeDTO dto = new PlantSearchByMonthResposeDTO();
+    public static PlantSearchByMonthResponseDTO of(Plant plant) {
+        PlantSearchByMonthResponseDTO dto = new PlantSearchByMonthResponseDTO();
         dto.id = plant.getId();
         dto.userId = plant.getUserId();
         dto.name = plant.getName();
