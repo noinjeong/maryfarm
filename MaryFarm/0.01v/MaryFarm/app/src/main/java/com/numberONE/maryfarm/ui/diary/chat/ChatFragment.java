@@ -1,4 +1,4 @@
-package com.numberONE.maryfarm.ui.chat;
+package com.numberONE.maryfarm.ui.diary.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

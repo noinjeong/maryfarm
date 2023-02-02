@@ -1,4 +1,4 @@
-package com.numberONE.maryfarm.ui.chat;
+package com.numberONE.maryfarm.ui.diary.chat;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

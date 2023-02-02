@@ -79,10 +79,11 @@
         android:text="팔로워 수"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="151dp"
-        tools:text="0" />
+        tools:text="0"
+        tools:ignore="MissingConstraints" />
 
     <View
-        android:id="@+id/Farm_page_underline"
+        android:id="@+id/farm_page_underline"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginStart="12dp"
@@ -94,14 +95,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="400dp"
-        android:layout_height="500dp"
-        android:layout_marginStart="4dp"
-        android:foregroundGravity="bottom"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="224dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/farm_page_underline">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical"/>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -109,7 +118,8 @@
         android:layout_height="224dp"
         app:srcCompat="@drawable/ic_launcher_background"
         tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="464dp" />
+        tools:layout_editor_absoluteY="464dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -117,7 +127,8 @@
         android:layout_height="224dp"
         app:srcCompat="@drawable/ic_launcher_background"
         tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="212dp" />
+        tools:layout_editor_absoluteY="212dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -110,15 +110,15 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CommentAdapter(getApplicationContext(),items));
 
-        BottomNavigationView navView = findViewById(nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                id.menu_bottom_home, id.menu_bottom_chat, id.menu_bottom_write, id.menu_bottom_alarm, id.menu_bottom_farm)
-                .build();
-        NavController navController = Navigation.findNavController(this, id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+//        BottomNavigationView navView = findViewById(nav_view);
+//        // Passing each menu ID as a set of Ids because each
+//        // menu should be considered as top level destinations.
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                id.menu_bottom_home, id.menu_bottom_chat, id.menu_bottom_write, id.menu_bottom_alarm, id.menu_bottom_farm)
+//                .build();
+//        NavController navController = Navigation.findNavController(this, id.nav_host_fragment_activity_main);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
     // ... 버튼 클릭시 팝업 메뉴 출력 (일지 수정, 일지 추가, 지배완료)

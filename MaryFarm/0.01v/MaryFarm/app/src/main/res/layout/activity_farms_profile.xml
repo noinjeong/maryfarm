@@ -36,7 +36,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toTopOf="@+id/profile_image2"
         tools:layout_editor_absoluteX="176dp"
-        tools:text="Farmer_Name" />
+        tools:text="Farmer_Name"
+        tools:ignore="MissingConstraints" />
 
     <View
         android:id="@+id/farm_page_underline"

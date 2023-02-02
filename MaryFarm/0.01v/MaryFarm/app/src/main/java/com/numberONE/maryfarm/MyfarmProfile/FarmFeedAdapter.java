@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
@@ -45,16 +46,35 @@ public class FarmFeedAdapter extends RecyclerView.Adapter<FarmFeedAdapter.Custom
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String curName = holder.farm_feed_main_photo
+//                유저 데이터 받아오려면 이렇게 하면 됩니다 라는 예시
+//                String targetUser = holder.farm_user_name.getText().toString();
+                String feedTitle = holder.farm_feed_title.getText().toString();
+                Toast.makeText(v.getContext(),feedTitle,Toast.LENGTH_SHORT).show();
             }
         });
 
-
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                remove(holder.getAdapterPosition());
+                return true;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        return (null != arrayList ? arrayList.size() : 0);
+    }
+
+    public void remove(int position) {
+        try {
+            arrayList.remove(position);
+            notifyItemRemoved(position);
+        } catch (IndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {

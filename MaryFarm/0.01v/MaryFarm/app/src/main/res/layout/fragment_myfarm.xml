@@ -6,130 +6,130 @@
     tools:context=".ui.myfarm.MyfarmFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/myfarm_profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@color/purple_200"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
-    <TextView
-        android:id="@+id/myfarm_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="30sp"
-        android:layout_toRightOf="@+id/myfarm_profile"
-        android:text="감귤댁"
-        android:gravity="center"/>
-
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내가 따르는 이웃"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="13sp"
-        android:layout_toRightOf="@+id/myfarm_profile"
-        android:layout_below="@id/myfarm_nickname"/>
-<!--    내가 따르는 이웃의 수 -->
-    <TextView
-        android:id="@+id/follow_you_cnt"
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/textview"
-        android:layout_alignTop="@+id/textview"
-        android:text=" 0 "
-        />
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/textview2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="나를 따르는 이웃"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="13sp"
-        android:layout_toRightOf="@+id/myfarm_profile"
-        android:layout_below="@id/textview"/>
-<!--    나를 따르는 이웃의 수 -->
-    <TextView
-        android:id="@+id/follow_me_cnt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/textview"
-        android:layout_alignTop="@+id/textview2"
-        android:text=" 10 "
-        />
-    <TextView
-        android:id="@+id/badge_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/myfarm_profile"
-        android:text="뱃지 와야될 공간 임시 텍스트뷰  "/>
+        android:layout_height="wrap_content">
 
-    <!--    상단 내용 -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/profile_default"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/indicator"
+            tools:srcCompat="@tools:sample/avatars" />
 
-    <!--    구분선 -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="183dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="32dp"
+            android:text="Farmer_Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="Farmer_Name" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:text="내가 따르는 이웃"
+            tools:text="내가 따르는 이웃" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:text="나를 따르는 이웃"
+            tools:text="나를 따르는 이웃" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="8dp"
+            android:text="팔로우 수"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="52dp"
+            android:text="팔로워 수"
+            tools:layout_editor_absoluteY="151dp"
+            tools:text="0"
+            tools:ignore="MissingConstraints" />
+
+
+    </LinearLayout>
+
     <View
-        android:id="@+id/myfarm_line"
+        android:id="@+id/farm_page_underline"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/badge_container"
-        android:background="#787777"/>
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="12dp"
+        android:background="#FF000000"
 
-
-<!--    하게되면 리싸이클러뷰로 파서 옮겨서 다시 작성 -->
-    <!--    하단 -->
-    <ImageView
-        android:id="@+id/myfarm_image_1"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/myfarm_line"
-        />
-    <ImageView
-        android:id="@+id/myfarm_image_2"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/myfarm_image_1"
-        android:layout_alignTop="@+id/myfarm_image_1"/>
-
-    <ImageView
-        android:id="@+id/myfarm_image_3"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/myfarm_image_1"
-        android:layout_below="@+id/myfarm_image_2" />
-
-    <TextView
-        android:id="@+id/myfarm_title"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/myfarm_image_1"
-        />
-
-    <TextView
-        android:id="@+id/myfarm_time"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/myfarm_title"
-        android:layout_alignTop="@+id/myfarm_title"/>
+        android:layout_height="0dp"
+        android:orientation="vertical">
 
-    <!-- 관섭 - 버튼 클릭시 디테일 페이지로 이동   -->
-    <Button
-        android:id="@+id/btn1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="화면전환 (Detail page)"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="386dp"
+            android:layout_height="224dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="464dp"
+            tools:ignore="MissingConstraints" />
 
+        <!-- 관섭 - 버튼 클릭시 디테일 페이지로 이동   -->
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="386dp"
+            android:layout_height="224dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="212dp" />
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="화면전환 (Detail page)" />
+    </LinearLayout>
 </RelativeLayout>

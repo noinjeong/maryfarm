@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/menu_bottom_chat"
-        android:name="com.numberONE.maryfarm.ui.chat.ChatFragment"
+        android:name="com.numberONE.maryfarm.ui.diary.chat.ChatFragment"
         android:label="메세지"
         tools:layout="@layout/fragment_chat" />
     <fragment
@@ -29,6 +29,6 @@
         android:id="@+id/menu_bottom_farm"
         android:name="com.numberONE.maryfarm.ui.myfarm.MyfarmFragment"
         android:label="내농장"
-        tools:layout="@layout/fragment_myfarm" />
+        tools:layout="@layout/fragment_myfarm_profile" />
 
 </navigation>
