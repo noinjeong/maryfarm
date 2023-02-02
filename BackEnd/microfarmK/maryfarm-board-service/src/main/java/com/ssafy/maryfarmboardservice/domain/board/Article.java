@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Article extends BaseTimeEntity {
+public class Article extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "article_id")
@@ -39,5 +40,9 @@ public class Article extends BaseTimeEntity {
         article.likes = 0;
         article.commentCount = 0;
         return article;
+    }
+
+    public void addViews(Integer viewCnt) {
+        this.views+=viewCnt;
     }
 }
