@@ -7,6 +7,8 @@ import com.ssafy.maryfarmuserservice.repository.RecommendRepository;
 import com.ssafy.maryfarmuserservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,7 @@ public class UserService {
         User saveUser = userRepository.save(user);
         return saveUser;
     }
+    @Cacheable(value = "user", key = "#id")
     public User findUser(final String id) { return userRepository.findById(id).get(); }
     public User loginUser(final String kakaoid) {
         Optional<User> user = userRepository.findById(kakaoid);
@@ -34,6 +37,7 @@ public class UserService {
         }
         return null;
     }
+    @CachePut(value = "user", key = "#id")
     @Transactional
     public User updateUser(final String id, final String nickname, final String profilePath) {
         Optional<User> user = userRepository.findById(id);
