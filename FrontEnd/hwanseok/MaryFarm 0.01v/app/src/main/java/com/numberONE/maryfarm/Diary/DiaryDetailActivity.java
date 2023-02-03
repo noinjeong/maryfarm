@@ -32,7 +32,10 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
 
+<<<<<<< HEAD:FrontEnd/hwanseok/MaryFarm 0.01v/app/src/main/java/com/numberONE/maryfarm/Diary/DiaryDetailActivity.java
 
+=======
+>>>>>>> b977522f99b78d19a8d4b019d88b2c0405b99233:MaryFarm/0.01v/MaryFarm/app/src/main/java/com/numberONE/maryfarm/Diary/DiaryDetailActivity.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
 
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
         // 클릭시 - 좋아요 & 숫자 증가
         binding.emptyHeartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +61,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
                 }
             }
         });
-        
+
         // 클릭시 - 좋아요 취소 & 숫자 감소
         binding.fullHeartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +75,22 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
                 }
             }
         });
+<<<<<<< HEAD:FrontEnd/hwanseok/MaryFarm 0.01v/app/src/main/java/com/numberONE/maryfarm/Diary/DiaryDetailActivity.java
         
+=======
+
+        // 추천 버튼 클릭시, 추천 페이지로 화면 이동
+        ImageButton pickBtn = (ImageButton) findViewById(R.id.pickBtn);
+        pickBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DiaryDetailActivity.this, PickActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+>>>>>>> b977522f99b78d19a8d4b019d88b2c0405b99233:MaryFarm/0.01v/MaryFarm/app/src/main/java/com/numberONE/maryfarm/Diary/DiaryDetailActivity.java
         // 댓글목록 리싸이클러뷰 출력
         RecyclerView recyclerView = findViewById(R.id.commentsView);
 
@@ -108,7 +126,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
                 return false;
         }
     }
-    
+
     // 키보드 이외의 곳 터치할 경우, 키보드 사라지게하기
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
