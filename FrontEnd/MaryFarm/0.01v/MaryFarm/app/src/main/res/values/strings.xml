@@ -19,28 +19,28 @@
     <string name="title_activity_multiple_size">Many-Sized Calendars</string>
 
     <string-array name="custom_weekdays">
-        <item>M</item>
-        <item>Tu</item>
-        <item>W</item>
-        <item>Th</item>
-        <item>F</item>
-        <item>Sa</item>
-        <item>Su</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
     </string-array>
 
     <string-array name="custom_months">
-        <item>JAN</item>
-        <item>Feb</item>
-        <item>MARCH</item>
-        <item>April</item>
-        <item>MAY</item>
-        <item>June</item>
-        <item>JULY</item>
-        <item>Aug</item>
-        <item>SEPT</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>DEC</item>
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
     </string-array>
 
     <string name="label_normal">Fitted for screen (common use)</string>
