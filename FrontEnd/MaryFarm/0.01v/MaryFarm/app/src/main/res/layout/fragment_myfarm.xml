@@ -6,6 +6,15 @@
     tools:context=".ui.myfarm.MyfarmFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- 관섭 - 버튼 클릭시 디테일 페이지로 이동   -->
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="화면전환 (Detail page)" />
+
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicator"
         android:layout_width="match_parent"
@@ -115,21 +124,5 @@
             tools:layout_editor_absoluteY="464dp"
             tools:ignore="MissingConstraints" />
 
-        <!-- 관섭 - 버튼 클릭시 디테일 페이지로 이동   -->
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="386dp"
-            android:layout_height="224dp"
-            app:srcCompat="@drawable/ic_launcher_background"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="12dp"
-            tools:layout_editor_absoluteY="212dp" />
-
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="화면전환 (Detail page)" />
     </LinearLayout>
 </RelativeLayout>
