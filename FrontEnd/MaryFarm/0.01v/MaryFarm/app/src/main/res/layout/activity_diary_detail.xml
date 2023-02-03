@@ -186,14 +186,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD:FrontEnd/MaryFarm/0.01v/MaryFarm/app/src/main/res/layout/activity_diary_detail.xml
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-=======
-        android:layout_gravity="bottom">
->>>>>>> b977522f99b78d19a8d4b019d88b2c0405b99233:MaryFarm/0.01v/MaryFarm/app/src/main/res/layout/activity_diary_detail.xml
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/commentProfile"
