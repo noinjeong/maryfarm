@@ -1,17 +1,14 @@
 package com.ssafy.maryfarmplantservice.api.controller.plant;
 
-import com.ssafy.maryfarmplantservice.api.dto.diary.request.InitDiaryRequestDTO;
 import com.ssafy.maryfarmplantservice.api.dto.plant.request.MonthPlantSearchRequestDTO;
 import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
-import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantSearchByMonthResposeDTO;
+import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantSearchByMonthResponseDTO;
 import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
-import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
 import com.ssafy.maryfarmplantservice.kafka.dto.Status;
 import com.ssafy.maryfarmplantservice.kafka.producer.plant.PlantProducer;
 import com.ssafy.maryfarmplantservice.service.PlantService;
-import com.ssafy.maryfarmplantservice.util.file.dto.FileDetail;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,11 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +64,9 @@ public class PlantController {
     @PostMapping("/plant/month/search")
     public ResponseEntity<?> searchPlant(@RequestBody MonthPlantSearchRequestDTO dto) throws IOException {
         List<Plant> list = plantService.searchPlantByMonth(dto.getUserId(),dto.getYear(),dto.getMonth());
-        List<PlantSearchByMonthResposeDTO> resultDtos = new ArrayList<>();
+        List<PlantSearchByMonthResponseDTO> resultDtos = new ArrayList<>();
         for(Plant p : list) {
-            resultDtos.add(PlantSearchByMonthResposeDTO.of(p));
+            resultDtos.add(PlantSearchByMonthResponseDTO.of(p));
         }
         return ResponseEntity.ok(resultDtos);
     }
