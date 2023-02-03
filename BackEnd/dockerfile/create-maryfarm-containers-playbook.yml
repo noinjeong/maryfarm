@@ -156,7 +156,7 @@
     command: docker pull isakggong/discovery-server:maryfarm-1.0
     tags: pull_image
   - name: create a container using discovery-server image
-    command: docker run -d -p 8761:8761 --network maryfarm-network -e "spring.cloud.config.uri=http://config-service:8888" --name discovery-service isakggong/discovery-server:maryfarm-1.0
+    command: docker run -d -p 8761:8761 --network maryfarm-network -e "spring.cloud.config.uri=http://config-service:8888" -e "spring.rabbitmq.host=rabbitmq" --name discovery-service isakggong/discovery-server:maryfarm-1.0
     tags: run_container
   - name : wait for discovery server is stable!
     wait_for:
