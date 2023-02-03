@@ -63,6 +63,14 @@ public class UserController {
         else return ResponseEntity.ok(1);
     }
 
+    @Operation(summary = "회원 조회", description = "특정 회원을 조회합니다.", tags = { "User Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> searchUser(@PathVariable("userId") String userId) {
         User user = userService.findUser(userId);
@@ -70,6 +78,14 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @Operation(summary = "팔로워 목록 조회", description = "특정 회원의 팔로워 목록을 조회합니다.", tags = { "User Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @GetMapping("/user/followers/{userId}")
     public ResponseEntity<?> searchFollower(@PathVariable("userId") String userId) {
         List<User> list = userService.searchFollowers(userId);

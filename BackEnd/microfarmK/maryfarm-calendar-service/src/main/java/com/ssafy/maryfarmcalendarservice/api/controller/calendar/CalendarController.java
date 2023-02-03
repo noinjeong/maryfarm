@@ -49,6 +49,15 @@ public class CalendarController {
         }
         return ResponseEntity.ok(resultDtos);
     }
+
+    @Operation(summary = "일별 달력 정보 등록", description = "특정 일의 작물 관리 상태를 등록합니다.", tags = { "Calendar Controller" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = Integer.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @PostMapping("/calendar/regist")
     public ResponseEntity<?> RegistCalendar(@RequestBody RegistCalendarRequestDTO dto) {
         Calendar calendar = calendarService.registCalendar(dto);

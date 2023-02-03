@@ -5,6 +5,11 @@ import com.ssafy.maryfarmnotifyservice.domain.notify.Notify;
 import com.ssafy.maryfarmnotifyservice.kafka.dto.Status;
 import com.ssafy.maryfarmnotifyservice.kafka.producer.notify.NotifyProducer;
 import com.ssafy.maryfarmnotifyservice.service.NotifyService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotifyController {
     private final NotifyService notifyService;
     private final NotifyProducer notifyProducer;
-    @PostMapping("/notify/save")
-    public ResponseEntity<?> saveNotify(@RequestBody CreateNotifyRequestDTO dto) {
-        Notify saveNotify = notifyService.saveNotify(dto.getType(), dto.getContent(), dto.getUserId());
-        notifyProducer.send("notify",saveNotify, Status.C);
-        return ResponseEntity.ok().build();
-    }
+
+
+//    @PostMapping("/notify/save")
+//    public ResponseEntity<?> saveNotify(@RequestBody CreateNotifyRequestDTO dto) {
+//        Notify saveNotify = notifyService.saveNotify(dto.getType(), dto.getContent(), dto.getUserId());
+//        notifyProducer.send("notify",saveNotify, Status.C);
+//        return ResponseEntity.ok().build();
+//    }
 }
