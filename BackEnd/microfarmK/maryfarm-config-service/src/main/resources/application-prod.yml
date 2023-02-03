@@ -17,7 +17,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jungboke/cloud-config-prod
+          uri: https://github.com/Isak-toast/cloud-config-prod
         native:
           search-locations: file://config-repo
   config:
