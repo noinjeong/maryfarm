@@ -31,6 +31,7 @@ public class MyfarmFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     // 디테일 페이지로 이동 버튼
     private Button btn1;
 
@@ -67,15 +68,6 @@ public class MyfarmFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    // 진희님 코드 삭제가능!
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_myfarm, container, false);
-//    }
 
     // 버튼 클릭시 디테일 화면으로 이동
     private View view;

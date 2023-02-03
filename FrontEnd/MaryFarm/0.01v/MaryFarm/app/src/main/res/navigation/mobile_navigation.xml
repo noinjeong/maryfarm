@@ -29,6 +29,6 @@
         android:id="@+id/menu_bottom_farm"
         android:name="com.numberONE.maryfarm.ui.myfarm.MyfarmFragment"
         android:label="내농장"
-        tools:layout="@layout/fragment_myfarm_profile" />
+        tools:layout="@layout/fragment_myfarm" />
 
 </navigation>
