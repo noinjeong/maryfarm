@@ -119,8 +119,7 @@ public class DiaryController {
     @PostMapping("/diary/like")
     public ResponseEntity<?> giveDiaryLike(@RequestBody DiaryLikeRequestDTO dto) {
         DiaryLike diaryLike = diaryService.saveDiaryLike(dto.getDiaryId(),dto.getUserId());
-        Diary diary = diaryService.addLike(dto.getDiaryId());
-        diaryProducer.send("diary",diary,Status.U);
+        diaryService.addLike(dto.getDiaryId());
         return ResponseEntity.ok(diaryLike.getId());
     }
 

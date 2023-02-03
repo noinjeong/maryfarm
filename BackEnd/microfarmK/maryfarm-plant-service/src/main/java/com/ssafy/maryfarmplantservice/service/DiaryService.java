@@ -13,12 +13,14 @@ import com.ssafy.maryfarmplantservice.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.Duration;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @Slf4j
 public class DiaryService {
+    private final RedisTemplate redisTemplate;
     private final DiaryRepository diaryRepository;
     private final PlantRepository plantRepository;
     private final DiaryLikeRepository diaryLikeRepository;
@@ -90,10 +93,8 @@ public class DiaryService {
     }
 
     @Transactional
-    public Diary addLike(String diaryId) {
-        Optional<Diary> diary = diaryRepository.findById(diaryId);
-        diary.get().addLike();
-        return diary.get();
+    public void addLike(String diaryId) {
+        addLikeCntToRedis(diaryId);
     }
 
     @Transactional
@@ -141,5 +142,36 @@ public class DiaryService {
 
     public List<DiaryComment> searchDiaryComments(String diaryId) {
         return diaryCommentRepository.findByDiary_Id(diaryId);
+    }
+
+    public void addLikeCntToRedis(String diaryId) {
+        String key = "diaryLikeCnt::"+diaryId;
+        //hint 캐시에 값이 없으면 레포지토리에서 조회 있으면 값을 증가시킨다.
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        if(valueOperations.get(key)==null) {
+            valueOperations.set(
+                    key,
+                    String.valueOf(diaryRepository.findById(diaryId).get().getLikes()),
+                    Duration.ofMinutes(5));
+            valueOperations.increment(key);
+        }
+        else valueOperations.increment(key);
+        log.info("value:{}",valueOperations.get(key));
+    }
+
+    @Transactional
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void deleteLikeCntCacheFromRedis() {
+        Set<String> redisKeys = redisTemplate.keys("diaryLikeCnt*");
+        Iterator<String> it = redisKeys.iterator();
+        while (it.hasNext()) {
+            String data = it.next();
+            String diaryId = data.split("::")[1];
+            Integer likeCnt = Integer.parseInt((String) redisTemplate.opsForValue().get(data));
+            Diary diary = diaryRepository.findById(diaryId).get();
+            diary.addLike(likeCnt);
+            log.info("Diary add Like complete!");
+            redisTemplate.delete(data);
+        }
     }
 }

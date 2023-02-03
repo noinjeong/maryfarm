@@ -1,5 +1,8 @@
 package com.ssafy.maryfarmboardservice;
 
+import com.ssafy.maryfarmboardservice.domain.board.Article;
+import com.ssafy.maryfarmboardservice.domain.board.BoardType;
+import com.ssafy.maryfarmboardservice.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +23,12 @@ public class InitDb {
     @Transactional
     @RequiredArgsConstructor
     static class InitService {
-//        private final UserService userService;
-//        private final FollowService followService;
+        private final ArticleRepository articleRepository;
         public void dbInit() {
-//            User user = User.of("123456", "baek", Tier.씨앗);
-//            User saveUser1 = userService.saveUser(user);
-//            User user2 = User.of("1234567", "seung", Tier.씨앗);
-//            User saveUser2 = userService.saveUser(user2);
-//            followService.saveFollow(saveUser1.getId(),saveUser2.getId());
+            Article article1 = Article.of("123456", "baek", BoardType.Free, "제목입니다", "내용입니다.");
+            Article article2 = Article.of("1234567", "seung", BoardType.Free, "제목입니다", "내용입니다.");
+            articleRepository.save(article1);
+            articleRepository.save(article2);
         }
     }
 }

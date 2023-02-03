@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 // 프록시 객체 생성만을 위한 생성자라 Protected로 사용제한
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Room {
+public class Room implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "room_id")
