@@ -1,11 +1,8 @@
 package com.ssafy.myfarm.api.controller.chat;
 
-import com.ssafy.myfarm.api.dto.user.response.UserResponseDTO;
 import com.ssafy.myfarm.domain.chat.Message;
 import com.ssafy.myfarm.util.chat.constants.KafkaConstants;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;

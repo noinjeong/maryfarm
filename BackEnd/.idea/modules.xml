@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BackEnd.iml" filepath="$PROJECT_DIR$/.idea/BackEnd.iml" />
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/myFarm.main.iml" filepath="$PROJECT_DIR$/.idea/modules/myFarm.main.iml" />
+=======
+>>>>>>> a4fee933bf8aa1c5c4f7873ca1bdbebf2a259cf5
     </modules>
   </component>
 </project>
