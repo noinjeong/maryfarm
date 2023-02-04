@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -27,14 +28,14 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
         this.plantname = plantname;
         this.dday = dday;
     }
-    // 클릭 이벤트
-    private static OnItemClickListener onItemClickListener = null;
-
     //인터페이스 선언
     public interface OnItemClickListener{
         //클릭시 동작할 함수
         void onItemClick(View v, int pos, int id);
     }
+
+    // 클릭 이벤트
+    private static OnItemClickListener onItemClickListener = null;
 
     public static void setOnItemClickListener(OnItemClickListener listener){
         onItemClickListener = listener;
@@ -47,16 +48,20 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
         public ImageButton calendar_pill;
         public ImageButton calendar_shovel;
         public ImageButton calendar_note;
+        public EditText calendar_plant_memo;
+        public Button calendar_memo_save_btn;
         Button.OnClickListener clickListener;
 
         public ViewHolder(View view){
             super(view);
             plantsNameTextView = view.findViewById(R.id.textView);
-             calendar_water = view.findViewById(R.id.calendar_water);
-             calendar_scissors = view.findViewById(R.id.calendar_scissors);
-             calendar_pill = view.findViewById(R.id.calendar_pill);
-             calendar_shovel = view.findViewById(R.id.calendar_shovel);
-             calendar_note = view.findViewById(R.id.calendar_note);
+            calendar_water = view.findViewById(R.id.calendar_water);
+            calendar_scissors = view.findViewById(R.id.calendar_scissors);
+            calendar_pill = view.findViewById(R.id.calendar_pill);
+            calendar_shovel = view.findViewById(R.id.calendar_shovel);
+            calendar_note = view.findViewById(R.id.calendar_note);
+            calendar_plant_memo = view.findViewById(R.id.calendar_plant_memo);
+            calendar_memo_save_btn = view.findViewById(R.id.calendar_memo_save_btn);
 
 //            calendar_pill.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -117,11 +122,15 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
                                 note = 1 - note;
                                 if ( note == 1 ) {
                                     calendar_note.setImageResource(R.drawable.calendar_note_color);
+                                    calendar_plant_memo.setVisibility(View.VISIBLE);
                                 } else {
                                     calendar_note.setImageResource(R.drawable.calendar_note);
+                                    calendar_plant_memo.setVisibility(View.GONE);
                                 }
                                 onItemClickListener.onItemClick(v, pos, note);
                                 break;
+                            case R.id.calendar_memo_save_btn:
+
                         }
                     }
                 }

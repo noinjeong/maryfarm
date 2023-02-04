@@ -3,8 +3,11 @@ package com.numberONE.maryfarm.Diary;
 import static com.numberONE.maryfarm.R.*;
 import static com.numberONE.maryfarm.R.id.nav_view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,6 +35,7 @@ import com.numberONE.maryfarm.Pick.PickActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.databinding.ActivityDiaryDetailBinding;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -43,6 +47,10 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     private boolean sign=false;
     private TextView likeCount;
     private int likeCnt = 0;
+    // Intent로 보낼 페이지 정보
+    public TextView title;
+    public TextView diaryContent;
+    public Bitmap diaryImage;
 
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
@@ -58,7 +66,13 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
 
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
+        // 수정 페이지로 넘길 데이터
+        title = binding.title;
+        diaryContent = binding.diaryContent;
+        BitmapDrawable diaryimg = (BitmapDrawable) binding.diaryDetailImage.getDrawable();
+        diaryImage = diaryimg.getBitmap();
+
         // 클릭시 - 좋아요 & 숫자 증가
         binding.emptyHeartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +147,12 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         switch (item.getItemId()) {
             case id.editDiary:
                 Intent intent = new Intent(DiaryDetailActivity.this, DiaryModifyActivity.class);
+                intent.putExtra("diaryTitle", title.getText().toString());
+                intent.putExtra("diaryContent", diaryContent.getText().toString());
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                diaryImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] diarybyte = stream.toByteArray();
+                intent.putExtra("diaryImage", diarybyte);
                 startActivity(intent);
                 finish();
                 return true;
