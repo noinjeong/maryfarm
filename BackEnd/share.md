@@ -10,7 +10,8 @@ mysql> create database farm;
 ```
 
 #2 백승범 01 28  
-mysql 컨테이너 안에 userdb,plantdb,notifydb,chatdb,calendardb,boardb 를 추가해줌.  
+mysql 컨테이너 안에 userdb,plantdb,notifydb,chatdb,calendardb,boardb 를 추가해줌.
+kafka 에는 article, calendar, message, room, diary, plant, follow, user 토픽을 생성해줘야함.
 #3 백승범 01 28  
 notify user plant chat calendar board 순으로 MSA 실행해야 FeignClient 관련 오류 안뜸.  
 #4 백승범 01 28  
