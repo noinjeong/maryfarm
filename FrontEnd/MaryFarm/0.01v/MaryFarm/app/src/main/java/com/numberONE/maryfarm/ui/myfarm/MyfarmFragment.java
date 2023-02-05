@@ -31,8 +31,7 @@ public class MyfarmFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    // 디테일 페이지로 이동 버튼
-    private Button btn1;
+
 
     public MyfarmFragment() {
         // Required empty public constructor
@@ -77,6 +76,9 @@ public class MyfarmFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_myfarm, container, false);
 //    }
 
+
+
+
     // 버튼 클릭시 디테일 화면으로 이동
     private View view;
     private Button detailBtn;
@@ -84,9 +86,9 @@ public class MyfarmFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_myfarm,container,false);
+        view = inflater.inflate(R.layout.fragment_myfarm_profile,container,false);
 
-        detailBtn = (Button) view.findViewById(R.id.btn1);
+        detailBtn = (Button) view.findViewById(R.id.detailBtn);
 
         detailBtn.setOnClickListener(new View.OnClickListener() {
             @Override

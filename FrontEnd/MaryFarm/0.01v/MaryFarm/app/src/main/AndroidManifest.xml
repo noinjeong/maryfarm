@@ -90,20 +90,6 @@
         </activity>
 
         <activity
-            android:name=".MyfarmProfile.FarmsProfileActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MyfarmProfile.MyfarmProfileActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".KakaoLogin.KakaoLoginActivity"
             android:exported="true">
 

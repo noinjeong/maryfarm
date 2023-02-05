@@ -1,4 +1,4 @@
-package com.numberONE.maryfarm.MyfarmProfile;
+package com.numberONE.maryfarm.ui.myfarm;
 
 import android.os.Bundle;
 

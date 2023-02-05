@@ -1,4 +1,4 @@
-package com.numberONE.maryfarm.MyfarmProfile;
+package com.numberONE.maryfarm.ui.myfarm;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.numberONE.maryfarm.R;
