@@ -65,10 +65,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="8dp"
-                    android:text="팔로우 수"
+                    android:text="0"
                     app:layout_constraintBottom_toTopOf="@+id/textView7"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="0" />
+                    tools:text="팔로우 수" />
             </LinearLayout>
 
             <LinearLayout
@@ -90,10 +90,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="52dp"
-                    android:text="팔로워 수"
+                    android:text="0"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:layout_editor_absoluteY="151dp"
-                    tools:text="0"
+                    tools:text="팔로워 수"
                     tools:ignore="MissingConstraints" />
 
             </LinearLayout>
@@ -109,12 +109,55 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="[ 여기에 뱃지 어떻게 넣죠... ㄷㄷ ]"
-        android:gravity="center"
-        />
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="내가 소유한 뱃지 : "/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier1" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier2" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier3" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier4" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier5" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier6" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier7" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/tier8" />
+
+    </LinearLayout>
+
+
+
 
     <View
         android:id="@+id/farm_page_underline"
@@ -142,6 +185,7 @@
         android:padding="20dp"
         >
         <ImageButton
+            android:id="@+id/recommendBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -149,6 +193,7 @@
             android:src="@drawable/nodiary"/>
 
         <ImageButton
+            android:id="@+id/recommendMonthBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
