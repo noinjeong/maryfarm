@@ -88,5 +88,8 @@
 눈을 뜨고야
 그걸 알게 됐죠...
     </string>
+    <string name="title_activity_pick_algorithm">PickAlgorithm</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 
 </resources>
