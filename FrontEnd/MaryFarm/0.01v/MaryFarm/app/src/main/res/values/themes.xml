@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
         <item name="android:focusedMonthDateColor">@android:color/holo_blue_light</item>
         <item name="android:weekNumberColor">@android:color/holo_red_light</item>
@@ -55,4 +56,13 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/darker_gray</item>
     </style>
+
+    <style name="Theme.MaryFarm.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MaryFarm.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MaryFarm.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
