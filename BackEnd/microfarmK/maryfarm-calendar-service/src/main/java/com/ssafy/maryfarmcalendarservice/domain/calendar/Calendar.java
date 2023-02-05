@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmcalendarservice.domain.calendar;
 
+import com.ssafy.maryfarmcalendarservice.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Calendar implements Serializable {
+public class Calendar extends BaseTimeEntity implements Serializable {
     @EmbeddedId
     private CalendarID id;
     private String userId;

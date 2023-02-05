@@ -18,11 +18,11 @@ public class DiaryProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, Diary diary, Status status) {
-        KafkaDiaryDTO kafkaDiaryDTO = new KafkaDiaryDTO(status, diary);
+//        KafkaDiaryDTO kafkaDiaryDTO = new KafkaDiaryDTO(status, diary);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
-            jsonInString = mapper.writeValueAsString(kafkaDiaryDTO);
+            jsonInString = mapper.writeValueAsString(diary);
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }

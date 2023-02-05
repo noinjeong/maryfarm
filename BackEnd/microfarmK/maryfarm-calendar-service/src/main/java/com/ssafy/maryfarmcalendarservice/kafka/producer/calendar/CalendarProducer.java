@@ -18,11 +18,11 @@ public class CalendarProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, Calendar calendar, Status status) {
-        KafkaCalendarDTO kafkaCalendarDTO = new KafkaCalendarDTO(status, calendar);
+//        KafkaCalendarDTO kafkaCalendarDTO = new KafkaCalendarDTO(status, calendar);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
-            jsonInString = mapper.writeValueAsString(kafkaCalendarDTO);
+            jsonInString = mapper.writeValueAsString(calendar);
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }

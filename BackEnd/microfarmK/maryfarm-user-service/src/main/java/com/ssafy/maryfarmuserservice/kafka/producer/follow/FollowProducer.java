@@ -18,11 +18,11 @@ public class FollowProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, Follow follow, Status status) {
-        KafkaFollowDTO kafkaFollowDTO = new KafkaFollowDTO(status, follow);
+//        KafkaFollowDTO kafkaFollowDTO = new KafkaFollowDTO(status, follow);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
-            jsonInString = mapper.writeValueAsString(kafkaFollowDTO);
+            jsonInString = mapper.writeValueAsString(follow);
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }

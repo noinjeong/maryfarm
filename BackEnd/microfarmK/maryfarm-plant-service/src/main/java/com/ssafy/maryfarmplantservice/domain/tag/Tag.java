@@ -1,6 +1,7 @@
 package com.ssafy.maryfarmplantservice.domain.tag;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.maryfarmplantservice.domain.BaseTimeEntity;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Tag implements Serializable {
+public class Tag extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "tag_id")

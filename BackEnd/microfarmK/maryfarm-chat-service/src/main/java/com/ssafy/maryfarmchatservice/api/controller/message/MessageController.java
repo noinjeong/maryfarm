@@ -22,6 +22,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,7 @@ public class MessageController {
     private final MessageProducer messageProducer;
     private final MessageService messageService;
     private final UserServiceClient userServiceClient;
+    private final SimpMessagingTemplate template;
     @Operation(summary = "채팅 메시지 저장", description = "채팅 메시지를 저장합니다.", tags = { "Chat Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -48,7 +50,9 @@ public class MessageController {
     @PostMapping("/message/send")
     public ResponseEntity<?> sendMessage(@RequestBody MessageRequestDTO dto) throws ExecutionException, InterruptedException {
         Message saveMessage = messageService.saveMessage(dto.getRoomId(),dto.getUserId(),dto.getContent());
-        messageProducer.send("message", saveMessage, Status.C);
+        System.out.println("sending via kafka listener..");
+        System.out.println("/topic/group/" + saveMessage.getRoom().getId());
+        template.convertAndSend("/topic/group/" + saveMessage.getRoom().getId(), saveMessage);
         return ResponseEntity.ok(saveMessage.getId());
     }
 

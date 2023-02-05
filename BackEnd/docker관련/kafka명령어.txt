@@ -1,0 +1,219 @@
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "userdb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/userdb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "userdb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "badge,follow,recommend,user,user_badge",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "notifydb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/notifydb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "notifydb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "notify",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "plantdb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/plantdb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "plantdb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "curating_plant,diary,diary_comment,diary_comment_like,diary_like,plant,tag",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "chatdb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/chatdb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "chatdb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "message,room",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "calendardb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/calendardb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "calendardb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "calendar",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "boarddb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/boarddb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "boarddb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "article,article_comment,article_comment_like,article_like,article_re_comment",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+
+bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 \
+      --topic user \
+      --from-beginning
+
+
+topic.creation.enable
+
+bin/kafka-topics.sh \
+      --create \
+      --bootstrap-server kafka:9092 \
+      --topic user-user
+
+bin/kafka-topics.sh --bootstrap-server kafka:9092 --list
+
+curl -X GET "http://localhost:8083/connectors/userdb-source-connector/status"
+
+nullable false
+
+
+
+&&& mongodb sink connector configuration
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "boarddb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"boarddb-article,boarddb-article_comment,boarddb-article_comment_like,boarddb-article_like,boarddb-article_re_comment",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"boarddb",
+      "collection":"board_service_table"
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "calendardb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"calendardb-calendar",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"calendardb",
+      "collection":"calendar_service_table"
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "chatdb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"chatdb-message,chatdb-room",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"chatdb",
+      "collection":"chat_service_table"
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "notifydb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"notifydb-notify",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"notifydb",
+      "collection":"notify_service_table"
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "plantdb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"plantdb-curating_plant,plantdb-diary,plantdb-diary_comment,plantdb-diary_comment_like,plantdb-diary_like,plantdb-plant,plantdb-tag",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"plantdb",
+      "collection":"plant_service_table"
+    }
+}'
+
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "userdb-sink-connector",
+    "config": {
+        "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":"2",
+      "topics":"userdb-badge,userdb-follow,userdb-recommend,userdb-user,userdb-user_badge",
+      "connection.uri":"mongodb://mongo:27017",
+      "database":"userdb",
+      "collection":"user_service_table"
+    }
+}'

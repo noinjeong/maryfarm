@@ -7,6 +7,8 @@ import com.ssafy.maryfarmuserservice.domain.user.Tier;
 import com.ssafy.maryfarmuserservice.domain.user.User;
 import com.ssafy.maryfarmuserservice.kafka.dto.Status;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
+import com.ssafy.maryfarmuserservice.repository.mongo.MongoUserRepository;
+import com.ssafy.maryfarmuserservice.repository.mongo.dto.UserInfoDTO;
 import com.ssafy.maryfarmuserservice.service.UserService;
 import com.ssafy.maryfarmuserservice.util.file.dto.FileDetail;
 import com.ssafy.maryfarmuserservice.util.file.service.FileUploadService;
@@ -17,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +35,8 @@ public class UserController {
     private final UserService userService;
     private final FileUploadService fileUploadService;
     private final UserProducer userProducer;
+    private final MongoUserRepository mongoUserRepository;
+    private final MongoTemplate mongoTemplate;
     @Operation(summary = "회원 가입 요청", description = "회원 정보를 등록합니다.", tags = { "User Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -44,7 +49,6 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
         User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
         User saveUser = userService.saveUser(user);
-        userProducer.send("user",saveUser, Status.C);
         return ResponseEntity.ok(saveUser.getId());
     }
 
@@ -76,8 +80,13 @@ public class UserController {
         User user = userService.findUser(userId);
         UserResponseDTO dto = UserResponseDTO.of(user);
         return ResponseEntity.ok(dto);
+//        UserInfoDTO dto = userService.findUserByM(userId);
+//        return ResponseEntity.ok(dto);
     }
 
+    /*
+        DiaryService에서 FeignClient로 사용중이므로 없애면 안됨.
+     */
     @Operation(summary = "팔로워 목록 조회", description = "특정 회원의 팔로워 목록을 조회합니다.", tags = { "User Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -108,7 +117,6 @@ public class UserController {
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
         FileDetail saveFile = fileUploadService.save(image);
         User user = userService.updateUser(dto.getUserId(), dto.getNickname(),saveFile.getPath());
-        userProducer.send("user",user,Status.U);
         return ResponseEntity.ok(user.getId());
     }
 

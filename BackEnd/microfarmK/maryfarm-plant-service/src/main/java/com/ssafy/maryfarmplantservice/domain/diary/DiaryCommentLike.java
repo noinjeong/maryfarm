@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmplantservice.domain.diary;
 
+import com.ssafy.maryfarmplantservice.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class DiaryCommentLike implements Serializable {
+public class DiaryCommentLike extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_comment_like_id")

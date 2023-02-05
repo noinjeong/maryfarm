@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name="maryfarm-notify-service")
 public interface NotifyServiceClient {
-//    @PostMapping("/api/notify/save")
-//    public void saveNotify(@RequestBody CreateNotifyRequestDTO dto);
+    @PostMapping("/api/notify/save")
+    public void saveNotify(@RequestBody CreateNotifyRequestDTO dto);
 }

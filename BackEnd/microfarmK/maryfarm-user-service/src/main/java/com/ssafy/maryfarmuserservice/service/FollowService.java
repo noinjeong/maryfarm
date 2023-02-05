@@ -5,12 +5,10 @@ import com.ssafy.maryfarmuserservice.client.service.notify.NotifyServiceClient;
 import com.ssafy.maryfarmuserservice.domain.user.Follow;
 import com.ssafy.maryfarmuserservice.domain.user.User;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
-import com.ssafy.maryfarmuserservice.repository.FollowRepository;
-import com.ssafy.maryfarmuserservice.repository.UserRepository;
+import com.ssafy.maryfarmuserservice.repository.jpa.FollowRepository;
+import com.ssafy.maryfarmuserservice.repository.jpa.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +29,11 @@ public class FollowService {
         Optional<User> receiver = userRepository.findById(receiverId);
         Follow follow = Follow.of(sender.get(), receiver.get());
         Follow saveFollow = followRepository.save(follow);
+        // 알람 생성 시작
+        String content = sender.get().getNickname() + "님이 내 농장 이웃이 되었어요!";
+        CreateNotifyRequestDTO createNotifyRequestDTO = new CreateNotifyRequestDTO("FollowRequest", content, receiverId);
+        notifyServiceClient.saveNotify(createNotifyRequestDTO);
+        // 알람 생성 종료
         return saveFollow;
     }
 }

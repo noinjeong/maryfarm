@@ -3,6 +3,7 @@ package com.ssafy.maryfarmchatservice.domain.chat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ssafy.maryfarmchatservice.api.dto.message.request.MessageRequestDTO;
+import com.ssafy.maryfarmchatservice.domain.BaseTimeEntity;
 import com.ssafy.maryfarmchatservice.formatter.LocalDateTimeDeserializer;
 import com.ssafy.maryfarmchatservice.formatter.LocalDateTimeSerializer;
 import lombok.AccessLevel;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Message implements Serializable {
+public class Message extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "message_id")

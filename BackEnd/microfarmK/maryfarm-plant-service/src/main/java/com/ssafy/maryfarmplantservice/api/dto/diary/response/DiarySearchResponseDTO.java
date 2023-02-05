@@ -20,8 +20,7 @@ public class DiarySearchResponseDTO {
     private String content;
     private Integer likes;
     private String imagepath;
-
-    private List<TagResponseDTO> taglist = new ArrayList<>();
+    private List<String> taglist = new ArrayList<>();
 
     private List<GroupedDiaryForSearchDTO> diarygroup = new ArrayList<>();
 
@@ -32,7 +31,7 @@ public class DiarySearchResponseDTO {
         dto.likes = diary.getLikes();
         dto.imagepath = diary.getImagePath();
         for(Tag t : diary.getTags()) {
-            dto.taglist.add(TagResponseDTO.from(t));
+            dto.taglist.add(t.getName());
         }
         for(Diary d : diarygroup) {
             dto.diarygroup.add(GroupedDiaryForSearchDTO.of(d));

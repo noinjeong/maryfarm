@@ -18,11 +18,11 @@ public class NotifyProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, Notify notify, Status status) {
-        KafkaNotifyDTO kafkaNotifyDTO = new KafkaNotifyDTO(status, notify);
+//        KafkaNotifyDTO kafkaNotifyDTO = new KafkaNotifyDTO(status, notify);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
-            jsonInString = mapper.writeValueAsString(kafkaNotifyDTO);
+            jsonInString = mapper.writeValueAsString(notify);
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }

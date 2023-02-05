@@ -64,7 +64,6 @@ public class CalendarController {
         /*
             생성, 업데이트 둘다 save 메서드로 해결하므로 아직 Update처리는 못해줌.
          */
-        calendarProducer.send("calendar",calendar, Status.C);
         return ResponseEntity.ok(1);
     }
 }

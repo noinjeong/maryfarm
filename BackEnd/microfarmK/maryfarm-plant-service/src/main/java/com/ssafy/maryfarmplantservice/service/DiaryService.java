@@ -45,16 +45,16 @@ public class DiaryService {
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */
         Diary saveDiary = diaryRepository.save(diary);
-//        // 알람 생성 시작
-//        String userId = plant.get().getUserId();
-//        UserResponseDTO userDto = userServiceClient.searchUser(userId);
-//        String notifyContent = userDto.getNickname()+"님이 새로운 일지를 올렸어요!";
-//        List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
-//        for(UserResponseDTO u : followerDto) {
-//            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId());
-//            notifyServiceClient.saveNotify(notifyDto);
-//        }
-//        // 알람 생성 종료
+        // 알람 생성 시작
+        String userId = plant.get().getUserId();
+        UserResponseDTO userDto = userServiceClient.searchUser(userId);
+        String notifyContent = userDto.getNickname()+"님이 새로운 일지를 올렸어요!";
+        List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
+        for(UserResponseDTO u : followerDto) {
+            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId());
+            notifyServiceClient.saveNotify(notifyDto);
+        }
+        // 알람 생성 종료
         // 태그 파싱 및 등록 시작
         List<String> tagList = HashTagParsing(content);
         for(String s : tagList) {

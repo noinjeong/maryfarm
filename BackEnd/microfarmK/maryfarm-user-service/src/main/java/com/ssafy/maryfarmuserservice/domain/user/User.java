@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmuserservice.domain.user;
 
+import com.ssafy.maryfarmuserservice.domain.BaseTimeEntity;
 import com.ssafy.maryfarmuserservice.domain.Land;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,10 +15,11 @@ import java.io.Serializable;
 // 프록시 객체 생성만을 위한 생성자라 Protected로 사용제한
 // 정적 팩토리 메서드에 필요한 생성자는 롬복 사용하지 않고 직접 구현
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User implements Serializable {
+public class User extends BaseTimeEntity implements Serializable {
     @Id
     @Column(name = "user_id")
     private String id;
+    @Column(nullable = false)
     private String nickname;
     @Enumerated(EnumType.STRING)
     private Tier tier;

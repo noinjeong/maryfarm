@@ -92,3 +92,30 @@ echo '
 
 #6 백승범 02 02
 `docker run -d -p 6379:6379 --name redis redis` 를 통해 redis container 생성
+
+#7 백승범 02 04
+`docker run -d -p 27017:27017 --name mongo -d mongo` 를 통해 mongodb container 생성
+
+#8 백승범 02 05
+wurstmeister kafka는 `connect-distributed.properties` 에 `topic.creation.enable=true` 값을 넣어줘야 source-connector 사용시 자동 topic 생성이 가능해짐.
+
+```
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "userdb-source-connector",
+    "config": {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://mysql:3306/userdb",
+        "connection.user" : "root",
+        "connection.password" : "1234",
+        "topic.prefix" : "userdb-",
+        "poll.interval.ms" : 2000,
+        "table.whitelist" : "user,user_badge,recommend,follow,badge",
+        "mode" : "timestamp",
+        "timestamp.column.name" : "created_date",
+        "topic.creation.default.replication.factor" : 1,
+        "topic.creation.default.partitions" : 3
+    }
+}'
+```

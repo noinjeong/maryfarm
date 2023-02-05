@@ -89,3 +89,10 @@
 31. `@EnableScheduling`를 main()에 붙여주면, SpringBoot내에서 cron scheduling 기능을 이용할 수 있음.
 32. devTools 때문에 캐시에 있던 데이터를 가져오던 과정에서 ClassCastException이 발생함. 이는 `.defaultCacheConfig(Thread.currentThread().getContextClassLoader())` 로 설정변경을 해서 해결함.
 33. 게시판 전체 데이터를 캐시로 활용할려 했는데, 누가 글을 쓰면 유동적으로 변해야 하는 데이터가 캐시에서는 변하지 않고 유지되고 있기 때문에 캐시로 사용하기에는 바람직하지 않은 것 같음.
+34. 기존에 mysql에 entity를 저장하고 바로 다음에 kafkaTemplate을 사용하여 토픽에 데이터를 저장하는 과정을 애플리케이션 레이어에서 해결했는데, 이젠 애플리케이션 레이어에서 mysql에 저장하고 kafka에 저장하거나 관련된 부분들은 전부 connector나 streams를 통해 해결할 것임. jdbc-source-connector 한개에서 하나의 mysql 스키마 단위의 여러 table을 동시에 topic 처리할 수 있음. 다만, timestamp 컬럼을 기준으로 새로운 데이터가 들어왔는지, 또는 수정되었는지 확인하게 설정할 수 있는데 해당 timestamp 컬럼이 무조건 not null이어야 함. 그리고 DDL에서 createdDate가 datetime이라 timestamp와 호환이 안될줄 알았는데 가능함.
+35. CDC(변경 데이터 캡처) 는 만들기, 업데이트 및 삭제 작업에 대한 응답으로 데이터베이스 테이블의 행 수준 변경 내용을 추적하는 데 사용되는 기술임. debezium source connector를 사용하는 이유고, 나중에 변경사항을 상세하게 저장해야할 때, 사용하면 좋을듯함.
+36. 하나의 애플리케이션에서 JPA와 MongoDB를 같이 사용하기 위해 Repository를 분기한다면, 각각의 basePackage를 명시해줘야 함.
+    ```
+    @EnableJpaRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.command"})
+    @EnableMongoRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.query"})
+    ```

@@ -2,6 +2,8 @@ package com.ssafy.maryfarmuserservice.api.controller.follow;
 
 import com.ssafy.maryfarmuserservice.api.dto.follow.request.CreateFollowRequestDTO;
 import com.ssafy.maryfarmuserservice.api.dto.follow.response.FollowResponseDTO;
+import com.ssafy.maryfarmuserservice.client.dto.notify.CreateNotifyRequestDTO;
+import com.ssafy.maryfarmuserservice.client.service.notify.NotifyServiceClient;
 import com.ssafy.maryfarmuserservice.domain.user.Follow;
 import com.ssafy.maryfarmuserservice.kafka.dto.Status;
 import com.ssafy.maryfarmuserservice.kafka.producer.follow.FollowProducer;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowController {
     private final FollowService followService;
     private final FollowProducer followProducer;
+    private final NotifyServiceClient notifyServiceClient;
     @Operation(summary = "팔로우 요청", description = "다른 유저를 팔로우합니다.", tags = { "Follow Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -37,7 +40,6 @@ public class FollowController {
     @PostMapping("/follow/following")
     public ResponseEntity<?> FollowUser(@RequestBody CreateFollowRequestDTO dto) {
         Follow follow = followService.saveFollow(dto.getSenderId(),dto.getReceiverId());
-        followProducer.send("follow",follow, Status.C);
         return ResponseEntity.ok(follow.getId());
     }
 }

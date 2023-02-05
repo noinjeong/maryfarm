@@ -82,7 +82,6 @@ public class PlantController {
     @PutMapping("/plant/harvest/{plantId}")
     public ResponseEntity<?> doHarvest(@PathVariable("plantId") String plantId) throws IOException {
         Plant plant = plantService.doHarvest(plantId);
-        plantProducer.send("plant",plant, Status.U);
         return ResponseEntity.ok(1);
     }
 

@@ -3,12 +3,17 @@ package com.ssafy.maryfarmuserservice.service;
 import com.ssafy.maryfarmuserservice.domain.Land;
 import com.ssafy.maryfarmuserservice.domain.user.Recommend;
 import com.ssafy.maryfarmuserservice.domain.user.User;
-import com.ssafy.maryfarmuserservice.repository.RecommendRepository;
-import com.ssafy.maryfarmuserservice.repository.UserRepository;
+import com.ssafy.maryfarmuserservice.repository.jpa.RecommendRepository;
+import com.ssafy.maryfarmuserservice.repository.jpa.UserRepository;
+import com.ssafy.maryfarmuserservice.repository.mongo.MongoUserRepository;
+import com.ssafy.maryfarmuserservice.repository.mongo.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +26,9 @@ import java.util.Optional;
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
+    private final MongoUserRepository mongoUserRepository;
     private final RecommendRepository recommendRepository;
+    private final MongoTemplate mongoTemplate;
 
     @Transactional
     public User saveUser(final User user) {
@@ -29,7 +36,14 @@ public class UserService {
         return saveUser;
     }
     @Cacheable(value = "user", key = "#id")
-    public User findUser(final String id) { return userRepository.findById(id).get(); }
+    public User findUser(final String id) {
+        return userRepository.findById(id).get();
+    }
+
+    public UserInfoDTO findUserByM(final String id) {
+        return mongoUserRepository.findById(id).get();
+    }
+
     public User loginUser(final String kakaoid) {
         Optional<User> user = userRepository.findById(kakaoid);
         if(user.isPresent()) {

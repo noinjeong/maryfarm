@@ -17,11 +17,11 @@ public class RoomProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, Room room, Status status) {
-        KafkaRoomDTO kafkaRoomDTO = new KafkaRoomDTO(status, room);
+//        KafkaRoomDTO kafkaRoomDTO = new KafkaRoomDTO(status, room);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
-            jsonInString = mapper.writeValueAsString(kafkaRoomDTO);
+            jsonInString = mapper.writeValueAsString(room);
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }

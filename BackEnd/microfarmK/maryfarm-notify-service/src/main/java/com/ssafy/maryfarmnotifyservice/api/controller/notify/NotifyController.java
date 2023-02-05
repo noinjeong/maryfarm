@@ -26,11 +26,9 @@ public class NotifyController {
     private final NotifyService notifyService;
     private final NotifyProducer notifyProducer;
 
-
-//    @PostMapping("/notify/save")
-//    public ResponseEntity<?> saveNotify(@RequestBody CreateNotifyRequestDTO dto) {
-//        Notify saveNotify = notifyService.saveNotify(dto.getType(), dto.getContent(), dto.getUserId());
-//        notifyProducer.send("notify",saveNotify, Status.C);
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping("/notify/save")
+    public ResponseEntity<?> saveNotify(@RequestBody CreateNotifyRequestDTO dto) {
+        Notify saveNotify = notifyService.saveNotify(dto.getType(), dto.getContent(), dto.getUserId());
+        return ResponseEntity.ok().build();
+    }
 }

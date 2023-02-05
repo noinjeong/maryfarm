@@ -1,5 +1,6 @@
 package com.ssafy.maryfarmuserservice.domain.user;
 
+import com.ssafy.maryfarmuserservice.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Follow implements Serializable {
+public class Follow extends BaseTimeEntity implements Serializable {
     /*
         Follow의 sender와 receiver 조합이 중복되는 경우는
         프론트엔드에서 팔로우 버튼을 누르면 언팔로우 버튼으로 바뀌는

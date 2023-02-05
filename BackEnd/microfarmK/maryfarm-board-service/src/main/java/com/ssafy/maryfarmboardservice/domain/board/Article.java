@@ -5,10 +5,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Document(collation = "board_service_table")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
