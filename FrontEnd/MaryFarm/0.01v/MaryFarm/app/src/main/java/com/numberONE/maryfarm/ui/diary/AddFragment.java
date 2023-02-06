@@ -164,7 +164,7 @@ public class AddFragment extends Fragment {
             }
         });
 
-        binding.editText.setOnClickListener(view -> {
+        binding.editBtn.setOnClickListener(view -> {
             // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
