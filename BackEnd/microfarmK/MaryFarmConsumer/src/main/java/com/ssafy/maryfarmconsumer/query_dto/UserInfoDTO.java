@@ -1,4 +1,4 @@
-package com.ssafy.maryfarmconsumer.kafka.dto;
+package com.ssafy.maryfarmconsumer.query_dto;
 
 import com.ssafy.maryfarmconsumer.domain.user.User;
 import lombok.AccessLevel;

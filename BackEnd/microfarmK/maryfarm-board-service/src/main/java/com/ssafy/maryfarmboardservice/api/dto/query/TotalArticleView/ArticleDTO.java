@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ArticleDTO {
     private String articleId;
-    private String userId;
     private String userName;
     private String title;
-    private String content;
+    private Integer views;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
 }

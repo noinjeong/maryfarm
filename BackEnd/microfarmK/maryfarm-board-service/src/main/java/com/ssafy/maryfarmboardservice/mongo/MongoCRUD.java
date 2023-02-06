@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,5 +29,13 @@ public class MongoCRUD {
 
     public void saveData(Object o, String collectionName) {
         mongoTemplate.save(o,collectionName);
+    }
+
+    public void updateData(String key, String value, String change, String collectionName) {
+        Query query = new Query();
+        Update update = new Update();
+        query.addCriteria(Criteria.where(key).is(value));
+        update.set(key,change);
+        mongoTemplate.updateMulti(query, update, collectionName);
     }
 }

@@ -1,21 +1,9 @@
 package com.ssafy.maryfarmconsumer.kafka.consumer.user;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.maryfarmconsumer.domain.user.User;
-import com.ssafy.maryfarmconsumer.kafka.constants.KafkaConstants;
-import com.ssafy.maryfarmconsumer.kafka.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
