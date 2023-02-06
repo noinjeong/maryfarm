@@ -6,23 +6,24 @@
     android:layout_marginBottom="10dp"
     android:orientation="vertical"
     >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingHorizontal="5dp"
-            />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
             >
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingHorizontal="5dp"
+                android:layout_marginRight="15dp"
+                />
 
             <ImageButton
                 android:id="@+id/calendar_water"
@@ -61,23 +62,31 @@
                 android:background="@color/white"
                 android:layout_marginHorizontal="5dp"/>
         </LinearLayout>
-    </LinearLayout>
+<!--    </LinearLayout>-->
     <LinearLayout
-        android:id="@+id/calendar_plant_memo"
+        android:id="@+id/edit_save_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
         android:gravity="center">
         <EditText
+            android:id="@+id/calendar_plant_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="100"
+            android:visibility="gone"
             />
         <Button
             android:id="@+id/calendar_memo_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="저장"
             />
     </LinearLayout>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#ACACAC"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

@@ -13,18 +13,19 @@ import com.numberONE.maryfarm.R;
 
 // 달력 진입 시 키우고 있는 작물 리스트 체크박스 반환~
 public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAdapter.ViewHolder> {
-    private String[] plantname, dday;
+    public static String[] plantName, createdAt, harvestTime;
     ViewHolder viewHolder;
 
     // 리사이클러 뷰로 들어갈 내용들 받는 부분
-    public CalendarPlantsAdapter(String[] plantname, String[] dday){
-        this.plantname = plantname;
-        this.dday = dday;
+    public CalendarPlantsAdapter(String[] plantName, String[] createdAt, String[] harvestTime){
+        CalendarPlantsAdapter.plantName = plantName;
+        CalendarPlantsAdapter.createdAt = createdAt;
+        CalendarPlantsAdapter.harvestTime = harvestTime;
     }
     // 커스텀 리스너 인터페이스 정의
     public interface OnPlantCheckListener {
     // 클릭 시 동작할 함수
-        void onPlantCheck(View v, int position, Boolean isChecked) ;
+        void onPlantCheck(View v, int position, Boolean isChecked, String createdAt, String harvestTime) ;
     }
 
     // 리스너 객체 참조를 저장하는 변수
@@ -55,7 +56,7 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
                         // 리스너 객체의 메서드 호출.
                         if (onPlantCheckListener != null) {
                             Boolean checked = checkbox.isChecked();
-                            onPlantCheckListener.onPlantCheck(v, pos, checked);
+                            onPlantCheckListener.onPlantCheck(v, pos, checked, createdAt[pos], harvestTime[pos]);
                         }
                     }
                 }
@@ -85,12 +86,12 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
 // ViewHolder viewType
     @Override
     public void onBindViewHolder(@NonNull ViewHolder mainHolder, int i) {
-        mainHolder.checkboxtitle.setText(this.plantname[i]+"\n"+this.dday[i]);
+        mainHolder.checkboxtitle.setText(this.plantName[i]+"\n"+this.createdAt[i]);
     }
 
     @Override
     public int getItemCount() {
-        return plantname.length;
+        return plantName.length;
     }
 
 }
