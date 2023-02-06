@@ -117,7 +117,7 @@
         />
 
         <Button
-            android:id="@+id/editText"
+            android:id="@+id/editBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="글 작성"

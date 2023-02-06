@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/Image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_launcher_background"
             android:minHeight="200dp"/>
 
@@ -67,7 +68,7 @@
         android:layout_marginRight="30dp"
         android:text="제목"/>
 
-    <EditText
+    <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +87,7 @@
         android:layout_marginRight="30dp"
         android:text="식물종류"/>
 
-    <EditText
+    <TextView
         android:id="@+id/plants_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
         />
 
     <Button
-        android:id="@+id/editText"
+        android:id="@+id/edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="글 작성"
