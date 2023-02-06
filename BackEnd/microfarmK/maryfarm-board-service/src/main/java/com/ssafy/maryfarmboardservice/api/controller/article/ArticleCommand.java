@@ -6,7 +6,7 @@ import com.ssafy.maryfarmboardservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmboardservice.domain.board.Article;
 import com.ssafy.maryfarmboardservice.domain.board.ArticleComment;
 import com.ssafy.maryfarmboardservice.kafka.producer.article.ArticleProducer;
-import com.ssafy.maryfarmboardservice.service.command.ArticleCService;
+import com.ssafy.maryfarmboardservice.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,7 +24,7 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping("/api")
 public class ArticleCommand {
-    private final ArticleCService articleCService;
+    private final ArticleService articleService;
     private final UserServiceClient userServiceClient;
     private final ArticleProducer articleProducer;
     @Operation(summary = "게시글 작성", description = "게시글을 작성합니다.", tags = { "Board Controller" })
@@ -37,7 +37,7 @@ public class ArticleCommand {
     })
     @PostMapping("/board/create")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticleRequestDTO dto) throws IOException {
-        Article article = articleCService.saveArticle(dto.getUserId(),dto.getUserName(),dto.getType(),dto.getTitle(),dto.getContent());
+        Article article = articleService.saveArticle(dto.getUserId(),dto.getUserName(),dto.getType(),dto.getTitle(),dto.getContent());
         return ResponseEntity.ok(article.getId());
     }
 
@@ -51,7 +51,7 @@ public class ArticleCommand {
     })
     @PostMapping("/board/comment/create")
     public ResponseEntity<?> createArticleComment(@RequestBody ArticleCommentRequestDTO dto) throws IOException {
-        ArticleComment comment = articleCService.saveArticleComment(dto.getArticleId(),dto.getUserId(),dto.getUserName(),dto.getContent());
+        ArticleComment comment = articleService.saveArticleComment(dto.getArticleId(),dto.getUserId(),dto.getUserName(),dto.getContent());
         return ResponseEntity.ok(comment.getId());
     }
 }

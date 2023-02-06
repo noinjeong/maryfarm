@@ -1,12 +1,11 @@
 package com.ssafy.maryfarmcalendarservice.api.controller.calendar;
 
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.RegistCalendarRequestDTO;
-import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.SearchCalendarRequestDTO;
+import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.SearchCalendarByDayRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.response.SearchCalendarResponseDTO;
 import com.ssafy.maryfarmcalendarservice.client.dto.plant.PlantResponseDTO;
 import com.ssafy.maryfarmcalendarservice.client.service.plant.PlantServiceClient;
 import com.ssafy.maryfarmcalendarservice.domain.calendar.Calendar;
-import com.ssafy.maryfarmcalendarservice.kafka.dto.Status;
 import com.ssafy.maryfarmcalendarservice.kafka.producer.calendar.CalendarProducer;
 import com.ssafy.maryfarmcalendarservice.service.CalendarService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,9 +38,9 @@ public class CalendarController {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PostMapping("/calendar/search")
-    public ResponseEntity<?> SearchCalendar(@RequestBody SearchCalendarRequestDTO dto) {
-        List<Calendar> list = calendarService.searchCalendar(dto);
+    @PostMapping("/calendar/day/search")
+    public ResponseEntity<?> SearchCalendarByDay(@RequestBody SearchCalendarByDayRequestDTO dto) {
+        List<Calendar> list = calendarService.searchCalendarByDay(dto);
         List<SearchCalendarResponseDTO> resultDtos = new ArrayList<>();
         for(Calendar c : list) {
             PlantResponseDTO plantResponseDTO = plantServiceClient.searchPlant(c.getId().getPlantId());

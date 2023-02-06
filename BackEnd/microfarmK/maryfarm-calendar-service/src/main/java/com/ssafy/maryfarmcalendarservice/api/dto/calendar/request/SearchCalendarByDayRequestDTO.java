@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchCalendarRequestDTO {
+public class SearchCalendarByDayRequestDTO {
     private String userId;
     private Integer year;
     private Integer month;

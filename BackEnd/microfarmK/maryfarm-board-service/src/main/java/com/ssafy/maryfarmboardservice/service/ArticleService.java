@@ -1,10 +1,10 @@
-package com.ssafy.maryfarmboardservice.service.command;
+package com.ssafy.maryfarmboardservice.service;
 
 import com.ssafy.maryfarmboardservice.domain.board.Article;
 import com.ssafy.maryfarmboardservice.domain.board.ArticleComment;
 import com.ssafy.maryfarmboardservice.domain.board.BoardType;
-import com.ssafy.maryfarmboardservice.repository.command.ArticleCommentCRepository;
-import com.ssafy.maryfarmboardservice.repository.command.ArticleCRepository;
+import com.ssafy.maryfarmboardservice.repository.ArticleCommentRepository;
+import com.ssafy.maryfarmboardservice.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,37 +23,37 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ArticleCService {
+public class ArticleService {
     private final RedisTemplate redisTemplate;
-    private final ArticleCRepository articleCRepository;
-    private final ArticleCommentCRepository articleCommentCRepository;
+    private final ArticleRepository articleRepository;
+    private final ArticleCommentRepository articleCommentRepository;
 
     @Cacheable(value = "article", key = "#id")
     public Article searchArticle(final String id) {
-        return articleCRepository.findById(id).get();
+        return articleRepository.findById(id).get();
     }
 
     @Transactional
     public Article saveArticle(String userId, String userName, String type, String title, String content) {
         Article article = Article.of(userId, userName, BoardType.valueOf(type), title, content);
-        Article saveArticle = articleCRepository.save(article);
+        Article saveArticle = articleRepository.save(article);
         return saveArticle;
     }
 
     public List<Article> searchArticleAll(String type) {
-        return articleCRepository.findByType(BoardType.valueOf(type));
+        return articleRepository.findByType(BoardType.valueOf(type));
     }
 
     @Cacheable(value = "articleComment", key = "#articleId")
     public List<ArticleComment> searchArticleComment(String articleId) {
-        return articleCommentCRepository.findByArticle_Id(articleId);
+        return articleCommentRepository.findByArticle_Id(articleId);
     }
 
     @Transactional
     public ArticleComment saveArticleComment(String articleId, String userId, String userName, String content) {
-        Optional<Article> article = articleCRepository.findById(articleId);
+        Optional<Article> article = articleRepository.findById(articleId);
         ArticleComment comment = ArticleComment.of(article.get(), userId, userName, content);
-        return articleCommentCRepository.save(comment);
+        return articleCommentRepository.save(comment);
     }
 
     public void addViews(String articleId) {
@@ -67,7 +67,7 @@ public class ArticleCService {
         if(valueOperations.get(key)==null) {
             valueOperations.set(
                     key,
-                    String.valueOf(articleCRepository.findById(articleId).get().getViews()),
+                    String.valueOf(articleRepository.findById(articleId).get().getViews()),
                     Duration.ofMinutes(5));
             valueOperations.increment(key);
         }
@@ -84,7 +84,7 @@ public class ArticleCService {
             String data = it.next();
             String articleId = data.split("::")[1];
             Integer viewCnt = Integer.parseInt((String) redisTemplate.opsForValue().get(data));
-            Article article = articleCRepository.findById(articleId).get();
+            Article article = articleRepository.findById(articleId).get();
             article.addViews(viewCnt);
             log.info("Article add View complete!");
             redisTemplate.delete(data);

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+//import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Optional;
@@ -24,8 +24,7 @@ import java.util.UUID;
 @EnableFeignClients
 @EnableCaching
 @EnableScheduling
-@EnableJpaRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.command"})
-@EnableMongoRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.query"})
+@EnableJpaRepositories(basePackages = "com.ssafy.maryfarmboardservice.repository")
 public class MaryfarmBoardServiceApplication {
 
     public static void main(String[] args) {

@@ -13,6 +13,6 @@ public interface CalendarRepository extends JpaRepository<Calendar, CalendarID> 
             " from calendar" +
             " where calendar.user_id = :userId" +
             " and ((year(calendar.regist_date) = :year) and (month(calendar.regist_date) = :month) and (day(calendar.regist_date) = :day))",nativeQuery = true)
-    List<Calendar> findCalendar(@Param("userId") String userId, @Param("year") Integer year,
-                                @Param("month") Integer month, @Param("day") Integer day);
+    List<Calendar> findCalendarByDay(@Param("userId") String userId, @Param("year") Integer year,
+                                     @Param("month") Integer month, @Param("day") Integer day);
 }
