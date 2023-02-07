@@ -44,4 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'me.relex:circleindicator:2.1.6' // 뷰페이저 위치표시용 지시자
+    implementation 'de.hdodenhof:circleimageview:3.1.0'  // 원형 프로필
+
 }
