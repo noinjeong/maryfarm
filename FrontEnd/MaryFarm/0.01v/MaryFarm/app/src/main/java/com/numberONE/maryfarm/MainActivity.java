@@ -1,12 +1,14 @@
 package com.numberONE.maryfarm;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Drawer 조절용 토글 버튼 객체 생성
     ActionBarDrawerToggle barDrawerToggle;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // 상단 로고
+        getSupportActionBar().setIcon(R.drawable.logo_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //item icon 색조를 적용하지 않도록 , 이 설정 없을경우 item icon 전부 회색
         binding.drawerNav.setItemIconTintList(null);
@@ -100,4 +108,27 @@ public class MainActivity extends AppCompatActivity {
         barDrawerToggle.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
     }
+    // 상단메뉴 다른 버튼
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+    // 검색 버튼 로직 만들기
+    SearchView.OnQueryTextListener queryTextListener =new SearchView.OnQueryTextListener() {
+        @Override // 최종 검색을 위해 제출버튼 눌렀을 때
+        public boolean onQueryTextSubmit(String query) {
+            searchView.setQuery("",false);
+            searchView.setIconified(true);
+            Toast t = Toast.makeText(MainActivity.this,query,Toast.LENGTH_SHORT);
+            t.show();
+            return false;
+        }
+
+        @Override // 유저가 한글자 한글자 입력할 때
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
 }
