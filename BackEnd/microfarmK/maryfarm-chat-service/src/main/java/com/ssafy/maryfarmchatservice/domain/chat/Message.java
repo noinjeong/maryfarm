@@ -2,7 +2,6 @@ package com.ssafy.maryfarmchatservice.domain.chat;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.ssafy.maryfarmchatservice.api.dto.message.request.MessageRequestDTO;
 import com.ssafy.maryfarmchatservice.domain.BaseTimeEntity;
 import com.ssafy.maryfarmchatservice.formatter.LocalDateTimeDeserializer;
 import com.ssafy.maryfarmchatservice.formatter.LocalDateTimeSerializer;

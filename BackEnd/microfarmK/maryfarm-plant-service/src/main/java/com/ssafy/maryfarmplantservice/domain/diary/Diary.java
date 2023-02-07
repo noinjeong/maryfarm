@@ -28,6 +28,9 @@ public class Diary extends BaseTimeEntity implements Serializable {
     private Integer likes;
     private String imagePath;
 
+    private String userId;
+    private String userName;
+    private String profilePath;
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
@@ -39,12 +42,15 @@ public class Diary extends BaseTimeEntity implements Serializable {
         this.content = content;
     }
 
-    public static Diary of(Plant plant, String content, String imagePath) {
+    public static Diary of(Plant plant, String content, String imagePath, String userId, String userName, String profilePath) {
         Diary diary = new Diary();
         diary.plant = plant;
         diary.content = content;
         diary.likes = 0;
         diary.imagePath = imagePath;
+        diary.userId = userId;
+        diary.userName = userName;
+        diary.profilePath = profilePath;
         return diary;
     }
 

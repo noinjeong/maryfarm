@@ -47,7 +47,7 @@ public class UserController {
     })
     @PostMapping("/auth/user/signup")
     public ResponseEntity<?> saveUser(@RequestBody CreateUserRequestDTO dto) {
-        User user = User.of(dto.getKakaoId(), dto.getNickname(), Tier.씨앗);
+        User user = User.of(dto.getKakaoId(), dto.getUserName(), Tier.씨앗);
         User saveUser = userService.saveUser(user);
         return ResponseEntity.ok(saveUser.getId());
     }
@@ -116,7 +116,7 @@ public class UserController {
     @PutMapping("/user/modify")
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
         FileDetail saveFile = fileUploadService.save(image);
-        User user = userService.updateUser(dto.getUserId(), dto.getNickname(),saveFile.getPath());
+        User user = userService.updateUser(dto.getUserId(), dto.getUserName(),saveFile.getPath());
         return ResponseEntity.ok(user.getId());
     }
 

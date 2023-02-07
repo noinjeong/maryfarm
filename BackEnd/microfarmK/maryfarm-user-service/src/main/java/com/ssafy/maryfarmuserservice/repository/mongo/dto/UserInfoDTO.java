@@ -15,14 +15,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserInfoDTO {
     @Id
     private String _id;
-    private String nickname;
+    private String username;
     private String tier;
     private String profilepath;
 
     public static UserInfoDTO of(User user) {
         UserInfoDTO dto = new UserInfoDTO();
         dto._id = user.getId();
-        dto.nickname = user.getNickname();
+        dto.username = user.getUserName();
         dto.tier = user.getTier().name();
         dto.profilepath = user.getProfilePath();
         return dto;

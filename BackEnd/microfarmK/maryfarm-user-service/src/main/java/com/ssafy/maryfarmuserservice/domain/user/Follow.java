@@ -25,14 +25,21 @@ public class Follow extends BaseTimeEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
     private User senderUser;
+    private String senderName;
+    private String senderProfilePath;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "receiver_id")
     private User receiverUser;
-
+    private String receiverName;
+    private String receiverProfilePath;
     public static Follow of(User sender, User receiver) {
         Follow follow = new Follow();
         follow.senderUser = sender;
+        follow.senderName = sender.getUserName();
+        follow.senderProfilePath = sender.getProfilePath();
         follow.receiverUser = receiver;
+        follow.receiverName = receiver.getUserName();
+        follow.receiverProfilePath = receiver.getProfilePath();
         return follow;
     }
 }

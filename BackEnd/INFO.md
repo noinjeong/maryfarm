@@ -96,3 +96,5 @@
     @EnableJpaRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.command"})
     @EnableMongoRepositories(basePackages = {"com.ssafy.maryfarmboardservice.repository.query"})
     ```
+37. 쓰기DB와 읽기DB를 분리하고부터, 화면을 보면서 읽기DB를 구성하기 시작했고, 읽기DB에서 필요한 정보에 따라 쓰기DB에 컬럼이 여러 개 추가되기 시작함. 이게 맞을 것 같음.
+38. 읽기DB에서 더 쉽게 화면을 조립하기 위해서는 쓰기DB에서 더 많은 정보를 얻어와야 함. 따라서 컬럼이 더 많이 필요할 수 있음.

@@ -39,8 +39,8 @@ public class InitDb {
             Plant savePlant1 = plantRepository.save(plant1);
             Plant plant2 = Plant.of("1234567", "왕딸기 일지 시작!", "딸기");
             Plant savePlant2 = plantRepository.save(plant2);
-            Diary diary1 = Diary.of(plant1, "#왕감자 심기 시작함!", "010101");
-            Diary diary2 = Diary.of(plant2, "#왕딸기 심기 시작함!", "01010123");
+            Diary diary1 = Diary.of(plant1, "#왕감자 심기 시작함!", "010101","123456","baek","0101010");
+            Diary diary2 = Diary.of(plant2, "#왕딸기 심기 시작함!", "01010123","123456","baek","1212121");
             diaryRepository.save(diary1);
             diaryRepository.save(diary2);
         }

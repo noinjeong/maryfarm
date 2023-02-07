@@ -38,15 +38,15 @@ public class DiaryService {
     private final UserServiceClient userServiceClient;
     private final NotifyServiceClient notifyServiceClient;
     @Transactional
-    public Diary saveDiary(final String plantId, final String content, final String imagePath) {
+    public Diary saveDiary(final String plantId, final String content, final String imagePath,
+                           String userId, String userName, String profilePath) {
         Optional<Plant> plant = plantRepository.findById(plantId);
-        Diary diary = Diary.of(plant.get(),content,imagePath);
+        Diary diary = Diary.of(plant.get(),content,imagePath,userId,userName,profilePath);
         /*
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */
         Diary saveDiary = diaryRepository.save(diary);
         // 알람 생성 시작
-        String userId = plant.get().getUserId();
         UserResponseDTO userDto = userServiceClient.searchUser(userId);
         String notifyContent = userDto.getNickname()+"님이 새로운 일지를 올렸어요!";
         List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);

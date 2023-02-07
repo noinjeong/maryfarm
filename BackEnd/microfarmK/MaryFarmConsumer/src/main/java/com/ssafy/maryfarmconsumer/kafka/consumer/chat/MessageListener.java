@@ -35,8 +35,7 @@ public class MessageListener {
 
         Map<Object, Object> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {
-        });
+        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {});
         Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
         MessageDTO messageDTO = new MessageDTO(payload);
         Optional<MessageRoomDTO> dto = messageRoomDTORepository.findByRoomId((String) payload.get("room_id"));

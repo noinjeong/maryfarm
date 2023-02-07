@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateUserRequestDTO {
     private String kakaoId;
-    private String nickname;
+    private String userName;
     private String profilePath;
 }

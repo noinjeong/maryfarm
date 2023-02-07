@@ -1,7 +1,7 @@
 package com.ssafy.maryfarmconsumer.query_dto.board.TotalArticleView;
 
 import lombok.*;
-import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;

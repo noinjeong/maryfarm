@@ -1,29 +1,17 @@
 package com.ssafy.maryfarmnotifyservice.kafka.consumer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.maryfarmnotifyservice.api.dto.notify.request.CreateNotifyRequestDTO;
-import com.ssafy.maryfarmnotifyservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmnotifyservice.client.service.user.UserServiceClient;
-import com.ssafy.maryfarmnotifyservice.domain.notify.Notify;
-import com.ssafy.maryfarmnotifyservice.kafka.constants.KafkaConstants;
-import com.ssafy.maryfarmnotifyservice.service.NotifyService;
+import com.ssafy.maryfarmnotifyservice.service.NotifyCService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class MessageListener {
 
-    private final NotifyService notifyService;
+    private final NotifyCService notifyCService;
     private final UserServiceClient userServiceClient;
 //    @KafkaListener(
 //            topics = "notify",

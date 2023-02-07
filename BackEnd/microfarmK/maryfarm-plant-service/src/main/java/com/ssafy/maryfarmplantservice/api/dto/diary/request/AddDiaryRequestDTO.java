@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class AddDiaryRequestDTO {
     private String plantId;
     private String content;
+    private String userId;
+    private String userName;
+    private String profilePath;
 }

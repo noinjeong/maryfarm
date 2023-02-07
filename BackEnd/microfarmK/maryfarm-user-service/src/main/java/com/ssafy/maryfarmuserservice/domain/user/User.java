@@ -5,7 +5,6 @@ import com.ssafy.maryfarmuserservice.domain.Land;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,14 +19,14 @@ public class User extends BaseTimeEntity implements Serializable {
     @Column(name = "user_id")
     private String id;
     @Column(nullable = false)
-    private String nickname;
+    private String userName;
     @Enumerated(EnumType.STRING)
     private Tier tier;
     @Embedded
     private Land land;
     private String profilePath;
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserName(String username) {
+        this.userName = username;
     }
     public void setLand(Land land) {
         this.land = land;
@@ -36,10 +35,10 @@ public class User extends BaseTimeEntity implements Serializable {
         this.profilePath = path;
     }
     // 정적 팩토리 메서드
-    public static User of(String id, String nickname, Tier tier) {
+    public static User of(String id, String userName, Tier tier) {
         User user = new User();
         user.id = id;
-        user.nickname = nickname;
+        user.userName = userName;
         user.tier = tier;
         return user;
     }

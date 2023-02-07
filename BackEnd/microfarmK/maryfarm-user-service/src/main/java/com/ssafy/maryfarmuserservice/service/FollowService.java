@@ -30,7 +30,7 @@ public class FollowService {
         Follow follow = Follow.of(sender.get(), receiver.get());
         Follow saveFollow = followRepository.save(follow);
         // 알람 생성 시작
-        String content = sender.get().getNickname() + "님이 내 농장 이웃이 되었어요!";
+        String content = sender.get().getUserName() + "님이 내 농장 이웃이 되었어요!";
         CreateNotifyRequestDTO createNotifyRequestDTO = new CreateNotifyRequestDTO("FollowRequest", content, receiverId);
         notifyServiceClient.saveNotify(createNotifyRequestDTO);
         // 알람 생성 종료

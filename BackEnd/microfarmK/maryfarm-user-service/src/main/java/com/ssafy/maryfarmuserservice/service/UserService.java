@@ -9,11 +9,7 @@ import com.ssafy.maryfarmuserservice.repository.mongo.MongoUserRepository;
 import com.ssafy.maryfarmuserservice.repository.mongo.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,9 +47,9 @@ public class UserService {
         return null;
     }
     @Transactional
-    public User updateUser(final String id, final String nickname, final String profilePath) {
+    public User updateUser(final String id, final String userName, final String profilePath) {
         Optional<User> user = userRepository.findById(id);
-        user.get().setNickname(nickname);
+        user.get().setUserName(userName);
         user.get().setProfilePath(profilePath);
         return user.get();
     }
