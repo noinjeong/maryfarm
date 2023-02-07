@@ -9,5 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InitRoomRequestDTO {
     private String senderId;
+    private String senderName;
+    private String senderProfilePath;
     private String receiverId;
+    private String receiverName;
+    private String receiverProfilePath;
 }

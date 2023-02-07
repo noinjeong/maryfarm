@@ -31,9 +31,9 @@ public class MessageService {
     }
 
     @Transactional
-    public Message saveMessage(String roomId, String userId, String content) {
+    public Message saveMessage(String roomId, String userId, String userName, String profilePath, String content) {
         Optional<Room> room = roomRepository.findById(roomId);
-        Message message = Message.of(room.get(), userId, content, LocalDateTime.now());
+        Message message = Message.of(room.get(), userId, userName, profilePath, content, LocalDateTime.now());
         return messageRepository.save(message);
     }
 

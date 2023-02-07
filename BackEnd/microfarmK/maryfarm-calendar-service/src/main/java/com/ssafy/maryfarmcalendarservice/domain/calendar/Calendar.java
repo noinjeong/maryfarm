@@ -22,11 +22,12 @@ public class Calendar extends BaseTimeEntity implements Serializable {
     private Boolean nutrients;
     private Boolean division;
     private String memo;
-    public static Calendar of(String plantId, LocalDate registDate, String userId,
+    public static Calendar of(String plantId, Integer year, Integer month,
+                              Integer day, String userId,
                               Boolean water, Boolean branch, Boolean nutrients,
                               Boolean division, String memo) {
         Calendar calendar = new Calendar();
-        calendar.id = new CalendarID(plantId,registDate);
+        calendar.id = new CalendarID(plantId,year,month,day);
         calendar.userId = userId;
         calendar.water = water;
         calendar.branch = branch;

@@ -23,8 +23,7 @@ import java.time.LocalDateTime;
 public class CalendarID implements Serializable {
     @Column(name = "plant_id")
     private String plantId;
-    @Column(name = "regist_date")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDate registDate;
+    private Integer year;
+    private Integer month;
+    private Integer day;
 }

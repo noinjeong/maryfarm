@@ -12,5 +12,7 @@ import java.time.LocalDateTime;
 public class MessageRequestDTO {
     private String roomId;
     private String userId;
+    private String userName;
+    private String profilePath;
     private String content;
 }

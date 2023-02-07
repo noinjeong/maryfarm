@@ -30,15 +30,19 @@ public class Message extends BaseTimeEntity implements Serializable {
     private Room room;
     @Column(name = "user_id")
     private String userId;
+    private String userName;
+    private String profilePath;
     private String content;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime timestamp;
 
-    public static Message of(Room room, String userId, String content, LocalDateTime timestamp) {
+    public static Message of(Room room, String userId, String userName, String profilePath, String content, LocalDateTime timestamp) {
         Message message = new Message();
         message.room = room;
         message.userId = userId;
+        message.userName = userName;
+        message.profilePath = profilePath;
         message.content = content;
         message.timestamp = timestamp;
         return message;

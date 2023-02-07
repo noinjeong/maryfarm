@@ -43,7 +43,8 @@ public class RoomController {
     })
     @PostMapping("/room/init")
     public ResponseEntity<?> saveRoom(@RequestBody InitRoomRequestDTO dto) {
-        Room room = roomService.saveRoom(dto.getSenderId(), dto.getReceiverId());
+        Room room = roomService.saveRoom(dto.getSenderId(), dto.getSenderName(), dto.getSenderProfilePath(),
+                dto.getReceiverId(),dto.getReceiverName(),dto.getReceiverProfilePath());
         return ResponseEntity.ok(room.getId());
     }
 

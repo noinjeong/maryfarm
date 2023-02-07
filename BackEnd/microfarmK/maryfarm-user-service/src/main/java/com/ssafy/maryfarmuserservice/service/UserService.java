@@ -35,7 +35,6 @@ public class UserService {
         User saveUser = userRepository.save(user);
         return saveUser;
     }
-    @Cacheable(value = "user", key = "#id")
     public User findUser(final String id) {
         return userRepository.findById(id).get();
     }
@@ -51,7 +50,6 @@ public class UserService {
         }
         return null;
     }
-    @CachePut(value = "user", key = "#id")
     @Transactional
     public User updateUser(final String id, final String nickname, final String profilePath) {
         Optional<User> user = userRepository.findById(id);

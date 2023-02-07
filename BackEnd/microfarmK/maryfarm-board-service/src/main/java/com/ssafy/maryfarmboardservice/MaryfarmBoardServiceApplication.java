@@ -24,7 +24,7 @@ import java.util.UUID;
 @EnableFeignClients
 @EnableCaching
 @EnableScheduling
-@EnableJpaRepositories(basePackages = "com.ssafy.maryfarmboardservice.repository")
+@EnableJpaRepositories(basePackages = "com.ssafy.maryfarmboardservice.jpa_repository")
 public class MaryfarmBoardServiceApplication {
 
     public static void main(String[] args) {

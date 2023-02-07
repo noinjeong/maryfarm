@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CreateUserRequestDTO {
     private String kakaoId;
     private String nickname;
+    private String profilePath;
 }

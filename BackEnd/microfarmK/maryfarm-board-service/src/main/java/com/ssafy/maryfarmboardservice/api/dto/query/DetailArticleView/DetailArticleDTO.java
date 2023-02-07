@@ -3,11 +3,13 @@ package com.ssafy.maryfarmboardservice.api.dto.query.DetailArticleView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "detailArticle")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

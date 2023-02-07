@@ -19,8 +19,9 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     @Transactional
-    public Room saveRoom(String senderId, String receiverId) {
-        Room room = Room.of(senderId, receiverId);
+    public Room saveRoom(String senderId, String senderName, String senderProfilePath,
+                         String receiverId, String receiverName, String receiverProfilePath) {
+        Room room = Room.of(senderId, senderName, senderProfilePath, receiverId, receiverName, receiverProfilePath);
         return roomRepository.save(room);
     }
 

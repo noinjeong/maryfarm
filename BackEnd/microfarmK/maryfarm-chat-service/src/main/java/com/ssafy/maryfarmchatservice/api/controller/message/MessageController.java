@@ -49,7 +49,7 @@ public class MessageController {
     })
     @PostMapping("/message/send")
     public ResponseEntity<?> sendMessage(@RequestBody MessageRequestDTO dto) throws ExecutionException, InterruptedException {
-        Message saveMessage = messageService.saveMessage(dto.getRoomId(),dto.getUserId(),dto.getContent());
+        Message saveMessage = messageService.saveMessage(dto.getRoomId(),dto.getUserId(),dto.getUserName(),dto.getProfilePath(),dto.getContent());
         System.out.println("sending via kafka listener..");
         System.out.println("/topic/group/" + saveMessage.getRoom().getId());
         template.convertAndSend("/topic/group/" + saveMessage.getRoom().getId(), saveMessage);

@@ -11,7 +11,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "badge,follow,recommend,user,user_badge",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }
@@ -30,7 +30,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "notify",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }
@@ -49,7 +49,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "curating_plant,diary,diary_comment,diary_comment_like,diary_like,plant,tag",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }
@@ -68,7 +68,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "message,room",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }
@@ -87,7 +87,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "calendar",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }
@@ -106,7 +106,7 @@ curl --location --request POST 'http://localhost:8083/connectors' \
         "poll.interval.ms" : 2000,
         "table.whitelist" : "article,article_comment,article_comment_like,article_like,article_re_comment",
         "mode" : "timestamp",
-        "timestamp.column.name" : "created_date",
+        "timestamp.column.name" : "last_modified_date",
         "topic.creation.default.replication.factor" : 1,
         "topic.creation.default.partitions" : 3
     }

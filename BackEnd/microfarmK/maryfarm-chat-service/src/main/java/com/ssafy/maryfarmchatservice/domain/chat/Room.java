@@ -20,13 +20,22 @@ public class Room extends BaseTimeEntity implements Serializable {
     private String id;
     @Column(name = "sender_id")
     private String senderId;
+    private String senderName;
+    private String senderProfilePath;
     @Column(name = "receiver_id")
     private String receiverId;
+    private String receiverName;
+    private String receiverProfilePath;
 
-    public static Room of(String senderId, String receiverId) {
+    public static Room of(String senderId, String senderName, String senderProfilePath,
+                          String receiverId, String receiverName, String receiverProfilePath) {
         Room room = new Room();
         room.senderId = senderId;
+        room.senderName = senderName;
+        room.senderProfilePath = senderProfilePath;
         room.receiverId = receiverId;
+        room.receiverName = receiverName;
+        room.receiverProfilePath = receiverProfilePath;
         return room;
     }
 }

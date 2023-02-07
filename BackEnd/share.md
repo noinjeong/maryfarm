@@ -119,3 +119,6 @@ curl --location --request POST 'http://localhost:8083/connectors' \
     }
 }'
 ```
+
+#9 백승범 02 07
+배포 환경에서 redis 캐시를 사용했을 때, `redis READONLY You can't write against a read only replica.` 문제가 발생했는데 `command: redis-server --appendonly yes --replica-read-only no` 를 통해 해결함.

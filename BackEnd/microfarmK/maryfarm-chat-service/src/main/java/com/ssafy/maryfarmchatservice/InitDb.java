@@ -31,9 +31,9 @@ public class InitDb {
         private final RoomRepository roomRepository;
         private final MessageRepository messageRepository;
         public void dbInit() {
-            Room room = Room.of("123456", "1234567");
+            Room room = Room.of("123456", null,null,"1234567",null,null);
             roomRepository.save(room);
-            Message message = Message.of(room, "123456", "안냥안냥", LocalDateTime.now());
+            Message message = Message.of(room, "123456", "baek",null, "안냥안냥", LocalDateTime.now());
             messageRepository.save(message);
         }
     }

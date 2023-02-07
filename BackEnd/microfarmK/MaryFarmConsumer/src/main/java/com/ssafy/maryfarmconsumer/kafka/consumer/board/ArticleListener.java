@@ -28,7 +28,7 @@ public class ArticleListener {
             topics = "boarddb-article",
             groupId = "articleGroupByType"
     )
-    public void articleGroupByType_Listen(String message) throws JsonProcessingException {
+    public void articleGroupByTypeListen(String message) throws JsonProcessingException {
         log.info("Kafka Message: ->" + message);
 
         Map<Object, Object> map = new HashMap<>();
@@ -53,7 +53,7 @@ public class ArticleListener {
             topics = "boarddb-article",
             groupId = "detailArticle"
     )
-    public void detailArticle_Listen(String message) throws JsonProcessingException {
+    public void detailArticleListen(String message) throws JsonProcessingException {
         log.info("Kafka Message: ->" + message);
 
         Map<Object, Object> map = new HashMap<>();

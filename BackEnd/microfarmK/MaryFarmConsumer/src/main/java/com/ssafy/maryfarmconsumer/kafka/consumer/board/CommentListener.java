@@ -25,7 +25,7 @@ public class CommentListener {
             topics = "boarddb-article_comment",
             groupId = "articleCommentToDetailArticle"
     )
-    public void articleComment_Listen(String message) throws JsonProcessingException {
+    public void articleCommentListen(String message) throws JsonProcessingException {
         log.info("Kafka Message: ->" + message);
 
         Map<Object, Object> map = new HashMap<>();

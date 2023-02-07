@@ -1,12 +1,12 @@
 package com.ssafy.maryfarmboardservice.api.controller.article;
 
-import com.ssafy.maryfarmboardservice.api.dto.article.request.SearchArticleRequestDTO;
-import com.ssafy.maryfarmboardservice.api.dto.article.response.SearchArticleResponseDTO;
+import com.ssafy.maryfarmboardservice.api.dto.article.SearchArticleRequestDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.DetailArticleView.DetailArticleDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.ArticleDTO;
-import com.ssafy.maryfarmboardservice.domain.board.Article;
-import com.ssafy.maryfarmboardservice.mongo.MongoCRUD;
-import com.ssafy.maryfarmboardservice.service.ArticleService;
+import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.SearchArticleByTypeDTO;
+import com.ssafy.maryfarmboardservice.mongo_repository.DetailArticleDTORepository;
+import com.ssafy.maryfarmboardservice.mongo_repository.SearchArticleByTypeDTORepository;
+import com.ssafy.maryfarmboardservice.service.article.ArticleCService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,16 +19,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
 public class ArticleQuery {
-    private final MongoCRUD mongoCRUD;
-    private final ArticleService articleService;
+    private final ArticleCService articleCService;
+    private final DetailArticleDTORepository detailArticleDTORepository;
+    private final SearchArticleByTypeDTORepository searchArticleByTypeDTORepository;
     @Operation(summary = "전체 게시글 조회", description = "전체 게시글을 조회합니다.", tags = { "Board Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -39,8 +40,8 @@ public class ArticleQuery {
     })
     @PostMapping("/board/search")
     public ResponseEntity<?> searchArticleAll(@RequestBody SearchArticleRequestDTO dto) throws IOException {
-        List<Document> documents = mongoCRUD.findData("type", dto.getType(), "articleGroupByType");
-        List<ArticleDTO> resultDtos = (List<ArticleDTO>) documents.get(0).get("articles");
+        Optional<SearchArticleByTypeDTO> resultDto = searchArticleByTypeDTORepository.findByType(dto.getType());
+        List<ArticleDTO> resultDtos = resultDto.get().getArticles();
         return ResponseEntity.ok(resultDtos);
     }
 
@@ -54,9 +55,8 @@ public class ArticleQuery {
     })
     @GetMapping("/board/search/{articleId}")
     public ResponseEntity<?> searchDetailArticle(@PathVariable("articleId") String articleId) throws IOException {
-        List<Document> documents = mongoCRUD.findData("articleId", articleId, "detailArticle");
-        articleService.addViews(articleId);
-        List<DetailArticleDTO> resultDtos = (List<DetailArticleDTO>) documents.get(0).get("articles");
-        return ResponseEntity.ok(resultDtos);
+        Optional<DetailArticleDTO> resultDto = detailArticleDTORepository.findByArticleId(articleId);
+        articleCService.addViews(articleId);
+        return ResponseEntity.ok(resultDto.get());
     }
 }
