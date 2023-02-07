@@ -40,13 +40,19 @@ public class DiaryModifyActivity extends AppCompatActivity {
         binding = ActivityDiaryModifyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // 디테일 페이지에서 데이터 가져오기
-        Intent detailintent=getIntent();
-        String content=detailintent.getStringExtra("content");
+        // 디테일 페이지에서 넘겨준 데이터 받기
+        Intent detailintent = getIntent();
+        String diarytitle = detailintent.getStringExtra("diaryTitle");
+        String diarycontent = detailintent.getStringExtra("diaryContent");
 
-        binding.editTextBox.setText(content);
-        // setImageResource()로 이미지 변경
+//        Bitmap diaryimg = detailintent.getParcelableExtra("diaryImage");
+        byte[] imgbytes = detailintent.getByteArrayExtra("diaryImage");
+        Bitmap diaryimg = BitmapFactory.decodeByteArray(imgbytes, 0, imgbytes.length);
+
         // 제목, 작물종류 변경
+        binding.diaryModifyTitle.setText(diarytitle);
+        binding.editTextBox.setText(diarycontent);
+        binding.diaryPhotoImage.setImageBitmap(diaryimg);
 
         //카메라 실행 > 결과값 게시
         ActivityResultLauncher<Intent> cameraFileLauncher = registerForActivityResult(
@@ -132,14 +138,14 @@ public class DiaryModifyActivity extends AppCompatActivity {
         // 저장 버튼 클릭 -> DB에 정보를 저장하고 이동
         binding.saveBtn.setOnClickListener(view -> {
             // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기 ㄴㅇ
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
-            byte[] bytes= stream.toByteArray();
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
+//            byte[] bytes= stream.toByteArray();
 
             // DB저장이 아닌 단순 디테일 페이지로 정보 전달
             Intent intent = new Intent(this, DiaryDetailActivity.class);
-            intent.putExtra("image",bytes );
-            intent.putExtra("content",binding.editTextBox.getText().toString());
+//            intent.putExtra("image",bytes );
+//            intent.putExtra("content",binding.editTextBox.getText().toString());
             startActivity(intent);
             Log.d("onCreate: ","데이터 전송완료" );
         });

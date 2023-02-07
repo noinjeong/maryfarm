@@ -6,23 +6,22 @@ import com.google.gson.annotations.SerializedName;
 public class ItemModel {
     @Expose
     public long id;
-    @SerializedName("plantid")
-    public String plantid;
-    @SerializedName("title")
-    public String planttitle;
-// 아직 서버에 날짜 데이터 없음
-//    @SerializedName("created_at")
-//    public String created_at;
+    @SerializedName("name")
+    public String plantName;
+    @SerializedName("createdAt")
+    public String createdAt;
+    @SerializedName("harvestTime")
+    public String harvestTime;
 
     public long getId() { return id; }
 
-    public String getPlantid() {
-        return plantid;
+    public String getPlantName() {
+        return plantName;
     }
 
-    public String getPlanttitle() {
-        return planttitle;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-//    public String getCreated_at() { return created_at; }
+    public String getHarvestTime() { return harvestTime; }
 }
