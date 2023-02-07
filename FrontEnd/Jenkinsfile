@@ -14,14 +14,16 @@ def getBuildType() {
         case Constants.MASTER_BRANCH:
             return Constants.RELEASE_BUILD
         default:
-            return Constants.QA_BUILD
+            return Constants.RELEASE_BUILD
+            // return Constants.QA_BUILD
     }
 }
 
 def getTrackType() {
     switch (env.BRANCH_NAME) {
         case Constants.MASTER_BRANCH:
-            return Constants.RELEASE_TRACK
+            // return Constants.RELEASE_TRACK
+            return Constants.INTERNAL_TRACK
         default:
             return Constants.INTERNAL_TRACK
     }
