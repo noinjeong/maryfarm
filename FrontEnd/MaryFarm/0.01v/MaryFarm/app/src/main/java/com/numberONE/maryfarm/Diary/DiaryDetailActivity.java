@@ -8,11 +8,13 @@ import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +27,20 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +51,7 @@ import com.numberONE.maryfarm.Pick.PickActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
 import com.numberONE.maryfarm.databinding.ActivityDiaryDetailBinding;
+import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
@@ -61,12 +77,16 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     public TextView title;
     public TextView diaryContent;
     public Bitmap diaryImage;
+    // 상단메뉴 검색
+    ActionBarDrawerToggle barDrawerToggle;
+    SearchView searchView;
     private int likeCnt;
     private String commentContent;
 
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
 
+    ActivityDiaryDetailBinding binding;
     // sharedpreference practice
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -85,7 +105,51 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_diary_detail);
+        ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        //상단 메뉴 배경색 지정
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFFF));
+        //액션바에 표시되는 제목의 표시유무를 설정
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //item icon 색조를 적용하지 않도록 , 이 설정 없을경우 item icon 전부 회색
+        binding.drawerNav.setItemIconTintList(null);
+//drawerlayout
+        binding.drawerNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.hamburger_1:
+                        Toast.makeText(DiaryDetailActivity.this,"이장님 말씀", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.hamburger_2:
+                        Toast.makeText(DiaryDetailActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+                        BoardMainFragment boardFragment=new BoardMainFragment();
+                        ft.replace(R.id.main_activity,boardFragment);
+                        ft.commit();
+                        break;
+                    case R.id.hamburger_3:
+                        Toast.makeText(DiaryDetailActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.hamburger_4:
+                        Toast.makeText(DiaryDetailActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+                //클릭시 drawer 닫기
+                binding.drawerLayout.closeDrawer(binding.drawerNav);
+
+                return false;
+            }
+        });
+
+        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
+
+        // 좋아요 구현
+        likeCount = (TextView) findViewById(id.like_Count);
+        likeCount.setText(likeCnt+"");
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -364,4 +428,33 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         }
         return super.dispatchTouchEvent(ev);
     }
+    // 상단메뉴 다른 버튼
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        barDrawerToggle=new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.app_name, R.string.app_name);
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+    // 햄버거 메뉴 선택
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        barDrawerToggle.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
+    // 검색 버튼 로직 만들기
+    SearchView.OnQueryTextListener queryTextListener =new SearchView.OnQueryTextListener() {
+        @Override // 최종 검색을 위해 제출버튼 눌렀을 때
+        public boolean onQueryTextSubmit(String query) {
+            searchView.setQuery("",false);
+            searchView.setIconified(true);
+            Toast t = Toast.makeText(DiaryDetailActivity.this,query,Toast.LENGTH_SHORT);
+            t.show();
+            return false;
+        }
+
+        @Override // 유저가 한글자 한글자 입력할 때
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
 }
