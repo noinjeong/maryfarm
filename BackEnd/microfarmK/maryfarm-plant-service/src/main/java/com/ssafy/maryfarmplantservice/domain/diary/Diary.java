@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class Diary extends BaseTimeEntity implements Serializable {
     private String profilePath;
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
+    private String title;
+    private LocalDateTime plantCreatedDate;
+    private LocalDateTime harvestDate;
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
@@ -42,7 +46,9 @@ public class Diary extends BaseTimeEntity implements Serializable {
         this.content = content;
     }
 
-    public static Diary of(Plant plant, String content, String imagePath, String userId, String userName, String profilePath) {
+    public static Diary of(Plant plant, String content, String imagePath,
+                           String userId, String userName, String profilePath,
+                           String title, LocalDateTime plantCreatedDate, LocalDateTime harvestDate) {
         Diary diary = new Diary();
         diary.plant = plant;
         diary.content = content;
@@ -51,6 +57,9 @@ public class Diary extends BaseTimeEntity implements Serializable {
         diary.userId = userId;
         diary.userName = userName;
         diary.profilePath = profilePath;
+        diary.title = title;
+        diary.plantCreatedDate = plantCreatedDate;
+        diary.harvestDate = harvestDate;
         return diary;
     }
 

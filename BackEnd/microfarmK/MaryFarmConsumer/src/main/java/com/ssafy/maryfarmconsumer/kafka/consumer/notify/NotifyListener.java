@@ -3,21 +3,15 @@ package com.ssafy.maryfarmconsumer.kafka.consumer.notify;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.maryfarmconsumer.client.dto.notify.CreateNotifyRequestDTO;
-import com.ssafy.maryfarmconsumer.client.dto.user.UserResponseDTO;
-import com.ssafy.maryfarmconsumer.client.service.notify.NotifyServiceClient;
-import com.ssafy.maryfarmconsumer.client.service.user.UserServiceClient;
-import com.ssafy.maryfarmconsumer.kafka.constants.KafkaConstants;
-import com.ssafy.maryfarmconsumer.query_dto.notify.AllNotifyView.AllNotifyDTO;
-import com.ssafy.maryfarmconsumer.query_dto.notify.AllNotifyView.NotifyDTO;
-import com.ssafy.maryfarmconsumer.repository.notify.AllNotifyDTORepository;
+import com.ssafy.maryfarmconsumer.query_dto.AllNotifyView.AllNotifyDTO;
+import com.ssafy.maryfarmconsumer.query_dto.AllNotifyView.NotifyDTO;
+import com.ssafy.maryfarmconsumer.repository.AllNotifyView.AllNotifyDTORepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

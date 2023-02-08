@@ -1,6 +1,5 @@
 package com.ssafy.maryfarmplantservice.domain.plant;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ssafy.maryfarmplantservice.domain.BaseTimeEntity;
@@ -10,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,12 +29,12 @@ public class Plant extends BaseTimeEntity implements Serializable {
     @Column(name = "harvest_time")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime harvestTime;
+    private LocalDateTime harvestDate;
     private Boolean active;
     // active true/수확안함  false/수확함
 
-    public void setHarvestTime(LocalDateTime harvestTime) {
-        this.harvestTime = harvestTime;
+    public void setHarvestDate(LocalDateTime harvestDate) {
+        this.harvestDate = harvestDate;
     }
 
     public void setActive(Boolean active) {

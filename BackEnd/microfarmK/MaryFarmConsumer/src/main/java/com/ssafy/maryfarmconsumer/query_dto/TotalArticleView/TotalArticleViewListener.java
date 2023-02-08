@@ -1,11 +1,8 @@
-package com.ssafy.maryfarmconsumer.kafka.consumer.board;
+package com.ssafy.maryfarmconsumer.query_dto.TotalArticleView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.maryfarmconsumer.query_dto.DetailArticleView.DetailArticleDTO;
-import com.ssafy.maryfarmconsumer.query_dto.TotalArticleView.ArticleDTO;
-import com.ssafy.maryfarmconsumer.query_dto.TotalArticleView.SearchArticleByTypeDTO;
 import com.ssafy.maryfarmconsumer.repository.DetailArticleView.DetailArticleDTORepository;
 import com.ssafy.maryfarmconsumer.repository.TotalArticleView.SearchArticleByTypeDTORepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +17,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class ArticleListener {
+public class TotalArticleViewListener {
     private final DetailArticleDTORepository detailArticleDTORepository;
     private final SearchArticleByTypeDTORepository searchArticleByTypeDTORepository;
 
@@ -47,21 +44,5 @@ public class ArticleListener {
             dto.get().getArticles().add(articleDTO);
             searchArticleByTypeDTORepository.save(dto.get());
         }
-    }
-
-    @KafkaListener(
-            topics = "boarddb-article",
-            groupId = "detailArticle"
-    )
-    public void detailArticleListen(String message) throws JsonProcessingException {
-        log.info("Kafka Message: ->" + message);
-
-        Map<Object, Object> map = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {
-        });
-        Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
-        DetailArticleDTO detailArticleDTO = new DetailArticleDTO(payload);
-        detailArticleDTORepository.save(detailArticleDTO);
     }
 }

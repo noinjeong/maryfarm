@@ -41,7 +41,9 @@ public class DiaryService {
     public Diary saveDiary(final String plantId, final String content, final String imagePath,
                            String userId, String userName, String profilePath) {
         Optional<Plant> plant = plantRepository.findById(plantId);
-        Diary diary = Diary.of(plant.get(),content,imagePath,userId,userName,profilePath);
+        Diary diary = Diary.of(plant.get(),content,imagePath,userId,
+                userName,profilePath,plant.get().getTitle(),plant.get().getCreatedDate(),
+                plant.get().getHarvestDate());
         /*
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */

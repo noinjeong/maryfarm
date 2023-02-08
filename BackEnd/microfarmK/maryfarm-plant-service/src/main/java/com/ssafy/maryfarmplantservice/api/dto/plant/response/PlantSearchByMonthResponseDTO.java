@@ -26,7 +26,7 @@ public class PlantSearchByMonthResponseDTO {
         dto.userId = plant.getUserId();
         dto.name = plant.getName();
         dto.title = plant.getTitle();
-        dto.harvestTime = plant.getHarvestTime();
+        dto.harvestTime = plant.getHarvestDate();
         dto.active = plant.getActive();
         dto.createdDate = plant.getCreatedDate();
         dto.lastModifiedDate = plant.getLastModifiedDate();

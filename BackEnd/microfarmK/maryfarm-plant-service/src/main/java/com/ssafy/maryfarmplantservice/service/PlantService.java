@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class PlantService {
     @Transactional
     public Plant doHarvest(String plantId) {
         Optional<Plant> plant = plantRepository.findById(plantId);
-        plant.get().setHarvestTime(LocalDateTime.now());
+        plant.get().setHarvestDate(LocalDateTime.now());
         plant.get().setActive(false);
         return plant.get();
     }

@@ -4,8 +4,6 @@ import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
 import com.ssafy.maryfarmplantservice.repository.DiaryRepository;
 import com.ssafy.maryfarmplantservice.repository.PlantRepository;
-import com.ssafy.maryfarmplantservice.service.DiaryService;
-import com.ssafy.maryfarmplantservice.service.PlantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +37,8 @@ public class InitDb {
             Plant savePlant1 = plantRepository.save(plant1);
             Plant plant2 = Plant.of("1234567", "왕딸기 일지 시작!", "딸기");
             Plant savePlant2 = plantRepository.save(plant2);
-            Diary diary1 = Diary.of(plant1, "#왕감자 심기 시작함!", "010101","123456","baek","0101010");
-            Diary diary2 = Diary.of(plant2, "#왕딸기 심기 시작함!", "01010123","123456","baek","1212121");
+            Diary diary1 = Diary.of(plant1, "#왕감자 심기 시작함!", "010101","123456","baek","0101010",plant1.getTitle(),plant1.getCreatedDate(),plant1.getHarvestDate());
+            Diary diary2 = Diary.of(plant2, "#왕딸기 심기 시작함!", "01010123","123456","baek","1212121",plant2.getTitle(),plant2.getCreatedDate(),plant2.getHarvestDate());
             diaryRepository.save(diary1);
             diaryRepository.save(diary2);
         }
