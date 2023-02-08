@@ -5,12 +5,10 @@ import static com.numberONE.maryfarm.R.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-=======
 import android.content.SharedPreferences;
->>>>>>> 1925f4e1598ec31e201bc4ab3b522fbc474107e6
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,22 +50,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HEAD;
 
 public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     // 좋아요 구현
     private boolean sign=false;
     private TextView likeCount;
-<<<<<<< HEAD
-    private int likeCnt = 0;
     // Intent로 보낼 페이지 정보
     public TextView title;
     public TextView diaryContent;
     public Bitmap diaryImage;
-=======
     private int likeCnt;
     private String commentContent;
->>>>>>> 1925f4e1598ec31e201bc4ab3b522fbc474107e6
 
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
@@ -94,13 +89,11 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-<<<<<<< HEAD
         // 수정 페이지로 넘길 데이터
         title = binding.title;
         diaryContent = binding.diaryContent;
         BitmapDrawable diaryimg = (BitmapDrawable) binding.diaryDetailImage.getDrawable();
         diaryImage = diaryimg.getBitmap();
-=======
         int[] diaryId_list = {7, 8};
 
         // 상세 일지 정보 레드토핏
@@ -191,7 +184,6 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         userId = pref.getString("userId", "Null");
         textView = findViewById(R.id.userId);
         textView.setText(userId);
->>>>>>> 1925f4e1598ec31e201bc4ab3b522fbc474107e6
 
         // 클릭시 - 좋아요 & 숫자 증가
         binding.emptyHeartIcon.setOnClickListener(new View.OnClickListener() {
