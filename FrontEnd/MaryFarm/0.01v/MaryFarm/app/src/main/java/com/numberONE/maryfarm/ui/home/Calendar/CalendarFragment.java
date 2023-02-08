@@ -194,7 +194,7 @@ public class CalendarFragment extends Fragment {
 //                    userSelectCheckbokPosition = checkboxId;
 //                }
                 if(checked) {
-                    binding.calendarView.addDecorator(new RangeDecorator(getActivity()));
+                    binding.calendarView.addDecorator(new DayDecorator(getActivity()));
                     widget.setSelectionMode(SELECTION_MODE_RANGE);
 
                     Log.i(TAG, "onPlantCheck:"+createdAt + harvestTime);
