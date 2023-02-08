@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MaryFarm" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MaryFarm" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -10,9 +10,13 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="font">@font/shrikhand_regular</item>
+<!--        <item name="android:textColor">@color/white</item>-->
     </style>
+
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
         <item name="android:focusedMonthDateColor">@android:color/holo_blue_light</item>
         <item name="android:weekNumberColor">@android:color/holo_red_light</item>
@@ -55,4 +59,13 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/darker_gray</item>
     </style>
+
+    <style name="Theme.MaryFarm.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MaryFarm.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MaryFarm.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
