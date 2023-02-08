@@ -11,7 +11,6 @@
         android:title="메세지" />
     <item
         android:id="@+id/menu_bottom_write"
-        android:enabled="true"
         android:icon="@drawable/ic_baseline_camera_enhance_24"
         android:title="새 일지"/>
     <item
@@ -20,7 +19,6 @@
         android:title="알림" />
     <item
         android:id="@+id/menu_bottom_farm"
-        android:enabled="true"
         android:icon="@drawable/ic_baseline_local_florist_24"
         android:title="내 농장"/>
 </menu>
