@@ -105,7 +105,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_diary_detail);
-        ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
+        binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         //상단 메뉴 배경색 지정
@@ -150,8 +150,6 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         // 좋아요 구현
         likeCount = (TextView) findViewById(id.like_Count);
         likeCount.setText(likeCnt+"");
-        ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         // 수정 페이지로 넘길 데이터
         title = binding.title;
