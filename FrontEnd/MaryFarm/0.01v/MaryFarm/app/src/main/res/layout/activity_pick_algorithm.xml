@@ -20,11 +20,6 @@
             android:padding="@dimen/appbar_padding"
             android:text="당신을 위한 Mary의 텃밭 친구 추천!"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -41,6 +36,11 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_map" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 <!--    <ImageView-->
 <!--        android:id="@+id/fab"-->
 <!--        android:layout_gravity="bottom|end"-->
