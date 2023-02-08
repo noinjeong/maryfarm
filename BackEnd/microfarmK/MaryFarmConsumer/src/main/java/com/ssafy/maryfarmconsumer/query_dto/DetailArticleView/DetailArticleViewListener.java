@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -34,5 +35,23 @@ public class DetailArticleViewListener {
         Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
         DetailArticleDTO detailArticleDTO = new DetailArticleDTO(payload);
         detailArticleDTORepository.save(detailArticleDTO);
+    }
+
+    @KafkaListener(
+            topics = "boarddb-article_comment",
+            groupId = "articleCommentToDetailArticle"
+    )
+    public void articleCommentListen(String message) throws JsonProcessingException {
+        log.info("Kafka Message: ->" + message);
+
+        Map<Object, Object> map = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {
+        });
+        Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
+        Optional<DetailArticleDTO> dto = detailArticleDTORepository.findByArticleId((String) payload.get("article_id"));
+        ArticleCommentDTO articleCommentDTO = new ArticleCommentDTO(payload);
+        dto.get().getComments().add(articleCommentDTO);
+        detailArticleDTORepository.save(dto.get());
     }
 }

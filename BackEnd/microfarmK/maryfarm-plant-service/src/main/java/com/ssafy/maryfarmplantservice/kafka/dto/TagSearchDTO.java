@@ -1,7 +1,7 @@
 package com.ssafy.maryfarmplantservice.kafka.dto;
 
-import com.ssafy.maryfarmplantservice.api.dto.diary.response.GroupedDiaryForSearchDTO;
-import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.GroupedDiaryForSearchDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.PlantResponseDTO;
 import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.tag.Tag;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor

@@ -40,4 +40,12 @@ public class FarmDiaryDTO {
             this.harvestDate = harvestDate;
         }
     }
+
+    public void update(Map<Object, Object> payload) {
+        String prevDiaryImagePath = this.latestDiaryImagePath;
+        this.latestDiaryImagePath = (String) payload.get("image_path");
+        LocalDateTime createdDate = LocalDateTime.ofInstant(Instant.ofEpochMilli((Long) payload.get("created_date")), TimeZone.getDefault().toZoneId());
+        this.diaryCreatedDate = createdDate;
+        this.otherDiaryImagePath.add(prevDiaryImagePath);
+    }
 }

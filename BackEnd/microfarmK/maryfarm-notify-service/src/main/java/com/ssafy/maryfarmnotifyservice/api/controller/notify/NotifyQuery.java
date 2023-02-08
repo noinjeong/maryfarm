@@ -1,10 +1,7 @@
 package com.ssafy.maryfarmnotifyservice.api.controller.notify;
 
-import com.ssafy.maryfarmnotifyservice.api.dto.notify.CreateNotifyRequestDTO;
 import com.ssafy.maryfarmnotifyservice.api.dto.query.AllNotifyView.AllNotifyDTO;
-import com.ssafy.maryfarmnotifyservice.domain.notify.Notify;
-import com.ssafy.maryfarmnotifyservice.kafka.producer.notify.NotifyProducer;
-import com.ssafy.maryfarmnotifyservice.mongo_repository.AllNotifyDTORepository;
+import com.ssafy.maryfarmnotifyservice.mongo_repository.AllNotifyView.AllNotifyDTORepository;
 import com.ssafy.maryfarmnotifyservice.service.NotifyCService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +23,7 @@ public class NotifyQuery {
     private final NotifyCService notifyCService;
     private final AllNotifyDTORepository allNotifyDTORepository;
 
-    @Operation(summary = "알림 리스트 조회", description = "자신의 알림목록을 조회합니다.", tags = { "Notify Controller" })
+    @Operation(summary = "알림 리스트 화면 조회", description = "특정 유저의 알림 리스트 화면을 조회합니다.", tags = { "Notify Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = AllNotifyDTO.class))),

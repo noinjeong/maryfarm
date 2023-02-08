@@ -4,8 +4,8 @@ import com.ssafy.maryfarmboardservice.api.dto.article.SearchArticleRequestDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.DetailArticleView.DetailArticleDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.ArticleDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.SearchArticleByTypeDTO;
-import com.ssafy.maryfarmboardservice.mongo_repository.DetailArticleDTORepository;
-import com.ssafy.maryfarmboardservice.mongo_repository.SearchArticleByTypeDTORepository;
+import com.ssafy.maryfarmboardservice.mongo_repository.DetailArticleView.DetailArticleDTORepository;
+import com.ssafy.maryfarmboardservice.mongo_repository.TotalArticleView.SearchArticleByTypeDTORepository;
 import com.ssafy.maryfarmboardservice.service.article.ArticleCService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,7 +30,7 @@ public class ArticleQuery {
     private final ArticleCService articleCService;
     private final DetailArticleDTORepository detailArticleDTORepository;
     private final SearchArticleByTypeDTORepository searchArticleByTypeDTORepository;
-    @Operation(summary = "전체 게시글 조회", description = "전체 게시글을 조회합니다.", tags = { "Board Controller" })
+    @Operation(summary = "특정 타입의 전체 게시글 화면 조회", description = "특정 타입의 전체 게시글 화면을 조회합니다.", tags = { "Board Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = ArticleDTO.class))),
@@ -45,7 +45,7 @@ public class ArticleQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "게시글 상세 조회", description = "게시글을 상세 조회합니다.", tags = { "Board Controller" })
+    @Operation(summary = "게시글 상세 화면 조회", description = "게시글의 상세 화면을 조회합니다.", tags = { "Board Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DetailArticleDTO.class))),

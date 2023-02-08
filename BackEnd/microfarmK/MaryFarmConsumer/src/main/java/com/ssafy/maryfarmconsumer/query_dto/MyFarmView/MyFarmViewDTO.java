@@ -19,7 +19,7 @@ public class MyFarmViewDTO {
     private String userId;
     private Integer followerCount;
     private Integer followingCount;
-    private List<FarmDiaryDTO> diarys = new ArrayList<>();
+    private List<FarmDiaryDTO> diaries = new ArrayList<>();
 
     public void addFollowerCount(Integer x) {
         this.followerCount+=x;

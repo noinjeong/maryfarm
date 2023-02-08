@@ -2,8 +2,8 @@ package com.ssafy.maryfarmplantservice;
 
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
-import com.ssafy.maryfarmplantservice.repository.DiaryRepository;
-import com.ssafy.maryfarmplantservice.repository.PlantRepository;
+import com.ssafy.maryfarmplantservice.jpa_repository.DiaryRepository;
+import com.ssafy.maryfarmplantservice.jpa_repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,6 @@
 package com.ssafy.maryfarmplantservice.api.controller.diary;
 
-import com.ssafy.maryfarmplantservice.api.dto.diary.request.*;
+import com.ssafy.maryfarmplantservice.api.dto.diary.*;
 import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.diary.DiaryComment;
@@ -8,8 +8,8 @@ import com.ssafy.maryfarmplantservice.domain.diary.DiaryLike;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
 import com.ssafy.maryfarmplantservice.kafka.producer.diary.DiaryProducer;
 import com.ssafy.maryfarmplantservice.kafka.producer.plant.PlantProducer;
-import com.ssafy.maryfarmplantservice.service.DiaryService;
-import com.ssafy.maryfarmplantservice.service.PlantService;
+import com.ssafy.maryfarmplantservice.service.DiaryCService;
+import com.ssafy.maryfarmplantservice.service.PlantCService;
 import com.ssafy.maryfarmplantservice.util.file.dto.FileDetail;
 import com.ssafy.maryfarmplantservice.util.file.service.FileUploadService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,8 +30,8 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping("/api")
 public class DiaryCommand {
-    private final DiaryService diaryService;
-    private final PlantService plantService;
+    private final DiaryCService diaryCService;
+    private final PlantCService plantCService;
     private final FileUploadService fileUploadService;
     private final UserServiceClient userServiceClient;
     private final DiaryProducer diaryProducer;
@@ -51,9 +51,9 @@ public class DiaryCommand {
             saveDiary에 Diary 객체를 넘겨주는 게 아닌 Diary 객체를 만드는 데에 필요한 정보를 넘겨주는 게
             의존성 관리에 더 바람직함. Diary 객체를 넘겨주려면 Diary 객체에 대한 의존성이 생김.
          */
-        Plant savePlant = plantService.savePlant(dto.getUserId(),dto.getTitle(),dto.getName());
+        Plant savePlant = plantCService.savePlant(dto.getUserId(),dto.getTitle(),dto.getName());
         FileDetail saveFile = fileUploadService.save(image);
-        Diary saveDiary = diaryService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath(),
+        Diary saveDiary = diaryCService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath(),
                 dto.getUserId(),dto.getUserName(),dto.getProfilePath());
         return ResponseEntity.ok(saveDiary.getId());
     }
@@ -69,7 +69,7 @@ public class DiaryCommand {
     @PostMapping("/diary/add")
     public ResponseEntity<?> addDiary(@RequestPart MultipartFile image, @RequestPart AddDiaryRequestDTO dto) throws IOException {
         FileDetail saveFile = fileUploadService.save(image);
-        Diary saveDiary = diaryService.saveDiary(dto.getPlantId(), dto.getContent(), saveFile.getPath(),
+        Diary saveDiary = diaryCService.saveDiary(dto.getPlantId(), dto.getContent(), saveFile.getPath(),
                 dto.getUserId(),dto.getUserName(),dto.getProfilePath());
         return ResponseEntity.ok(saveDiary.getId());
     }
@@ -88,9 +88,9 @@ public class DiaryCommand {
         Diary updateDiary = null;
         if(!image.isEmpty()) {
             FileDetail saveFile = fileUploadService.save(image);
-            updateDiary = diaryService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent(), saveFile.getPath());
+            updateDiary = diaryCService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent(), saveFile.getPath());
         } else {
-            updateDiary = diaryService.updateDiaryContent(dto.getDiaryId(), dto.getContent());
+            updateDiary = diaryCService.updateDiaryContent(dto.getDiaryId(), dto.getContent());
         }
         return ResponseEntity.ok(updateDiary.getId());
     }
@@ -105,8 +105,8 @@ public class DiaryCommand {
     })
     @PostMapping("/diary/like")
     public ResponseEntity<?> giveDiaryLike(@RequestBody DiaryLikeRequestDTO dto) {
-        DiaryLike diaryLike = diaryService.saveDiaryLike(dto.getDiaryId(),dto.getUserId());
-        diaryService.addLike(dto.getDiaryId());
+        DiaryLike diaryLike = diaryCService.saveDiaryLike(dto.getDiaryId(),dto.getUserId());
+        diaryCService.addLike(dto.getDiaryId());
         return ResponseEntity.ok(diaryLike.getId());
     }
 
@@ -120,7 +120,7 @@ public class DiaryCommand {
     })
     @PostMapping("/diary/comment")
     public ResponseEntity<?> giveDiaryComment(@RequestBody DiaryCommentRequestDTO dto) {
-        DiaryComment diaryComment = diaryService.saveDiaryComment(dto.getDiaryId(),dto.getUserId(),dto.getContent());
+        DiaryComment diaryComment = diaryCService.saveDiaryComment(dto.getDiaryId(),dto.getUserId(),dto.getContent());
         return ResponseEntity.ok(diaryComment.getId());
     }
 }

@@ -3,7 +3,7 @@ package com.ssafy.maryfarmcalendarservice.api.controller.calendar;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.SearchCalendarByDayRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.query.CalendarPerDayView.CalendarPerDayDTO;
 import com.ssafy.maryfarmcalendarservice.client.service.plant.PlantServiceClient;
-import com.ssafy.maryfarmcalendarservice.mongo_repository.CalendarPerDayDTORepository;
+import com.ssafy.maryfarmcalendarservice.mongo_repository.CalendarPerDayView.CalendarPerDayDTORepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

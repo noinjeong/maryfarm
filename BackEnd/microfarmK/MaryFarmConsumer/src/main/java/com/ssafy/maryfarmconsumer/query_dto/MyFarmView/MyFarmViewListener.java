@@ -50,7 +50,16 @@ public class MyFarmViewListener {
         Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
         FarmDiaryDTO farmDiaryDTO = new FarmDiaryDTO(payload);
         Optional<MyFarmViewDTO> myFarmViewDTO = myFarmViewDTORepository.findByUserId((String) payload.get("user_id"));
-        myFarmViewDTO.get().getDiarys().add(farmDiaryDTO);
+        List<FarmDiaryDTO> list = myFarmViewDTO.get().getDiaries();
+        String plantId = (String)payload.get("plant_id");
+        for(FarmDiaryDTO f : list) {
+            if(f.getPlantId().equals(plantId)) {
+                f.update(payload);
+                myFarmViewDTORepository.save(myFarmViewDTO.get());
+                return;
+            }
+        }
+        myFarmViewDTO.get().getDiaries().add(farmDiaryDTO);
         myFarmViewDTORepository.save(myFarmViewDTO.get());
     }
 
