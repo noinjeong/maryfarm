@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <!-- 인터넷 사용 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 카메라 사용 권한 설정 -->
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" />
 
-    <!--S3 퍼미션 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
+    <!--    android:networkSecurityConfig="@xml/network_security_config"-->
     <application
         android:name=".KakaoLogin.KakaoApplication"
         android:allowBackup="true"
@@ -23,7 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaryFarm"
-        tools:targetApi="31"
+        tools:targetApi="32"
         android:usesCleartextTraffic="true">
 
         <activity
@@ -35,11 +38,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!-- s3 service 설정 -->
-        <service
-            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
-            android:enabled="true" />
-
 
         <activity
             android:name=".Diary.DiaryModifyActivity"
@@ -62,13 +60,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".Board.BoardActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".Alarm.AlarmActivity"
             android:exported="false">
@@ -102,21 +94,6 @@
         </activity>
 
         <activity
-            android:name=".MyfarmProfile.FarmsProfileActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MyfarmProfile.MyfarmProfileActivity"
-            android:exported="false">
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".KakaoLogin.KakaoLoginActivity"
             android:exported="true">
 
@@ -138,11 +115,11 @@
 
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -157,9 +134,12 @@
 
                 <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
                 <!-- 관섭 key : 1fc6b60080fc2f00d7f43085d079e13e-->
+                <!-- 유범 key:  f059c3fbe021d13fa0a5ffa33e906bf8-->
+                <!-- 환석 key:  ca5f329ea3d04e9a001843861e32e8b2-->
+
                 <data
                     android:host="oauth"
-                    android:scheme="kakao1fc6b60080fc2f00d7f43085d079e13e" />
+                    android:scheme="kakaof059c3fbe021d13fa0a5ffa33e906bf8" />
             </intent-filter>
         </activity>
 
