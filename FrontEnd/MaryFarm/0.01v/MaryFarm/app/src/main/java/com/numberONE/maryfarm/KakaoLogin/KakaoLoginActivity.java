@@ -100,12 +100,16 @@ public class KakaoLoginActivity extends AppCompatActivity {
 
                 ServerAPI serverAPI = retrofit.create(ServerAPI.class);
                 Call<UserInfo> call = serverAPI.getUserInfo(user_id);
-
+                Log.d(TAG, "!!!!"+call);
+                Log.d(TAG, "!!!!"+user_id);
                 call.enqueue(new Callback<UserInfo>() {
+                    int a = 777;
+
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                         UserInfo userInfo = response.body();
-
+                        Log.d(TAG, "회원가입 여부 확인 "+userInfo);
+                        Log.d(TAG, "onResponse: "+response.code());
                         // # 1-2. 기회원이 아닌 경우, Sign up 진행
                         if (userInfo==null){
                             Retrofit retrofit1 = new Retrofit.Builder()
@@ -130,13 +134,15 @@ public class KakaoLoginActivity extends AppCompatActivity {
                                     Log.d("Signup", t.toString());
                                 }
                             });
-
-
+                        } else {
+                            Log.d(TAG, "Already Signup!!!!!");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UserInfo> call, Throwable t) {
+                        t.printStackTrace();
+                        Log.d(TAG, "onFailure: "+a);
                         Log.d("kakaoLogin", t.toString());
                     }
                 });
@@ -159,7 +165,6 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 userId = pref.getString("userId", user_id);   // String 불러오기 (저장해둔 값 없으면 초기값인 _으로 불러옴)
                 // 3. 새로운 값(카카오 유저 아이디) 저장
                 editor.putString("userId", user_id.toString());
-                Log.d(TAG, "getUserInfo: !!!!!!!!!!!!!"+userId);
                 editor.commit(); // 저장
 
                 // user의 id(key값) 넘겨주기
