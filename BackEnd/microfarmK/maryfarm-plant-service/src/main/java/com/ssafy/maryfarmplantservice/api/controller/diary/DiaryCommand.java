@@ -53,7 +53,7 @@ public class DiaryCommand {
          */
         Plant savePlant = plantCService.savePlant(dto.getUserId(),dto.getTitle(),dto.getName());
         FileDetail saveFile = fileUploadService.save(image);
-        Diary saveDiary = diaryCService.saveDiary(savePlant.getId(),dto.getContent(), saveFile.getPath(),
+        Diary saveDiary = diaryCService.saveDiary(savePlant.getId(),dto.getContent()+" ", saveFile.getPath(),
                 dto.getUserId(),dto.getUserName(),dto.getProfilePath());
         return ResponseEntity.ok(saveDiary.getId());
     }
@@ -69,7 +69,7 @@ public class DiaryCommand {
     @PostMapping("/diary/add")
     public ResponseEntity<?> addDiary(@RequestPart MultipartFile image, @RequestPart AddDiaryRequestDTO dto) throws IOException {
         FileDetail saveFile = fileUploadService.save(image);
-        Diary saveDiary = diaryCService.saveDiary(dto.getPlantId(), dto.getContent(), saveFile.getPath(),
+        Diary saveDiary = diaryCService.saveDiary(dto.getPlantId(), dto.getContent()+" ", saveFile.getPath(),
                 dto.getUserId(),dto.getUserName(),dto.getProfilePath());
         return ResponseEntity.ok(saveDiary.getId());
     }
@@ -88,9 +88,9 @@ public class DiaryCommand {
         Diary updateDiary = null;
         if(!image.isEmpty()) {
             FileDetail saveFile = fileUploadService.save(image);
-            updateDiary = diaryCService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent(), saveFile.getPath());
+            updateDiary = diaryCService.updateDiaryContentAndImage(dto.getDiaryId(), dto.getContent()+" ", saveFile.getPath());
         } else {
-            updateDiary = diaryCService.updateDiaryContent(dto.getDiaryId(), dto.getContent());
+            updateDiary = diaryCService.updateDiaryContent(dto.getDiaryId(), dto.getContent()+" ");
         }
         return ResponseEntity.ok(updateDiary.getId());
     }

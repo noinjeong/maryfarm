@@ -60,7 +60,8 @@ public class DiaryCService {
         // 태그 파싱 및 등록 시작
         List<String> tagList = HashTagParsing(content);
         for(String s : tagList) {
-            Tag tag = Tag.of(saveDiary, s);
+            Tag tag = Tag.of(saveDiary, s,plantId,imagePath,plant.get().getTitle(),
+                    saveDiary.getCreatedDate(),saveDiary.getPlantCreatedDate());
             tagRepository.save(tag);
         }
         // 태그 파싱 및 등록 종료

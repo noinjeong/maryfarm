@@ -1,6 +1,5 @@
 package com.ssafy.maryfarmplantservice.api.dto.query.response;
 
-import com.ssafy.maryfarmplantservice.api.dto.tag.TagResponseDTO;
 import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.tag.Tag;
