@@ -1,6 +1,7 @@
 package com.numberONE.maryfarm.ui.home.FarmFeed;
 
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -11,7 +12,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Diary.DiaryInit;
+import com.numberONE.maryfarm.Retrofit.Diary.UserItem;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -19,20 +26,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // 상단 팔로워 피드 리사이클러뷰 adapter
 public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdapter.ViewHolder> {
 
-//    private String[] profile,image;
-    private int[] profile,image;
+    private List<UserItem> userItemList ;
+    private Context context;
 
     ViewHolder viewHolder;
 
-//    public FeedFollowersAdapter(String[] profilepath,String[] imagepath){
-//        this.profilepath=profilepath;
-//        this.imagepath=imagepath;
-//    }
-
-    public FeedFollowersAdapter(int[] profile,int[] image){
-        this.profile=profile;
-        this.image=image;
+    public FeedFollowersAdapter(Context context, List<UserItem> list){
+        this.context =context;
+        this.userItemList=list;
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView image;
@@ -56,15 +59,35 @@ public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         try {
-//            Uri profilepathUri = Uri.parse("file:///" + Environment.getExternalStorageDirectory() + imagepath[position]);
-//            Uri imagepathUri = Uri.parse("file:///" + Environment.getExternalStorageDirectory() + profilepath[position]);
-//            viewHolder.profilepath.setImageURI(profilepathUri);
-//            viewHolder.imagepath.setImageURI(imagepathUri);
+            Glide.with(context)
+                    .load(userItemList.get(position).getImagepath())
+                    .skipMemoryCache(true)
+                    .error(R.drawable.full_heart_icon)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(holder.image);
 
-            viewHolder.profile.setImageResource(this.profile[position]);
-            viewHolder.image.setImageResource(this.image[position]);
+            Glide.with(context)
+                    .load(userItemList.get(position).getUserlist().get(position).getProfilepath())
+                    .skipMemoryCache(true)
+                    .error(R.drawable.full_heart_icon)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(holder.profile);
+
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    
+                }
+            });
+
+            holder.profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +95,8 @@ public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdap
 
     @Override
     public int getItemCount() {
-        return image.length;
+//        return userItemList.size();
+        return 10;
     }
 
 

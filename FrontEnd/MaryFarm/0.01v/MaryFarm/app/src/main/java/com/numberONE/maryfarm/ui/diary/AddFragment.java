@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,14 +21,15 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
+import com.numberONE.maryfarm.Retrofit.RetrofitClient;
 import com.numberONE.maryfarm.databinding.FragmentAddBinding;
-import com.numberONE.maryfarm.databinding.FragmentWriteBinding;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class AddFragment extends Fragment {
@@ -99,7 +99,6 @@ public class AddFragment extends Fragment {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 cameraFileLauncher.launch(intent);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -107,9 +106,8 @@ public class AddFragment extends Fragment {
         // 갤러리와 연동
         ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
+                result -> {
+                    if (result.getData() != null) {
                         int calRatio = calculateInSampleSize(
                                 result.getData().getData(),
                                 getResources().getDimensionPixelSize(R.dimen.imgSize),
@@ -118,35 +116,56 @@ public class AddFragment extends Fragment {
 
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = calRatio;
+
                         try {
                             // 사진 읽어오기
                             InputStream inputStream = getActivity().getContentResolver().openInputStream(result.getData().getData());
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
                             if (bitmap != null) {
-                                ImgPath=bitmap; // 작성 버튼 클릭시 넘겨주기 위해
+                                ImgPath = bitmap; // 작성 버튼 클릭시 넘겨주기 위해
                                 binding.Image.setImageBitmap(bitmap);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }
-        );
+                });
 
         //갤러리
         binding.GalleryBtn.setOnClickListener(view -> {
 
-            // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
-            if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
-                binding.GalleryBtn.setVisibility(View.GONE);
-                binding.CameraBtn.setVisibility(View.GONE);
-                binding.ImageSpinner.setVisibility(View.VISIBLE);
-            }
+            try {
+                // 현재시간을 기준으로 파일명 생성
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                File file = File.createTempFile(
+                        "JPEG" + timeStamp + "_",
+                        ".jpg",
+                        storageDir
+                );
+                filePath = file.getAbsolutePath();
 
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
-            intent.setType("image/*");
-            galleryLauncher.launch(intent);
+                //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                Uri photoURI = FileProvider.getUriForFile(
+                        getActivity(),
+                        "com.numberONE.maryfarm.fileprovider",
+                        file
+                );
+
+                // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
+                if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
+                    binding.GalleryBtn.setVisibility(View.GONE);
+                    binding.CameraBtn.setVisibility(View.GONE);
+                    binding.ImageSpinner.setVisibility(View.VISIBLE);
+                }
+
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
+                intent.setType("image/*");
+                galleryLauncher.launch(intent);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
 //       사진 선택 후 이미지 위 스피너 ( 앨범 ,카메라 실행 구현 해야함 )
@@ -154,7 +173,57 @@ public class AddFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(parent.getItemAtPosition(position).toString().equals("카메라")){
+                    try {
+                        // 현재시간을 기준으로 파일명 생성
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                        File file = File.createTempFile(
+                                "JPEG" + timeStamp + "_",
+                                ".jpg",
+                                storageDir
+                        );
+                        filePath = file.getAbsolutePath();
 
+                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                        Uri photoURI = FileProvider.getUriForFile(
+                                getActivity(),
+                                "com.numberONE.maryfarm.fileprovider",
+                                file
+                        );
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        cameraFileLauncher.launch(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }else if(parent.getItemAtPosition(position).toString().equals("갤러리")){
+                    try {
+                        // 현재시간을 기준으로 파일명 생성
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                        File file = File.createTempFile(
+                                "JPEG" + timeStamp + "_",
+                                ".jpg",
+                                storageDir
+                        );
+                        filePath = file.getAbsolutePath();
+
+                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                        Uri photoURI = FileProvider.getUriForFile(
+                                getActivity(),
+                                "com.numberONE.maryfarm.fileprovider",
+                                file
+                        );
+
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
+                        intent.setType("image/*");
+                        galleryLauncher.launch(intent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -166,15 +235,28 @@ public class AddFragment extends Fragment {
 
         binding.editBtn.setOnClickListener(view -> {
             // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
-            byte[] bytes= stream.toByteArray();
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
+//            byte[] bytes= stream.toByteArray();
+            HashMap<String,Object> input =new HashMap<>();
+            input.put("userid","1234");
+            input.put("title",binding.title.toString());
+            input.put("content",binding.content.toString());
+            input.put("name",binding.ImageSpinner.toString());
 
-            Intent intent = new Intent(getActivity() , AddFragment.class ); // 자기 작성완료 화면으로 넘어가게 수정 필요
-            intent.putExtra("image",bytes );
-            intent.putExtra("title",binding.title.getText().toString());
-            intent.putExtra("content",binding.content.getText().toString());
-            startActivity(intent);
+            //url 설정된 retrofit 객체 생성 후 retrofitapi서비스 인터페이스와 연결
+            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
+//            Call<DiaryInit> call =service.postInitFeed(filePath,);
+
+            Log.d(TAG, filePath+ ": 파일 path ");
+
+
+//            Intent intent = new Intent(getActivity() , WriteFragment.class ); // 작성한 내용 기반 완료 화면으로 넘어가게 수정 필요
+//            intent.putExtra("image",bytes );
+//            intent.putExtra("title",binding.title.getText().toString());
+//            intent.putExtra("plants_type",binding.plantsTypeSpinner.getSelectedItem().toString());
+//            intent.putExtra("content",binding.content.getText().toString());
+//            startActivity(intent);
             Log.d("onCreate: ","데이터 전송완료" );
         });
 

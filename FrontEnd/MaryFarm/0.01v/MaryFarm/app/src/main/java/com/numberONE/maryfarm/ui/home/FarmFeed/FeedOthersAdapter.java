@@ -1,5 +1,6 @@
 package com.numberONE.maryfarm.ui.home.FarmFeed;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,29 +10,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Diary.DiaryTopRecommend;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FeedOthersAdapter extends RecyclerView.Adapter<FeedOthersAdapter.ViewHolder> {
-    private String[] nickname,title;
-    private int[] image1,image2,image3,profile;
+
     ViewHolder viewHolder;
 
+    Context context;
+    List<DiaryTopRecommend> diaryTopRecommendList;
 
     // 생성자
-    public FeedOthersAdapter(String[] nickname, String[] title,int[] image1,int[] image2,int[] image3,int[] profile){
-        this.nickname = nickname;
-        this.title = title;
-        this.image1=image1;
-        this.image2=image2;
-        this.image3=image3;
-        this.profile=profile;
+    public FeedOthersAdapter(Context context, List<DiaryTopRecommend> list){
+        this.context=context;
+        this.diaryTopRecommendList=list;
     }
 
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        public TextView nickname, title;
+        public TextView nickname, title,time;
         public ImageView image1,image2,image3;
         public CircleImageView profile;
 
@@ -43,6 +46,7 @@ public class FeedOthersAdapter extends RecyclerView.Adapter<FeedOthersAdapter.Vi
             this.image2=view.findViewById(R.id.other_image_2);
             this.image3=view.findViewById(R.id.other_image_3);
             this.profile=view.findViewById(R.id.other_profile);
+            this.time=view.findViewById(R.id.other_time);
         }
     }
 
@@ -57,17 +61,48 @@ public class FeedOthersAdapter extends RecyclerView.Adapter<FeedOthersAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder mainHolder, int i) {
-        mainHolder.nickname.setText(this.nickname[i]);
-        mainHolder.title.setText(this.title[i]);
-        mainHolder.image1.setImageResource(this.image1[i]);
-        mainHolder.image2.setImageResource(this.image2[i]);
-        mainHolder.image3.setImageResource(this.image3[i]);
-        mainHolder.profile.setImageResource(this.profile[i]);
+//     리스트로 받아와서 이미지 처리로직 다시 정리하기
+        //      이미지 1 ,2 ,3
+//        Glide.with(context)
+//                .load(diaryTopRecommendList.get(i).getImagepath())
+//                .skipMemoryCache(true)
+//                .error(R.drawable.full_heart_icon)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(mainHolder.image1);
+//        Glide.with(context)
+//                .load(diaryTopRecommendList.get(i).getImagepath())
+//                .skipMemoryCache(true)
+//                .error(R.drawable.full_heart_icon)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(mainHolder.image2);
+//        Glide.with(context)
+//                .load(diaryTopRecommendList.get(i).getImagepath())
+//                .skipMemoryCache(true)
+//                .error(R.drawable.full_heart_icon)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(mainHolder.image3);
+
+//      프로필 이미지
+//        Glide.with(context)
+//                .load(diaryTopRecommendList.get(i).getPlant().getUserdata().getProfilepath())
+//                .skipMemoryCache(true)
+//                .error(R.drawable.full_heart_icon)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(mainHolder.profile);
+
+//        mainHolder.title.setText(diaryTopRecommendList.get(i).getPlant().getTitle());
+//        mainHolder.nickname.setText(diaryTopRecommendList.get(i).getPlant().getUserdata().getNickname());
+
+//         시간 차이 로직 구현하기
+//        mainHolder.time.setText(diaryTopRecommendList.get(i).getPlant().getDate());
+
     }
 
     @Override
     public int getItemCount() {
-        return nickname.length;
+//        return diaryTopRecommendList.size();
+        return 10;
     }
+
 }
 

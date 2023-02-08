@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.hamburger_2:
                         Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.hamburger_3:
+                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
                         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                         BoardMainFragment boardFragment=new BoardMainFragment();
                         ft.replace(R.id.main_activity,boardFragment);
                         ft.commit();
-                        break;
-                    case R.id.hamburger_3:
-                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
         barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
         //ActionBar( 제목줄)의 홈 or 업버튼의 위치에 토글아이콘 보이게
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //햄버거 모양으로 보이도록 토글버튼 동기 맞추기
-        barDrawerToggle.syncState();
+//        barDrawerToggle.syncState();
 
         //햄버거 아이콘과 화살표 아이콘이 자동으로 변환환하도록
-        binding.drawerLayout.addDrawerListener(barDrawerToggle);
+//        binding.drawerLayout.addDrawerListener(barDrawerToggle);
 
 //        drawerlayout 끝
 
