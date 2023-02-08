@@ -9,8 +9,8 @@
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
-    <item
-        android:id="@+id/menu_setting"
-        android:title="setting"/>
+<!--    <item-->
+<!--        android:id="@+id/menu_setting"-->
+<!--        android:title="setting"/>-->
 
 </menu>

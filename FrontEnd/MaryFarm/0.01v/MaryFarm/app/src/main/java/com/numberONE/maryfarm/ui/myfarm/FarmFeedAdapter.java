@@ -54,14 +54,14 @@ public class FarmFeedAdapter extends RecyclerView.Adapter<FarmFeedAdapter.ViewHo
             farm_plant_date = view.findViewById(R.id.farm_plant_date);
 
             view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 //                유저 데이터 받아오려면 이렇게 하면 됩니다 라는 예시
 //                String targetUser = holder.farm_user_name.getText().toString();
 //                String feedTitle = holder.farm_feed_title.getText().toString();
-                Toast.makeText(v.getContext(),"클릭 이벤트 발생",Toast.LENGTH_SHORT).show();
-            }
-        });
+                    Toast.makeText(v.getContext(),"클릭 이벤트 발생",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -96,7 +96,6 @@ public class FarmFeedAdapter extends RecyclerView.Adapter<FarmFeedAdapter.ViewHo
 
 }
 
-    Adapter
 
 
 //    @NonNull
