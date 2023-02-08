@@ -305,6 +305,7 @@ captures/
 .cxx/
 *.apk
 output.json
+*.json
 
 # IntelliJ
 *.iml
