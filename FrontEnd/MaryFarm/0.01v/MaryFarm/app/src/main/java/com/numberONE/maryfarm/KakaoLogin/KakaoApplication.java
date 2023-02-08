@@ -8,6 +8,8 @@ public class KakaoApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        KakaoSdk.init(this, "2d4ab065b4f4050039cdc9af3e888398");
+        KakaoSdk.init(this, "1fc6b60080fc2f00d7f43085d079e13e");
     }
 }
+
+//관섭 key : 1fc6b60080fc2f00d7f43085d079e13e
