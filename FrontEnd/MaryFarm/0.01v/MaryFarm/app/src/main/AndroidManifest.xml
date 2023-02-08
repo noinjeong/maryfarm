@@ -5,11 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라 사용 권한 설정 -->
     <uses-feature
         android:name="android.hardware.camera2"
-
-        android:required="false" />
+        android:required="true" />
 
     <!--S3 퍼미션 설정 -->
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -26,6 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaryFarm"
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true">
 
         tools:targetApi="31">
         <activity
@@ -97,6 +97,23 @@
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".MyfarmProfile.FarmsProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MyfarmProfile.MyfarmProfileActivity"
+            android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

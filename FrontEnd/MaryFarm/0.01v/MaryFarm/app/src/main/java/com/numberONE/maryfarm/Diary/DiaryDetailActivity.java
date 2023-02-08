@@ -6,11 +6,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 =======
 import android.content.SharedPreferences;
 >>>>>>> a7358d7 (Feat : Detail Diary Connection with Server)
+=======
+import android.content.SharedPreferences;
+>>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -59,6 +63,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     private boolean sign=false;
     private TextView likeCount;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private int likeCnt = 0;
     // Intent로 보낼 페이지 정보
     public TextView title;
@@ -68,6 +73,10 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     private int likeCnt;
     private String commentContent;
 >>>>>>> a7358d7 (Feat : Detail Diary Connection with Server)
+=======
+    private int likeCnt;
+    private String commentContent;
+>>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
 
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
@@ -95,6 +104,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         setContentView(binding.getRoot());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // 수정 페이지로 넘길 데이터
         title = binding.title;
         diaryContent = binding.diaryContent;
@@ -102,6 +112,8 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         diaryImage = diaryimg.getBitmap();
 
 =======
+=======
+>>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
         int[] diaryId_list = {7, 8};
 
         // 상세 일지 정보 레드토핏
