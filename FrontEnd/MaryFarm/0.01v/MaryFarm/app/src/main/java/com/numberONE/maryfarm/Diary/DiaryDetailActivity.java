@@ -2,19 +2,9 @@ package com.numberONE.maryfarm.Diary;
 
 import static com.numberONE.maryfarm.R.*;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-=======
 import android.content.SharedPreferences;
->>>>>>> a7358d7 (Feat : Detail Diary Connection with Server)
-=======
-import android.content.SharedPreferences;
->>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,7 +33,6 @@ import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
 import com.numberONE.maryfarm.databinding.ActivityDiaryDetailBinding;
 
-import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -62,21 +51,8 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     // 좋아요 구현
     private boolean sign=false;
     private TextView likeCount;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    private int likeCnt = 0;
-    // Intent로 보낼 페이지 정보
-    public TextView title;
-    public TextView diaryContent;
-    public Bitmap diaryImage;
-=======
     private int likeCnt;
     private String commentContent;
->>>>>>> a7358d7 (Feat : Detail Diary Connection with Server)
-=======
-    private int likeCnt;
-    private String commentContent;
->>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
 
     // 팝업 메뉴창 구현 (일지 추가하기, 수정하기, 재배완료 선택)
     ImageButton popUpBtn;
@@ -94,7 +70,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
     Button commentAddView;
     ImageButton nextBtnView, formBtnView;
     static int num = 0;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,17 +79,6 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         ActivityDiaryDetailBinding binding = ActivityDiaryDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // 수정 페이지로 넘길 데이터
-        title = binding.title;
-        diaryContent = binding.diaryContent;
-        BitmapDrawable diaryimg = (BitmapDrawable) binding.diaryDetailImage.getDrawable();
-        diaryImage = diaryimg.getBitmap();
-
-=======
-=======
->>>>>>> a7358d77192f69687bf96f108c6b4cdc4beb4be8
         int[] diaryId_list = {7, 8};
 
         // 상세 일지 정보 레드토핏
@@ -204,8 +169,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         userId = pref.getString("userId", "Null");
         textView = findViewById(R.id.userId);
         textView.setText(userId);
-        
->>>>>>> a7358d7 (Feat : Detail Diary Connection with Server)
+
         // 클릭시 - 좋아요 & 숫자 증가
         binding.emptyHeartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +183,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
                 }
             }
         });
-        
+
         // 클릭시 - 좋아요 취소 & 숫자 감소
         binding.fullHeartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,9 +263,9 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         // "게시" 버튼 클릭시, 댓글 저장
         commentAddView = findViewById(R.id.commentAddBtn);
         commentContentView = findViewById(R.id.inputComment);
-            // 버튼 기본 = 비활성
+        // 버튼 기본 = 비활성
         commentAddView.setEnabled(false);
-            // 댓글란 텍스트 작성시, 활성으로 변경
+        // 댓글란 텍스트 작성시, 활성으로 변경
         commentContentView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -341,12 +305,6 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         switch (item.getItemId()) {
             case id.editDiary:
                 Intent intent = new Intent(DiaryDetailActivity.this, DiaryModifyActivity.class);
-                intent.putExtra("diaryTitle", title.getText().toString());
-                intent.putExtra("diaryContent", diaryContent.getText().toString());
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                diaryImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] diarybyte = stream.toByteArray();
-                intent.putExtra("diaryImage", diarybyte);
                 startActivity(intent);
                 finish();
                 return true;
@@ -368,7 +326,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
                 return false;
         }
     }
-    
+
     // 키보드 이외의 곳 터치할 경우, 키보드 사라지게하기
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
