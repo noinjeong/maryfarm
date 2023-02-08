@@ -2,23 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- 인터넷 사용 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 카메라 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라 사용 권한 설정 -->
     <uses-feature
         android:name="android.hardware.camera2"
-        android:required="false" />
+        android:required="true" />
 
     <!--S3 퍼미션 설정 -->
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".KakaoLogin.KakaoApplication"
         android:allowBackup="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaryFarm"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true">
 
         <!--     s3 service 설정   -->
         <service android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService" android:enabled="true"/>
@@ -68,7 +66,7 @@
         </activity>
         <activity
             android:name=".Pick.PickActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -83,7 +81,8 @@
         <activity
             android:name=".Diary.DiaryDetailActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -107,12 +106,12 @@
             android:name=".KakaoLogin.KakaoLoginActivity"
             android:exported="true">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -120,11 +119,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -134,19 +133,20 @@
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
 
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
 
-            <!-- &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt; -->
-            <!-- <data -->
-            <!-- android:host="oauth" -->
-            <!-- android:scheme="kakao2d4ab065b4f4050039cdc9af3e888398" /> -->
-            <!-- </intent-filter> -->
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <!-- 관섭 key : 1fc6b60080fc2f00d7f43085d079e13e-->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao1fc6b60080fc2f00d7f43085d079e13e" />
+            </intent-filter>
         </activity>
 
         <provider
