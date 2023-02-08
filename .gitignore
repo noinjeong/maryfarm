@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,android,androidstudio
 ### Android ###
 # Gradle files
-.gradle/
+.gradle/ 
 build/
 
 # Local configuration file (sdk path, etc)
