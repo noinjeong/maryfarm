@@ -26,12 +26,15 @@ android {
         targetSdk 32
         versionCode 9
         versionName "0.3-alpha03_kakologin"
+<<<<<<< HEAD
 
 //       mainfest kakao key 연결 설정
         manifestPlaceholders = [KakaoKey:KakaoKey]
 //       java kakao key 연결 설정
         buildConfigField "String", "kakao_key", properties['kakao_key']
 
+=======
+>>>>>>> ae51dff6444175d7223c9d38423cbe91b72c10d2
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
