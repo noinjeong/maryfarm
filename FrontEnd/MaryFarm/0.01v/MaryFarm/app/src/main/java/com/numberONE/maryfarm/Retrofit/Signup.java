@@ -8,20 +8,20 @@ public class Signup {
     @Expose
     private String kakaoId;
 
-    @SerializedName("nickname")
+    @SerializedName("userName")
     @Expose
-    private String nickname;
+    private String userName;
 
-    public Signup(String kakaoId, String nickname) {
+    public Signup(String kakaoId, String userName) {
         this.kakaoId = kakaoId;
-        this.nickname = nickname;
+        this.userName = userName;
     }
 
     public String getKakaoId() {
         return kakaoId;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUserName() {
+        return userName;
     }
 }

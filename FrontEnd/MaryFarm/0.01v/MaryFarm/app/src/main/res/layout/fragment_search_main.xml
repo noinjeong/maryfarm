@@ -18,26 +18,25 @@
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:layout_marginRight="10dp"
-
-            android:src="@drawable/board_head_img" />
+            android:src="@drawable/loading_icon" />
 
         <TextView
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="마을회관"
+            android:text="검색결과"
             android:textSize="30sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/board_title"
+        android:id="@+id/search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="지역 올 공간 "/>
+        android:text=" ***에 대한검색 결과입니다. "/>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/board_recycler"
+        android:id="@+id/search_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="55dp"

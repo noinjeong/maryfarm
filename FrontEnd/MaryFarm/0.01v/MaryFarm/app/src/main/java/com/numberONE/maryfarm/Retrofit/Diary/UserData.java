@@ -9,7 +9,7 @@ import java.util.List;
 //@Expose - object 중 해당 값이 null 일 경우 , json으로 만들 필드를 자동 생략해준다.
 public class UserData {
 
-    @SerializedName("userid")
+    @SerializedName("userId")
     @Expose
     private String userid;
 

@@ -1,5 +1,6 @@
 package com.numberONE.maryfarm.ui.diary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +10,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,9 +26,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Diary.DiaryInit;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
 import com.numberONE.maryfarm.Retrofit.RetrofitClient;
-import com.numberONE.maryfarm.Retrofit.practice.UserData;
 import com.numberONE.maryfarm.databinding.FragmentWriteBinding;
 
 import java.io.ByteArrayOutputStream;
@@ -32,9 +36,14 @@ import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Retrofit;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class WriteFragment extends Fragment {
@@ -43,7 +52,8 @@ public class WriteFragment extends Fragment {
     FragmentWriteBinding binding;
     String filePath;
     Bitmap ImgPath;
-
+    Uri photoURI;
+    String input_title,input_name,input_content;
 
     public WriteFragment() {
     }
@@ -53,6 +63,18 @@ public class WriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentWriteBinding.inflate(inflater,container,false);
         Log.d(TAG, "onCreateView: 실행");
+
+        // 키보드 외 화면 클릭시 키보드 내려가기
+        binding.writeFragment.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                hideKeyboard();
+                return false;
+            }
+        });
+
         //카메라
         ActivityResultLauncher<Intent> cameraFileLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -89,7 +111,7 @@ public class WriteFragment extends Fragment {
                 filePath = file.getAbsolutePath();
 
                 //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
-                Uri photoURI = FileProvider.getUriForFile(
+                photoURI = FileProvider.getUriForFile(
                         getActivity(),
                         "com.numberONE.maryfarm.fileprovider",
                         file
@@ -111,90 +133,204 @@ public class WriteFragment extends Fragment {
         // 갤러리와 연동
         ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
+                result -> {
+                    if (result.getData() != null) {
                         int calRatio = calculateInSampleSize(
                                 result.getData().getData(),
                                 getResources().getDimensionPixelSize(R.dimen.imgSize),
                                 getResources().getDimensionPixelSize(R.dimen.imgSize)
                         );
-
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = calRatio;
+
                         try {
                             // 사진 읽어오기
                             InputStream inputStream = getActivity().getContentResolver().openInputStream(result.getData().getData());
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
                             if (bitmap != null) {
-                                ImgPath=bitmap; // 작성 버튼 클릭시 넘겨주기 위해
+                                ImgPath = bitmap; // 작성 버튼 클릭시 넘겨주기 위해
                                 binding.Image.setImageBitmap(bitmap);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }
-        );
+                });
 
         //갤러리
         binding.GalleryBtn.setOnClickListener(view -> {
 
-            // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
-            if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
-                binding.GalleryBtn.setVisibility(View.GONE);
-                binding.CameraBtn.setVisibility(View.GONE);
-                binding.ImageSpinner.setVisibility(View.VISIBLE);
-            }
+            try {
+                // 현재시간을 기준으로 파일명 생성
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                File file = File.createTempFile(
+                        "file_" + timeStamp + "_",
+                        ".jpg",
+                        storageDir
+                );
+                filePath = file.getAbsolutePath();
 
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
-            intent.setType("image/*");
-            galleryLauncher.launch(intent);
+                //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                photoURI = FileProvider.getUriForFile(
+                        getActivity(),
+                        "com.numberONE.maryfarm.fileprovider",
+                        file
+                );
+
+                // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
+                if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
+                    binding.GalleryBtn.setVisibility(View.GONE);
+                    binding.CameraBtn.setVisibility(View.GONE);
+                    binding.ImageSpinner.setVisibility(View.VISIBLE);
+                }
+
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
+                intent.setType("image/*");
+                galleryLauncher.launch(intent);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
-//       사진 선택 후 이미지 위 스피너 ( 앨범 ,카메라 실행 구현 해야함 )
+//       사진 선택 후 이미지 위 스피너
         binding.ImageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(parent.getItemAtPosition(position).toString().equals("카메라")){
+                    try {
+                        // 현재시간을 기준으로 파일명 생성
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                        File file = File.createTempFile(
+                                "file_"+ timeStamp + "_",
+                                ".jpg",
+                                storageDir
+                        );
+                        filePath = file.getAbsolutePath();
 
+                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                        photoURI = FileProvider.getUriForFile(
+                                getActivity(),
+                                "com.numberONE.maryfarm.fileprovider",
+                                file
+                        );
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        cameraFileLauncher.launch(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }else if(parent.getItemAtPosition(position).toString().equals("갤러리")){
+                    try {
+                        // 현재시간을 기준으로 파일명 생성
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                        File file = File.createTempFile(
+                                "file_" + timeStamp + "_",
+                                ".jpg",
+                                storageDir
+                        );
+                        filePath = file.getAbsolutePath();
+
+                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                        photoURI = FileProvider.getUriForFile(
+                                getActivity(),
+                                "com.numberONE.maryfarm.fileprovider",
+                                file
+                        );
+
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
+                        intent.setType("image/*");
+                        galleryLauncher.launch(intent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
+
         binding.writeBtn.setOnClickListener(view -> {
+
+            input_title=binding.title.getText().toString();
+            input_name=binding.plantsTypeSpinner.getSelectedItem().toString();
+            input_content=binding.content.getText().toString();
+
+            Log.d(TAG, "input_title_  " + input_title );
+            Log.d(TAG, "input_plant_option  " + input_name );
+            Log.d(TAG, "input_content  " + input_content );
+
             // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
+            ImgPath.compress(Bitmap.CompressFormat.PNG,20,stream);
             byte[] bytes= stream.toByteArray();
-//
-//            UserData data =new UserData(
-//
-//            )
 
-            //url 설정된 retrofit 객체 생성 후 retrofitapi서비스 인터페이스와 연결
-//            RetrofitApiSerivce service=RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
-//            Call<UserData> call =service.postInitFeed();
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),filePath);
+            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", filePath ,requestBody);
 
+            //SharedPreferences 아이디 가져오기
+//            SharedPreferences preferences = getActivity().getSharedPreferences("writeSP", Context.MODE_PRIVATE);
+//            String id = preferences.getString("user_id",null);
 
-            Intent intent = new Intent(getActivity() , WriteFragment.class ); // 자기 작성완료 화면으로 넘어가게 수정 필요
-            intent.putExtra("image",bytes );
-            intent.putExtra("title",binding.title.getText().toString());
-            intent.putExtra("plants_type",binding.plantsTypeSpinner.getSelectedItem().toString());
-            intent.putExtra("content",binding.content.getText().toString());
-            startActivity(intent);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),input_name);
+            RequestBody title = RequestBody.create(MediaType.parse("text/plain"),input_title);
+            RequestBody content = RequestBody.create(MediaType.parse("text/plain"),input_content);
+            RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),"1234");
+//          RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),id);
+
+            HashMap<String, RequestBody> input =new HashMap<>();
+            input.put("name",name);
+            input.put("title",title);
+            input.put("content",content);
+            input.put("userid",userid);
+
+            Log.d(TAG, "entrySet"+input.entrySet());
+            Log.d(TAG, "이름 input :"+input.get("name"));
+            Log.d(TAG, "타이틀 input : "+input.get("title"));
+
+            Log.d(TAG, "image " + uploadFile.body());
+            Log.d(TAG, "image " + uploadFile);
+            Log.d(TAG, "image " + uploadFile.headers());
+
+            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
+            Log.d(TAG, "onCreateView: !!!!"+service);
+            service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
+                @Override
+                public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
+                    if (response.isSuccessful() ) {
+                        Log.d(TAG, "response body :" + response.body());
+                        Log.d(TAG, "응답코드 :" + response.code());
+                        Log.d(TAG, "서버로 전송 성공 ");
+                    }
+                    if(response.body()==null) {
+                        Log.d(TAG, "response가 null 입니다. ");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DiaryInit> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d(TAG, "서버로 전송 실패 ");
+                }
+            });
+
+            Log.d(TAG, filePath+ ": 파일 path ");
+
             Log.d("onCreate: ","데이터 전송완료" );
         });
 
         //식물타입 콤보박스
         ArrayAdapter<CharSequence> adapter =ArrayAdapter.createFromResource(getActivity(),
-                R.array.plants_type,R.layout.custom_spinner_layout);
+                R.array.plants_type, R.layout.custom_spinner_layout);
 
         adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
 
@@ -203,11 +339,10 @@ public class WriteFragment extends Fragment {
         binding.plantsTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                Toast.makeText(getActivity(),"값을 선택해주세요",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -218,6 +353,7 @@ public class WriteFragment extends Fragment {
 
     private int calculateInSampleSize(Uri fileUri, int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
+
         options.inJustDecodeBounds = true;
         try {
             InputStream inputStream = getActivity().getContentResolver().openInputStream(fileUri);
@@ -246,6 +382,17 @@ public class WriteFragment extends Fragment {
             }
         }
         return inSampleSize;
+    }
+
+    // 키보드 내리기 메서드
+    private void hideKeyboard()
+    {
+        if (getActivity() != null && getActivity().getCurrentFocus() != null)
+        {
+            // 프래그먼트기 때문에 getActivity() 사용
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 }
