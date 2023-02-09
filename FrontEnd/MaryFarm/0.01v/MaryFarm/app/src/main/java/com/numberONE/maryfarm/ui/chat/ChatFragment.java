@@ -18,10 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.numberONE.maryfarm.databinding.FragmentChatBinding;
 
+import java.net.Socket;
 import java.net.URISyntaxException;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
+//import io.socket.client.IO;
+//import io.socket.client.Socket;
 
 public class ChatFragment extends Fragment {
 
@@ -41,29 +42,29 @@ public class ChatFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-         init();
+//         init();
 
         return root;
     }
 
-    private void init() {
-        try {
-            mSocket = IO.socket("http://10.0.2.2:80/");
-            Log.d("SOCKET", "Connection success : " + mSocket.id());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        Intent intent = getActivity().getIntent(); //getIntent()만 안 되서 바꿔봄
-        username = intent.getStringExtra("username");
-
-        mSocket.connect();
-    }
+//    private void init() {
+//        try {
+//            mSocket = IO.socket("http://10.0.2.2:80/");
+//            Log.d("SOCKET", "Connection success : " + mSocket.id());
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Intent intent = getActivity().getIntent(); //getIntent()만 안 되서 바꿔봄
+//        username = intent.getStringExtra("username");
+//
+//        mSocket.connect();
+//    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mSocket.disconnect();
+//        mSocket.disconnect();
         binding = null;
     }
 }
