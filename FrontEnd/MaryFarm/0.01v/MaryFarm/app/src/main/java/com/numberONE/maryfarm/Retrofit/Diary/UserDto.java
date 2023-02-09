@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserDto {
 
-    @SerializedName("userid")
+    @SerializedName("userId")
     @Expose
     private String userid;
 

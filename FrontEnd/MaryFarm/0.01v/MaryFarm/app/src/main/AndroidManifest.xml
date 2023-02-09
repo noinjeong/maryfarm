@@ -54,21 +54,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Chat.ChatActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name=".Alarm.AlarmActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Pick.PickActivity"
             android:exported="true">
             <meta-data
@@ -132,14 +117,10 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
 
-                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
-                <!-- 관섭 key : 1fc6b60080fc2f00d7f43085d079e13e-->
-                <!-- 유범 key:  f059c3fbe021d13fa0a5ffa33e906bf8-->
-                <!-- 환석 key:  ca5f329ea3d04e9a001843861e32e8b2-->
-
+                <!--            local.properties 설정 mani_kakao_key와 연결           -->
                 <data
                     android:host="oauth"
-                    android:scheme="kakaoca5f329ea3d04e9a001843861e32e8b2" />
+                    android:scheme="${KakaoKey}" />
             </intent-filter>
         </activity>
 

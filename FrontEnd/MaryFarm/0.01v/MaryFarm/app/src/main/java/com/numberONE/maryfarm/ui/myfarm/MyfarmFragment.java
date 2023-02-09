@@ -1,12 +1,16 @@
 package com.numberONE.maryfarm.ui.myfarm;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,63 +22,22 @@ import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.Pick.PickAlgorithm;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.ServerAPI;
+import com.numberONE.maryfarm.Retrofit.UserInfo;
+import com.numberONE.maryfarm.Retrofit.UserPlant;
 import com.numberONE.maryfarm.databinding.FragmentMyfarmProfileBinding;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MyfarmFragment extends Fragment {
-
-    public MyfarmFragment() {
-        // Required empty public constructor
-    }
-
-// -------------------- 상단 페이지 ----------------------------
-// 레트로 핏 로직 작성 필요 (유저 정보 불러오기)
-
-
-
-
-
-// -------------------- 리사이클러 뷰 페이지 ----------------------------
-// --------------- 이 부분 살리면 에러납니다.... -------------------------
-
-//    // 바인딩
-//    private FragmentMyfarmProfileBinding binding;
-//
-//    // 임시 아이디 배정
-//    public String userId = "22222";
-//
-//
-//    // 리사이클러 뷰 선언 코드
-//
-//    RecyclerView profile_rv;
-//    RecyclerView.LayoutManager profileLayoutmanager;
-//    RecyclerView.Adapter profileAdapter;
-//
-//    ArrayList<FarmFeedData> arrayList;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        binding = FragmentMyfarmProfileBinding.inflate(inflater, container, false);
-//        ViewGroup view = binding.getRoot();
-//
-//
-//        // 어댑터 연결: 뷰와 매니저 선언
-//        profile_rv = binding.profileRv;
-//        profileLayoutmanager = new LinearLayoutManager(getActivity());
-//        // 선언한 두 부분을 연결
-//        profile_rv.setLayoutManager(profileLayoutmanager);
-//        // 넣어줄 데이터를 담아서 가져가는 어댑터 ( 괄호안에 넣어서 어댑터로 슝 )
-//        profileAdapter = new FarmFeedAdapter(arrayList);
-//        // rv에 어댑터 연결
-//        profile_rv.setAdapter(profileAdapter);
-//    }
-
-
-
-// -------------------- 하단 페이지 ----------------------------
 
     // 제가 작성한 글이 없을 시, 하단 페이지에서 보여줄 각 버튼 집합
     private View view;
@@ -88,15 +51,73 @@ public class MyfarmFragment extends Fragment {
     // 취향 추천 알고리즘 페이지로 리다이렉트 시키는 버튼
     private ImageButton recommendMonthBtn;
 
+    private TextView nickname;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_myfarm_profile,container,false);
 
+        SharedPreferences pref;
+        String userId, userNickname;
+
+        pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        userId = pref.getString("userId", "Null");
+        userNickname = pref.getString("userNickname", "Null");
+
         detailBtn = (Button) view.findViewById(R.id.detailBtn);
         recommendBtn = (ImageButton) view.findViewById(R.id.recommendBtn);
         recommendMonthBtn = (ImageButton) view.findViewById(R.id.recommendMonthBtn);
+        nickname = (TextView) view.findViewById(R.id.myFarmName);
+        nickname.setText(userNickname);
+        
+        // 업로드한 작물 피드 유무 확인
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ServerAPI serverAPI = retrofit.create(ServerAPI.class);
+        Call<List<UserPlant>> call = serverAPI.getUserPlant(userId);
+        call.enqueue(new Callback<List<UserPlant>>() {
+            @Override
+            public void onResponse(Call<List<UserPlant>> call, Response<List<UserPlant>> response) {
+                List<UserPlant> plantsId = response.body();
+                Log.d("sss", "onResponse: !!!!!!!!!!!"+plantsId.toString());
+
+                List<String> list = new ArrayList<>();
+                for(UserPlant u : plantsId) {
+                    list.add(u.getPlantId());
+                }
+                Log.d("sss", "onResponse: "+list.toString());
+
+                if (response.body() == null){
+                    recommendBtn.setVisibility(View.VISIBLE);
+                    recommendMonthBtn.setVisibility(View.VISIBLE);
+                } else {
+                    detailBtn.setVisibility(View.VISIBLE);
+
+                    for (int i=list.size()-1; i >= 0; i--) {
+                        Log.d("!!!s", "onResponse: ~~~~~"+list.get(i));
+                    }
+
+//                    Retrofit retrofit2 = new Retrofit.Builder()
+//                            .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                            .addConverterFactory(GsonConverterFactory.create())
+//                            .build();
+//
+//                    ServerAPI serverAPI2 = retrofit2.create(ServerAPI.class);
+//                    Call<UserInfo> call2 = serverAPI2.getDiaries();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserPlant>> call, Throwable t) {
+                Log.d("onFailure", t.toString());
+            }
+        });
+                
         detailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

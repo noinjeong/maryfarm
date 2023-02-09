@@ -33,5 +33,10 @@
         android:title="직거래장터">
     </item>
 
+    <item
+        android:id="@+id/logout"
+        android:title="로그아웃">
+    </item>
+
 
 </menu>
