@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if(positionOffsetPixels ==0 ){
+                if(positionOffsetPixels == 0 ){
                     binding.viewPager.setCurrentItem(position);
                 }
             }
