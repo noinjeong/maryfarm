@@ -90,10 +90,10 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         setContentView(binding.getRoot());
 
         // 수정 페이지로 넘길 데이터
-        title = binding.title;
-        diaryContent = binding.diaryContent;
-        BitmapDrawable diaryimg = (BitmapDrawable) binding.diaryDetailImage.getDrawable();
-        diaryImage = diaryimg.getBitmap();
+//        title = binding.title;
+//        diaryContent = binding.diaryContent;
+//        BitmapDrawable diaryimg = (BitmapDrawable) binding.diaryDetailImage.getDrawable();
+//        diaryImage = diaryimg.getBitmap();
         int[] diaryId_list = {7, 8};
 
         // 상세 일지 정보 레드토핏
@@ -180,8 +180,8 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         });
 
         // sharedpreference practice
-        pref = getSharedPreferences("pref", MODE_PRIVATE);
-        userId = pref.getString("userId", "Null");
+        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        userId = pref.getString("userNickname", "Null");
         textView = findViewById(R.id.userId);
         textView.setText(userId);
 
