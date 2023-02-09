@@ -19,12 +19,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.kakao.sdk.user.UserApiClient;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
+import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    //프래그먼트 전환용
+    FragmentTransaction ft;
 
     //Drawer 조절용 토글 버튼 객체 생성
     ActionBarDrawerToggle barDrawerToggle;
@@ -50,12 +55,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+        // 상단 로고
+        getSupportActionBar().setIcon(R.drawable.logo_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         // 상단 로고 위치 지정이 안 됌
 //        getSupportActionBar().setIcon(R.drawable.logo_icon);
 //        getSupportActionBar().setDisplayUseLogoEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);   //홈 아이콘을 숨김처리합니다.
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
-        getSupportActionBar().setDisplayShowTitleEnabled(false); //액션바에 표시되는 제목의 표시유무를 설정합니다.
+//        getSupportActionBar().setDisplayShowTitleEnabled(false); //액션바에 표시되는 제목의 표시유무를 설정합니다.
 
         //item icon 색조를 적용하지 않도록 , 이 설정 없을경우 item icon 전부 회색
         binding.drawerNav.setItemIconTintList(null);
@@ -71,17 +81,30 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.hamburger_2:
                         Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
+                        ft=getSupportFragmentManager().beginTransaction();
+                        SearchMainFragment searchFragment=new SearchMainFragment();
+                        ft.replace(R.id.main_activity,searchFragment);
+                        ft.commit();
+//                        FragmentManager fragmentManager=getSupportFragmentManager();
+//                        fragmentManager.beginTransaction().add(R.id.main_activity,searchFragment).commit();
+                        break;
+                    case R.id.hamburger_3:
+                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
                         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                         BoardMainFragment boardFragment=new BoardMainFragment();
                         ft.replace(R.id.main_activity,boardFragment);
                         ft.commit();
                         break;
-                    case R.id.hamburger_3:
-                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
-                        break;
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
+                        // 로그아웃 구현 필요
+                    case R.id.logout:
+                        Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
+                        UserApiClient.getInstance();
+
+                        break;
+
                 }
 
                 //클릭시 drawer 닫기
