@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -91,29 +93,31 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 System.out.println("로그인 완료");
                 String user_id=user.getId()+" "; // 문자열로 변환
                 String user_nickname =  user.getKakaoAccount().getProfile().getNickname();
+                String user_image = user.getKakaoAccount().getProfile().getProfileImageUrl();
 
                 // # 1-1. 기회원인지 확인
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                        //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
+                        .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                        .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 ServerAPI serverAPI = retrofit.create(ServerAPI.class);
                 Call<UserInfo> call = serverAPI.getUserInfo(user_id);
-                Log.d(TAG, "!!!!"+call);
-                Log.d(TAG, "!!!!"+user_id);
+
                 call.enqueue(new Callback<UserInfo>() {
-                    int a = 777;
 
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                         UserInfo userInfo = response.body();
-                        Log.d(TAG, "회원가입 여부 확인 "+userInfo);
-                        Log.d(TAG, "onResponse: "+response.code());
+
                         // # 1-2. 기회원이 아닌 경우, Sign up 진행
                         if (userInfo==null){
                             Retrofit retrofit1 = new Retrofit.Builder()
-                                    .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                                    //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
+                                    .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                                    .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
 
@@ -127,6 +131,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
                                 public void onResponse(Call<Signup> call1, Response<Signup> response) {
                                     List<Signup> signupList = new ArrayList<>();
                                     signupList.add(response.body());
+                                    Log.d(TAG, "회원가입 성공!"+response.body().getUserName());
                                 }
 
                                 @Override
@@ -142,45 +147,60 @@ public class KakaoLoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<UserInfo> call, Throwable t) {
                         t.printStackTrace();
-                        Log.d(TAG, "onFailure: "+a);
                         Log.d("kakaoLogin", t.toString());
                     }
                 });
 
-                // 카카오 기본 닉네임 가져오기
-                Log.d(TAG, "invoke: nickname=" + user.getKakaoAccount().getProfile().getNickname());
+                // 로그인 완료후, 로그인한 사용자 정보 sharedpreference에 저장
+                Retrofit retrofit2 = new Retrofit.Builder()
+                        //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
+                        .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                        .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
 
-                // 카카오 유저 아이디  sharedpreference에 저장!
-                Log.d(TAG, "getUserInfo: "+user_id);
-                SharedPreferences pref;
-                SharedPreferences.Editor editor;
+                ServerAPI serverAPI2 = retrofit.create(ServerAPI.class);
+                Call<UserInfo> call2 = serverAPI2.getUserInfo(user_id);
+                call2.enqueue(new Callback<UserInfo>() {
+                    @Override
+                    public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                        SharedPreferences pref;
+                        SharedPreferences.Editor editor;
 
-                String userId;
+                        String userId, userNickname, userImg;
 
-                // 1. Shared Preference 초기화
-                pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-                editor = pref.edit();
+                        // 1. Shared Preference 초기화
+                        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+                        editor = pref.edit();
+                        editor.clear();
+                        editor.commit();
 
-                // 2. 저장해둔 값 불러오기 ("식별값", 초기값) -> 식별값과 초기값은 직접 원하는 이름과 값으로 작성.
-                userId = pref.getString("userId", user_id);   // String 불러오기 (저장해둔 값 없으면 초기값인 _으로 불러옴)
-                // 3. 새로운 값(카카오 유저 아이디) 저장
-                editor.putString("userId", user_id.toString());
-                editor.commit(); // 저장
+                        // 2. 저장해둔 값 불러오기 ("식별값", 초기값) -> 식별값과 초기값은 직접 원하는 이름과 값으로 작성.
+                        //userId = pref.getString("userId","");   // String 불러오기 (저장해둔 값 없으면 초기값인 _으로 불러옴)
+                        //userNickname = pref.getString("userNickname", "");
+                        //userImg = pref.getString("userImg", "");
+
+                        userId = (String) response.body().getUserId();
+                        userNickname = (String) response.body().getUserName();
+                        userImg = (String) response.body().getProfilePath();
+
+                        // 3. 새로운 값(카카오 유저 아이디) 저장
+                        editor.putString("userId", userId);
+                        editor.putString("userNickname", userNickname);
+                        editor.putString("userImg", userImg);
+                        editor.commit(); // 저장
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserInfo> call, Throwable t) {
+                        Log.d("SharedPreference 저장 실패 ㅠ : ", t.toString());
+                    }
+                });
 
                 // user의 id(key값) 넘겨주기
-                Intent intent = new Intent(KakaoLoginActivity.this,
-                        MainActivity.class);
+                Intent intent = new Intent(KakaoLoginActivity.this, MainActivity.class);
                 intent.putExtra("user_id",user_id);
                 startActivity(intent);
-
-//                {,
-//                    Log.i(TAG, "사용자 정보 요청 성공" +
-//                            "\n회원번호: "+user.getId() +
-//                            "\n이메일: "+user.getKakaoAccount().getEmail());
-//                }
-
-//                Account user1 = user.getKakaoAccount();
-//                System.out.println("사용자 계정" + user1);
             }
             return null;
         });
