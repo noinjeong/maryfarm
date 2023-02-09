@@ -19,8 +19,8 @@ android {
         applicationId "com.numberONE.maryfarm"
         minSdk 26
         targetSdk 32
-        versionCode 4
-        versionName "0.3"
+        versionCode 5
+        versionName "0.3-alpha01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
