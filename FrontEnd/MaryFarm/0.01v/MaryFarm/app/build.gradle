@@ -4,7 +4,10 @@ plugins {
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 Properties keystoreProperties = new Properties();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8ce4919e88549ac7090df7824be07d36aa78b142
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
@@ -20,8 +23,13 @@ android {
         applicationId "com.numberONE.maryfarm"
         minSdk 26
         targetSdk 32
+<<<<<<< HEAD
         versionCode 9
         versionName "0.3-alpha03_kakologin"
+=======
+        versionCode 7
+        versionName "0.3-alpha02"
+>>>>>>> 8ce4919e88549ac7090df7824be07d36aa78b142
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -109,7 +117,11 @@ dependencies {
 
 // hwanseok 의존성
     implementation 'de.hdodenhof:circleimageview:3.1.0' // 사진을 동그랗게 잘라줍니다.
+<<<<<<< HEAD
     implementation 'com.google.code.gson:gson:2.9.0'    // retrofit2 코드
+=======
+    implementation 'com.google.code.gson:gson:2.8.6'    // retrofit2 코드
+>>>>>>> 8ce4919e88549ac7090df7824be07d36aa78b142
     implementation "androidx.viewpager2:viewpager2:1.0.0" // view pager2
 
 }
