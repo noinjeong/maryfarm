@@ -189,7 +189,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
                         editor.putString("userNickname", userNickname);
                         editor.putString("userImg", userImg);
                         editor.commit(); // 저장
-                        Log.i(TAG, "onResponse: "+userId);
+                        Log.i(TAG, "onResponse: userId"+userId + userNickname);
                     }
 
                     @Override

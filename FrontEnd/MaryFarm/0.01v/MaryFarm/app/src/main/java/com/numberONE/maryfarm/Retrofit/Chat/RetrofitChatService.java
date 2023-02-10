@@ -5,6 +5,7 @@ import com.numberONE.maryfarm.Retrofit.Calendar.CalendarPickModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.DiaryModifyModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.ItemModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.MemoModel;
+import com.numberONE.maryfarm.Retrofit.dto.RoomListView.RoomListDTO;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import retrofit2.http.Path;
 
 public interface RetrofitChatService {
     @GET("maryfarm-chat-service/api/room/search/{userId}")
-    Call<ChatModel> getChat(@Path("userId") String userId);
+    Call<RoomListDTO> getChat(@Path("userId") String userId);
 
 }
 

@@ -40,7 +40,7 @@ public class ChatRoomFragment extends Fragment {
 
     private FragmentChatroomBinding binding;
     private static final String TAG = "ChatRoomFragment";
-    private static String roomId = "2c92808a8636082801863611b45a0002";
+    private static String roomId = "40289f7486399d57018639a02e010002";
     private Adapter mAdapter;
     private List<String> mDataSet = new ArrayList<>();
     private StompClient mStompClient;
@@ -60,40 +60,63 @@ public class ChatRoomFragment extends Fragment {
         binding = FragmentChatroomBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        mRecyclerView = binding.recyclerView;
-        // 리스트뷰에 보여줄 목록 데이트 (테스트 용)
-        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        if (getArguments() != null)
+        {
+            roomId = getArguments().getString("roomId"); // 프래그먼트1에서 받아온 값 넣기
+        }
 
-        HashMap<String, String> item01 = new HashMap<>();
-        item01.put("key01", "목록01");
-        item01.put("key02", "내용입니다01");
-        list.add(item01);
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://http://192.168.31.244:8000/maryfarm-chat-service/ws-chat/websocket");
+        mStompClient.connect();
 
-        HashMap<String, String> item02 = new HashMap<>();
-        item02.put("key01", "목록02");
-        item02.put("key02", "내용입니다02");
-        list.add(item02);
+        mStompClient.topic("/topic/group/"+roomId).subscribe(topicMessage -> {
+            Log.d(TAG, topicMessage.getPayload());
+        });
 
-        // STEP01. 레이아웃의 리스트뷰를 mListview라는 ListView로 선언해준다
-//        ListView mListView = findViewById(R.id.mListView);
+        mStompClient.send("/api/message/send", "My first STOMP message!").subscribe();
 
-        // STEP02. From 설정
-        String[] from = {"key01", "key02"};
+        // ...
 
-        // STEP03. To 설정
-        int[] to = new int[] {android.R.id.text1, android.R.id.text2};
+//        mStompClient.disconnect();
 
-        mAdapter = new SimpleAdapter(mDataSet);
-//        mAdapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
 
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://i8b308.p.ssafy.io:8000/maryfarm-user-service/ws-chat");
 
-        resetSubscriptions();
+
+
+//        mRecyclerView = binding.recyclerView;
+//        // 리스트뷰에 보여줄 목록 데이트 (테스트 용)
+//        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+//
+//        HashMap<String, String> item01 = new HashMap<>();
+//        item01.put("key01", "목록01");
+//        item01.put("key02", "내용입니다01");
+//        list.add(item01);
+//
+//        HashMap<String, String> item02 = new HashMap<>();
+//        item02.put("key01", "목록02");
+//        item02.put("key02", "내용입니다02");
+//        list.add(item02);
+//
+//        // STEP01. 레이아웃의 리스트뷰를 mListview라는 ListView로 선언해준다
+////        ListView mListView = findViewById(R.id.mListView);
+//
+//        // STEP02. From 설정
+//        String[] from = {"key01", "key02"};
+//
+//        // STEP03. To 설정
+//        int[] to = new int[] {android.R.id.text1, android.R.id.text2};
+//
+//        mAdapter = new SimpleAdapter(mDataSet);
+////        mAdapter.setHasStableIds(true);
+//        mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+//
+//        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://i8b308.p.ssafy.io:8000/maryfarm-user-service/ws-chat/websocket");
+//
+//        resetSubscriptions();
 
         return root;
     }
+
     public void disconnectStomp(View view) {
         mStompClient.disconnect();
     }

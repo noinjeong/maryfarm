@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.kakao.sdk.user.UserApiClient;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
+import com.numberONE.maryfarm.ui.chat.ChatFragment;
+import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -128,7 +131,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     } // onCreate 끝
-
+    public void onChatFragmentChange(Integer index, String roomId) {
+        if(index == 1){
+            Bundle bundle = new Bundle();
+            bundle.putString("roomId", roomId);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ChatRoomFragment fragment2 = new ChatRoomFragment();//프래그먼트2 선언
+            fragment2.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.main_activity, fragment2)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("ChatList")
+                    .commit();
+//            transaction.commit();
+//
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.main_activity, ChatRoomFragment.class, null)
+//                    // setReorderingAllowed(true) and the optional string argument for
+//                    // addToBackStack() are both required if you want to use saveBackStack().
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+//                    .commit();
+        }
+    }
     //액션바의 메뉴를 클릭하는 이벤트를 듣는 메소드를 통해 클릭 상황 전달
     //토글 버튼이 클릭 상황을 인지하도록
     @Override
