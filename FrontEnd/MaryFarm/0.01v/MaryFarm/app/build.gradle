@@ -113,7 +113,8 @@ dependencies {
 
 // hwanseok 의존성
     implementation 'de.hdodenhof:circleimageview:3.1.0' // 사진을 동그랗게 잘라줍니다.
-    implementation 'com.google.code.gson:gson:2.9.0'    // retrofit2 코드
-    implementation "androidx.viewpager2:viewpager2:1.0.0" // view pager2
+    implementation 'com.google.code.gson:gson:2.9.0'    // retrofit2의 Gson 코드
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4" // constraint view error 방지
+
 
 }

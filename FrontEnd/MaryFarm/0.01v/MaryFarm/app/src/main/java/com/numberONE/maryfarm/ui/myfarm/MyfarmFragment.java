@@ -15,17 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
-import com.numberONE.maryfarm.Pick.PickAlgorithm;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
-import com.numberONE.maryfarm.Retrofit.UserInfo;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
-import com.numberONE.maryfarm.databinding.FragmentMyfarmProfileBinding;
+import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +135,7 @@ public class MyfarmFragment extends Fragment {
         recommendMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PickAlgorithm.class);
+                Intent intent = new Intent(getActivity(), RecommendActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
