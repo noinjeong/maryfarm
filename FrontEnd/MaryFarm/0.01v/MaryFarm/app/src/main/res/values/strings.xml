@@ -92,4 +92,14 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
 
+    <string-array name="board_spinner">
+        <item> 서울 </item>
+        <item> 인천 </item>
+        <item> 강원 </item>
+        <item> 충청 </item>
+        <item> 경상 </item>
+        <item> 전라 </item>
+        <item> 제주 </item>
+    </string-array>
+
 </resources>
