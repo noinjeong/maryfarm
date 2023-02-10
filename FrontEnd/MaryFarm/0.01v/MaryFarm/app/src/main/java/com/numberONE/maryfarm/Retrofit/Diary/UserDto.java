@@ -7,7 +7,15 @@ public class UserDto {
 
     @SerializedName("userId")
     @Expose
-    private String userid;
+    private String userId;
+
+    @SerializedName("userName")
+    @Expose
+    private String userName;
+
+    @SerializedName("profilePath")
+    @Expose
+    private String profilePath;
 
     @SerializedName("name")
     @Expose
@@ -21,12 +29,40 @@ public class UserDto {
     @Expose
     private String content;
 
-    public String getUserid() {
-        return userid;
+    @SerializedName("plantId")
+    @Expose
+    private String plantId;
+
+    public String getPlantId() {
+        return plantId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setPlantId(String plantId) {
+        this.plantId = plantId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    public void setProfilePath(String profilePath) {
+        this.profilePath = profilePath;
     }
 
     public String getName() {
@@ -56,10 +92,13 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "userid='" + userid + '\'' +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", profilePath='" + profilePath + '\'' +
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", plantId='" + plantId + '\'' +
                 '}';
     }
 }

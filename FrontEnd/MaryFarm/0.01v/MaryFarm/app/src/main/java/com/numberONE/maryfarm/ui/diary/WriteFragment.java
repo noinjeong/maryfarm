@@ -91,7 +91,7 @@ public class WriteFragment extends Fragment {
                         options.inSampleSize = calRatio;
                         Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
                         if (bitmap != null) {
-                            ImgPath=bitmap; // 작성 버튼 클릭시 넘겨주기 위해
+//                            ImgPath=bitmap; // 작성 버튼 클릭시 넘겨주기 위해
                             binding.Image.setImageBitmap(bitmap);
                         }
                     }
@@ -148,7 +148,7 @@ public class WriteFragment extends Fragment {
                             InputStream inputStream = getActivity().getContentResolver().openInputStream(result.getData().getData());
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
                             if (bitmap != null) {
-                                ImgPath = bitmap; // 작성 버튼 클릭시 넘겨주기 위해
+//                                ImgPath = bitmap; // 작성 버튼 클릭시 넘겨주기 위해
                                 binding.Image.setImageBitmap(bitmap);
                             }
                         } catch (Exception e) {
@@ -171,12 +171,6 @@ public class WriteFragment extends Fragment {
                 );
                 filePath = file.getAbsolutePath();
 
-                //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
-                photoURI = FileProvider.getUriForFile(
-                        getActivity(),
-                        "com.numberONE.maryfarm.fileprovider",
-                        file
-                );
 
                 // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
                 if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
@@ -236,12 +230,6 @@ public class WriteFragment extends Fragment {
                         );
                         filePath = file.getAbsolutePath();
 
-                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
-                        photoURI = FileProvider.getUriForFile(
-                                getActivity(),
-                                "com.numberONE.maryfarm.fileprovider",
-                                file
-                        );
 
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
                         intent.setType("image/*");

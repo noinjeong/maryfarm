@@ -36,7 +36,7 @@
 
     </RelativeLayout>
 
-    <!--    2. 오른쪽에 숨어 있는 Drawer 메뉴 영역 -->
+    <!--    2. 왼쪽에 숨어 있는 Drawer 메뉴 영역 -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/drawer_nav"
         android:layout_width="match_parent"
