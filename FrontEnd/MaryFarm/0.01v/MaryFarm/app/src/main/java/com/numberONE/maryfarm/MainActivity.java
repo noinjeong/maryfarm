@@ -25,6 +25,9 @@ import com.numberONE.maryfarm.databinding.ActivityMainBinding;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
 import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
+import com.numberONE.maryfarm.ui.diary.WriteFragment;
+import com.numberONE.maryfarm.ui.home.HomeFragment;
+import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 public class MainActivity extends AppCompatActivity {
