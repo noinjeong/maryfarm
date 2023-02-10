@@ -93,7 +93,6 @@
     <string name="tab_text_2">Tab 2</string>
 
 <!--  채팅용  -->
-    <string name="app_name">Example client</string>
     <string name="send_mode_1">Echo STOMP</string>
     <string name="send_mode_2">Echo REST</string>
     <string name="connect_stomp">Connect STOMP</string>

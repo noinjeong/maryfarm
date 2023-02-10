@@ -5,8 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +23,7 @@ import com.numberONE.maryfarm.databinding.FragmentChatroomBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,8 +40,8 @@ public class ChatRoomFragment extends Fragment {
 
     private FragmentChatroomBinding binding;
     private static final String TAG = "ChatRoomFragment";
-
-    private SimpleAdapter mAdapter;
+    private static String roomId = "2c92808a8636082801863611b45a0002";
+    private Adapter mAdapter;
     private List<String> mDataSet = new ArrayList<>();
     private StompClient mStompClient;
     private Disposable mRestPingDisposable;
@@ -61,19 +61,34 @@ public class ChatRoomFragment extends Fragment {
         View root = binding.getRoot();
 
         mRecyclerView = binding.recyclerView;
+        // 리스트뷰에 보여줄 목록 데이트 (테스트 용)
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+
+        HashMap<String, String> item01 = new HashMap<>();
+        item01.put("key01", "목록01");
+        item01.put("key02", "내용입니다01");
+        list.add(item01);
+
+        HashMap<String, String> item02 = new HashMap<>();
+        item02.put("key01", "목록02");
+        item02.put("key02", "내용입니다02");
+        list.add(item02);
+
+        // STEP01. 레이아웃의 리스트뷰를 mListview라는 ListView로 선언해준다
+//        ListView mListView = findViewById(R.id.mListView);
+
         // STEP02. From 설정
         String[] from = {"key01", "key02"};
 
         // STEP03. To 설정
         int[] to = new int[] {android.R.id.text1, android.R.id.text2};
 
-        mAdapter = new SimpleAdapter(getActivity(), mDataSet, R.layout.fragment_chatroom, from, to);
+        mAdapter = new SimpleAdapter(mDataSet);
 //        mAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
 
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://" + "10.0.2.2"
-                + ":" + RestClient.SERVER_PORT + "/example-endpoint/websocket");
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://i8b308.p.ssafy.io:8000/maryfarm-user-service/ws-chat");
 
         resetSubscriptions();
 
@@ -122,7 +137,7 @@ public class ChatRoomFragment extends Fragment {
         compositeDisposable.add(dispLifecycle);
 
         // Receive greetings
-        Disposable dispTopic = mStompClient.topic("/topic/greetings")
+        Disposable dispTopic = mStompClient.topic("/topic/group/"+roomId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topicMessage -> {
@@ -139,7 +154,7 @@ public class ChatRoomFragment extends Fragment {
 
     public void sendEchoViaStomp(View v) {
 //        if (!mStompClient.isConnected()) return;
-        compositeDisposable.add(mStompClient.send("/topic/hello-msg-mapping", "Echo STOMP " + mTimeFormat.format(new Date()))
+        compositeDisposable.add(mStompClient.send("/topic/group/"+roomId, "Echo STOMP " + mTimeFormat.format(new Date()))
                 .compose(applySchedulers())
                 .subscribe(() -> {
                     Log.d(TAG, "STOMP echo send successfully");
