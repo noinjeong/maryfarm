@@ -1,9 +1,9 @@
 package com.numberONE.maryfarm.Retrofit.dto.AllNotifyView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 public class AllNotifyDTO {
     private String id;
