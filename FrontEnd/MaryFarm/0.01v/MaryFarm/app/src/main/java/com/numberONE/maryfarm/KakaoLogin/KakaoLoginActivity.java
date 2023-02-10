@@ -90,7 +90,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
             if (meError != null) {
                 Log.e(TAG, "사용자 정보 요청 실패", meError);
             } else {
-                System.out.println("로그인 완료");
+                System.out.println("로그인 완료"+user.getId());
                 String user_id=user.getId()+" "; // 문자열로 변환
                 String user_nickname =  user.getKakaoAccount().getProfile().getNickname();
                 String user_image = user.getKakaoAccount().getProfile().getProfileImageUrl();
@@ -179,7 +179,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
                         //userId = pref.getString("userId","");   // String 불러오기 (저장해둔 값 없으면 초기값인 _으로 불러옴)
                         //userNickname = pref.getString("userNickname", "");
                         //userImg = pref.getString("userImg", "");
-
+                        Log.d(TAG, "onResponse:!!!!!!!!!!!!!! "+response.body());
                         userId = (String) response.body().getUserId();
                         userNickname = (String) response.body().getUserName();
                         userImg = (String) response.body().getProfilePath();
