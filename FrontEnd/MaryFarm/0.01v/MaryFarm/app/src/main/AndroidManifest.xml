@@ -82,12 +82,12 @@
             android:name=".KakaoLogin.KakaoLoginActivity"
             android:exported="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -95,11 +95,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -109,19 +109,19 @@
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
 
-                <!--            local.properties 설정 mani_kakao_key와 연결           -->
-                <data
-                    android:host="oauth"
-                    android:scheme="${KakaoKey}" />
-            </intent-filter>
+<!--                &lt;!&ndash;            local.properties 설정 mani_kakao_key와 연결           &ndash;&gt;-->
+<!--                <data-->
+<!--                    android:host="oauth"-->
+<!--                    android:scheme="${KakaoKey}" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <provider
