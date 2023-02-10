@@ -18,24 +18,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.Pick.PickAlgorithm;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
-import com.numberONE.maryfarm.Retrofit.Thumbnail;
+import com.numberONE.maryfarm.Retrofit.UserInfo;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryCommentDTO;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryDTO;
+import com.numberONE.maryfarm.databinding.FragmentMyfarmProfileBinding;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,9 +71,6 @@ public class MyfarmFragment extends Fragment {
         nickname = (TextView) view.findViewById(R.id.myFarmName);
         nickname.setText(userNickname);
 
-        RecyclerView recyclerView = view.findViewById(R.id.plantThumbnail);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        
         // 업로드한 작물 피드 유무 확인
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
@@ -93,70 +83,32 @@ public class MyfarmFragment extends Fragment {
             @Override
             public void onResponse(Call<List<UserPlant>> call, Response<List<UserPlant>> response) {
                 List<UserPlant> plantsId = response.body();
+                Log.d("sss", "onResponse: !!!!!!!!!!!"+plantsId.toString());
 
                 List<String> list = new ArrayList<>();
                 for(UserPlant u : plantsId) {
                     list.add(u.getPlantId());
                 }
+                Log.d("sss", "onResponse: "+list.toString());
 
                 if (response.body() == null){
                     recommendBtn.setVisibility(View.VISIBLE);
                     recommendMonthBtn.setVisibility(View.VISIBLE);
                 } else {
                     detailBtn.setVisibility(View.VISIBLE);
-                    List<Thumbnail> planThumbnails =new ArrayList<>();
 
-                    for (int i=0; i <= list.size()-1; i++) {
-                        List<DetailDiariesPerPlantDTO> diaries = new ArrayList<>();
-
-
-                        Gson gson = new GsonBuilder().setLenient().create();
-                        Retrofit retrofit2 = new Retrofit.Builder()
-                                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                                .addConverterFactory(GsonConverterFactory.create(gson))
-                                .build();
-
-                        ServerAPI serverAPI2 = retrofit2.create(ServerAPI.class);
-                        Call<DetailDiariesPerPlantDTO> call2 = serverAPI2.getDiaries(list.get(i));
-                        call2.enqueue(new Callback<DetailDiariesPerPlantDTO>() {
-                            @Override
-                            public void onResponse(Call<DetailDiariesPerPlantDTO> call, Response<DetailDiariesPerPlantDTO> response) {
-                                Log.d("Success : ", response.body().getTitle());
-                                Log.d("Success : ", response.body().getPlantId());
-                                Log.d("Success : ", response.body().getDiaries().get(1).toString());
-
-                                String title = response.body().getTitle();
-                                String plantId = response.body().getPlantId();
-                                String thumbImg1 = null;
-                                String thumbImg2 = null;
-                                String thumbImg3 = null;
-
-                                for (int j=response.body().getDiaries().size()-1; j>=0; j--){
-                                    List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
-                                    DetailDiaryDTO diary = diaries.get(j);
-
-                                    if (j==2){
-                                        thumbImg3 = diary.getImagePath();
-                                    } else if (j==1) {
-                                        thumbImg2 = diary.getImagePath();
-                                    } else {
-                                        thumbImg1 = diary.getImagePath();
-                                    }
-                                }
-
-                                Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId);
-                                planThumbnails.add(thumbnail);
-
-                                recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
-                            }
-
-
-                            @Override
-                            public void onFailure(Call<DetailDiariesPerPlantDTO> call, Throwable t) {
-                                Log.d("Failure : ", t.toString());
-                            }
-                        });
+                    for (int i=list.size()-1; i >= 0; i--) {
+                        Log.d("!!!s", "onResponse: ~~~~~"+list.get(i));
                     }
+
+//                    Retrofit retrofit2 = new Retrofit.Builder()
+//                            .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                            .addConverterFactory(GsonConverterFactory.create())
+//                            .build();
+//
+//                    ServerAPI serverAPI2 = retrofit2.create(ServerAPI.class);
+//                    Call<UserInfo> call2 = serverAPI2.getDiaries();
+
                 }
             }
 
@@ -165,7 +117,7 @@ public class MyfarmFragment extends Fragment {
                 Log.d("onFailure", t.toString());
             }
         });
-                
+
         detailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,13 +28,4 @@ public class DiaryInit {
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
     }
-
-    @Override
-    public String toString() {
-        return "DiaryInit{" +
-                "image='" + image + '\'' +
-                ", userDto=" + userDto +
-                '}';
-    }
-
 }

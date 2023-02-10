@@ -1,6 +1,8 @@
 package com.numberONE.maryfarm.Retrofit.dto.AllNotifyView;
 
+
 import java.util.Map;
+
 
 public class NotifyDTO {
     private String notifyId;
