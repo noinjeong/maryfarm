@@ -1,14 +1,20 @@
 package com.numberONE.maryfarm;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +34,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.sdk.user.UserApiClient;
+import com.numberONE.maryfarm.KakaoLogin.KakaoLoginActivity;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
 import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
@@ -36,6 +43,10 @@ import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
+
+import org.w3c.dom.Text;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +74,20 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        sharedpreferences에서 닉네임 , 프로필 사진 가져와서 적용 시켜야함
+//        SharedPreferences preferences =getSharedPreferences("",Context.MODE_PRIVATE);
+//        String hamburger_nickname =preferences.getString("nickname","ham_nickname_null");
+
+        // drawer_header 레이아웃 가져오기 - 햄버거 열면 프로필 사진 ,이름 설정하기 위해서
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view =inflater.inflate(R.layout.drawer_header,null);
+
+        CircleImageView circleImageView=(CircleImageView)view.findViewById(R.id.hamburger_user_profile) ;
+        TextView textView=(TextView) view.findViewById(R.id.hamburger_user_nickname);
+
+
+
 
         //상단 메뉴 배경색 지정
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFFF));
@@ -134,11 +159,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
-                        // 로그아웃 구현 필요
+                        // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
                     case R.id.logout:
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
-                        UserApiClient.getInstance();
-
+                        UserApiClient.getInstance().logout(error ->{
+                            Intent intent = new Intent(getApplicationContext(), KakaoLoginActivity.class);
+                            startActivity(intent);
+                            return null;
+                        });
                         break;
 
                 }
@@ -162,22 +190,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        drawerlayout 끝
 
-
-// 키보드 외 화면 클릭시 키보드 내려가기
-        binding.mainActivity.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                searchView.setQuery("",false); // 검색 후 검색창 공백 상태로
-                searchView.setIconified(true); // 검색 후 icon 상태로 돌아오기
-                hideKeyboard();
-                return false;
-            }
-        });
+//       검색창 클릭 후 다른 위치 클릭시 키보드 감추기 코드
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     } // onCreate 끝
-
 
     //검색창 활성화
     @Override
@@ -188,6 +204,15 @@ public class MainActivity extends AppCompatActivity {
         searchView.setQueryHint("검색어를 입력하세요");
         searchView.setOnQueryTextListener(queryTextListener);
         return super.onCreateOptionsMenu(menu);
+    }
+
+//    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        hideKeyboard();
+        searchView.setQuery("",false); // 검색 후 검색창 공백 상태로
+        searchView.setIconified(true); // 검색 후 icon 상태로 돌아오기
+        return super.dispatchTouchEvent(ev);
     }
 
     // 검색 버튼 로직 만들기
@@ -220,13 +245,19 @@ public class MainActivity extends AppCompatActivity {
         }
         //2초 이내에 뒤로가기 버튼 한번 더 클릭시 앱 종료
         if(System.currentTimeMillis() <= backKeyPressedTime+2000){
-            finish();
+            //로그인 화면으로 가게 하고 싶으면 finish()로 처리하기
+            moveTaskToBack(true); // 테스크를 백그라운드로 이동
+            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+            android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
         }
     }
     // 키보드 숨기기 로직
-    void hideKeyboard()
-    {
-        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    private void hideKeyboard(){
+        InputMethodManager inputmanager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view =getCurrentFocus();
+        if(view==null){
+            view =new View(this);
+        }
+        inputmanager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
 }

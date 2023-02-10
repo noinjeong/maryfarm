@@ -7,11 +7,7 @@ public class UserDto {
 
     @SerializedName("userId")
     @Expose
-    private String userid;
-
-    @SerializedName("plantId")
-    @Expose
-    private String plantId;
+    private String userId;
 
     @SerializedName("userName")
     @Expose
@@ -21,17 +17,21 @@ public class UserDto {
     @Expose
     private String profilePath;
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("title")
+    @Expose
+    private String title;
+
     @SerializedName("content")
     @Expose
     private String content;
 
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
+    @SerializedName("plantId")
+    @Expose
+    private String plantId;
 
     public String getPlantId() {
         return plantId;
@@ -39,6 +39,14 @@ public class UserDto {
 
     public void setPlantId(String plantId) {
         this.plantId = plantId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -57,11 +65,40 @@ public class UserDto {
         this.profilePath = profilePath;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", profilePath='" + profilePath + '\'' +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", plantId='" + plantId + '\'' +
+                '}';
     }
 }
