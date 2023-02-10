@@ -1,6 +1,5 @@
 package com.numberONE.maryfarm.Retrofit.dto.DetailArticleView;
 
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

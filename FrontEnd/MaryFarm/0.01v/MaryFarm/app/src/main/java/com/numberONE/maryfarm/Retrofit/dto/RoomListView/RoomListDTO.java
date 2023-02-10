@@ -9,6 +9,18 @@ public class RoomListDTO {
     private String userId;
     private List<RoomDTO> rooms = new ArrayList<>();
 
+    public String getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public List<RoomDTO> getRooms() {
+        return rooms;
+    }
+
     public RoomListDTO(Map<Object, Object> payload) {
         this.userId = (String)payload.get("user_id");
     }

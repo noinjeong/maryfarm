@@ -13,7 +13,7 @@
         android:background="#FFFDF6">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/hamburger_user_profile"
+            android:id="@+id/other_profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_vertical"
@@ -24,7 +24,6 @@
             app:civ_border_width="2dp" />
 
         <TextView
-            android:id="@+id/hamburger_user_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
