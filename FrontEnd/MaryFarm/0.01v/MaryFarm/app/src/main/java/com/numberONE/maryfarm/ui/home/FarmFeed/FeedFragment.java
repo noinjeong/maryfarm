@@ -44,20 +44,20 @@ public class FeedFragment extends Fragment {
 
         RetrofitApiSerivce service = RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
 
-        Call<List<UserItem>> follower_call =service.getFollowerFeed("10101010");
-        follower_call.enqueue(new Callback<List<UserItem>>() {
-            @Override
-            public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
-                Log.d(TAG, " 팔로워 피드 서버 응답 성공  ");
-                followerDataList(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<UserItem>> call, Throwable t) {
-                Log.d(TAG, " 팔로워 피드 서버 응답 실패 ");
-                Toast.makeText(getActivity(),"상단 피드 오류 발생 ! " ,Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<List<UserItem>> follower_call =service.getFollowerFeed("10101010");
+//        follower_call.enqueue(new Callback<List<UserItem>>() {
+//            @Override
+//            public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
+//                Log.d(TAG, " 팔로워 피드 서버 응답 성공  ");
+//                followerDataList(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<UserItem>> call, Throwable t) {
+//                Log.d(TAG, " 팔로워 피드 서버 응답 실패 ");
+//                Toast.makeText(getActivity(),"상단 피드 오류 발생 ! " ,Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -65,20 +65,20 @@ public class FeedFragment extends Fragment {
 
 
 
-        Call<List<DiaryTopRecommend>> others_call =service.getOthersFeed();
-        others_call.enqueue(new Callback<List<DiaryTopRecommend>>() {
-            @Override
-            public void onResponse(Call<List<DiaryTopRecommend>> call, Response<List<DiaryTopRecommend>> response) {
-                Log.d(TAG, " 추천 피드 서버 통신 성공 ");
-                othersDataList(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<DiaryTopRecommend>> call, Throwable t) {
-                Log.d(TAG, " 추천 피드 서버 통신 실패 ");
-                t.printStackTrace();
-            }
-        });
+//        Call<List<DiaryTopRecommend>> others_call =service.getOthersFeed();
+//        others_call.enqueue(new Callback<List<DiaryTopRecommend>>() {
+//            @Override
+//            public void onResponse(Call<List<DiaryTopRecommend>> call, Response<List<DiaryTopRecommend>> response) {
+//                Log.d(TAG, " 추천 피드 서버 통신 성공 ");
+//                othersDataList(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<DiaryTopRecommend>> call, Throwable t) {
+//                Log.d(TAG, " 추천 피드 서버 통신 실패 ");
+//                t.printStackTrace();
+//            }
+//        });
 
         ViewGroup view = binding.getRoot();
         return view;
