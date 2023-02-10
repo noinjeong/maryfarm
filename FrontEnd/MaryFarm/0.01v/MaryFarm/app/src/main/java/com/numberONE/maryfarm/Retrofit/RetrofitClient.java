@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-//    private static final String BASE_URL ="http://54.180.86.161:8080/api/";
+//    private static final String BASE_URL ="http://i8b308.p.ssafy.io:8000/";
     private static final String BASE_URL ="https://cc01df37-3c92-461c-a2f5-d3264befcaa8.mock.pstmn.io";
     private static Retrofit retrofit;
 
