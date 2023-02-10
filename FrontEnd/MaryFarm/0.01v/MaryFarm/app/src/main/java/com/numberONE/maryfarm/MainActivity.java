@@ -194,8 +194,36 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     } // onCreate 끝
-
-    //검색창 활성화
+    public void onChatFragmentChange(Integer index, String roomId) {
+        if(index == 1){
+            Bundle bundle = new Bundle();
+            bundle.putString("roomId", roomId);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ChatRoomFragment fragment2 = new ChatRoomFragment();//프래그먼트2 선언
+            fragment2.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.main_activity, fragment2)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("ChatList")
+                    .commit();
+//            transaction.commit();
+//
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.main_activity, ChatRoomFragment.class, null)
+//                    // setReorderingAllowed(true) and the optional string argument for
+//                    // addToBackStack() are both required if you want to use saveBackStack().
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+//                    .commit();
+        }
+    }
+    //액션바의 메뉴를 클릭하는 이벤트를 듣는 메소드를 통해 클릭 상황 전달
+    //토글 버튼이 클릭 상황을 인지하도록
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        barDrawerToggle.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
+    // 상단메뉴 다른 버튼
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_top, menu);
