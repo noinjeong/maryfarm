@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +24,10 @@ public class BoardMainFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager_board;
     RecyclerView.Adapter adapter_board;
 
+    // 지역선택 스피너
+    ArrayAdapter<CharSequence> spinnerAdapter=null;
+    Spinner spinner = null;
+
     public BoardMainFragment() {
     }
 
@@ -29,7 +36,11 @@ public class BoardMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =FragmentBoardMainBinding.inflate(inflater,container,false);
 
-        recyclerView_board=binding.boardRecycler;
+        spinnerAdapter=ArrayAdapter.createFromResource(getActivity(),R.array.board_spinner,android.R.layout.simple_spinner_dropdown_item);
+        binding.boardSpinner.setAdapter(spinnerAdapter);
+
+
+//        recyclerView_board=binding.boardRecycler;
 
         recyclerView_board.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         layoutManager_board=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);

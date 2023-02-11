@@ -20,7 +20,6 @@ public class HomeFragment extends Fragment {
     private FragmentStateAdapter adapter;
     private int num_page = 2 ;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =

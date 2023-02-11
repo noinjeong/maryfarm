@@ -7,9 +7,13 @@
     tools:context=".ui.AlgorithmPage.RecommendFragment">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:src="@drawable/flowerstrom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
         />
 
     <TextView
@@ -19,9 +23,7 @@
         android:fontFamily="@font/baemin_jua"
         android:gravity="center"
         android:text="자, 이제 추천을 시작하지."
-        android:textSize="40dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:textSize="40dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
