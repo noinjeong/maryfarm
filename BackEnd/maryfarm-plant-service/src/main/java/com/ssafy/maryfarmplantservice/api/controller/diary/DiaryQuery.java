@@ -46,7 +46,7 @@ public class DiaryQuery {
     private final DetailDiariesPerPlantDTORepository detailDiariesPerPlantDTORepository;
     private final TagSearchDTORepository tagSearchDTORepository;
 
-    @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Controller" })
+    @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DiarySearchResponseDTO.class))),
@@ -70,7 +70,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDto.get());
     }
 
-    @Operation(summary = "팔로우 일지 조회", description = "팔로우한 사람들의 일지를 가져옵니다.", tags = { "Diary Controller" })
+    @Operation(summary = "팔로우 일지 조회", description = "팔로우한 사람들의 일지를 가져옵니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = FollowingDiaryResponseDTO.class))),
@@ -91,7 +91,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "자신의 일지 조회", description = "자신의 일지들을 가져옵니다.", tags = { "Diary Controller" })
+    @Operation(summary = "자신의 일지 조회", description = "자신의 일지들을 가져옵니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DiaryToHomeResponseDTO.class))),
@@ -113,7 +113,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "작물 일지 조회", description = "특정 작물의 일지들을 가져옵니다.", tags = { "Diary Controller" })
+    @Operation(summary = "작물 일지 조회", description = "특정 작물의 일지들을 가져옵니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
@@ -132,7 +132,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "작물 일지 댓글 조회", description = "특정 작물 일지의 댓글들을 가져옵니다.", tags = { "Diary Controller" })
+    @Operation(summary = "작물 일지 댓글 조회", description = "특정 작물 일지의 댓글들을 가져옵니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
@@ -150,7 +150,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "작물 일지 추천", description = "좋아요 순 상위 5개 작물 일지를 가져옵니다.", tags = { "Diary Controller" })
+    @Operation(summary = "작물 일지 추천", description = "좋아요 순 상위 5개 작물 일지를 가져옵니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DetailDiaryResponseDTO.class))),
@@ -169,7 +169,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDtos);
     }
 
-    @Operation(summary = "특정 작물의 일지 묶음 조회", description = "특정 작물의 일지 묶음 전체를 조회합니다.", tags = { "Diary Controller" })
+    @Operation(summary = "특정 작물의 일지 묶음 조회", description = "특정 작물의 일지 묶음 전체를 조회합니다.", tags = { "Diary Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DetailDiariesPerPlantDTO.class))),

@@ -54,10 +54,11 @@ public class DiaryCService {
         Diary saveDiary = diaryRepository.save(diary);
         // 알람 생성 시작
         UserResponseDTO userDto = userServiceClient.searchUser(userId);
-        String notifyContent = userDto.getNickname()+"님이 새로운 일지를 올렸어요!";
+        String notifyContent = userDto.getUserName()+"님이 새로운 일지를 올렸어요!";
         List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
         for(UserResponseDTO u : followerDto) {
-            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId());
+            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId(),
+                    "",plantId,saveDiary.getId());
             notifyServiceClient.saveNotify(notifyDto);
         }
         // 알람 생성 종료
@@ -109,10 +110,16 @@ public class DiaryCService {
     }
 
     @Transactional
-    public DiaryLike saveDiaryLike(String diaryId, String userId) {
+    public DiaryLike saveDiaryLike(String diaryId, String userId, String userName) {
         Optional<Diary> diary = diaryRepository.findById(diaryId);
-        DiaryLike diaryLike = DiaryLike.of(userId, diary.get());
+        DiaryLike diaryLike = DiaryLike.of(userId, diary.get(),userName);
         DiaryLike saveDiaryLike = diaryLikeRepository.save(diaryLike);
+        // 알람 생성 시작
+        String content = userName + "님이 내 "+ diary.get().getTitle() +" 일지를 좋아합니다!";
+        CreateNotifyRequestDTO createNotifyRequestDTO = new CreateNotifyRequestDTO("DiaryLike", content, diary.get().getUserId(),
+                "",diary.get().getPlant().getId(),diaryId);
+        notifyServiceClient.saveNotify(createNotifyRequestDTO);
+        // 알람 생성 종료
         return saveDiaryLike;
     }
 
@@ -122,9 +129,9 @@ public class DiaryCService {
     }
 
     @Transactional
-    public DiaryComment saveDiaryComment(String diaryId, String userId, String content) {
+    public DiaryComment saveDiaryComment(String diaryId, String userId, String content, String userName) {
         Optional<Diary> diary = diaryRepository.findById(diaryId);
-        DiaryComment diaryComment = DiaryComment.of(diary.get(), userId, content);
+        DiaryComment diaryComment = DiaryComment.of(diary.get(), userId, content,userName);
         DiaryComment saveDiaryComment = diaryCommentRepository.save(diaryComment);
         return saveDiaryComment;
     }
@@ -186,6 +193,7 @@ public class DiaryCService {
     @Transactional
     @Scheduled(cron = "0 0/1 * * * ?")
     public void deleteLikeCntCacheFromRedis() {
+        log.info("-----------update likeCntFromRedis run--------");
         Set<String> redisKeys = redisTemplate.keys("diaryLikeCnt*");
         Iterator<String> it = redisKeys.iterator();
         while (it.hasNext()) {

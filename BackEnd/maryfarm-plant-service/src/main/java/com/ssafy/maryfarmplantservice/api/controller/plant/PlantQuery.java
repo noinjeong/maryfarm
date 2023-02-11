@@ -29,7 +29,7 @@ import java.util.List;
 public class PlantQuery {
     private final PlantCService plantCService;
     private final UserServiceClient userServiceClient;
-    @Operation(summary = "특정 작물 조회", description = "특정 작물의 정보를 조회합니다.", tags = { "Plant Controller" })
+    @Operation(summary = "특정 작물 조회", description = "특정 작물의 정보를 조회합니다.", tags = { "Plant Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = String.class))),
@@ -50,7 +50,7 @@ public class PlantQuery {
         return ResponseEntity.ok(dto);
     }
 
-    @Operation(summary = "특정 년월의 작물들 조회", description = "특정 년월에 해당하는 자신의 작물들을 조회합니다.", tags = { "Plant Controller" })
+    @Operation(summary = "특정 년월의 작물들 조회", description = "특정 년월에 해당하는 자신의 작물들을 조회합니다.", tags = { "Plant Query" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = MonthPlantSearchRequestDTO.class))),
