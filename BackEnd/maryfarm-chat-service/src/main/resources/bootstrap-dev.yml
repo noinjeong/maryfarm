@@ -4,4 +4,4 @@ spring:
       extra-refreshable: com.zaxxer.hikari.HikariDataSource
     config:
       uri: http://127.0.0.1:8888
-      name: maryfarm-chat-service
+      name: maryfarm-notify-service
