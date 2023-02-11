@@ -47,25 +47,6 @@ public class FirstHomeViewListener {
     }
 
     @KafkaListener(
-            topics = "plantdb-diary",
-            groupId = "HomeFollowerImage"
-    )
-    public void HomeFollowerImageListen(String message) throws JsonProcessingException {
-        log.info("Kafka Message: ->" + message);
-
-        Map<Object, Object> map = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {});
-        Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
-        Optional<HomeFollowerImageDTO> dto = homeFollowerImageDTORepository.findByUserId((String) payload.get("user_id"));
-        /*
-            만약 유저가 일지를 생성하거나, 수정했다면 FollowerImageDTO 데이터를 최신 값으로 갱신시킴.
-         */
-        dto.get().setLatestDiaryImagePath((String) payload.get("image_path"));
-        homeFollowerImageDTORepository.save(dto.get());
-    }
-
-    @KafkaListener(
             topics = "userdb-user",
             groupId = "FirstHomeView"
     )
@@ -105,6 +86,26 @@ public class FirstHomeViewListener {
             homeFollowerImageDto.get().setProfilePath((String) payload.get("profile_path"));
             homeFollowerImageDTORepository.save(homeFollowerImageDto.get());
         }
+    }
+
+    @KafkaListener(
+            topics = "plantdb-diary",
+            groupId = "HomeFollowerImage"
+    )
+    public void HomeFollowerImageListen(String message) throws JsonProcessingException {
+        log.info("Kafka Message: ->" + message);
+
+        Map<Object, Object> map = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {});
+        Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
+        Optional<HomeFollowerImageDTO> dto = homeFollowerImageDTORepository.findByUserId((String) payload.get("user_id"));
+        /*
+            만약 유저가 일지를 생성하거나, 수정했다면 FollowerImageDTO 데이터를 최신 값으로 갱신시킴.
+         */
+        dto.get().setLatestDiaryImagePath((String) payload.get("image_path"));
+        dto.get().setPlantId((String) payload.get("plant_id"));
+        homeFollowerImageDTORepository.save(dto.get());
     }
 
     @KafkaListener(
@@ -149,6 +150,7 @@ public class FirstHomeViewListener {
                 Optional<HomeFollowerImageDTO> byUserId = homeFollowerImageDTORepository.findByUserId(h.getUserId());
                 h.setProfilePath(byUserId.get().getProfilePath());
                 h.setLatestDiaryImagePath(byUserId.get().getLatestDiaryImagePath());
+                h.setPlantId(byUserId.get().getPlantId());
             }
             List<HomeDiaryImageDTO> latestDiaries = homeDiaryImageDTORepository.findAll();
             f.setDiaries(latestDiaries);

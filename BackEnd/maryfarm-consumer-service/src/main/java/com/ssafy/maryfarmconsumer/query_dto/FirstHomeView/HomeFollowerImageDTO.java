@@ -21,10 +21,12 @@ public class HomeFollowerImageDTO {
     private String userName;
     private String profilePath;
     private String latestDiaryImagePath;
+    private String plantId;
 
     public HomeFollowerImageDTO(Map<Object, Object> payload) {
         this.userId = (String) payload.get("user_id");
         this.userName = (String) payload.get("user_name");
+        this.profilePath = (String) payload.get("profile_path");
     }
 
     public void update(Map<Object, Object> payload) {
