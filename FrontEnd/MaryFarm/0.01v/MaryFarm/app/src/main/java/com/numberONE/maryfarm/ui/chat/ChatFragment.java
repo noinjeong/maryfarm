@@ -53,7 +53,7 @@ public class ChatFragment extends Fragment {
     TextView chatContent;
     ImageView chat_new;
     TextView chatDate;
-
+    String roomId = "1";
     //프래그먼트 전환용
     FragmentTransaction ft;
     //리사이클러뷰
@@ -79,7 +79,7 @@ public class ChatFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentChatBinding.inflate(inflater, container, false);
         ViewGroup view = binding.getRoot();
-
+        Log.i(TAG, "onCreateView: 야");
         userId = "2626273196";
         // 레트로핏으로 채팅방 목록 가져오기
         RetrofitChatService networkService = RetrofitChatFactory.create();
@@ -105,6 +105,15 @@ public class ChatFragment extends Fragment {
                         Log.e(TAG, "onFailure:", t);
                     }
                 });
+        TextView chat_text;
+        chat_text = binding.chatText;
+        chat_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onChatFragmentChange(1, roomId);
+            }
+        });
+
 //
 //        // 채팅박스 클릭이벤트 인터페이스가 울리면 룸넘버 가지고 페이지 이동
 //        ChatAdapter.setOnChatClickListener(new ChatAdapter.OnChatClickListener() {
