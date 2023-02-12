@@ -24,10 +24,7 @@ public interface ServerAPI {
     @GET("diary/group/{plantId}/")
     Call<DetailDiariesPerPlantDTO> getDiaries(@Path("plantId") String plantId);
 
-    @GET("detail")
-    Call<DetailsAPI> getDetails();
-
-    @GET("comments")
-    Call<List<Comments>> getComments();
+    @GET("user/farm/{userId}/")
+    Call<FollowFollowing> getFollowInfo(@Path("userId") String userId);
 }
 

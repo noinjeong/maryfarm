@@ -35,18 +35,19 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/commentDate"
-                android:layout_toRightOf="@+id/commentNickname"
+                android:layout_height="20dp"
+                android:id="@+id/likeComment"
                 android:textColor="@color/black"
-                android:text="10일전" />
+                android:layout_toRightOf="@+id/commentNickname"
+                android:text="좋아요"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:id="@+id/commentLike"
                 android:textColor="@color/black"
-                android:layout_toRightOf="@+id/commentDate"
+                android:layout_toRightOf="@+id/likeComment"
                 android:text=""
                 android:layout_marginLeft="10dp"/>
 

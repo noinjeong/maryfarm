@@ -24,6 +24,7 @@ import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.Pick.PickAlgorithm;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
 import com.numberONE.maryfarm.Retrofit.Thumbnail;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
@@ -72,15 +73,38 @@ public class MyfarmFragment extends Fragment {
         userId = pref.getString("userId", "Null");
         userNickname = pref.getString("userNickname", "Null");
 
-        detailBtn = (Button) view.findViewById(R.id.detailBtn);
         recommendBtn = (ImageButton) view.findViewById(R.id.recommendBtn);
         recommendMonthBtn = (ImageButton) view.findViewById(R.id.recommendMonthBtn);
         nickname = (TextView) view.findViewById(R.id.myFarmName);
         nickname.setText(userNickname);
 
+        TextView followerCnt = (TextView) view.findViewById(R.id.followCnt);
+        TextView followingCnt = (TextView) view.findViewById(R.id.followingCnt);
+
         RecyclerView recyclerView = view.findViewById(R.id.plantThumbnail);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ServerAPI serverAPI1 = retrofit1.create(ServerAPI.class);
+        Call<FollowFollowing> call1 = serverAPI1.getFollowInfo(userId);
+        call1.enqueue(new Callback<FollowFollowing>() {
+            @Override
+            public void onResponse(Call<FollowFollowing> call1, Response<FollowFollowing> response) {
+                followerCnt.setText(response.body().getFollowerCount()+"");
+                followingCnt.setText(response.body().getFollowingCount()+"");
+            }
+
+            @Override
+            public void onFailure(Call<FollowFollowing> call1, Throwable t) {
+
+            }
+        });
+
+
         // 업로드한 작물 피드 유무 확인
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
@@ -103,7 +127,6 @@ public class MyfarmFragment extends Fragment {
                     recommendBtn.setVisibility(View.VISIBLE);
                     recommendMonthBtn.setVisibility(View.VISIBLE);
                 } else {
-                    detailBtn.setVisibility(View.VISIBLE);
                     List<Thumbnail> planThumbnails =new ArrayList<>();
 
                     for (int i=0; i <= list.size()-1; i++) {
@@ -120,16 +143,15 @@ public class MyfarmFragment extends Fragment {
                         Call<DetailDiariesPerPlantDTO> call2 = serverAPI2.getDiaries(list.get(i));
                         call2.enqueue(new Callback<DetailDiariesPerPlantDTO>() {
                             @Override
-                            public void onResponse(Call<DetailDiariesPerPlantDTO> call, Response<DetailDiariesPerPlantDTO> response) {
-                                Log.d("Success : ", response.body().getTitle());
-                                Log.d("Success : ", response.body().getPlantId());
-                                Log.d("Success : ", response.body().getDiaries().get(1).toString());
-
+                            public void onResponse(Call<DetailDiariesPerPlantDTO> call2, Response<DetailDiariesPerPlantDTO> response) {
+                                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
                                 String title = response.body().getTitle();
                                 String plantId = response.body().getPlantId();
                                 String thumbImg1 = null;
                                 String thumbImg2 = null;
                                 String thumbImg3 = null;
+                                String plantCreatedDate = response.body().getPlantCreatedDate();
+                                String harvestDate = response.body().getHarvestDate();
 
                                 for (int j=response.body().getDiaries().size()-1; j>=0; j--){
                                     List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
@@ -144,7 +166,7 @@ public class MyfarmFragment extends Fragment {
                                     }
                                 }
 
-                                Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId);
+                                Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, detailDiariesPerPlantDTO);
                                 planThumbnails.add(thumbnail);
 
                                 recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
@@ -163,15 +185,6 @@ public class MyfarmFragment extends Fragment {
             @Override
             public void onFailure(Call<List<UserPlant>> call, Throwable t) {
                 Log.d("onFailure", t.toString());
-            }
-        });
-                
-        detailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
             }
         });
 

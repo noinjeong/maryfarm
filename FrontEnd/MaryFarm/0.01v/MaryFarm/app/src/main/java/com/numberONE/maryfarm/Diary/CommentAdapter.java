@@ -1,6 +1,7 @@
 package com.numberONE.maryfarm.Diary;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Retrofit.Comments;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryCommentDTO;
 
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
     Context context;
-    List<Comments> items ;
+    List<DetailDiaryCommentDTO> items ;
+    int likeCnt;
 
-    public CommentAdapter(Context context, List<Comments> items) {
+    public CommentAdapter(Context context, List<DetailDiaryCommentDTO> items) {
         this.context = context;
         this.items = items;
     }
@@ -35,13 +38,34 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        holder.nickname.setText((items.get(position).getNickname()));
-        holder.commentDate.setText((items.get(position).getCreatedAt()));
+        holder.nickname.setText((items.get(position).getUserName()));
         holder.content.setText((items.get(position).getContent()));
         holder.commentLike.setText(("" + items.get(position).getLikes()));
         Glide.with(context)
-                .load(items.get(position).getProfileImg())
+                .load(items.get(position).getProfilePath())
                 .into(holder.profileImg);
+
+        likeCnt = items.get(position).getLikes();
+
+        holder.emptyHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.emptyHeart.setVisibility(View.GONE);
+                holder.fullHeart.setVisibility(View.VISIBLE);
+                likeCnt++;
+                holder.commentLike.setText(("" + likeCnt));
+            }
+        });
+
+        holder.fullHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.emptyHeart.setVisibility(View.VISIBLE);
+                holder.fullHeart.setVisibility(View.GONE);
+                likeCnt--;
+                holder.commentLike.setText(("" + likeCnt));
+            }
+        });
     }
 
     @Override
@@ -70,6 +94,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             content = itemView.findViewById(R.id.commentContent);
             commentLike = itemView.findViewById(R.id.commentLike);
             profileImg = itemView.findViewById(R.id.commentProfileImg);
+            emptyHeart = itemView.findViewById(R.id.emptyIcon);
+            fullHeart = itemView.findViewById(R.id.fullIcon);
         }
     }
 
