@@ -17,8 +17,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Component
-@RequiredArgsConstructor 
+@Component 
+@RequiredArgsConstructor
 @Slf4j
 public class FirstHomeViewListener {
     private final FirstHomeViewDTORepository firstHomeViewDTORepository;
