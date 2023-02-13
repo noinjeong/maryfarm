@@ -1,5 +1,8 @@
 package com.numberONE.maryfarm.Retrofit;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -11,15 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    //    private static final String BASE_URL ="http://54.180.86.161:8080/api/";
-    private static final String BASE_URL ="https://cc01df37-3c92-461c-a2f5-d3264befcaa8.mock.pstmn.io";
+    private static final String BASE_URL ="http://i8b308.p.ssafy.io:8000/";
     private static Retrofit retrofit;
 
     public static Retrofit getInstance() {
+        Gson gson = new GsonBuilder().setLenient().create();
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder() // 객체 생성
+                    retrofit = new Retrofit.Builder() // 객체 생성
                     .baseUrl(BASE_URL) // 서버 url 설정
-                    .addConverterFactory(GsonConverterFactory.create()) // 데이터 파싱 설정 (Gson)
+                    .addConverterFactory(GsonConverterFactory.create(gson)) // 데이터 파싱 설정 (Gson)
                     .build(); // 통신하여 데이터를 파싱한 retrofit 객체 생성 완료
         }
         return retrofit;

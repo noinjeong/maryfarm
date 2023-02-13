@@ -9,13 +9,17 @@ public class UserDto {
     @Expose
     private String userid;
 
-    @SerializedName("name")
+    @SerializedName("plantId")
     @Expose
-    private String name;
+    private String plantId;
 
-    @SerializedName("title")
+    @SerializedName("userName")
     @Expose
-    private String title;
+    private String userName;
+
+    @SerializedName("profilePath")
+    @Expose
+    private String profilePath;
 
     @SerializedName("content")
     @Expose
@@ -29,20 +33,28 @@ public class UserDto {
         this.userid = userid;
     }
 
-    public String getName() {
-        return name;
+    public String getPlantId() {
+        return plantId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlantId(String plantId) {
+        this.plantId = plantId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    public void setProfilePath(String profilePath) {
+        this.profilePath = profilePath;
     }
 
     public String getContent() {
@@ -51,15 +63,5 @@ public class UserDto {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "userid='" + userid + '\'' +
-                ", name='" + name + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
     }
 }

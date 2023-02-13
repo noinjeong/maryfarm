@@ -49,7 +49,11 @@ public class FeedFragment extends Fragment {
             @Override
             public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
                 Log.d(TAG, " 팔로워 피드 서버 응답 성공  ");
-                followerDataList(response.body());
+                Log.d(TAG, " 팔로워 피드 res.code : "  + response.code());
+                Log.d(TAG, " 팔로워 피드 res body : "+ response.body());
+                if(response.isSuccessful()) {
+                    followerDataList(response.body());
+                }
             }
 
             @Override
@@ -70,7 +74,11 @@ public class FeedFragment extends Fragment {
             @Override
             public void onResponse(Call<List<DiaryTopRecommend>> call, Response<List<DiaryTopRecommend>> response) {
                 Log.d(TAG, " 추천 피드 서버 통신 성공 ");
-                othersDataList(response.body());
+                Log.d(TAG, " 추천 피드 res.code : "  + response.code());
+                Log.d(TAG, "추천 피드 res body : "+ response.body());
+                if(response.isSuccessful()) {
+                    othersDataList(response.body());
+                }
             }
 
             @Override

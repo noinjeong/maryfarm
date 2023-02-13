@@ -70,7 +70,7 @@ public class MyfarmFragment extends Fragment {
         recommendMonthBtn = (ImageButton) view.findViewById(R.id.recommendMonthBtn);
         nickname = (TextView) view.findViewById(R.id.myFarmName);
         nickname.setText(userNickname);
-
+        
         // 업로드한 작물 피드 유무 확인
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
@@ -117,7 +117,7 @@ public class MyfarmFragment extends Fragment {
                 Log.d("onFailure", t.toString());
             }
         });
-
+                
         detailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,7 +5,5 @@
         <domain includeSubdomains="true"> 54.180.86.161 </domain>
         <domain includeSubdomains="true"> host.docker.internal </domain>
         <domain includeSubdomains="true"> http://i8b308.p.ssafy.io:8000/ </domain>
-        <!--  채팅  -->
-        <domain includeSubdomains="true"> 10.0.2.2 </domain>
     </domain-config>
 </network-security-config>
