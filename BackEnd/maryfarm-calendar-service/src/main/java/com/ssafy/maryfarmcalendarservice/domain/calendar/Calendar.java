@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class Calendar extends BaseTimeEntity implements Serializable {
     @EmbeddedId
     private CalendarID id;
+    private String plantName;
     private String userId;
     private Boolean water;
     private Boolean branch;
@@ -23,11 +24,12 @@ public class Calendar extends BaseTimeEntity implements Serializable {
     private Boolean division;
     private String memo;
     public static Calendar of(String plantId, Integer year, Integer month,
-                              Integer day, String userId,
+                              Integer day, String plantName, String userId,
                               Boolean water, Boolean branch, Boolean nutrients,
                               Boolean division, String memo) {
         Calendar calendar = new Calendar();
         calendar.id = new CalendarID(plantId,year,month,day);
+        calendar.plantName = plantName;
         calendar.userId = userId;
         calendar.water = water;
         calendar.branch = branch;

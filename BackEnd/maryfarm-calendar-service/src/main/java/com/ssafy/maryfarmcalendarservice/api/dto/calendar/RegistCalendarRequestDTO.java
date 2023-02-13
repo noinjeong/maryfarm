@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistCalendarRequestDTO {
     private String plantId;
+    private String plantName;
     private Integer year;
     private Integer month;
     private Integer day;

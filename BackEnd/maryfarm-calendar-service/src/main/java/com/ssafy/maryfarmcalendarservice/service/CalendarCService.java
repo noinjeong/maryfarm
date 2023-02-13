@@ -17,7 +17,7 @@ public class CalendarCService {
     @Transactional
     public Calendar registCalendar(RegistCalendarRequestDTO dto) {
         Calendar calendar = Calendar.of(dto.getPlantId(), dto.getYear(), dto.getMonth(),
-                dto.getDay(), dto.getUserId(), dto.getWater(),
+                dto.getDay(), dto.getPlantName(), dto.getUserId(), dto.getWater(),
                 dto.getBranch(), dto.getNutrients(), dto.getDivision(), dto.getMemo());
         return calendarCRepository.save(calendar);
     }

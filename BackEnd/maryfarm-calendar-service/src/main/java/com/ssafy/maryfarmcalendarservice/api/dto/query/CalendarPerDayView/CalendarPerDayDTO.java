@@ -16,6 +16,7 @@ public class CalendarPerDayDTO {
     @Id
     private String id;
     private String plantId;
+    private String plantName;
     private String userId;
     private Integer year;
     private Integer month;
