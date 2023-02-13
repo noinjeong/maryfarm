@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/recommendContainer1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,128 +22,125 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="120dp"
-        >
+        android:paddingTop="120dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="어떤 계절에 꽃을 피우고 싶으신가요?"
             android:fontFamily="@font/baemin_jua"
-            android:textSize="25dp"
             android:gravity="center"
+            android:text="어떤 계절에 꽃을 피우고 싶으신가요?"
+            android:textSize="25dp"
 
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/section_1"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/spring"
-                    />
+                    android:src="@drawable/spring" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="봄"
-                    android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
-                    />
+                    android:text="봄"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/section_2"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/summer"
-                    />
+                    android:src="@drawable/summer" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="여름"
-                    android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
-                    />
+                    android:text="여름"
+                    android:textSize="30dp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/section_3"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/autumn"
-                    />
+                    android:src="@drawable/autumn" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="가을"
-                    android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
-                    />
+                    android:text="가을"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/section_4"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/winter"
-                    />
+                    android:src="@drawable/winter" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="겨울"
-                    android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
-                    />
+                    android:text="겨울"
+                    android:textSize="30dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

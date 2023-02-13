@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/recommendContainer5"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="어느 정도의 크기를 원하시나요?"
+            android:text="빛은 얼마나 들어오나요??"
             android:fontFamily="@font/baemin_jua"
             android:textSize="25dp"
             android:gravity="center"
@@ -49,12 +51,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/plants_size_small"
+                    android:src="@drawable/light_high"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="소형"
+                    android:text="밝음"
                     android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
@@ -75,12 +77,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/plants_size_normal"
+                    android:src="@drawable/light_normal"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="중형"
+                    android:text="보통"
                     android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
@@ -105,12 +107,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/plants_size_large"
+                    android:src="@drawable/light_low"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="대형"
+                    android:text="어두움"
                     android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
@@ -119,29 +121,29 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
                 >
                 <ImageButton
                     android:id="@+id/section_4"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/plants_size_normal"
-                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:src="@drawable/noneed"
+                    android:visibility="visible"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="물이 뭐죠?"
+                    android:text="광량이 뭐죠?"
                     android:textSize="30dp"
                     android:fontFamily="@font/baemin_jua"
                     android:gravity="center"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     />
             </LinearLayout>
         </LinearLayout>

@@ -19,8 +19,8 @@ public interface ServerAPI {
     @GET("diary/user/{userId}")
     Call<List<UserPlant>> getUserPlant(@Path("userId") String userId);
 
-    @GET("diary/group/{plantId}/")
-    Call<List<UserDiaries>> getDiaries(@Path("plantId") String plantId);
+//    @GET("diary/group/{plantId}/")
+//    Call<List<UserDiaries>> getDiaries(@Path("plantId") String plantId);
 
     @GET("detail")
     Call<DetailsAPI> getDetails();
