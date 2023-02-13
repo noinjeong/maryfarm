@@ -50,18 +50,18 @@
 
 
 ## Project Info 📜
-" ✨ Features
+
+### ✨ Features
 ### 작물 별 쌓이는 재배 일지
 
 - 날짜별 사진 및 기록들을 작물별로 기록하여, 해당 식물의 성장 기록을 쉽게 볼 수 있도록 지원
 
 
 ### 🔨Tech Stack
-기술스택
-
-Common : Sock.js
-BackEnd : Spring, JPA , Docker, MySQL, JWT, Jenkins
-FrontEnd : Android Studio
+-  기술스택
+  - Common : Sock.js
+  - BackEnd : Spring, JPA , Docker, MySQL, JWT, Jenkins
+  - FrontEnd : Android Studio
 
 ### 📜 API 명세
 API 명세서
@@ -217,10 +217,26 @@ tech stack
  | [11일차](https://www.notion.so/Day11-79f3306cc6804a3982e5daa11351701b)
  | [12일차](https://www.notion.so/Day12-ccb210ae36b64ecaa4e0c024932d8fda)
 
-### 4주차 진행 내역
+### 4주차 진행 내역 (2023.01.30-2023.02.03)
 - 데일리 스크럼
 [13일차](https://www.notion.so/Day13-48d52f98f42444a6a9fc290b7c312e17)
  | [14일차](https://www.notion.so/Day14-18014cfe4a4f43d0a3ff44cd85a35a35)
  | [15일차](https://www.notion.so/Day15-891fcd45779e4c9d8e1f2ca8e4ff1dac)
  | [16일차](https://www.notion.so/Day16-b47912d115c24ec7a7714a118cd82df5)
- | [17일차](-진행중-)
+ | [17일차](https://www.notion.so/Day17-c81041e5064d4ce881b13a9d29d1cb20)
+
+### 5주차 진행 내역 (2023.02.06-2023.02.10)
+- 데일리 스크럼
+[18일차](https://www.notion.so/Day18-91086355490e40bbbd0e2649599643e8)
+ | [19일차](https://www.notion.so/Day19-275d85f238ab465384116f282794f796)
+ | [20일차](https://www.notion.so/Day20-6a59140a6e4942fba36995dd442e3d9a)
+ | [21일차](https://www.notion.so/Day21-4c812edd354141569a6d531358d61679)
+ | [22일차](https://www.notion.so/Day22-6a7224affd544734b8e290f48324fbbd)
+
+### 5주차 진행 내역 (2023.02.13-2023.02.17)
+- 데일리 스크럼
+[23일차](https://www.notion.so/Day23-42ee064468a246eeb11ce3f94ed5ca6c)
+ | [24일차](https://www.notion.so/Day24-630624cd9ddf41e1ae2b85101137697a)
+ | [25일차](https://www.notion.so/Day25-29abee70e7074e9d828c70bcb6cc9be3)
+ | [26일차](https://www.notion.so/Day26-0d7cf05478f842cbb1be48744c886040)
+ | [27일차](https://www.notion.so/Day27-f3be343e072246c58097b6ffe090c29f)
