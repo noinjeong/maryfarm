@@ -14,7 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 
 import java.io.IOException;
 
@@ -156,16 +159,20 @@ public class RecommendActivity extends AppCompatActivity {
     // 시진을 UI로 불러오고 싶다면: https://www.nongsaro.go.kr/cms_contents/301/
     // 정상적인 요청 예시: http://api.nongsaro.go.kr/service/garden/gardenList/?apiKey=20230207XQ7NCQDMG0SKVFKAW0YHNQ&ignSeasonChkVal=073002
 
+
+
     public void makeApiCall() {
+        Gson gson = new GsonBuilder().setLenient().create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.nongsaro.go.kr")
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://api.nongsaro.go.kr/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<ResponseBody> call = apiService.getData("service/garden/gardenList/?apiKey=20230207XQ7NCQDMG0SKVFKAW0YHNQ&ignSeasonChkVal=");
+        Call<ResponseBody> call = apiService.getData("service/garden/gardenList/?apiKey=20230207XQ7NCQDMG0SKVFKAW0YHNQ&ignSeasonChkVal="+buttonValue1);
 
 //        "&waterCycleSet="+buttonValue3+
 //                "&lightChkVal="+buttonValue5

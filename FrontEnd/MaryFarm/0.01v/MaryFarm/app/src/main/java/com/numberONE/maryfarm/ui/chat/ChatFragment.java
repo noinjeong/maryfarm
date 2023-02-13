@@ -94,14 +94,14 @@ public class ChatFragment extends Fragment {
                         Log.e(TAG, "onFailure:", t);
                     }
                 });
-        TextView chat_text;
-        chat_text = binding.chatText;
-        chat_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onChatFragmentChange(1, roomId);
-            }
-        });
+//        TextView chat_text;
+//        chat_text = binding.chatText;
+//        chat_text.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                activity.onChatFragmentChange(1, roomId);
+//            }
+//        });
 
         return view;
     }
