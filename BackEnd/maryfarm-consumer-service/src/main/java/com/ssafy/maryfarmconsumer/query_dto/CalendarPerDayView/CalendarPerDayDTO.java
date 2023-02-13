@@ -20,6 +20,7 @@ public class CalendarPerDayDTO {
     @Id
     private String id;
     private String plantId;
+    private String plantName;
     private String userId;
     private Integer year;
     private Integer month;
@@ -31,6 +32,7 @@ public class CalendarPerDayDTO {
     private String memo;
     public CalendarPerDayDTO(Map<Object, Object> payload) {
         this.plantId = (String) payload.get("plant_id");
+        this.plantName = (String) payload.get("plant_name");
         this.userId = (String) payload.get("user_id");
         this.year = (Integer) payload.get("year");
         this.month = (Integer) payload.get("month");
