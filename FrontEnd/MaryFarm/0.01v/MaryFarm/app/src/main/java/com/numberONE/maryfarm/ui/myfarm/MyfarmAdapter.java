@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
-import com.numberONE.maryfarm.Retrofit.Thumbnail;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
 import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 
@@ -27,9 +24,9 @@ import java.util.List;
 public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHolder>{
 
     Context context;
-    List<Thumbnail> items;
+    List<UserPlant> items;
 
-    public MyfarmAdapter(Context context, List<Thumbnail> items) {
+    public MyfarmAdapter(Context context, List<UserPlant> items) {
         this.context = context;
         this.items = items;
     }
@@ -86,9 +83,8 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
-            int pos = getAdapterPosition();
 
-            title = itemView.findViewById(R.id.plantTitle);
+            title = itemView.findViewById(R.id.title);
             first_photo = itemView.findViewById(R.id.first_photo);
             second_photo = itemView.findViewById(R.id.second_photo);
             third_photo = itemView.findViewById(R.id.third_photo);

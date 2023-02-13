@@ -101,7 +101,7 @@ public class AddFragment extends Fragment {
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 File file = File.createTempFile(
-                        "file_" + timeStamp + "_",
+                        "JPEG" + timeStamp + "_",
                         ".jpg",
                         storageDir
                 );
@@ -163,12 +163,18 @@ public class AddFragment extends Fragment {
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 File file = File.createTempFile(
-                        "file_" + timeStamp + "_",
+                        "JPEG" + timeStamp + "_",
                         ".jpg",
                         storageDir
                 );
                 filePath = file.getAbsolutePath();
 
+                //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                Uri photoURI = FileProvider.getUriForFile(
+                        getActivity(),
+                        "com.numberONE.maryfarm.fileprovider",
+                        file
+                );
 
                 // 중앙에 카메라,앨범 버튼 사라지고 왼쪽 상단에 스피너 띄우기
                 if(binding.GalleryBtn.getVisibility() == View.VISIBLE){
@@ -196,7 +202,7 @@ public class AddFragment extends Fragment {
                         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                         File file = File.createTempFile(
-                                "file_" + timeStamp + "_",
+                                "JPEG" + timeStamp + "_",
                                 ".jpg",
                                 storageDir
                         );
@@ -222,11 +228,19 @@ public class AddFragment extends Fragment {
                         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                         File file = File.createTempFile(
-                                "file_" + timeStamp + "_",
+                                "JPEG" + timeStamp + "_",
                                 ".jpg",
                                 storageDir
                         );
                         filePath = file.getAbsolutePath();
+
+                        //fileprovider를 이용해서 외부에 공개 ,mainfest에 지정한 authority와 일치하게 작성
+                        Uri photoURI = FileProvider.getUriForFile(
+                                getActivity(),
+                                "com.numberONE.maryfarm.fileprovider",
+                                file
+                        );
+
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // 갤러리 지정
                         intent.setType("image/*");
                         galleryLauncher.launch(intent);

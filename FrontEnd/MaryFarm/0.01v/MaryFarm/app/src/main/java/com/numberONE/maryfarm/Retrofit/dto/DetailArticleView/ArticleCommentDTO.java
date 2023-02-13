@@ -1,8 +1,6 @@
 package com.numberONE.maryfarm.Retrofit.dto.DetailArticleView;
 
-
 import java.util.Map;
-
 public class ArticleCommentDTO {
     private String commentId;
     private String userId;

@@ -18,25 +18,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
-import com.numberONE.maryfarm.Pick.PickAlgorithm;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
+import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 import com.numberONE.maryfarm.Retrofit.Thumbnail;
+import com.numberONE.maryfarm.Retrofit.UserInfo;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryCommentDTO;
-import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryDTO;
+import com.numberONE.maryfarm.databinding.FragmentMyfarmProfileBinding;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -117,11 +111,13 @@ public class MyfarmFragment extends Fragment {
             @Override
             public void onResponse(Call<List<UserPlant>> call, Response<List<UserPlant>> response) {
                 List<UserPlant> plantsId = response.body();
+                Log.d("sss", "onResponse: !!!!!!!!!!!"+plantsId.toString());
 
                 List<String> list = new ArrayList<>();
                 for(UserPlant u : plantsId) {
                     list.add(u.getPlantId());
                 }
+                Log.d("sss", "onResponse: "+list.toString());
 
                 if (response.body() == null){
                     recommendBtn.setVisibility(View.VISIBLE);
@@ -179,6 +175,15 @@ public class MyfarmFragment extends Fragment {
                             }
                         });
                     }
+
+//                    Retrofit retrofit2 = new Retrofit.Builder()
+//                            .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+//                            .addConverterFactory(GsonConverterFactory.create())
+//                            .build();
+//
+//                    ServerAPI serverAPI2 = retrofit2.create(ServerAPI.class);
+//                    Call<UserInfo> call2 = serverAPI2.getDiaries();
+
                 }
             }
 
@@ -200,7 +205,7 @@ public class MyfarmFragment extends Fragment {
         recommendMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PickAlgorithm.class);
+                Intent intent = new Intent(getActivity(), RecommendActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }

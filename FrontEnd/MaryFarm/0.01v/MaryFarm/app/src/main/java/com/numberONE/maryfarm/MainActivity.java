@@ -1,20 +1,9 @@
 package com.numberONE.maryfarm;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -31,42 +19,27 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.sdk.user.UserApiClient;
-import com.numberONE.maryfarm.KakaoLogin.KakaoLoginActivity;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
-import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
+import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
-import org.w3c.dom.Text;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class MainActivity extends AppCompatActivity {
-
-    private static String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
 
-    //바텀 네비 화면 전환용
-    Fragment fragment_home,fragment_chat,fragment_write,fragment_myfarm_profile,fragment_alarm;
-
-    //뒤로가기 버튼 눌렀던 시간 저장용
-    private long backKeyPressedTime=0;
+    //프래그먼트 전환용
+    FragmentTransaction ft;
 
     //Drawer 조절용 토글 버튼 객체 생성
     ActionBarDrawerToggle barDrawerToggle;
     SearchView searchView;
-
-
-    public MainActivity(){
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,52 +48,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        sharedpreferences에서 닉네임 , 프로필 사진 가져와서 적용 시켜야함
-//        SharedPreferences preferences =getSharedPreferences("",Context.MODE_PRIVATE);
-//        String hamburger_nickname =preferences.getString("nickname","ham_nickname_null");
-
-        // drawer_header 레이아웃 가져오기 - 햄버거 열면 프로필 사진 ,이름 설정하기 위해서
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view =inflater.inflate(R.layout.drawer_header,null);
-
-        CircleImageView circleImageView=(CircleImageView)view.findViewById(R.id.hamburger_user_profile) ;
-        TextView textView=(TextView) view.findViewById(R.id.hamburger_user_nickname);
-
-
-
-
         //상단 메뉴 배경색 지정
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFFF));
 
-        fragment_home =new HomeFragment();
-        fragment_chat =new ChatFragment();
-        fragment_write =new WriteFragment();
-        fragment_myfarm_profile =new MyfarmFragment();
-        fragment_alarm =new AlarmFragment();
+        //하단 메뉴
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.menu_bottom_home, R.id.menu_bottom_chat, R.id.menu_bottom_write, R.id.menu_bottom_alarm, R.id.menu_bottom_farm)
+                .build();
 
-            binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()){
-                        case R.id.menu_bottom_home:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_home).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_chat:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_chat).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_write:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_write).commitAllowingStateLoss();
-                            return true;
-                        case  R.id.menu_bottom_alarm:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_alarm).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_farm:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_myfarm_profile).commitAllowingStateLoss();
-                            return true;
-                    }
-                    return true;
-                }
-            });
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
 
 
         // 상단 로고
@@ -148,25 +87,28 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.hamburger_2:
                         Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
+                        ft=getSupportFragmentManager().beginTransaction();
+                        SearchMainFragment searchFragment=new SearchMainFragment();
+                        ft.replace(R.id.main_activity,searchFragment);
+                        ft.commit();
 //                        FragmentManager fragmentManager=getSupportFragmentManager();
 //                        fragmentManager.beginTransaction().add(R.id.main_activity,searchFragment).commit();
                         break;
                     case R.id.hamburger_3:
                         Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                         BoardMainFragment boardFragment=new BoardMainFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,boardFragment).commitAllowingStateLoss();
+                        ft.replace(R.id.main_activity,boardFragment);
+                        ft.commit();
                         break;
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
-                        // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
+                        // 로그아웃 구현 필요
                     case R.id.logout:
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
-                        UserApiClient.getInstance().logout(error ->{
-                            Intent intent = new Intent(getApplicationContext(), KakaoLoginActivity.class);
-                            startActivity(intent);
-                            return null;
-                        });
+                        UserApiClient.getInstance();
+
                         break;
 
                 }
@@ -178,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
+        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
         //ActionBar( 제목줄)의 홈 or 업버튼의 위치에 토글아이콘 보이게
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
@@ -190,39 +132,50 @@ public class MainActivity extends AppCompatActivity {
 
 //        drawerlayout 끝
 
-//       검색창 클릭 후 다른 위치 클릭시 키보드 감추기 코드
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     } // onCreate 끝
-
-    //검색창 활성화
+    public void onChatFragmentChange(Integer index, String roomId) {
+        if(index == 1){
+            Bundle bundle = new Bundle();
+            bundle.putString("roomId", roomId);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ChatRoomFragment fragment2 = new ChatRoomFragment();//프래그먼트2 선언
+            fragment2.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.main_activity, fragment2)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("ChatList")
+                    .commit();
+//            transaction.commit();
+//
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.main_activity, ChatRoomFragment.class, null)
+//                    // setReorderingAllowed(true) and the optional string argument for
+//                    // addToBackStack() are both required if you want to use saveBackStack().
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+//                    .commit();
+        }
+    }
+    //액션바의 메뉴를 클릭하는 이벤트를 듣는 메소드를 통해 클릭 상황 전달
+    //토글 버튼이 클릭 상황을 인지하도록
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        barDrawerToggle.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
+    // 상단메뉴 다른 버튼
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
         getMenuInflater().inflate(R.menu.menu_top, menu);
-        MenuItem menuItem = menu.findItem(R.id.menu_search);
-        searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("검색어를 입력하세요");
-        searchView.setOnQueryTextListener(queryTextListener);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
-
-//    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        hideKeyboard();
-        searchView.setQuery("",false); // 검색 후 검색창 공백 상태로
-        searchView.setIconified(true); // 검색 후 icon 상태로 돌아오기
-        return super.dispatchTouchEvent(ev);
-    }
-
     // 검색 버튼 로직 만들기
     SearchView.OnQueryTextListener queryTextListener =new SearchView.OnQueryTextListener() {
         @Override // 최종 검색을 위해 제출버튼 눌렀을 때
         public boolean onQueryTextSubmit(String query) {
-            SearchMainFragment searchFragment=new SearchMainFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,searchFragment).commitAllowingStateLoss();
-            searchView.setQuery("",false); // 검색 후 검색창 공백 상태로
-            searchView.setIconified(true); // 검색 후 icon 상태로 돌아오기
+            searchView.setQuery("",false);
+            searchView.setIconified(true);
             Toast t = Toast.makeText(MainActivity.this,query,Toast.LENGTH_SHORT);
             t.show();
             return false;
@@ -233,31 +186,4 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
-
-    // 뒤로 가기 버튼 2번 클릭시 앱종료 로직
-    @Override
-    public void onBackPressed() {
-        if(System.currentTimeMillis()>backKeyPressedTime+2000){
-            backKeyPressedTime=System.currentTimeMillis();
-            Toast.makeText(this,"뒤로버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //2초 이내에 뒤로가기 버튼 한번 더 클릭시 앱 종료
-        if(System.currentTimeMillis() <= backKeyPressedTime+2000){
-            //로그인 화면으로 가게 하고 싶으면 finish()로 처리하기
-            moveTaskToBack(true); // 테스크를 백그라운드로 이동
-            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
-            android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
-        }
-    }
-    // 키보드 숨기기 로직
-    private void hideKeyboard(){
-        InputMethodManager inputmanager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view =getCurrentFocus();
-        if(view==null){
-            view =new View(this);
-        }
-        inputmanager.hideSoftInputFromWindow(view.getWindowToken(),0);
-    }
 }

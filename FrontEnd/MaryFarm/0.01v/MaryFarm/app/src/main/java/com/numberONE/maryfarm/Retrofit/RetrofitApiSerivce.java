@@ -24,26 +24,26 @@ public interface RetrofitApiSerivce {
 //    @POST("diary/follower")
 //    Call<UserApi> postFollowerFeed(@Body String userid);
 
-    @Multipart
-    @POST("maryfarm-plant-service/api/diary/init")
-    Call<DiaryInit> postInitFeed( @Part MultipartBody.Part file
-                                 ,@PartMap Map<String, RequestBody> params);
-
 //    @Multipart
-//    @POST("api/diary/init")
-//    Call<DiaryInit> postInitFeed( @Part MultipartBody.Part image
-//                                 ,@PartMap Map<String, RequestBody> params);
+//    @POST("maryfarm-plant-service/api/diary/init")
+//    Call<DiaryInit> postInitFeed(@Part MultipartBody.Part file
+//            , @PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("api/diary/init")
+    Call<DiaryInit> postInitFeed(@Part MultipartBody.Part file
+            , @PartMap Map<String, RequestBody> params);
 
     @Multipart
     @POST("api/diary/add")
-    Call<DiaryInit> postAddFeed( @Part MultipartBody.Part file
-                                ,@PartMap Map<String,RequestBody> params);
+    Call<DiaryInit> postAddFeed(@Part MultipartBody.Part file
+            , @PartMap Map<String,RequestBody> params);
 
-//    @GET("api/diary/follower/{userid}")
-//    Call<List<UserItem>> getFollowerFeed(@Path("userid") String userid);
+    @GET("api/diary/follower/{userid}")
+    Call<List<UserItem>> getFollowerFeed(@Path("userid") String userid);
 
-//    @GET("api/diary/top")
-//    Call<List<DiaryTopRecommend>> getOthersFeed();
+    @GET("api/diary/top")
+    Call<List<DiaryTopRecommend>> getOthersFeed();
 
 
 
