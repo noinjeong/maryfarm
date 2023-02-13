@@ -6,6 +6,11 @@
     tools:context=".ui.chat.ChatFragment"
     android:orientation="vertical"
     android:id="@+id/ChatView">
+        <TextView
+            android:id="@+id/chat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dddddddddddddddddddd"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_list"
