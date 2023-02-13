@@ -14,7 +14,7 @@
         <item name="android:windowLightStatusBar">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="font">@font/shrikhand_regular</item>
-<!--        <item name="android:textColor">@color/white</item>-->
+        <!--        <item name="android:textColor">@color/white</item>-->
     </style>
 
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
@@ -68,4 +68,19 @@
     <style name="Theme.MaryFarm.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MaryFarm.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.MaryFarm.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.MaryFarm.AppWidgetContainer" parent="Theme.MaryFarm.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
+    </style>
 </resources>
