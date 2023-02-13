@@ -4,6 +4,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true"> 54.180.86.161 </domain>
         <domain includeSubdomains="true"> host.docker.internal </domain>
-        <domain includeSubdomains="true"> http://i8b308.p.ssafy.io:8000/ </domain>
+        <domain includeSubdomains="true"> i8b308.p.ssafy.io </domain>
+        <domain includeSubdomains="true"> 192.168.31.244 </domain>
     </domain-config>
 </network-security-config>
