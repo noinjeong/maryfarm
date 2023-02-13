@@ -98,8 +98,7 @@ public class FeedOthersAdapter extends RecyclerView.Adapter<FeedOthersAdapter.Vi
 
     @Override
     public int getItemCount() {
-//        return diaryTopRecommendList.size();
-        return 10;
+        return diaryTopRecommendList!=null ? diaryTopRecommendList.size() : 0 ;
     }
 
 }

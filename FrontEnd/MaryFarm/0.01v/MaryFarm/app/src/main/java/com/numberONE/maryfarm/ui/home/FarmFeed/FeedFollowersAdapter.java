@@ -92,9 +92,8 @@ public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdap
 
     @Override
     public int getItemCount() {
-//        return userItemList.size();
-        return 10;
-    }
+        return userItemList!=null ? userItemList.size() : 0 ;
+     }
 
 
 

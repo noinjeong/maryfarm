@@ -63,17 +63,6 @@ public class ChatFragment extends Fragment {
 //    String url = "ws://example.com:8080/socket/websocket"; // 소켓에 연결하는 엔드포인트가 /socket일때 다음과 같음
 //    StompClient stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url);
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        activity = (MainActivity)getActivity();
-//    }
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        activity = null;
-//    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -114,22 +103,6 @@ public class ChatFragment extends Fragment {
             }
         });
 
-//
-//        // 채팅박스 클릭이벤트 인터페이스가 울리면 룸넘버 가지고 페이지 이동
-//        ChatAdapter.setOnChatClickListener(new ChatAdapter.OnChatClickListener() {
-//            @Override
-//            public void onChatClick(View v, int position, String roomId) {
-//                activity.onChatFragmentChange(1, roomId);
-//            }
-//        });
-
         return view;
     }
-
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-////        mSocket.disconnect();
-//        binding = null;
-//    }
 }

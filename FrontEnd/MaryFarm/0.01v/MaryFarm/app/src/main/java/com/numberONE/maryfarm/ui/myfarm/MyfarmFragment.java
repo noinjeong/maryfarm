@@ -41,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HEAD;
 
 
 public class MyfarmFragment extends Fragment {
@@ -193,6 +194,15 @@ public class MyfarmFragment extends Fragment {
             @Override
             public void onFailure(Call<List<UserPlant>> call, Throwable t) {
                 Log.d("onFailure", t.toString());
+            }
+        });
+                
+        detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
             }
         });
 

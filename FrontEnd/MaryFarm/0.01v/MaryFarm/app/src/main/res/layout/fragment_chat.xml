@@ -6,18 +6,18 @@
     tools:context=".ui.chat.ChatFragment"
     android:orientation="vertical"
     android:id="@+id/ChatView">
-        <TextView
-            android:id="@+id/chat_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="dddddddddddddddddddd"/>
+    <TextView
+        android:id="@+id/chat_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dddddddddddddddddddd"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chat_list"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarSize="5dp"
-            android:scrollbarThumbVertical="@android:color/darker_gray"
-            android:scrollbars="horizontal" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="horizontal" />
 </LinearLayout>
