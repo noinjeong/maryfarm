@@ -1,5 +1,7 @@
 package com.numberONE.maryfarm.Retrofit;
 
+import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,12 +22,9 @@ public interface ServerAPI {
     Call<List<UserPlant>> getUserPlant(@Path("userId") String userId);
 
     @GET("diary/group/{plantId}/")
-    Call<List<UserDiaries>> getDiaries(@Path("plantId") String plantId);
+    Call<DetailDiariesPerPlantDTO> getDiaries(@Path("plantId") String plantId);
 
-    @GET("detail")
-    Call<DetailsAPI> getDetails();
-
-    @GET("comments")
-    Call<List<Comments>> getComments();
+    @GET("user/farm/{userId}/")
+    Call<FollowFollowing> getFollowInfo(@Path("userId") String userId);
 }
 
