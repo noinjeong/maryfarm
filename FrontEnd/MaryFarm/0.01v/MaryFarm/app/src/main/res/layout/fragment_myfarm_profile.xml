@@ -200,7 +200,7 @@
             android:layout_weight="1"
             android:scaleType="fitXY"
             android:src="@drawable/suggest_1"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
 
     </LinearLayout>
