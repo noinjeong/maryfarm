@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 public class FollowProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void send(String topic, Follow follow, Status status) {
-//        KafkaFollowDTO kafkaFollowDTO = new KafkaFollowDTO(status, follow);
+    public void send(String topic, Follow follow) {
+        log.info("--------------follow send to topic-------------");
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {

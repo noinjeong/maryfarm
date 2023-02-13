@@ -4,6 +4,7 @@ import com.ssafy.maryfarmuserservice.client.dto.notify.CreateNotifyRequestDTO;
 import com.ssafy.maryfarmuserservice.client.service.notify.NotifyServiceClient;
 import com.ssafy.maryfarmuserservice.domain.user.Follow;
 import com.ssafy.maryfarmuserservice.domain.user.User;
+import com.ssafy.maryfarmuserservice.kafka.producer.follow.FollowProducer;
 import com.ssafy.maryfarmuserservice.kafka.producer.user.UserProducer;
 import com.ssafy.maryfarmuserservice.jpa_repository.FollowRepository;
 import com.ssafy.maryfarmuserservice.jpa_repository.UserRepository;
@@ -30,6 +31,7 @@ public class FollowCService {
     private final UserRepository userRepository;
     private final NotifyServiceClient notifyServiceClient;
     private final RedisFollowRepository redisFollowRepository;
+    private final FollowProducer followProducer;
     @Transactional
     public void saveFollow(String senderId, String receiverId) {
         redisFollowRepository.save(new RedisFollow(null,senderId,receiverId));
@@ -49,7 +51,8 @@ public class FollowCService {
             String content = sender.get().getUserName() + "님이 내 농장 이웃이 되었어요!";
             CreateNotifyRequestDTO createNotifyRequestDTO = new CreateNotifyRequestDTO("FollowRequest", content, r.getReceiverId(),
                     r.getSenderId(), "","");
-            notifyServiceClient.saveNotify(createNotifyRequestDTO);
+            followProducer.send("follow",saveFollow);
+//            notifyServiceClient.saveNotify(createNotifyRequestDTO);
             // 알람 생성 종료
         }
         redisFollowRepository.deleteAll();
