@@ -18,11 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.numberONE.maryfarm.Diary.DiaryAddActivity;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 import com.numberONE.maryfarm.Retrofit.ServerAPI;
+import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
+import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiaryDTO;
 import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 import com.numberONE.maryfarm.Retrofit.Thumbnail;
 import com.numberONE.maryfarm.Retrofit.UserInfo;
@@ -117,7 +121,6 @@ public class MyfarmFragment extends Fragment {
                 for(UserPlant u : plantsId) {
                     list.add(u.getPlantId());
                 }
-                Log.d("sss", "onResponse: "+list.toString());
 
                 if (response.body() == null){
                     recommendBtn.setVisibility(View.VISIBLE);

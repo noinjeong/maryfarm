@@ -2,7 +2,6 @@ package com.numberONE.maryfarm.ui.myfarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
-import com.numberONE.maryfarm.Retrofit.UserPlant;
+import com.numberONE.maryfarm.Retrofit.Thumbnail;
 import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 
 import java.util.List;
@@ -24,9 +23,9 @@ import java.util.List;
 public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHolder>{
 
     Context context;
-    List<UserPlant> items;
+    List<Thumbnail> items;
 
-    public MyfarmAdapter(Context context, List<UserPlant> items) {
+    public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
         this.items = items;
     }
@@ -39,6 +38,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Log.d("", "onBindViewHolder: !!!!!!!!!!!!!" + items.get(position).getTitle());
         holder.title.setText((items.get(position).getTitle()));
         Glide.with(context)
                 .load(items.get(position).getThumbImg1())
@@ -84,7 +84,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.plantTitle);
             first_photo = itemView.findViewById(R.id.first_photo);
             second_photo = itemView.findViewById(R.id.second_photo);
             third_photo = itemView.findViewById(R.id.third_photo);
