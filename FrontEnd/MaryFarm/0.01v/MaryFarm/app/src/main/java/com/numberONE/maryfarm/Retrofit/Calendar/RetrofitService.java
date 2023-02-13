@@ -20,4 +20,3 @@ public interface RetrofitService {
     @PUT("maryfarm-diary-service/api/diary/modify")
     Call<DiaryModifyModel> setDiary(@Part DiaryModifyModel DiaryModify);
 }
-
