@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Thumbnail;
-import com.numberONE.maryfarm.Retrofit.UserPlant;
 import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHolder>{
 
     Context context;
-    List<UserPlant> items;
+    List<Thumbnail> items;
 
     public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
