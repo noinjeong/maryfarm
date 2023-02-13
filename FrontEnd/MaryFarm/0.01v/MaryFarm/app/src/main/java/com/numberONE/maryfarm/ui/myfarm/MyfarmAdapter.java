@@ -2,8 +2,6 @@ package com.numberONE.maryfarm.ui.myfarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Thumbnail;
 import com.numberONE.maryfarm.Retrofit.UserPlant;
 import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 
@@ -26,7 +25,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
     Context context;
     List<UserPlant> items;
 
-    public MyfarmAdapter(Context context, List<UserPlant> items) {
+    public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
         this.items = items;
     }

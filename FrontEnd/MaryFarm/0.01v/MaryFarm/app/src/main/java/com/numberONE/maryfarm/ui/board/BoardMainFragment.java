@@ -1,33 +1,44 @@
 package com.numberONE.maryfarm.ui.board;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Board.BoardArticle;
+import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
+import com.numberONE.maryfarm.Retrofit.RetrofitClient;
 import com.numberONE.maryfarm.databinding.FragmentBoardMainBinding;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BoardMainFragment extends Fragment {
+    private static final String TAG = "BoardMainFragment";
 
     FragmentBoardMainBinding binding;
 
     RecyclerView recyclerView_board;
+
     RecyclerView.LayoutManager layoutManager_board;
+
     RecyclerView.Adapter adapter_board;
 
-    // 지역선택 스피너
-    ArrayAdapter<CharSequence> spinnerAdapter=null;
-    Spinner spinner = null;
-
+    List<BoardArticle> article;
+    
     public BoardMainFragment() {
     }
 
@@ -36,35 +47,68 @@ public class BoardMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =FragmentBoardMainBinding.inflate(inflater,container,false);
 
-        spinnerAdapter=ArrayAdapter.createFromResource(getActivity(),R.array.board_spinner,android.R.layout.simple_spinner_dropdown_item);
-        binding.boardSpinner.setAdapter(spinnerAdapter);
+//       ------- 지역 선택 스피너 서버 통신 ----------
+        // 지역 선택하면 서버에 요청보내서 지역에 맞는 게시판 정보 불러오기
+
+        String region = binding.boardSpinner.getSelectedItem().toString();
+
+        RetrofitApiSerivce service =RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
+        Log.d(TAG, " 지역 게시판에 넣어준 지역 :  " +region);
+        service.postRegion(region).enqueue(new Callback<List<BoardArticle>>() {
+            @Override
+            public void onResponse(Call<List<BoardArticle>> call, Response<List<BoardArticle>> response) {
+                Log.d(TAG, " 지역에 맞는 게시글들 불러오기 " );
+                Log.d(TAG, "postRegion res.code : " + response.code());
+                Log.d(TAG, "postRegion res body : " + response.body());
+                if(response.isSuccessful()){
+                    article=response.body();
+                    Log.d(TAG, "postRegion 서버 통신 완료");
+                    Log.d(TAG, "postRegion 서버 코드 " +response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<BoardArticle>> call, Throwable t) {
+                Log.d(TAG, "postRegion 서버 통신 오류 ");
+            }
+        });
+//       ------- 지역 선택 스피너 서버 통신 종료 ----------
 
 
-//        recyclerView_board=binding.boardRecycler;
+//        ---- 게시판 글 작성 버튼 -----
+        binding.boardEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BoardWriteFragment fragment =new BoardWriteFragment();
+                FragmentManager fragmentManager= getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
+            }
+        });
+//        ---- 게시판 글 작성 버튼 종료 -----
+
+
+
+        ViewGroup view =binding.getRoot();
+        return view;
+    }
+
+
+//         -------- 리사이클러 뷰  -----------
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView_board=binding.boardRecycler;
 
         recyclerView_board.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         layoutManager_board=new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         recyclerView_board.setLayoutManager(layoutManager_board);
 
-        String[] title=new String[11];
-        String[] nickname=new String[11];
-        String[] date=new String[11];
-        String[] viewCnt=new String[11];
-        String[] commentCnt=new String[11];
 
-        int[] image={R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon,
-                R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon,R.drawable.gallery_icon};
-
-        for(int i=1;i<=10;i++){
-            title[i]="타이틀"+i; nickname[i]="닉네임"+i ; date[i]="23.02."+(i+10);
-            viewCnt[i]=i+""; commentCnt[i]=i+"";
-        }
-
-        adapter_board=new BoardAdapter(title,nickname,date,image,viewCnt,commentCnt);
+        adapter_board=new BoardAdapter(article);
 
         recyclerView_board.setAdapter(adapter_board);
-
-        ViewGroup view =binding.getRoot();
-        return view;
     }
+//         -------- 리사이클러 뷰 종료 -----------
+
 }

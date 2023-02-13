@@ -293,13 +293,13 @@ public class AddFragment extends Fragment {
             service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
                 @Override
                 public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
+                    Log.d(TAG, "일지 추가 response body :" + response.body());
+                    Log.d(TAG, "일지 추가 응답코드 :" + response.code());
+
                     if (response.isSuccessful() ) {
-                        Log.d(TAG, "response body :" + response.body());
-                        Log.d(TAG, "응답코드 :" + response.code());
+                        Log.d(TAG, "일지 추가 isSuccessful response body :" + response.body());
+                        Log.d(TAG, "일지 추가 isSuccessful 응답코드 :" + response.code());
                         Log.d(TAG, "서버로 전송 성공 ");
-                    }
-                    if(response.body()==null) {
-                        Log.d(TAG, "response가 null 입니다. ");
                     }
                 }
 
