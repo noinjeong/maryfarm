@@ -10,6 +10,7 @@ import com.ssafy.maryfarmplantservice.domain.diary.DiaryLike;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
 import com.ssafy.maryfarmplantservice.domain.tag.Tag;
 import com.ssafy.maryfarmplantservice.jpa_repository.*;
+import com.ssafy.maryfarmplantservice.kafka.producer.diary.DiaryProducer;
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
@@ -41,6 +42,7 @@ public class DiaryCService {
     private final TagRepository tagRepository;
     private final UserServiceClient userServiceClient;
     private final NotifyServiceClient notifyServiceClient;
+    private final DiaryProducer diaryProducer;
     @Transactional
     public Diary saveDiary(final String plantId, final String content, final String imagePath,
                            String userId, String userName, String profilePath) {
@@ -52,15 +54,16 @@ public class DiaryCService {
             save()의 매개변수로 들어가는 diary는 스스로 Id값이 갱신되는가?
          */
         Diary saveDiary = diaryRepository.save(diary);
+        diaryProducer.send("diary",saveDiary);
         // 알람 생성 시작
-        UserResponseDTO userDto = userServiceClient.searchUser(userId);
-        String notifyContent = userDto.getUserName()+"님이 새로운 일지를 올렸어요!";
-        List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
-        for(UserResponseDTO u : followerDto) {
-            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId(),
-                    "",plantId,saveDiary.getId());
-            notifyServiceClient.saveNotify(notifyDto);
-        }
+//        UserResponseDTO userDto = userServiceClient.searchUser(userId);
+//        String notifyContent = userDto.getUserName()+"님이 새로운 일지를 올렸어요!";
+//        List<UserResponseDTO> followerDto = userServiceClient.searchFollower(userId);
+//        for(UserResponseDTO u : followerDto) {
+//            CreateNotifyRequestDTO notifyDto = new CreateNotifyRequestDTO("FollowerUpload", notifyContent, u.getUserId(),
+//                    "",plantId,saveDiary.getId());
+//            notifyServiceClient.saveNotify(notifyDto);
+//        }
         // 알람 생성 종료
         // 태그 파싱 및 등록 시작
         List<String> tagList = HashTagParsing(content+" ");
@@ -205,5 +208,9 @@ public class DiaryCService {
             log.info("Diary add Like complete!");
             redisTemplate.delete(data);
         }
+    }
+
+    public Diary searchDiaryById(String diaryId) {
+        return diaryRepository.findById(diaryId).get();
     }
 }

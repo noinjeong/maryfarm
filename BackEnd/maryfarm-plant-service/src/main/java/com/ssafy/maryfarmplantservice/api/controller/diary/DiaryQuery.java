@@ -3,10 +3,7 @@ package com.ssafy.maryfarmplantservice.api.controller.diary;
 import com.ssafy.maryfarmplantservice.api.dto.diary.DiaryCommentResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.diary.SearchByTagRequestDTO;
 import com.ssafy.maryfarmplantservice.api.dto.query.TagSearchView.TagSearchDTO;
-import com.ssafy.maryfarmplantservice.api.dto.query.response.DetailDiaryResponseDTO;
-import com.ssafy.maryfarmplantservice.api.dto.query.response.DiarySearchResponseDTO;
-import com.ssafy.maryfarmplantservice.api.dto.query.response.DiaryToHomeResponseDTO;
-import com.ssafy.maryfarmplantservice.api.dto.query.response.FollowingDiaryResponseDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.*;
 import com.ssafy.maryfarmplantservice.api.dto.query.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
@@ -45,6 +42,24 @@ public class DiaryQuery {
     private final UserServiceClient userServiceClient;
     private final DetailDiariesPerPlantDTORepository detailDiariesPerPlantDTORepository;
     private final TagSearchDTORepository tagSearchDTORepository;
+
+    @Operation(summary = "특정 일지 조회", description = "특정 일지를 조회합니다.", tags = { "Diary Query" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = DiaryToHomeResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    /*
+        자신의 홈 화면에 작물 당 최신일지 들을 표시함.
+     */
+    @GetMapping("/diary/search/{diaryId}")
+    public ResponseEntity<?> DiarySearch(@PathVariable("diaryId") String diaryId) {
+        Diary diary = diaryCService.searchDiaryById(diaryId);
+        DiaryResponseDTO resultDto = DiaryResponseDTO.of(diary);
+        return ResponseEntity.ok(resultDto);
+    }
 
     @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Query" })
     @ApiResponses({
