@@ -22,6 +22,7 @@ public class RecommendFragment4 extends Fragment {
     private ImageButton mButtonWaterHigh;
     private ImageButton mButtonWaterNormal;
     private ImageButton mButtonWaterLow;
+    private ImageButton mButtonWaterEmpty;
 
     private RecommendActivity recommendActivity;
 
@@ -40,12 +41,13 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterHigh = view.findViewById(R.id.section_1);
         mButtonWaterNormal = view.findViewById(R.id.section_2);
         mButtonWaterLow = view.findViewById(R.id.section_3);
+        mButtonWaterEmpty = view.findViewById(R.id.section_4);
 
         mButtonWaterHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue4(00000);
-                Log.i(TAG, "onClick: 소형 작물을 선택함, 00000");
+                recommendActivity.setButtonValue3(053001);
+                Log.i(TAG, "onClick: 물 많이를 선택함, 053001");
 
                 // 프래그먼트 교체
                 RecommendActivity recommendActivity = (RecommendActivity) getActivity();
@@ -58,8 +60,8 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue4(00000);
-                Log.i(TAG, "onClick: 중형 작물을 선택함, 00000");
+                recommendActivity.setButtonValue3(053002);
+                Log.i(TAG, "onClick: 물 꾸준히를 선택함, 053002");
 
                 // 프래그먼트 교체
                 RecommendActivity recommendActivity = (RecommendActivity) getActivity();
@@ -71,8 +73,21 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue4(00000);
-                Log.i(TAG, "onClick: 대형 작물을 선택함, 00000");
+                recommendActivity.setButtonValue3(053003);
+                Log.i(TAG, "onClick: 물 적음을 선택함, 053003");
+
+                // 프래그먼트 교체
+                RecommendActivity recommendActivity = (RecommendActivity) getActivity();
+                ViewPager2 recommendViewPager = recommendActivity.findViewById(R.id.recommendViewPager);
+                recommendViewPager.setCurrentItem(4);
+            }
+        });
+
+        mButtonWaterEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recommendActivity.setButtonValue3(053004);
+                Log.i(TAG, "onClick: 물 매우 적음을 선택함, 053004");
 
                 // 프래그먼트 교체
                 RecommendActivity recommendActivity = (RecommendActivity) getActivity();

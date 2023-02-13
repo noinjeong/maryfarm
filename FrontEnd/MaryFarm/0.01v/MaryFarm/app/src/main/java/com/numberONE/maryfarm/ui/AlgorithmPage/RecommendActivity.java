@@ -31,6 +31,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class RecommendActivity extends AppCompatActivity {
 
@@ -146,8 +147,15 @@ public class RecommendActivity extends AppCompatActivity {
     public interface ApiService {
 
         // 일단 GET 으로 통신하는게 먼저니까, GET으로 던져줍니다.
-        @GET("/{path}")
-        Call<ResponseBody> getData(@Path("path") String path);
+        @GET("service/garden/gardenList/")
+        Call<ResponseBody> getData(
+                @Query("apiKey") String apiKey,
+                @Query("lightChkVal") String lightChkVal,
+                @Query("flclrChkVal") String flclrChkVal,
+                @Query("lefcolrChkVal") String lefcolrChkVal,
+                @Query("ignSeasonChkVal") String ignSeasonChkVal,
+                @Query("waterCtcleSel") String waterCtcleSel
+        );
 
         // 이후 POST 요청도 넣어야 합니다.
     }
@@ -165,17 +173,22 @@ public class RecommendActivity extends AppCompatActivity {
         Gson gson = new GsonBuilder().setLenient().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.nongsaro.go.kr/")
+                .baseUrl("http://api.nongsaro.go.kr")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<ResponseBody> call = apiService.getData("service/garden/gardenList/?apiKey=20230207XQ7NCQDMG0SKVFKAW0YHNQ&ignSeasonChkVal="+buttonValue1);
+        Call<ResponseBody> call = apiService.getData(
+                "20230207XQ7NCQDMG0SKVFKAW0YHNQ",
+                "0" + buttonValue5,
+                "0" + buttonValue2,
+                "0" + buttonValue3,
+                "0" + buttonValue1,
+                "0" + buttonValue4
 
-//        "&waterCycleSet="+buttonValue3+
-//                "&lightChkVal="+buttonValue5
+        );
 
         Log.d("", "makeApiCall: !!!"+call.toString());
         Log.d("", "버튼 값은?: !!!"+call.toString());
