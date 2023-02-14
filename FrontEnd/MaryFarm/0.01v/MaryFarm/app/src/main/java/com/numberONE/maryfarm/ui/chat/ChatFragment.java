@@ -96,12 +96,12 @@ public class ChatFragment extends Fragment {
                 });
         TextView chat_text;
         chat_text = binding.chatText;
-        chat_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onChatFragmentChange(1, roomId);
-            }
-        });
+//        chat_text.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                activity.onChatFragmentChange(1, roomId);
+//            }
+//        });
 
         return view;
     }
