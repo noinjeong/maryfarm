@@ -26,5 +26,8 @@ public interface ServerAPI {
 
     @GET("user/farm/{userId}/")
     Call<FollowFollowing> getFollowInfo(@Path("userId") String userId);
+
+    @POST("diary/comment/")
+    Call<AddComment> postComment(@Body AddComment addComment);
 }
 

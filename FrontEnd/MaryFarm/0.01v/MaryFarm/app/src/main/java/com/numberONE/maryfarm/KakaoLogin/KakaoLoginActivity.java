@@ -77,7 +77,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
             if (error != null) {
                 Log.e(TAG, "로그인 실패", error);
             } else if (oAuthToken != null) {
-                Log.i(TAG, "로그인 성공(토큰) (비회원, 회원가입 성공 )  : " + oAuthToken.getAccessToken());
+                Log.i(TAG, "액세스 토큰  : " + oAuthToken.getAccessToken());
+                Log.i(TAG, "리프레시 토큰  : " + oAuthToken.getRefreshToken());
                 getUserInfo();
             }
             return null;
@@ -98,8 +99,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 // # 1-1. 기회원인지 확인
                 Retrofit retrofit = new Retrofit.Builder()
                         //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
-//                        .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                        .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                        //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                        .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -116,8 +117,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
                         if (userInfo==null){
                             Retrofit retrofit1 = new Retrofit.Builder()
                                     //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
-//                                    .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                                    .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                                    //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                                    .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
 
@@ -154,16 +155,16 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 // 로그인 완료후, 로그인한 사용자 정보 sharedpreference에 저장
                 Retrofit retrofit2 = new Retrofit.Builder()
                         //.baseUrl("http://192.168.31.244:8000/maryfarm-user-service/api/")
-//                        .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                        .baseUrl("http://i8b308.p.ssafy.io:8000/maryfarm-user-service/api/")
+                        //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                        .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-                ServerAPI serverAPI2 = retrofit.create(ServerAPI.class);
+                ServerAPI serverAPI2 = retrofit2.create(ServerAPI.class);
                 Call<UserInfo> call2 = serverAPI2.getUserInfo(user_id);
                 call2.enqueue(new Callback<UserInfo>() {
                     @Override
-                    public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                    public void onResponse(Call<UserInfo> call2, Response<UserInfo> response) {
                         SharedPreferences pref;
                         SharedPreferences.Editor editor;
 
@@ -172,17 +173,17 @@ public class KakaoLoginActivity extends AppCompatActivity {
                         // 1. Shared Preference 초기화
                         pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
                         editor = pref.edit();
-//                        editor.clear();
-//                        editor.commit();
+                        editor.clear();
+                        editor.commit();
 
                         // 2. 저장해둔 값 불러오기 ("식별값", 초기값) -> 식별값과 초기값은 직접 원하는 이름과 값으로 작성.
                         //userId = pref.getString("userId","");   // String 불러오기 (저장해둔 값 없으면 초기값인 _으로 불러옴)
                         //userNickname = pref.getString("userNickname", "");
                         //userImg = pref.getString("userImg", "");
 
-                        userId = (String) response.body().getUserId();
-                        userNickname = (String) response.body().getUserName();
-                        userImg = (String) response.body().getProfilePath();
+                        userId = response.body().getUserId();
+                        userNickname = response.body().getUserName();
+                        userImg = response.body().getProfilePath();
 
                         // 3. 새로운 값(카카오 유저 아이디) 저장
                         editor.putString("userId", userId);
@@ -192,7 +193,7 @@ public class KakaoLoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<UserInfo> call, Throwable t) {
+                    public void onFailure(Call<UserInfo> call2, Throwable t) {
                         Log.d("SharedPreference 저장 실패 ㅠ : ", t.toString());
                     }
                 });
