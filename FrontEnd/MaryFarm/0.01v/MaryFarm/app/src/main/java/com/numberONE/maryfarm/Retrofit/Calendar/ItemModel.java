@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class ItemModel {
     @Expose
-    public long id;
+    @SerializedName("id")
+    public String id;
     @SerializedName("name")
     public String plantName;
     @SerializedName("createdDate")
@@ -13,7 +14,7 @@ public class ItemModel {
     @SerializedName("harvestTime")
     public String harvestTime;
 
-    public long getId() { return id; }
+    public String getId() { return id; }
 
     public String getPlantName() {
         return plantName;

@@ -28,7 +28,7 @@ import retrofit2.Response;
  * Implementation of App Widget functionality.
  */
 public class WidgetMary extends AppWidgetProvider {
-    public String userId = "123456";
+    public String userId = "2626273197";
 //    위젯의 크기 및 옵션이 변결될 때마다 호출되는 함수
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
