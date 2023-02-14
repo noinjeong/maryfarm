@@ -20,7 +20,8 @@ public interface PlantRepository extends JpaRepository<Plant, String> {
     @Query(value = "select *" +
                 " from plant" +
                 " where plant.user_id = :userId" +
-                " and ((plant.active = true) or ((year(plant.harvest_time) = :year) and (month(plant.harvest_time) = :month)))",nativeQuery = true)
+                " and (((plant.active = true) and (year(plant.created_date) <= :year) and (month(plant.created_date) <= :month))" +
+            " or ((year(plant.harvest_time) = :year) and (month(plant.harvest_time) = :month)))",nativeQuery = true)
     List<Plant> findPlantByMonth(@Param("userId") String userId, @Param("year") Integer year, @Param("month") Integer month);
 
 //    @Query(value = "SELECT DISTINCT p" +
