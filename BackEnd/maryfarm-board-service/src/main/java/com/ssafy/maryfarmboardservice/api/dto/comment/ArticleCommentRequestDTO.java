@@ -12,4 +12,5 @@ public class ArticleCommentRequestDTO {
     private String userId;
     private String userName;
     private String content;
+    private String profilePath;
 }

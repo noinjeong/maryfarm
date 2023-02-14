@@ -34,9 +34,9 @@ public class ArticleCService {
     }
 
     @Transactional
-    public ArticleComment saveArticleComment(String articleId, String userId, String userName, String content) {
+    public ArticleComment saveArticleComment(String articleId, String userId, String userName, String content, String profilePath) {
         Optional<Article> article = articleCRepository.findById(articleId);
-        ArticleComment comment = ArticleComment.of(article.get(), userId, userName, content);
+        ArticleComment comment = ArticleComment.of(article.get(), userId, userName, content,profilePath);
         return articleCommentCRepository.save(comment);
     }
 

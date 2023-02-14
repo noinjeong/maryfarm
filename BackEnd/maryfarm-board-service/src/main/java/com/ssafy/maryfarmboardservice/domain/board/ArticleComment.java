@@ -26,14 +26,16 @@ public class ArticleComment extends BaseTimeEntity implements Serializable {
     private String userName;
     private String content;
     private Integer likes;
+    private String profilePath;
 
-    public static ArticleComment of(Article article, String userId, String userName, String content) {
+    public static ArticleComment of(Article article, String userId, String userName, String content, String profilePath) {
         ArticleComment comment = new ArticleComment();
         comment.article = article;
         comment.userId = userId;
         comment.userName = userName;
         comment.content = content;
         comment.likes = 0;
+        comment.profilePath = profilePath;
         return comment;
     }
 }

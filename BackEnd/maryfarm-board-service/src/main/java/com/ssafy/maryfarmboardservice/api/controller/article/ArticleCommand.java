@@ -52,7 +52,8 @@ public class ArticleCommand {
     })
     @PostMapping("/board/comment/create")
     public ResponseEntity<?> createArticleComment(@RequestBody ArticleCommentRequestDTO dto) throws IOException {
-        ArticleComment comment = articleCService.saveArticleComment(dto.getArticleId(),dto.getUserId(),dto.getUserName(),dto.getContent());
+        ArticleComment comment = articleCService.saveArticleComment(dto.getArticleId(),dto.getUserId(),dto.getUserName(),
+                dto.getContent(),dto.getProfilePath());
         return ResponseEntity.ok(comment.getId());
     }
 }

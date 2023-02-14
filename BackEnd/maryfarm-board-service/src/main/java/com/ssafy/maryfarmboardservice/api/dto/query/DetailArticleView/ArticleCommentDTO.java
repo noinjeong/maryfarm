@@ -13,4 +13,6 @@ public class ArticleCommentDTO {
     private String userName;
     private String content;
     private Integer likes;
+    private String profilePath;
+
 }
