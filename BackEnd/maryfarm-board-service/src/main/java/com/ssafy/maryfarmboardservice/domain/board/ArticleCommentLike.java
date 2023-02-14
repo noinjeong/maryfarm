@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Getter
+@Getter 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleCommentLike extends BaseTimeEntity implements Serializable {
     @Id @GeneratedValue(generator = "system-uuid")
