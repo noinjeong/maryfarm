@@ -18,7 +18,6 @@ import java.util.Map;
 public class RoomListDTO {
     @Id
     private String id;
-    @Indexed
     private String userId;
     private List<RoomDTO> rooms = new ArrayList<>();
 

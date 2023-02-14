@@ -53,11 +53,12 @@ public class RoomListViewListener {
         map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {
         });
         Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
+        String senderId = (String) payload.get("sender_id");
         /*
             sender 처리
          */
         RoomDTO receiverRoomDto = new RoomDTO(payload, "receiver");
-        Optional<RoomListDTO> senderRoomListDto = roomListDTORepository.findByUserId((String) payload.get("sender_id"));
+        Optional<RoomListDTO> senderRoomListDto = roomListDTORepository.findByUserId(senderId);
         senderRoomListDto.get().getRooms().add(receiverRoomDto);
         roomListDTORepository.save(senderRoomListDto.get());
         /*
