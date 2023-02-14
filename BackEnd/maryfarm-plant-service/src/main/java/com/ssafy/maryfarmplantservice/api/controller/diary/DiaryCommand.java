@@ -120,7 +120,8 @@ public class DiaryCommand {
     })
     @PostMapping("/diary/comment")
     public ResponseEntity<?> giveDiaryComment(@RequestBody DiaryCommentRequestDTO dto) {
-        DiaryComment diaryComment = diaryCService.saveDiaryComment(dto.getDiaryId(),dto.getUserId(),dto.getContent(),dto.getUserName());
+        DiaryComment diaryComment = diaryCService.saveDiaryComment(dto.getDiaryId(),dto.getUserId(),dto.getContent(),
+                dto.getUserName(), dto.getProfilePath());
         return ResponseEntity.ok(diaryComment.getId());
     }
 }

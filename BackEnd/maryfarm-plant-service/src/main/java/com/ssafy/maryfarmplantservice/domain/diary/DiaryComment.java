@@ -28,14 +28,15 @@ public class DiaryComment extends BaseTimeEntity implements Serializable {
     private String profilePath;
     private String plantId;
 
-    public static DiaryComment of(Diary diary, String userId, String content, String userName) {
+    public static DiaryComment of(Diary diary, String userId, String content,
+                                  String userName, String profilePath) {
         DiaryComment diaryComment = new DiaryComment();
         diaryComment.diary = diary;
         diaryComment.userId = userId;
         diaryComment.content = content;
         diaryComment.likes = 0;
         diaryComment.userName = userName;
-        diaryComment.profilePath = diary.getProfilePath();
+        diaryComment.profilePath = profilePath;
         diaryComment.plantId = diary.getPlant().getId();
         return diaryComment;
     }

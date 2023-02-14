@@ -132,9 +132,9 @@ public class DiaryCService {
     }
 
     @Transactional
-    public DiaryComment saveDiaryComment(String diaryId, String userId, String content, String userName) {
+    public DiaryComment saveDiaryComment(String diaryId, String userId, String content, String userName, String profilePath) {
         Optional<Diary> diary = diaryRepository.findById(diaryId);
-        DiaryComment diaryComment = DiaryComment.of(diary.get(), userId, content,userName);
+        DiaryComment diaryComment = DiaryComment.of(diary.get(), userId, content,userName,profilePath);
         DiaryComment saveDiaryComment = diaryCommentRepository.save(diaryComment);
         return saveDiaryComment;
     }
