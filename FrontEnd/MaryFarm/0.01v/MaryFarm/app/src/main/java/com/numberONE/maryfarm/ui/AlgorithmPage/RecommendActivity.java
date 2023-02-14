@@ -1,5 +1,7 @@
 package com.numberONE.maryfarm.ui.AlgorithmPage;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,6 +22,9 @@ import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -30,6 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -44,9 +50,10 @@ public class RecommendActivity extends AppCompatActivity {
     private int buttonValue4;
     private int buttonValue5;
 
+
     // 각 탭의 제목을 임시로 저장해놓는 스트링 리스트 입니다.
     // 필요성 보다는, 각각 페이지가 잘 이어져 있나 확인하는 용도입니다.
-    private String [] data = {"Step 1", "Step 2", "Step 3", "Step 4", "Step 5"};
+    private String [] data = {"개화 계절", "꽃잎 색깔", "잎 색깔", "급수 주기", "텃밭 광량"};
 
 
     // 추천 알고리즘 액티비티가 구동시 작동하는 코드입니다.
@@ -68,16 +75,16 @@ public class RecommendActivity extends AppCompatActivity {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         tab.setText(data[position]);
-                        tab.setIcon(R.drawable.tier1);
+//                        tab.setIcon(R.drawable.tier1);
                     }
                 }
         ).attach();
     }
 
     // 디버깅용 okhttp
-    OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build();
+//    OkHttpClient client = new OkHttpClient.Builder()
+//            .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//            .build();
 
     // 각 뷰페이저를 만들어주는 Adapter 클래스를 선언해줍니다.
 
@@ -144,15 +151,15 @@ public class RecommendActivity extends AppCompatActivity {
     }
 
 
-    public interface ApiService {
+    public interface RecommendApi {
 
         // 일단 GET 으로 통신하는게 먼저니까, GET으로 던져줍니다.
         @GET("service/garden/gardenList/")
         Call<ResponseBody> getData(
                 @Query("apiKey") String apiKey,
                 @Query("lightChkVal") String lightChkVal,
-                @Query("flclrChkVal") String flclrChkVal,
-                @Query("lefcolrChkVal") String lefcolrChkVal,
+//                @Query("flclrChkVal") String flclrChkVal,
+//                @Query("lefcolrChkVal") String lefcolrChkVal,
                 @Query("ignSeasonChkVal") String ignSeasonChkVal,
                 @Query("waterCtcleSel") String waterCtcleSel
         );
@@ -175,30 +182,39 @@ public class RecommendActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.nongsaro.go.kr")
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
+//                .client(client)
                 .build();
 
-        ApiService apiService = retrofit.create(ApiService.class);
+        RecommendApi recommendApi = retrofit.create(RecommendApi.class);
 
-        Call<ResponseBody> call = apiService.getData(
+        Call<ResponseBody> call = recommendApi.getData(
                 "20230207XQ7NCQDMG0SKVFKAW0YHNQ",
                 "0" + buttonValue5,
-                "0" + buttonValue2,
-                "0" + buttonValue3,
+//                "0" + buttonValue2,
+//                "0" + buttonValue3,
                 "0" + buttonValue1,
                 "0" + buttonValue4
 
         );
 
         Log.d("", "makeApiCall: !!!"+call.toString());
-        Log.d("", "버튼 값은?: !!!"+call.toString());
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "makeApiCall onresponse" + response.code());
+                Log.d(TAG, "makeApiCall onresponse" + response);
+                Log.d(TAG, "makeApiCall onresponse" + response.body());
+
                 if (response.isSuccessful()) {
+                    ArrayList<RecommendData> resultList = new ArrayList<>();
                     try {
-                        Log.d("API Response", response.body().string());
+                        String responseString = response.body().string();
+                        Gson gson = new Gson();
+                        RecommendData[] data = gson.fromJson(responseString,RecommendData[].class);
+                        resultList = new ArrayList<>(Arrays.asList(data));
+                        Log.d(TAG, "onResponse: 자, 이것은 리저트 리스트여 =  " + resultList);
+                        Log.d(TAG, "onResponse: 자, 이것은 리스폰스 스트링이여" + responseString);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -209,6 +225,7 @@ public class RecommendActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
                 Log.e("API Response", "Request failed with error: " + t.getMessage());
             }
         });

@@ -46,7 +46,7 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue3(053001);
+                recommendActivity.setButtonValue4(53001);
                 Log.i(TAG, "onClick: 물 많이를 선택함, 053001");
 
                 // 프래그먼트 교체
@@ -60,7 +60,7 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue3(053002);
+                recommendActivity.setButtonValue4(53002);
                 Log.i(TAG, "onClick: 물 꾸준히를 선택함, 053002");
 
                 // 프래그먼트 교체
@@ -73,7 +73,7 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue3(053003);
+                recommendActivity.setButtonValue4(53003);
                 Log.i(TAG, "onClick: 물 적음을 선택함, 053003");
 
                 // 프래그먼트 교체
@@ -86,7 +86,7 @@ public class RecommendFragment4 extends Fragment {
         mButtonWaterEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue3(053004);
+                recommendActivity.setButtonValue4(53004);
                 Log.i(TAG, "onClick: 물 매우 적음을 선택함, 053004");
 
                 // 프래그먼트 교체
