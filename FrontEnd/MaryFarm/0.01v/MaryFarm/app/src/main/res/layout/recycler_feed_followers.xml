@@ -9,14 +9,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="1dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             >
             <ImageView
                 android:id="@+id/follower_image"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
+                android:scaleType="center"
                 android:contentDescription="친구추가된 유저의 게시물"
                 android:src="@android:color/holo_green_light" />
 

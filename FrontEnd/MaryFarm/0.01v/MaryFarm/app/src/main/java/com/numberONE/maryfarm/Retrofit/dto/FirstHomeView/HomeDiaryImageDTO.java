@@ -15,17 +15,57 @@ public class HomeDiaryImageDTO {
     private String profilePath;
     private String latestDiaryImagePath;
     private String content;
-    private LocalDateTime createdDate;
+    private String createdDate;
     private List<String> otherDiaryImagePath = new ArrayList<>();
 
-    public HomeDiaryImageDTO(Map<Object, Object> payload) {
-        this.plantId = (String) payload.get("plant_id");
-        this.userId = (String) payload.get("user_id");
-        this.userName = (String) payload.get("user_name");
-        this.profilePath = (String) payload.get("profile_path");
-        this.latestDiaryImagePath = (String) payload.get("image_path");
-        this.content = (String) payload.get("content");
-        LocalDateTime createdDate = LocalDateTime.ofInstant(Instant.ofEpochMilli((Long) payload.get("created_date")), TimeZone.getDefault().toZoneId());
-        this.createdDate = createdDate;
+    public String getId() {
+        return id;
+    }
+
+    public String getPlantId() {
+        return plantId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    public String getLatestDiaryImagePath() {
+        return latestDiaryImagePath;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public List<String> getOtherDiaryImagePath() {
+        return otherDiaryImagePath;
+    }
+
+    @Override
+    public String toString() {
+        return "HomeDiaryImageDTO{" +
+                "id='" + id + '\'' +
+                ", plantId='" + plantId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", profilePath='" + profilePath + '\'' +
+                ", latestDiaryImagePath='" + latestDiaryImagePath + '\'' +
+                ", content='" + content + '\'' +
+                ", createdDate='" + createdDate + '\'' +
+                ", otherDiaryImagePath=" + otherDiaryImagePath +
+                '}';
     }
 }

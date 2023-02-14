@@ -30,6 +30,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         this.items = items;
     }
 
+    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
+
     @NonNull
     @Override
     public CommentAdapter.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,7 +44,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.content.setText((items.get(position).getContent()));
         holder.commentLike.setText(("" + items.get(position).getLikes()));
         Glide.with(context)
-                .load(items.get(position).getProfilePath())
+                .load(URL + items.get(position).getProfilePath())
                 .into(holder.profileImg);
 
         likeCnt = items.get(position).getLikes();
