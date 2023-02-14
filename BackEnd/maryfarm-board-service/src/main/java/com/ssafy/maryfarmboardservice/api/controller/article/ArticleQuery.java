@@ -4,6 +4,7 @@ import com.ssafy.maryfarmboardservice.api.dto.article.SearchArticleRequestDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.DetailArticleView.DetailArticleDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.ArticleDTO;
 import com.ssafy.maryfarmboardservice.api.dto.query.TotalArticleView.SearchArticleByTypeDTO;
+import com.ssafy.maryfarmboardservice.domain.board.BoardType;
 import com.ssafy.maryfarmboardservice.mongo_repository.DetailArticleView.DetailArticleDTORepository;
 import com.ssafy.maryfarmboardservice.mongo_repository.TotalArticleView.SearchArticleByTypeDTORepository;
 import com.ssafy.maryfarmboardservice.service.article.ArticleCService;
@@ -40,7 +41,8 @@ public class ArticleQuery {
     })
     @PostMapping("/board/search")
     public ResponseEntity<?> searchArticleAll(@RequestBody SearchArticleRequestDTO dto) throws IOException {
-        Optional<SearchArticleByTypeDTO> resultDto = searchArticleByTypeDTORepository.findByType(dto.getType());
+        BoardType boardType = BoardType.nameOf(dto.getType());
+        Optional<SearchArticleByTypeDTO> resultDto = searchArticleByTypeDTORepository.findByType(boardType.name());
         List<ArticleDTO> resultDtos = resultDto.get().getArticles();
         return ResponseEntity.ok(resultDtos);
     }

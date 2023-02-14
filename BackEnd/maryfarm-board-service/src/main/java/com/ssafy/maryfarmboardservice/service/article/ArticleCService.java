@@ -28,7 +28,7 @@ public class ArticleCService {
 
     @Transactional
     public Article saveArticle(String userId, String userName, String type, String title, String content, String profilePath) {
-        Article article = Article.of(userId, userName, BoardType.valueOf(type), title, content, profilePath);
+        Article article = Article.of(userId, userName, BoardType.nameOf(type), title, content, profilePath);
         Article saveArticle = articleCRepository.save(article);
         return saveArticle;
     }
