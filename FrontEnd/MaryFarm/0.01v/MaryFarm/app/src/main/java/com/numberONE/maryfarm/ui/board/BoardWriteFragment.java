@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Board.BoardArticle;
@@ -39,6 +41,7 @@ public class BoardWriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentBoardWriteBinding.inflate(inflater,container,false);
 
+
 //        ---- 취소 버튼 로직  -----
         binding.writeCloseImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +51,7 @@ public class BoardWriteFragment extends Fragment {
             }
         });
 
-//        ----- 등록 버튼 로직 ( 레트로핏 요청 보내고 , 해당 게시판 페이지로 이동 )  -----
+//      ----- 등록 버튼 로직 ( 레트로핏 요청 보내고 , 해당 게시판 페이지로 이동 )  -----
         binding.writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,15 +61,19 @@ public class BoardWriteFragment extends Fragment {
                 String region =binding.boardTypeSpinner.getSelectedItem().toString(); // 지역 (스피너)
                 String content = binding.content.getText().toString(); // 내용
 
-                SharedPreferences preferences= getActivity().getSharedPreferences("boardwritefragment", Context.MODE_PRIVATE);
-                String userid=preferences.getString("userId","shared_userId_null");
-                String userName=preferences.getString("userName","shared_userName_null");
-                String profilePath=preferences.getString("userProfile","shared_profile_null");
+
+//              ----- shared  고유아이디 번호, 이름 , 프로필 사진  ------
+                SharedPreferences preferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+                String id= preferences.getString("pref_id","pref_id_null");
+                String name =preferences.getString("pref_name","pref_name_null");
+                String image=preferences.getString("pref_img","pref_img_null");
+                Log.d(TAG, "Shared Pre _ test -  id:" + id +" name : "+name +" image : "+image );
+//              ----- shared  종료 --------
 
                 BoardWrite boardWrite = new BoardWrite();
-                boardWrite.setUserId(userid);
-                boardWrite.setUserName(userName);
-                boardWrite.setProfilePath(profilePath);
+                boardWrite.setUserId(id);
+                boardWrite.setUserName(name);
+                boardWrite.setProfilePath(image);
                 boardWrite.setType(region);
                 boardWrite.setTitle(title);
                 boardWrite.setContent(content);
@@ -76,22 +83,31 @@ public class BoardWriteFragment extends Fragment {
 
 //                ----- 서버 요청 로직 -----
                 RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
-                service.writeArticle(boardWrite).enqueue(new Callback<BoardWrite>() {
+                service.writeArticle(boardWrite).enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<BoardWrite> call, Response<BoardWrite> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
                         Log.d(TAG, "onResponse: + call : "+ call.toString().trim() );
-                        Log.d(TAG, "글작성 api : onResponse");
+                        Log.d(TAG, "글작성 api : onResponse res.body"+response.body() );
                         Log.d(TAG, "글작성 res.code "+response.code());
-                        Log.d(TAG, "onResponse: "+response.body());
-                        if(response.isSuccessful() && response.body()!=null){
+
+                        if(response.isSuccessful() && !region.equals("지역 선택")){
                             Log.d(TAG, " 게시판 글 작성 서버 통신 성공 ");
+                            // 게시판 메인으로 이동하기
                             FragmentManager manager =getActivity().getSupportFragmentManager();
                             manager.beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
+                            // 게시판 메인으로 가서 글 작성한 지역 게시판으로 가기위해 정보 넘겨주기
+                            SharedPreferences preferences= getActivity().getSharedPreferences("board",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("type",region);
+                            editor.commit();
+                        }
+                        if(response.code() == 500 || region.equals("지역 선택")){
+                            Toast.makeText(getActivity(),"지역을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<BoardWrite> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
                         t.printStackTrace();
                         Log.d(TAG, " 게시판 글 작성 서버 통신 실패 ");
                     }

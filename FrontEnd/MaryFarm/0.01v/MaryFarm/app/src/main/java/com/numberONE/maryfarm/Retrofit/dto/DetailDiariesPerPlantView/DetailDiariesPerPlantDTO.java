@@ -20,7 +20,8 @@ public class DetailDiariesPerPlantDTO implements Serializable {
     private String plantCreatedDate;
     private String harvestDate;
     private List<DetailDiaryDTO> diaries = new ArrayList<>();
-
+    private String userId;
+    private String profilePath;
 
     public String getId() {
         return id;
@@ -44,5 +45,13 @@ public class DetailDiariesPerPlantDTO implements Serializable {
 
     public List<DetailDiaryDTO> getDiaries() {
         return diaries;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getProfilePath() {
+        return profilePath;
     }
 }

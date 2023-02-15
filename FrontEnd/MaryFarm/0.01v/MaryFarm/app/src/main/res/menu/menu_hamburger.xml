@@ -34,6 +34,12 @@
     </item>
 
     <item
+        android:id="@+id/hamburger_5"
+        android:icon="@drawable/hamburger5"
+        android:title="작물 추천">
+    </item>
+
+    <item
         android:id="@+id/logout"
         android:icon="@drawable/hamburger_logout"
         android:title="로그아웃">

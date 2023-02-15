@@ -14,6 +14,7 @@ public class DetailDiaryDTO implements Serializable {
     private String content;
     private String diaryCreatedDate;
     private List<DetailDiaryCommentDTO> comments = new ArrayList<>();
+    private String diaryId;
 
 
     public String getImagePath() {
@@ -34,5 +35,9 @@ public class DetailDiaryDTO implements Serializable {
 
     public List<DetailDiaryCommentDTO> getComments() {
         return comments;
+    }
+
+    public String getDiaryId() {
+        return diaryId;
     }
 }

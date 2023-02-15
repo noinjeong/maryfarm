@@ -22,7 +22,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaryFarm"
         android:usesCleartextTraffic="true"
-        tools:targetApi="32" >
+        tools:targetApi="32">
+
+        <service
+            android:name=".MyRemoteViewsService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
+
+        <receiver
+            android:name=".WidgetMary"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_mary_info" />
+        </receiver>
+
 
         <activity
             android:name=".ui.AlgorithmPage.RecommendActivity"
@@ -70,29 +89,22 @@
         </activity>
         <activity
             android:name=".KakaoLogin.KakaoLoginActivity"
-            android:exported="true" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <!-- <c-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
@@ -103,19 +115,17 @@
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
-
-
-            <!-- &lt;!&ndash; local.properties 설정 mani_kakao_key와 연결 &ndash;&gt; -->
-            <!-- <data -->
-            <!-- android:host="oauth" -->
-            <!-- android:scheme="${KakaoKey}" /> -->
-            <!-- </intent-filter> -->
+                <!-- local.properties 설정 mani_kakao_key와 연결 -->
+                <data
+                    android:host="oauth"
+                    android:scheme="${KakaoKey}" />
+            </intent-filter>
         </activity>
 
         <provider
