@@ -170,6 +170,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         titleView = findViewById(id.title);
         titleView.setText(title);
 
+
         startView = findViewById(id.startDate);
         startView.setText(plantAllInfo.getPlantCreatedDate().substring(0,10));
 

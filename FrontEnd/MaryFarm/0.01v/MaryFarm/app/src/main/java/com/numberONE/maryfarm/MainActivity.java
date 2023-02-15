@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,16 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.sdk.user.UserApiClient;
@@ -45,8 +37,6 @@ import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
-
-import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -77,19 +67,31 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        sharedpreferences에서 닉네임 , 프로필 사진 가져와서 적용 시켜야함
-//        SharedPreferences preferences =getSharedPreferences("",Context.MODE_PRIVATE);
-//        String hamburger_nickname =preferences.getString("nickname","ham_nickname_null");
+//      --- shared ->  pref 는 유저 이름 ,유저 고유번호 , 유저 프로필 사진 저장
+        SharedPreferences preferences=getSharedPreferences("pref",Context.MODE_PRIVATE);
+//      --- board 이동 시 , 저장된 값이 출력되는 것을 방지 ----
+        SharedPreferences preferences_board=getSharedPreferences("board",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences_board.edit();
+        editor.clear();
+        editor.commit();
+//      -------------------------------------------------
 
-        // drawer_header 레이아웃 가져오기 - 햄버거 열면 프로필 사진 ,이름 설정하기 위해서
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view =inflater.inflate(R.layout.drawer_header,null);
+        //      ----- 햄버거 header 프로필 사진 , 유저 이름 --------
+        String pref_Name= preferences.getString("pref_name","ham_pref_name_null");
+        String pref_textUrl = preferences.getString("pref_img","ham_pref_img_null");
 
-        CircleImageView circleImageView=(CircleImageView)view.findViewById(R.id.hamburger_user_profile) ;
-        TextView textView=(TextView) view.findViewById(R.id.hamburger_user_nickname);
+        TextView user_name =binding.drawerNav.getHeaderView(0).findViewById(R.id.hamburger_user_nickname);
+        user_name.setText(pref_Name);
+        CircleImageView user_profile= (CircleImageView) binding.drawerNav.getHeaderView(0).findViewById(R.id.hamburger_user_profile);
 
+        GlideApp.with(this)
+                .load(pref_textUrl)
+                .skipMemoryCache(true)
+                .error(R.drawable.loading_icon)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(user_profile);
 
-
+        //      ----- 햄버거 header 프로필 사진 , 유저 이름 끝 -------
 
         //상단 메뉴 배경색 지정
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFFF));
@@ -124,22 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
         // 상단 로고
         getSupportActionBar().setIcon(R.drawable.logo_icon);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        // 상단 로고 위치 지정이 안 됌
-//        getSupportActionBar().setIcon(R.drawable.logo_icon);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);   //홈 아이콘을 숨김처리합니다.
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
-//        getSupportActionBar().setDisplayShowTitleEnabled(false); //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        getSupportActionBar().setDisplayShowHomeEnabled(true);  //홈 아이콘을 숨김처리합니다.
 
         //item icon 색조를 적용하지 않도록 , 이 설정 없을경우 item icon 전부 회색
         binding.drawerNav.setItemIconTintList(null);
 
-//        drawerlayout
+        //        drawerlayout
         binding.drawerNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -168,11 +163,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
                         UserApiClient.getInstance().logout(error ->{
                             Intent intent = new Intent(getApplicationContext(), KakaoLoginActivity.class);
+                            moveTaskToBack(true); // 테스크를 백그라운드로 이동
+                            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
                             startActivity(intent);
                             return null;
                         });
                         break;
-
                 }
 
                 //클릭시 drawer 닫기
@@ -182,16 +178,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        barDrawerToggle=new ActionBarDrawerToggle(this,binding.drawerLayout, R.string.app_name, R.string.app_name);
-        //ActionBar( 제목줄)의 홈 or 업버튼의 위치에 토글아이콘 보이게
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        //햄버거 모양으로 보이도록 토글버튼 동기 맞추기
-//        barDrawerToggle.syncState();
-//
-//        //햄버거 아이콘과 화살표 아이콘이 자동으로 변환환하도록
-//        binding.drawerLayout.addDrawerListener(barDrawerToggle);
-
 //        drawerlayout 끝
 
 //       검색창 클릭 후 다른 위치 클릭시 키보드 감추기 코드
@@ -199,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.main_activity, new ChatFragment());
+
     } // onCreate 끝
 
     //검색창 활성화

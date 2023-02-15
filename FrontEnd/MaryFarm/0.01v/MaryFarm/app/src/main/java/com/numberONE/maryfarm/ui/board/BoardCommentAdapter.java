@@ -13,44 +13,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.Retrofit.Board.BoardComments;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapter.ViewHolder> {
 
-    private String[] nickname,date,like,content;
-    private int[] profile,image;
-
+    static List<BoardComments> boardComments =new ArrayList<>();
     ViewHolder viewHolder;
+    int view_cnt;
 
-    public BoardCommentAdapter(){}
-    public BoardCommentAdapter(String[] nickname,String[] date,String[] like,String[] content, int[] profile, int[] image) {
-        this.nickname=nickname;
-        this.date=date;
-        this.like=like;
-        this.content=content;
-        this.profile=profile;
-        this.image=image;
+    public BoardCommentAdapter(List<BoardComments> list) {
+        this.boardComments=list;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nickname,date,like,content;
+        public TextView nickname,like,content;
         public CircleImageView profile;
-        public ImageView empty;
+        public ImageView empty,full;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.nickname=itemView.findViewById(R.id.board_recycler_nickname);
-            this.date=itemView.findViewById(R.id.board_recycler_date);
             this.like=itemView.findViewById(R.id.board_recycler_comment_like);
             this.content=itemView.findViewById(R.id.board_recycler_content);
             this.profile=itemView.findViewById(R.id.board_recycler_profile);
             this.empty=itemView.findViewById(R.id.board_recycler_emptyIcon);
+            this.full=itemView.findViewById(R.id.board_recycler_fullIcon);
         }
     }
-
-
 
     @NonNull
     @Override
@@ -65,12 +60,32 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
-            viewHolder.nickname.setText(this.nickname[position]);
-            viewHolder.date.setText(this.date[position]);
-            viewHolder.like.setText(this.like[position]);
-            viewHolder.content.setText(this.content[position]);
-            viewHolder.profile.setImageResource(this.profile[position]);
-            viewHolder.empty.setImageResource(this.image[position]);
+            view_cnt =boardComments.get(position).getLikes();
+            holder.nickname.setText(boardComments.get(position).getUserName());
+            holder.like.setText(boardComments.get(position).getLikes());
+            holder.content.setText(view_cnt);
+            Glide.with(holder.profile).load(boardComments.get(position).getProfile());
+            Glide.with(holder.empty).load(boardComments.get(position).getProfile());
+
+            holder.empty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   TextView cnt = (TextView) view.findViewById(R.id.board_recycler_comment_like);
+                    cnt.setText(++view_cnt);
+                    view.findViewById(R.id.board_recycler_fullIcon).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.board_recycler_emptyIcon).setVisibility(View.INVISIBLE);
+                }
+            });
+
+            holder.full.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView cnt = (TextView) view.findViewById(R.id.board_recycler_comment_like);
+                    cnt.setText(--view_cnt);
+                    view.findViewById(R.id.board_recycler_fullIcon).setVisibility(View.INVISIBLE);
+                    view.findViewById(R.id.board_recycler_emptyIcon).setVisibility(View.VISIBLE);
+                }
+            });
 
         }catch (Exception e){
             e.printStackTrace();
@@ -79,7 +94,7 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
 
     @Override
     public int getItemCount() {
-        return nickname.length;
+        return boardComments!=null ? boardComments.size() : 0 ;
     }
 
 }

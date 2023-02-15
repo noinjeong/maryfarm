@@ -99,7 +99,11 @@ public class ChatFragment extends Fragment {
         chat_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                activity.onChatFragmentChange(1, roomId);
+
                 ((MainActivity)getActivity()).onChatFragmentChange(1, roomId);
+
             }
         });
 

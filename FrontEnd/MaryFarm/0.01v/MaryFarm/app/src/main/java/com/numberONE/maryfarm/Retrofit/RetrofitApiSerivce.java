@@ -25,8 +25,6 @@ public interface RetrofitApiSerivce {
 
 //     diary api 시작
 
-
-
     // 새 일지 작성
     @Multipart
     @POST("maryfarm-plant-service/api/diary/init")
@@ -62,8 +60,11 @@ public interface RetrofitApiSerivce {
 
     // 게시판 게시글 작성
     @POST("maryfarm-board-service/api/board/create")
-    Call<BoardWrite> writeArticle(@Body BoardWrite boardWrite);
+    Call<Void> writeArticle(@Body BoardWrite boardWrite);
 
+    // 게시글 댓글 작성
+    @POST("maryfarm-board-service/api/board/comment/create")
+    Call<Void> writeCommnet(@Body BoardWrite boardWrite);
 
 //      board api 끝
 }
