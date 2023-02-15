@@ -36,6 +36,7 @@ import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
+import com.numberONE.maryfarm.ui.myfarm.OtherfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -254,6 +255,8 @@ public class MainActivity extends AppCompatActivity {
         inputmanager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
     public void onChatFragmentChange(Integer index, String roomId) {
+        int idx;
+        idx = Integer.parseInt(roomId);
         if(index == 1) {
             Bundle bundle = new Bundle();
             bundle.putString("roomId", roomId);
@@ -264,6 +267,42 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                     .commit();
-        }}
-
+        } else if (index == 2) {
+            if (idx == 0 || idx == 3) {
+                Bundle bundle = new Bundle();
+                bundle.putString("roomId", roomId);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                MyfarmFragment myfarmFragment = new MyfarmFragment();//프래그먼트2 선언
+                myfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+                transaction.replace(R.id.main_activity, myfarmFragment)
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+                        .commit();
+            } else if (idx == 1) {
+                Bundle bundle = new Bundle();
+                bundle.putString("roomId", roomId);
+                bundle.putString("nickname", "김차분팬1호");
+                bundle.putInt("profile", R.drawable.b);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                OtherfarmFragment otherfarmFragment = new OtherfarmFragment();//프래그먼트2 선언
+                otherfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+                transaction.replace(R.id.main_activity, otherfarmFragment)
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+                        .commit();
+            } else if (idx == 2) {
+                Bundle bundle = new Bundle();
+                bundle.putString("roomId", roomId);
+                bundle.putString("nickname", "왕감자");
+                bundle.putInt("profile", R.drawable.profilebaek);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                OtherfarmFragment otherfarmFragment = new OtherfarmFragment();//프래그먼트2 선언
+                otherfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+                transaction.replace(R.id.main_activity, otherfarmFragment)
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+                        .commit();
+            }
+        }
+    }
 }
