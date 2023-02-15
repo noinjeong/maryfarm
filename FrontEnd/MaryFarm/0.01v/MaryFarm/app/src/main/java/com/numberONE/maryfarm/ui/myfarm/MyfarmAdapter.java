@@ -27,7 +27,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
-        this.items = items;
+//        this.items = items;
     }
 
     @NonNull
@@ -38,31 +38,31 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.title.setText((items.get(position).getTitle()));
-        Glide.with(context)
-                .load(items.get(position).getThumbImg1())
-                .into(holder.first_photo);
-        Glide.with(context)
-                .load(items.get(position).getThumbImg2())
-                .into(holder.second_photo);
-        Glide.with(context)
-                .load(items.get(position).getThumbImg3())
-                .into(holder.third_photo);
-        holder.thumbnailStartDate.setText(items.get(position).getPlantCreatedDate().substring(0,10));
-        if (items.get(position).getHarvestDate() != null) {
-            holder.thumbnailEndDate.setText(items.get(position).getHarvestDate().substring(0,10));
-        } else {
-            holder.thumbnailEndDate.setText("ing");
-        }
+//        holder.title.setText((items.get(position).getTitle()));
+//        Glide.with(context)
+//                .load(items.get(position).getThumbImg1())
+//                .into(holder.first_photo);
+//        Glide.with(context)
+//                .load(items.get(position).getThumbImg2())
+//                .into(holder.second_photo);
+//        Glide.with(context)
+//                .load(items.get(position).getThumbImg3())
+//                .into(holder.third_photo);
+//        holder.thumbnailStartDate.setText(items.get(position).getPlantCreatedDate().substring(0,10));
+//        if (items.get(position).getHarvestDate() != null) {
+//            holder.thumbnailEndDate.setText(items.get(position).getHarvestDate().substring(0,10));
+//        } else {
+//            holder.thumbnailEndDate.setText("ing");
+//        }
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
-                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = (DetailDiariesPerPlantDTO) items.get(holder.getAdapterPosition()).getDetailDiariesPerPlantDTO();
+//                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = (DetailDiariesPerPlantDTO) items.get(holder.getAdapterPosition()).getDetailDiariesPerPlantDTO();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra("detailDiariesPerPlantDTO", detailDiariesPerPlantDTO);
+//                intent.putExtra("detailDiariesPerPlantDTO", detailDiariesPerPlantDTO);
                 context.startActivity(intent);
             }
         });
@@ -72,6 +72,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
     public int getItemCount() {
         return items.size();
     }
+
 
     // viewholder 작성
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -83,7 +84,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.plantTitle);
             first_photo = itemView.findViewById(R.id.first_photo);
             second_photo = itemView.findViewById(R.id.second_photo);
             third_photo = itemView.findViewById(R.id.third_photo);

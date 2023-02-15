@@ -197,15 +197,6 @@ public class MyfarmFragment extends Fragment {
                 Log.d("onFailure", t.toString());
             }
         });
-                
-        detailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-            }
-        });
 
         recommendBtn.setOnClickListener(new View.OnClickListener() {
             @Override

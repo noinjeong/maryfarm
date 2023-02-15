@@ -14,7 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL ="http://i8b308.p.ssafy.io:8000/";
+//    private static final String BASE_URL ="http://i8b308.p.ssafy.io:8000/";
+//    private static final String BASE_URL ="http://192.168.31.244:8000/";
+    private static final String BASE_URL = "https://maryfarm.shop/";
     private static Retrofit retrofit;
 
     public static Retrofit getInstance() {
@@ -22,6 +24,7 @@ public class RetrofitClient {
         if (retrofit == null) {
                     retrofit = new Retrofit.Builder() // 객체 생성
                     .baseUrl(BASE_URL) // 서버 url 설정
+                    .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create(gson)) // 데이터 파싱 설정 (Gson)
                     .build(); // 통신하여 데이터를 파싱한 retrofit 객체 생성 완료
         }
@@ -34,15 +37,11 @@ public class RetrofitClient {
         public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit)
         {
             final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
-            return new Converter<ResponseBody, Object>() {
-                @Override
-                public Object convert(ResponseBody body) throws IOException
-                {
-                    if (body.contentLength() == 0) {
-                        return null;
-                    }
-                    return delegate.convert(body);
+            return (Converter<ResponseBody, Object>) body -> {
+                if (body.contentLength() == 0) {
+                    return null;
                 }
+                return delegate.convert(body);
             };
         }
     }

@@ -103,7 +103,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"
@@ -118,35 +118,36 @@
                 android:layout_marginStart="7.5dp"
                 android:layout_marginTop="7.5dp"
                 android:layout_marginEnd="7.5dp"
-                android:layout_marginBottom="7.5dp"
-                android:src="@drawable/spinnerborder" />
+                android:layout_marginBottom="7.5dp"/>
 
             <EditText
                 android:id="@+id/board_detail_comment_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7.5dp"
-                android:layout_marginTop="7.5dp"
-                android:layout_marginEnd="7.5dp"
-                android:layout_marginBottom="7.5dp"
-                android:background="@null"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toRightOf="@+id/board_detail_comment_userprofile"
                 android:hint="댓글 입력"
-                android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                android:layout_toRightOf="@+id/board_detail_comment_userprofile"/>
+                android:paddingBottom="15dp"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/board_detail_comment_add_btn"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="7.5dp"
+                android:layout_marginRight="2dp"
                 android:layout_marginBottom="7.5dp"
-                android:text="등록"
                 android:background="@android:color/transparent"
-                android:textColor="@android:color/holo_blue_dark"
-                android:layout_alignParentRight="true"/>
+                android:text="등록"
+                android:textColor="@android:color/holo_blue_dark" />
 
-            </RelativeLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 

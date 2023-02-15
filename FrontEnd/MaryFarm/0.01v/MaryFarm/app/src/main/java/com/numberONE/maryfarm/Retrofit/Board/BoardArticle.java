@@ -24,6 +24,10 @@ public class BoardArticle {
     @Expose
     private String type;
 
+    @SerializedName("profilePath")
+    @Expose
+    private String profilePath;
+
     @SerializedName("title")
     @Expose
     private String title;
@@ -52,11 +56,9 @@ public class BoardArticle {
     @Expose
     private String lastModifiedDate;
 
-//    @SerializedName("comments")
-//    @Expose
-//    private List<BoardComments> comments;
-
-    private HashMap<Object,Object> comments =new HashMap<>();
+    @SerializedName("comments")
+    @Expose
+    private List<BoardComments> comments ;
 
     public String getArticleId() {
         return articleId;
@@ -88,6 +90,14 @@ public class BoardArticle {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getProfilePath() {
+        return profilePath;
+    }
+
+    public void setProfilePath(String profilePath) {
+        this.profilePath = profilePath;
     }
 
     public String getTitle() {
@@ -146,20 +156,11 @@ public class BoardArticle {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-//    public List<BoardComments> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(List<BoardComments> comments) {
-//        this.comments = comments;
-//    }
-
-
-    public HashMap<Object, Object> getComments() {
+    public List<BoardComments> getComments() {
         return comments;
     }
 
-    public void setComments(HashMap<Object, Object> comments) {
+    public void setComments(List<BoardComments> comments) {
         this.comments = comments;
     }
 
@@ -170,6 +171,7 @@ public class BoardArticle {
                 ", userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", type='" + type + '\'' +
+                ", profilePath='" + profilePath + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", views=" + views +
