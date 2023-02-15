@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "detailArticle")
+@Document(collection = "DetailArticle")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailArticleDTO {
     @Id
     private String id;
-//    @Indexed
+    @Indexed
     private String articleId;
     private String userId;
     private String userName;
