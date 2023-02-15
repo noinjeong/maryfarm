@@ -41,6 +41,10 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
 //    ------ 어댑터 밖으로 리스너를 빼서 활용하기 위한 로직 끝 -----------
 
+    public BoardAdapter(){
+        List<BoardArticle> list =new ArrayList<>();
+        this.article=list;
+    }
 
     public BoardAdapter(List<BoardArticle> article){
         this.article=article;
@@ -73,6 +77,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
                 if(pos!=RecyclerView.NO_POSITION){
                     if(listener!=null){
                         listener.onItemClick(view,pos,article.get(pos).getArticleId());
+
                     }
                 }
             }

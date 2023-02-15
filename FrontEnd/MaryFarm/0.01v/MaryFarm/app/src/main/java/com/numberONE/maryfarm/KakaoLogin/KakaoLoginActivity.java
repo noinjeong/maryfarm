@@ -193,5 +193,11 @@ public class KakaoLoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.apply();
+
+        SharedPreferences preferences_write=getSharedPreferences("write",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences_write.edit();
+        edit.clear();
+        edit.commit();
+
     }
 }

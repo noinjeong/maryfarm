@@ -9,6 +9,9 @@
         android:id="@+id/board_item_title"
         android:layout_width="280dp"
         android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:textStyle="bold"
         android:hint="제목 올 공간"/>
@@ -17,6 +20,7 @@
         android:id="@+id/board_item_nickname"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_below="@+id/board_item_title"
         android:textSize="13sp"
         android:hint="닉네임 올 공간"/>
