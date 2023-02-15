@@ -18,7 +18,7 @@ import java.util.List;
 public class DetailArticleDTO {
     @Id
     private String id;
-    @Indexed
+//    @Indexed
     private String articleId;
     private String userId;
     private String userName;
