@@ -1,5 +1,8 @@
 package com.numberONE.maryfarm.ui.home.Calendar;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.numberONE.maryfarm.R;
 
-// 달력 진입 시 키우고 있는 작물 리스트 체크박스 반환~
+// 달력 진입 시 달에 키우고 있는 작물 리스트 체크박스 반환
 public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAdapter.ViewHolder> {
     public static String[] plantName, createdAt, harvestTime;
     ViewHolder viewHolder;
-
-
 
     // 리사이클러 뷰로 들어갈 내용들 받는 부분
     public CalendarPlantsAdapter(String[] plantName, String[] createdAt, String[] harvestTime){
@@ -28,7 +29,6 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
     public interface OnPlantCheckListener {
     // 클릭 시 동작할 함수
         void onPlantCheck(View v, int position, Boolean isChecked, String createdAt, String harvestTime, Integer checkboxId) ;
-
     }
 
     // 리스너 객체 참조를 저장하는 변수
@@ -58,13 +58,10 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
                     if (pos != RecyclerView.NO_POSITION) {
                         // 리스너 객체의 메서드 호출.
                         if (onPlantCheckListener != null) {
-
                             // 날짜 표시하러 ㄱㄱ
                             Boolean checked = checkbox.isChecked();
                             onPlantCheckListener.onPlantCheck(v, pos, checked, createdAt[pos], harvestTime[pos], checkbox.getId());
-                        }
-                    }
-                }
+                }}}
             });
         }
     }
@@ -88,15 +85,20 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
 
         return viewHolder;
     }
-// ViewHolder viewType
     @Override
     public void onBindViewHolder(@NonNull ViewHolder mainHolder, int i) {
-        mainHolder.checkboxtitle.setText(this.plantName[i]+"\n"+this.createdAt[i]);
+        Log.i(TAG, "onBindViewHolder 작물이름: "+this.plantName[i]);
+        if (this.plantName[i] != "아직 작물이 없어요!" && this.plantName[i] != null) {
+            mainHolder.checkboxtitle.setText(this.plantName[i]+"\n"+this.createdAt[i].substring(0,10));
+        } else {
+            mainHolder.checkboxtitle.setText("아직 작물이 없어요!");
+            mainHolder.checkbox.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return plantName.length;
+        return plantName != null ? plantName.length : 0 ;
     }
 
 }

@@ -3,6 +3,8 @@ package com.numberONE.maryfarm.Retrofit.Calendar;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+// 캘린더 : 달의 작물 목록 받아오기 응답
+// 위젯 : 오늘 작물 목록 받아오기 응답
 public class ItemModel {
     @Expose
     @SerializedName("id")

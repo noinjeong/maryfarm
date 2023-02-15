@@ -15,6 +15,7 @@ import com.numberONE.maryfarm.Retrofit.Calendar.MemoModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.RetrofitFactory;
 import com.numberONE.maryfarm.Retrofit.Calendar.RetrofitService;
 import com.numberONE.maryfarm.Retrofit.Calendar.WidgetModel;
+import com.numberONE.maryfarm.WidgetMary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,9 @@ public class WidgetPickPlantAdapter implements RemoteViewsService.RemoteViewsFac
     public RemoteViews getViewAt(int position) {
         RemoteViews listviewWidget = new RemoteViews(context.getPackageName(), R.layout.widget_calendar_pick_plant);
         listviewWidget.setTextViewText(R.id.textView, arrayList.get(position).getPlantName());
-
+//        Intent fillInIntent = new Intent();
+//        fillInIntent.putExtra(WidgetMary.EXTRA_ITEM, position);
+//        listviewWidget.setOnClickFillInIntent(R.id.widget, fillInIntent);   //pendingIntent와 같이 쓰이는 녀석. 클릭시 설정된 extraData를 추가적으로 전달할 수 있다.
         // 항목 선택 이벤트 발생 시 인텐트에 담겨야 할 항목 데이터를 추가해주는 코드
 //        Intent dataIntent = new Intent();
 //        dataIntent.putExtra("item_id", arrayList.get(position)._id);
