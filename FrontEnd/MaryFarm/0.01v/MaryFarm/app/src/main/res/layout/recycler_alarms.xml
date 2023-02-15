@@ -4,27 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/alarmProfile"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@color/purple_200"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="7.5dp"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginEnd="7.5dp"
+        android:layout_marginBottom="7.5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
 
             <TextView
                 android:id="@+id/alarmNickname"
