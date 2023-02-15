@@ -17,7 +17,7 @@ import java.util.List;
 public class MessageRoomDTO {
     @Id
     private String id;
-    @Indexed
+//    @Indexed
     private String roomId;
     private List<MessageDTO> messages = new ArrayList<>();
 }
