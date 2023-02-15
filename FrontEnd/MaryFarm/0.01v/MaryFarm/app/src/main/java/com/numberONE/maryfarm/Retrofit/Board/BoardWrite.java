@@ -1,8 +1,32 @@
 package com.numberONE.maryfarm.Retrofit.Board;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class BoardWrite {
 
-    private String userId,userName,title,content,type,profilePath;
+    @Expose
+    private String articleId;
+    @Expose
+    private String userId;
+    @Expose
+    private String userName;
+    @Expose
+    private String title;
+    @Expose
+    private String content;
+    @Expose
+    private String type;
+    @Expose
+    private String profilePath;
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
 
     public String getUserId() {
         return userId;
@@ -47,6 +71,7 @@ public class BoardWrite {
     public String getProfilePath() {
         return profilePath;
     }
+
     public void setProfilePath(String profilePath) {
         this.profilePath = profilePath;
     }
@@ -54,7 +79,8 @@ public class BoardWrite {
     @Override
     public String toString() {
         return "BoardWrite{" +
-                "userId='" + userId + '\'' +
+                "articleId='" + articleId + '\'' +
+                ", userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
