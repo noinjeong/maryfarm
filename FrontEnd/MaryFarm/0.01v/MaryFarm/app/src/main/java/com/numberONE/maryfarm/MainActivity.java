@@ -102,29 +102,29 @@ public class MainActivity extends AppCompatActivity {
         fragment_myfarm_profile =new MyfarmFragment();
         fragment_alarm =new AlarmFragment();
 
-            binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()){
-                        case R.id.menu_bottom_home:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_home).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_chat:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_chat).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_write:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_write).commitAllowingStateLoss();
-                            return true;
-                        case  R.id.menu_bottom_alarm:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_alarm).commitAllowingStateLoss();
-                            return true;
-                        case R.id.menu_bottom_farm:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_myfarm_profile).commitAllowingStateLoss();
-                            return true;
-                    }
-                    return true;
+        binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_bottom_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_home).commitAllowingStateLoss();
+                        return true;
+                    case R.id.menu_bottom_chat:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_chat).commitAllowingStateLoss();
+                        return true;
+                    case R.id.menu_bottom_write:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_write).commitAllowingStateLoss();
+                        return true;
+                    case  R.id.menu_bottom_alarm:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_alarm).commitAllowingStateLoss();
+                        return true;
+                    case R.id.menu_bottom_farm:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_myfarm_profile).commitAllowingStateLoss();
+                        return true;
                 }
-            });
+                return true;
+            }
+        });
 
         // 상단 로고
         getSupportActionBar().setIcon(R.drawable.logo_icon);
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
-                        // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
+                    // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
                     case R.id.logout:
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
                         UserApiClient.getInstance().logout(error ->{
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-//    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
+    //    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         hideKeyboard();
