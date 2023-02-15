@@ -69,41 +69,48 @@ public class ChatFragment extends Fragment {
         binding = FragmentChatBinding.inflate(inflater, container, false);
         ViewGroup view = binding.getRoot();
         userId = "111111";
+        String[] nickname = {"왕감자", "블루베리맘", "당근전문가", "성주꿀참외"};
+        String[] content = {"영양제 뭐 쓰세요?","주무세요..?","네! 당근이랑 좀 교환해요","이 편지는 영국에서 시작하여 ..."};
+        String[] date = {"9:02am","3:45am","1일 전","4일 전"};
+        int[] profile = {R.drawable.profilebaek,R.drawable.profilekim,R.drawable.profilejang,R.drawable.profilekang};
+        int[] tier = {R.drawable.tier1,R.drawable.tier2,R.drawable.tier5,R.drawable.tier8};
+        // 어댑터 연결
+        recyclerView_chat = binding.chatList;
+        layoutManager_chat = new LinearLayoutManager(getActivity());
+        recyclerView_chat.setLayoutManager(layoutManager_chat);
+        adapter_chat = new ChatAdapter(nickname, content, date, profile, tier);
+        recyclerView_chat.setAdapter(adapter_chat);
         // 레트로핏으로 채팅방 목록 가져오기
-        RetrofitChatService networkService = RetrofitChatFactory.create();
-        networkService.getChat(userId)
-                .enqueue(new Callback<RoomListDTO>() {
-                    @Override
-                    public void onResponse(Call<RoomListDTO> call, Response<RoomListDTO> response) {
-                        Log.i(TAG, "onCreateView: 야"+response);
-                        if(response.isSuccessful()){
-                            Log.i(TAG, "onResponse: 서버와 연결");
-                            List<RoomDTO> list = response.body().getRooms();
-                            Log.i(TAG, "onResponse: "+list.get(0));
-                            // 어댑터 연결
-                            recyclerView_chat = binding.chatList;
-                            layoutManager_chat = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-                            recyclerView_chat.setLayoutManager(layoutManager_chat);
-                            adapter_chat = new ChatAdapter(list);
-                            recyclerView_chat.setAdapter(adapter_chat);
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<RoomListDTO> call, Throwable t) {
-                        Log.e(TAG, "onFailure: 서버 연결 실패");
-                        Log.e(TAG, "onFailure:", t);
-                    }
-                });
-        TextView chat_text;
-        chat_text = binding.chatText;
-        chat_text.setOnClickListener(new View.OnClickListener() {
+//        RetrofitChatService networkService = RetrofitChatFactory.create();
+//        networkService.getChat(userId)
+//                .enqueue(new Callback<RoomListDTO>() {
+//                    @Override
+//                    public void onResponse(Call<RoomListDTO> call, Response<RoomListDTO> response) {
+//                        Log.i(TAG, "onCreateView: 야"+response);
+//                        if(response.isSuccessful()){
+//                            Log.i(TAG, "onResponse: 서버와 연결");
+//                            List<RoomDTO> list = response.body().getRooms();
+//                            Log.i(TAG, "onResponse: "+list.get(0));
+//                            // 어댑터 연결
+//                            recyclerView_chat = binding.chatList;
+//                            layoutManager_chat = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+//                            recyclerView_chat.setLayoutManager(layoutManager_chat);
+//                            adapter_chat = new ChatAdapter(list);
+//                            recyclerView_chat.setAdapter(adapter_chat);
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<RoomListDTO> call, Throwable t) {
+//                        Log.e(TAG, "onFailure: 서버 연결 실패");
+//                        Log.e(TAG, "onFailure:", t);
+//                    }
+//                });
+        // 채팅 목록 클릭시 채팅방으로 이동
+        ChatAdapter.setOnChatClickListener(new ChatAdapter.OnChatClickListener() {
             @Override
-            public void onClick(View v) {
-
-//                activity.onChatFragmentChange(1, roomId);
-
-                ((MainActivity)getActivity()).onChatFragmentChange(1, roomId);
-
+            public void onChatClick(View v, int position) {
+                ((MainActivity)getActivity()).onChatFragmentChange(1, ""+position+"");
+                Log.i(TAG, "onChatClick: 룸넘버"+roomId);
             }
         });
 

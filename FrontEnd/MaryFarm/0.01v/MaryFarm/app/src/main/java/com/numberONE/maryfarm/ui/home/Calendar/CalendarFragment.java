@@ -4,6 +4,8 @@ import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -29,6 +31,7 @@ import com.numberONE.maryfarm.Retrofit.Calendar.ItemModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.MemoModel;
 import com.numberONE.maryfarm.Retrofit.Calendar.RetrofitFactory;
 import com.numberONE.maryfarm.Retrofit.Calendar.RetrofitService;
+import com.numberONE.maryfarm.WidgetMary;
 import com.numberONE.maryfarm.databinding.FragmentCalendarBinding;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -64,17 +67,20 @@ import retrofit2.Response;
 public class CalendarFragment extends Fragment {
     private FragmentCalendarBinding binding;
 // 변수 선언
-    public String userId = "123456";                            // 사용자 아이디
-    public CalendarDay userSelectDate = CalendarDay.today();    // 사용자가 선택한 날짜
+    public String userId = "2626273196";                        // 사용자 아이디
     public static Integer userSelectCheckbokPosition = 0;       // 사용자가 선택한 체크박스
     private final String TAG = this.getClass().getSimpleName();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
     @BindView(R.id.calendarView) MaterialCalendarView widget;
+    public CalendarDay userSelectDate = CalendarDay.today();    // 사용자가 선택한 날짜
     // 리사이클러뷰
     RecyclerView recyclerView_plants, recyclerView_memo;
     RecyclerView.LayoutManager layoutManager_plants, layoutManager_memo;
     RecyclerView.Adapter adapter_plants, adapter_memo;
 
+    List<String> plantNameList = null;
+    List<String> plantCreatedAtList = null;
+    List<String> plantHarvestTimeList = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,21 +90,21 @@ public class CalendarFragment extends Fragment {
 
 // 서버에서 식물 받아와서 파라미터 전해주기
         // 식물 종류
-        List<String> plantNameList = new ArrayList<>();
+        plantNameList = new ArrayList<>();
         final String[][] plantName = new String[1][10000];
         // 심은 날
-        List<String> plantCreatedAtList = new ArrayList<>();
+        plantCreatedAtList = new ArrayList<>();
         final String[][] plantCreatedAt = new String[1][10000];
         // 수확 날
-        List<String> plantHarvestTimeList = new ArrayList<>();
+        plantHarvestTimeList = new ArrayList<>();
         final String[][] plantHarvestTime = new String[1][10000];
 
         //레트로핏으로 내 작물리스트 받아와서 위 리스트에 저장
         CalendarDateModel calendarDate = new CalendarDateModel();
         calendarDate.userId = userId;
-        calendarDate.year = userSelectDate.getYear();
-        calendarDate.month = userSelectDate.getMonth();
-        Log.i(TAG, "userSelectDate:" + userSelectDate);
+//        calendarDate.year = userSelectDate.getYear();
+//        calendarDate.month = userSelectDate.getMonth();
+//        Log.i(TAG, "userSelectDate:" + userSelectDate);
         RetrofitService networkService = RetrofitFactory.create();
         networkService.getList(calendarDate)
             .enqueue(new Callback<List<ItemModel>>() {
@@ -110,75 +116,113 @@ public class CalendarFragment extends Fragment {
                     // Myadapter adapter = new Myadapter(response.body());
                     // binding.calendarPlantsType.setAdapter(adapter);
                     List<ItemModel> body = response.body();
-                    for(ItemModel m : body) {
-                        plantNameList.add(m.getPlantName());
-                        plantCreatedAtList.add(m.getCreatedAt());
-                        plantHarvestTimeList.add(m.getHarvestTime());
-                    }
-                    plantName[0] = plantNameList.stream().toArray(String[]::new);
-                    plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
-                    plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
-                    Log.i(TAG, "onResponse: "+plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
+                    if (body.size() != 0) {
+                        for (ItemModel m : body) {
+                            plantNameList.add(m.getPlantName());
+                            plantCreatedAtList.add(m.getCreatedAt());
+                            plantHarvestTimeList.add(m.getHarvestTime());
+                        }
+                        plantName[0] = plantNameList.stream().toArray(String[]::new);
+                        plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
+                        plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
+                        Log.i(TAG, "onResponse: " + plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
 
-                    // 어댑터 연결
-                    recyclerView_plants = binding.calendarPlantsType;
-                    layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-                    recyclerView_plants.setLayoutManager(layoutManager_plants);
-                    adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
-                    recyclerView_plants.setAdapter(adapter_plants);
+                        // 어댑터 연결
+                        recyclerView_plants = binding.calendarPlantsType;
+                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                        recyclerView_plants.setLayoutManager(layoutManager_plants);
+                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                        recyclerView_plants.setAdapter(adapter_plants);
+                    } else {
+                        // 어댑터 연결
+                        plantNameList.add("아직 작물이 없어요!");
+                        plantCreatedAtList.add("0000.00.00.");
+                        plantHarvestTimeList.add("0000.00.00.");
+                        recyclerView_plants = binding.calendarPlantsType;
+                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                        recyclerView_plants.setLayoutManager(layoutManager_plants);
+                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                        recyclerView_plants.setAdapter(adapter_plants);
+                    }
                 }
             }
                 @Override
                 public void onFailure(Call<List<ItemModel>> call, Throwable t){
-                    Log.e(TAG, "onFailure: 서버 연결 실패");
+                    Log.e(TAG, "onFailure: 작물 목록 서버 연결 실패");
                     Log.e(TAG, "onFailure:", t);
                 }
             });
-//레트로핏 끝
-
+//식물 목록 레트로핏 끝
+// 달이 변경될 때
         widget.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                userSelectDate = date;
+                userSelectDate = widget.getCurrentDate();
+                Log.i(TAG, "onMonthChanged: "+widget.getCurrentDate());
                 // 새로 서버에서 응답받고 리스트 교환해서 정보 보내주기 (리스트 추가가 아닌 교환!)
-//                CalendarDateModel calendarDate = new CalendarDateModel();
-//                calendarDate.userId = userId;
-//                calendarDate.year = date.getYear();
-//                calendarDate.month = date.getMonth();
-////                Log.i(TAG, "userSelectDate:" + date);
-//                RetrofitService networkService = RetrofitFactory.create();
-//                networkService.getList(calendarDate)
-//                        .enqueue(new Callback<List<ItemModel>>() {
-//                            @Override
-//                            public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
-//                                if(response.isSuccessful()){
-//                                    Log.i(TAG, "onResponse: 서버와 연결");
-//                                    List<ItemModel> body = response.body();
-                //                      리스트 리셋 후 추가
-//                                    for(ItemModel m : body) {
-//                                        plantNameList.add(m.getPlantName());
-//                                        plantCreatedAtList.add(m.getCreatedAt());
-//                                        plantHarvestTimeList.add(m.getHarvestTime());
-//                                    }
-//                                    plantName[0] = plantNameList.stream().toArray(String[]::new);
-//                                    plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
-//                                    plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
-////                                    Log.i(TAG, "onResponse: "+plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
-//
-//                                    // 어댑터 연결
-//                                    recyclerView_plants = binding.calendarPlantsType;
-//                                    layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-//                                    recyclerView_plants.setLayoutManager(layoutManager_plants);
-//                                    adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
-//                                    recyclerView_plants.setAdapter(adapter_plants);
-//                                }
-//                            }
-//                            @Override
-//                            public void onFailure(Call<List<ItemModel>> call, Throwable t){
-//                                Log.e(TAG, "onFailure: 서버 연결 실패");
-//                                Log.e(TAG, "onFailure:", t);
-//                            }
-//                        });
+                // 식물 종류
+                plantNameList = new ArrayList<>();
+                final String[][] plantName = new String[1][10000];
+                // 심은 날
+                plantCreatedAtList = new ArrayList<>();
+                final String[][] plantCreatedAt = new String[1][10000];
+                // 수확 날
+                plantHarvestTimeList = new ArrayList<>();
+                final String[][] plantHarvestTime = new String[1][10000];
+
+                //레트로핏으로 내 작물리스트 받아와서 위 리스트에 저장
+                CalendarDateModel calendarDate = new CalendarDateModel();
+                calendarDate.userId = userId;
+                calendarDate.year = widget.getCurrentDate().getYear();
+                calendarDate.month = widget.getCurrentDate().getMonth();
+                RetrofitService networkService = RetrofitFactory.create();
+                networkService.getList(calendarDate)
+                        .enqueue(new Callback<List<ItemModel>>() {
+                            @Override
+                            public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
+                                if(response.isSuccessful()){
+                                    Log.i(TAG, "onResponse: 달 바뀐 서버로 연결");
+                                    // 리싸이클러뷰 만들어서 정보 주기 다른 파일에 안 쓰고 여기에 바로 쓸 때
+                                    // Myadapter adapter = new Myadapter(response.body());
+                                    // binding.calendarPlantsType.setAdapter(adapter);
+                                    List<ItemModel> body = response.body();
+                                    if (body.size() != 0) {
+                                        for (ItemModel m : body) {
+                                            plantNameList.add(m.getPlantName());
+                                            plantCreatedAtList.add(m.getCreatedAt());
+                                            plantHarvestTimeList.add(m.getHarvestTime());
+                                        }
+                                        plantName[0] = plantNameList.stream().toArray(String[]::new);
+                                        plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
+                                        plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
+                                        //                                    Log.i(TAG, "onResponse: "+plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
+
+                                        // 어댑터 연결
+                                        recyclerView_plants = binding.calendarPlantsType;
+                                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                                        recyclerView_plants.setLayoutManager(layoutManager_plants);
+                                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                                        recyclerView_plants.setAdapter(adapter_plants);
+                                    } else {
+                                        // 어댑터 연결
+                                        plantNameList.add("아직 작물이 없어요!");
+                                        plantCreatedAtList.add("0001.01.01.");
+                                        plantHarvestTimeList.add("0001.01.01.");
+                                        recyclerView_plants = binding.calendarPlantsType;
+                                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                                        recyclerView_plants.setLayoutManager(layoutManager_plants);
+                                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                                        recyclerView_plants.setAdapter(adapter_plants);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<List<ItemModel>> call, Throwable t){
+                                Log.e(TAG, "onFailure: 작물 목록 서버 연결 실패");
+                                Log.e(TAG, "onFailure:", t);
+                            }
+                        });
+//식물 목록 레트로핏 끝
             }
         });
 // 작물 체크박스 클릭 -> 재배 기간 보여주기
@@ -194,81 +238,90 @@ public class CalendarFragment extends Fragment {
 //                    userSelectCheckbokPosition = checkboxId;
 //                }
                 if(checked) {
-                    binding.calendarView.addDecorator(new DayDecorator(getActivity()));
+//                    binding.calendarView.addDecorator(new DayDecorator(getActivity()));
                     widget.setSelectionMode(SELECTION_MODE_RANGE);
-
                     Log.i(TAG, "onPlantCheck:"+createdAt + harvestTime);
-                    //Log.i(TAG, "onPlantCheck:"+ Integer.parseInt(createdAt.substring(createdAt.length()-2, createdAt.length())));
-                    Integer startdate;
-                    Integer enddate;
-                    if (Integer.parseInt(createdAt.substring(createdAt.length()-5, createdAt.length()-3)) == userSelectDate.getMonth()) {
-                        startdate = Integer.parseInt(createdAt.substring(createdAt.length()-2, createdAt.length()));
+                    int startDate;
+                    int endDate;
+
+                    if(Integer.parseInt(createdAt.substring(5,7)) == userSelectDate.getMonth()) {
+                        startDate = Integer.parseInt(createdAt.substring(8, 10));
                     } else {
-                        startdate = 1;
+                        startDate = 1;
                     }
-                    if(harvestTime != null) {
-                        enddate = Integer.parseInt(harvestTime.substring(harvestTime.length()-2, harvestTime.length()));
+                    if(harvestTime != null && Integer.parseInt(harvestTime.substring(5,7)) == userSelectDate.getMonth()) {
+                        endDate = Integer.parseInt(harvestTime.substring(8, 10));
+                    } else if(harvestTime != null && Integer.parseInt(harvestTime.substring(5,7)) != userSelectDate.getMonth()) {
+                        endDate = widget.getMaximumDate().getDay();
+                    } else if(harvestTime == null && Integer.parseInt(harvestTime.substring(5,7)) != userSelectDate.getMonth()) {
+                        endDate = widget.getMaximumDate().getDay();
                     } else{
-                        enddate = CalendarDay.today().getDay();
+                        endDate = CalendarDay.today().getDay();
                     }
-                    Log.i(TAG, "onPlantCheck:" + startdate + enddate);
-                    for(int i=startdate;i<=enddate;i++){
+                    Log.i(TAG, "onPlantCheck:" + startDate + endDate);
+                    for(int i=startDate;i<=endDate;i++){
                         widget.setDateSelected(CalendarDay.from(userSelectDate.getYear(),userSelectDate.getMonth(),i), true);
                     }
                 } else {
                     widget.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
-                    binding.calendarView.addDecorator(new DayDecorator(getActivity()));
+//                    binding.calendarView.addDecorator(new DayDecorator(getActivity()));
                 }
             }
         });
 // 일자 클릭 시
         binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+
             @Override
             public void onDateSelected(
                     @NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                userSelectDate = date;
-
-                CalendarPickModel calendarPick = new CalendarPickModel();
-                calendarPick.userId = userId;
-                calendarPick.year = userSelectDate.getYear();
-                calendarPick.month = userSelectDate.getMonth();
-                calendarPick.day = userSelectDate.getDay();
-//                Log.i(TAG, "onDateSelected: 캘린더픽"+calendarPick.toString().trim());
-                RetrofitService networkService = RetrofitFactory.create();
-                networkService.getPlant(calendarPick)
-                        .enqueue(new Callback<List<MemoModel>>() {
-                            @Override
-                            public void onResponse(Call<List<MemoModel>> call, Response<List<MemoModel>> response){
-                                Log.i(TAG, "onResponse ㅇㅇㅇ: "+response);
-                                if(response.isSuccessful()){
-                                    Log.i(TAG, "onResponse: 캘린더 서버 연결");
-                                    List<MemoModel> body = response.body();
-
-                                    // [작물정보, 물, 가지치기, 영양제, 분갈이, 메모] 정보를 가진 리스트 만들어서 보내기
-//                                    plantMemo = []
-//                                    for(MemoModel m : body) {
-//                                        plantMemo.add(m.getPlant(), m.getWater());
-//                                    }
-//                                    plantName[0] = plantNameList.stream().toArray(String[]::new);
-//                                    plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
-//                                    plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
-//                                    Log.i(TAG, "onResponse: "+plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
-
-                                    // 어댑터 연결
-                                    recyclerView_memo = binding.calendarPickDate;
-                                    layoutManager_memo = new LinearLayoutManager(getActivity());
-                                    recyclerView_memo.setLayoutManager(layoutManager_memo);
-                                    adapter_memo = new CalendarPickPlantAdapter(body);
-                                    recyclerView_memo.setAdapter(adapter_memo);
-                                    binding.calendarPickDate.setVisibility(View.VISIBLE);
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<List<MemoModel>> call, Throwable t){
-                                Log.e(TAG, "onFailure: 서버 연결 실패");
-                                Log.e(TAG, "onFailure:", t);
-                            }
-                        });
+                recyclerView_memo = binding.calendarPickDate;
+                layoutManager_memo = new LinearLayoutManager(getActivity());
+                recyclerView_memo.setLayoutManager(layoutManager_memo);
+                adapter_memo = new CalendarPickPlantAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                recyclerView_memo.setAdapter(adapter_memo);
+                binding.calendarPickDate.setVisibility(View.VISIBLE);
+                // 하루 중에 메모가 있는지 확인하는 레트로핏
+//                userSelectDate = date;
+//                CalendarPickModel calendarPick = new CalendarPickModel();
+//                calendarPick.userId = userId;
+//                calendarPick.year = userSelectDate.getYear();
+//                calendarPick.month = userSelectDate.getMonth();
+//                calendarPick.day = userSelectDate.getDay();
+//                RetrofitService networkService = RetrofitFactory.create();
+//                networkService.getPlant(calendarPick)
+//                        .enqueue(new Callback<List<MemoModel>>() {
+//                            @Override
+//                            public void onResponse(Call<List<MemoModel>> call, Response<List<MemoModel>> response){
+//                                Log.i(TAG, "onResponse ㅇㅇㅇ: "+response);
+//                                if(response.isSuccessful()){
+//                                    Log.i(TAG, "onResponse: 캘린더 서버 연결");
+//                                    List<MemoModel> body = response.body();
+//
+//                                    // [작물정보, 물, 가지치기, 영양제, 분갈이, 메모] 정보를 가진 리스트 만들어서 보내기
+////                                    plantMemo = []
+////                                    for(MemoModel m : body) {
+////                                        plantMemo.add(m.getPlant(), m.getWater());
+////                                    }
+////                                    plantName[0] = plantNameList.stream().toArray(String[]::new);
+////                                    plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
+////                                    plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
+////                                    Log.i(TAG, "onResponse: "+plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
+//
+//                                    // 어댑터 연결
+//                                    recyclerView_memo = binding.calendarPickDate;
+//                                    layoutManager_memo = new LinearLayoutManager(getActivity());
+//                                    recyclerView_memo.setLayoutManager(layoutManager_memo);
+//                                    adapter_memo = new CalendarPickPlantAdapter(body);
+//                                    recyclerView_memo.setAdapter(adapter_memo);
+//                                    binding.calendarPickDate.setVisibility(View.VISIBLE);
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<List<MemoModel>> call, Throwable t){
+//                                Log.e(TAG, "onFailure: 작물 메모 서버 연결 실패");
+//                                Log.e(TAG, "onFailure:", t);
+//                            }
+//                        });
 //                if(selecteddate[0] == date){
 //                    widget.setSelected(false);
 //                    binding.calendarPickDate.setVisibility(View.GONE);
@@ -324,6 +377,11 @@ public class CalendarFragment extends Fragment {
                             widget.addDecorator(new EventDecorator(Color.WHITE, Collections.singleton(widget.getSelectedDate()), getActivity()));
                         } break;
                 }
+                // 위젯에 data change 알림
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+                int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
+                        new ComponentName(getActivity(), WidgetMary.class));
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_pick_date);
             }
         });
 // 달력 커스텀

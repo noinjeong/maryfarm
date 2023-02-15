@@ -42,6 +42,7 @@ import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.http.HEAD;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -150,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                     }
                     return true;
+
                 }
-            });
+        });
 
         // 상단 로고
         getSupportActionBar().setIcon(R.drawable.logo_icon);
@@ -187,9 +189,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
+
                     case R.id.hamburger_5:
                         Toast.makeText(MainActivity.this,"작물 추천", Toast.LENGTH_SHORT).show();
                         break;
+
+
                     // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
                     case R.id.logout:
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
@@ -231,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-//    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
+    //    검색창 클릭 후 다른 위치 클릭시 , 키보드 내리고 , 검색창 초기화 및 검색버튼으로 활성화
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         hideKeyboard();
@@ -348,3 +353,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
