@@ -30,10 +30,10 @@ public class AlarmFragment extends Fragment {
         layoutManager_alarms = new LinearLayoutManager(getActivity());
         recyclerView_alarms.setLayoutManager(layoutManager_alarms);
 
-        String[] nickname = {"김관섭", "박수용", "이석우", "조민규"};
-        String[] content = {"님이 새로운 게시물을 올렸습니다.","님이 새로운 게시물을 올렸습니다.","님이 새로운 게시물을 올렸습니다.","님이 새로운 게시물을 올렸습니다."};
+        String[] nickname = {"왕감자", "김차분팬1호", "왕감자", "호박"};
+        String[] content = {"님이 내 일지를 좋아해요.","님이 내 농장 이웃이 되었어요!","님이 새로운 일지를 시작했어요.","일지를 올린 지 3주가 지났어요!"};
         String[] date = {"1시간전","2일전","3일전","4일전"};
-        int[] profile = {R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d};
+        int[] profile = {R.drawable.profilebaek,R.drawable.b,R.drawable.profilebaek,R.drawable.pumpkin};
 
         adapter_alarms = new AlarmItemsAdapter(nickname, date, content, profile);
 
