@@ -77,9 +77,9 @@ public class MyfarmFragment extends Fragment {
         String userId, userNickname, userImage;
 
         pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        userId = pref.getString("userId", "Null");
-        userNickname = pref.getString("userNickname", "Null");
-        userImage = pref.getString("userImg","Null");
+        userId = pref.getString("pref_id", "Null");
+        userNickname = pref.getString("pref_name", "Null");
+        userImage = pref.getString("pref_img","Null");
 
 
         recommendBtn = (ImageButton) view.findViewById(R.id.recommendBtn);
@@ -96,8 +96,8 @@ public class MyfarmFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         Retrofit retrofit1 = new Retrofit.Builder()
-                //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
+                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                //.baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -106,8 +106,24 @@ public class MyfarmFragment extends Fragment {
         call1.enqueue(new Callback<FollowFollowing>() {
             @Override
             public void onResponse(Call<FollowFollowing> call1, Response<FollowFollowing> response) {
+//                Integer followerNumber=response.body().getFollowerCount();
+//                Integer followingNumber=response.body().getFollowingCount();
+//               ----- nullPointerException 피하기 위한 로직 -----
+//                if(followingNumber==null || followerNumber==null){
+//                    followerNumber=0;
+//                    followingNumber=0;
+//                }
+                Log.d("userID ",userId);
+
                 followerCnt.setText(response.body().getFollowerCount()+"");
                 followingCnt.setText(response.body().getFollowingCount()+"");
+
+                Bundle bundle=getArguments();// 번들 받기
+                if(bundle!=null){
+                    String param=bundle.getString("code");
+                    Log.d("MyfarmFragment", "write로 부터 넘어온 값"+ param);
+                }
+//              ------------ write로부터 넘겨받은 로직 끝  -----------------
             }
 
             @Override
@@ -161,6 +177,7 @@ public class MyfarmFragment extends Fragment {
                         call2.enqueue(new Callback<DetailDiariesPerPlantDTO>() {
                             @Override
                             public void onResponse(Call<DetailDiariesPerPlantDTO> call2, Response<DetailDiariesPerPlantDTO> response) {
+                                if (response.body() != null) {
                                 DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
                                 String title = response.body().getTitle();
                                 String plantId = response.body().getPlantId();
@@ -170,13 +187,13 @@ public class MyfarmFragment extends Fragment {
                                 String plantCreatedDate = response.body().getPlantCreatedDate();
                                 String harvestDate = response.body().getHarvestDate();
 
-                                for (int j=response.body().getDiaries().size()-1; j>=0; j--){
+                                for (int j = response.body().getDiaries().size() - 1; j >= 0; j--) {
                                     List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
                                     DetailDiaryDTO diary = diaries.get(j);
 
-                                    if (j==2){
+                                    if (j == 2) {
                                         thumbImg1 = diary.getImagePath();
-                                    } else if (j==1) {
+                                    } else if (j == 1) {
                                         thumbImg2 = diary.getImagePath();
                                     } else {
                                         thumbImg3 = diary.getImagePath();
@@ -188,6 +205,7 @@ public class MyfarmFragment extends Fragment {
 
                                 recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                             }
+                        }
 
 
                             @Override

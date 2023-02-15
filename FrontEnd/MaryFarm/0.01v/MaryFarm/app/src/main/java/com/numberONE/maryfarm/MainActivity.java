@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.kakao.sdk.user.UserApiClient;
 import com.numberONE.maryfarm.KakaoLogin.KakaoLoginActivity;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
@@ -33,12 +35,14 @@ import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
 import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
+import com.numberONE.maryfarm.ui.diary.AddFragment;
 import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.http.HEAD;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -102,28 +106,53 @@ public class MainActivity extends AppCompatActivity {
         fragment_myfarm_profile =new MyfarmFragment();
         fragment_alarm =new AlarmFragment();
 
-        binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menu_bottom_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_home).commitAllowingStateLoss();
-                        return true;
-                    case R.id.menu_bottom_chat:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_chat).commitAllowingStateLoss();
-                        return true;
-                    case R.id.menu_bottom_write:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_write).commitAllowingStateLoss();
-                        return true;
-                    case  R.id.menu_bottom_alarm:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_alarm).commitAllowingStateLoss();
-                        return true;
-                    case R.id.menu_bottom_farm:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment_myfarm_profile).commitAllowingStateLoss();
-                        return true;
+//       -------------- 글 작성 시 강제로 하단 버튼 클릭 한것 처럼 표시 및 상세 페이지로 프래그먼트 전환
+        boolean code= false;
+        SharedPreferences preferences_write=getSharedPreferences("write",Context.MODE_PRIVATE);
+        code=preferences_write.getBoolean("flag",false);
+        String num =preferences_write.getString("code","code is Null"); // 번들에 값 넣어주기
+
+        SharedPreferences.Editor edit = preferences_write.edit();
+        edit.clear();
+        edit.commit();
+
+        if(code) {
+            binding.navView.setSelectedItemId(R.id.menu_bottom_farm); // 아이템 세팅 후
+            binding.navView.performClick(); // 강제로 클릭하기
+
+            Bundle bundle = new Bundle();
+            bundle.putString("code",num);  // 값 넣기
+
+            MyfarmFragment myfarmFragment =new MyfarmFragment();
+            myfarmFragment.setArguments(bundle); // 번들에 담아서 보내주기
+
+            //화면 전환
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,myfarmFragment).commitAllowingStateLoss();
+
+        }
+            binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.menu_bottom_home:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity, fragment_home).commitAllowingStateLoss();
+                            return true;
+                        case R.id.menu_bottom_chat:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity, fragment_chat).commitAllowingStateLoss();
+                            return true;
+                        case R.id.menu_bottom_write:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity, fragment_write).commitAllowingStateLoss();
+                            return true;
+                        case R.id.menu_bottom_alarm:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity, fragment_alarm).commitAllowingStateLoss();
+                            return true;
+                        case R.id.menu_bottom_farm:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity, fragment_myfarm_profile).commitAllowingStateLoss();
+                            return true;
+                    }
+                    return true;
+
                 }
-                return true;
-            }
         });
 
         // 상단 로고
@@ -142,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.hamburger_1:
                         Toast.makeText(MainActivity.this,"이장님 말씀", Toast.LENGTH_SHORT).show();
+                        AddFragment fragment2=new AddFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment2).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_2:
                         Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
@@ -158,6 +189,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         break;
+
+                    case R.id.hamburger_5:
+                        Toast.makeText(MainActivity.this,"작물 추천", Toast.LENGTH_SHORT).show();
+                        break;
+
+
                     // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
                     case R.id.logout:
                         Toast.makeText(MainActivity.this,"정상적으로 로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
@@ -228,21 +265,67 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    // 뒤로 가기 버튼 2번 클릭시 앱종료 로직
+//  -------------  다른 프래그먼트에서도 사용할 뒤로 가기 버튼 로직 -------------------
+
+    //리스너 생성
+    public interface OnBackPressedListener{
+        public void onBack();
+    }
+
+    //리스너 객체 생성
+    private OnBackPressedListener mBackListener;
+
+    //리스너 설정 메소드
+    public void setOnBackPressedListener(OnBackPressedListener listener){
+        mBackListener=listener;
+    }
+
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis()>backKeyPressedTime+2000){
-            backKeyPressedTime=System.currentTimeMillis();
-            Toast.makeText(this,"뒤로버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show();
-            return;
+        //다른 Fragment에서 리스너를 설정했을 때 처리
+        if(mBackListener !=null){
+            mBackListener.onBack();
+            Log.d(TAG, "뒤로가기버튼 로직 : Listener is not null ");
+        // 리스너가 설정되지 않은 상태라면
+        // 뒤로 가기 버튼을 연속적으로 두번 눌렀을 경우 앱이 종료
+        } else{
+            Log.d(TAG, "뒤로가기버튼 로직 : Listener is null ");
+            if(backKeyPressedTime == 0){
+                Snackbar.make(findViewById(R.id.main_activity),
+                        "한 번 더 누르면 종료됩니다.",Snackbar.LENGTH_SHORT).show();
+                backKeyPressedTime = System.currentTimeMillis();
+            }else{
+                int seconds= (int) (System.currentTimeMillis()-backKeyPressedTime);
+
+                if(seconds>2000){
+                    Snackbar.make(findViewById(R.id.main_activity),
+                            "한 번 더 누르면 종료됩니다.",Snackbar.LENGTH_SHORT).show();
+                    backKeyPressedTime=0;
+                }else{
+                    super.onBackPressed();
+                    Log.d(TAG, "onBackPressed: finish & killprocess ");
+                    moveTaskToBack(true); // 테스크를 백그라운드로 이동
+                    finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+                    android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
+                }
+            }
         }
-        //2초 이내에 뒤로가기 버튼 한번 더 클릭시 앱 종료
-        if(System.currentTimeMillis() <= backKeyPressedTime+2000){
-            //로그인 화면으로 가게 하고 싶으면 finish()로 처리하기
-            moveTaskToBack(true); // 테스크를 백그라운드로 이동
-            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
-            android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
-        }
+
+
+
+
+//        if(System.currentTimeMillis()>backKeyPressedTime+2000){
+//            backKeyPressedTime=System.currentTimeMillis();
+//            Toast.makeText(this,"뒤로버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        //2초 이내에 뒤로가기 버튼 한번 더 클릭시 앱 종료
+//        if(System.currentTimeMillis() <= backKeyPressedTime+2000){
+//            //로그인 화면으로 가게 하고 싶으면 finish()로 처리하기
+//            moveTaskToBack(true); // 테스크를 백그라운드로 이동
+//            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+//            android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
+//        }
     }
     // 키보드 숨기기 로직
     private void hideKeyboard(){
@@ -264,6 +347,10 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                     .commit();
-        }}
+        }
+    }
+
+
 
 }
+
