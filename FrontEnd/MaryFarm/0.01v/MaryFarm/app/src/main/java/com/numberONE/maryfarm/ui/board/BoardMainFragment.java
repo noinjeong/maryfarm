@@ -45,11 +45,9 @@ public class BoardMainFragment extends Fragment {
 
     List<BoardArticle> article;
 
-    ArrayAdapter spinnerAdapter;
-
     String region;
     private SharedPreferences preferences;
-    
+
     public BoardMainFragment() {
     }
 
@@ -106,7 +104,7 @@ public class BoardMainFragment extends Fragment {
 
                             //      -------    리사이클러 뷰 아이템  커스텀 클릭 리스너 처리 ----
                             BoardAdapter boardAdapter = new BoardAdapter(article);
-                            recyclerView_board.setAdapter(adapter_board);
+                            recyclerView_board.setAdapter(boardAdapter);
                             boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListner() {
                                 @Override
                                 public void onItemClick(View v, int position, String articleId) {
@@ -180,7 +178,7 @@ public class BoardMainFragment extends Fragment {
 
     // 글 작성 후 해당 게시판 매칭 메서드
     private int spinnerDefaultType(String name){
-       int num=0;
+        int num=0;
         switch (name){
             case "서울": num=0; break;
             case "인천": num=1; break;

@@ -8,8 +8,8 @@ import java.util.List;
 public class MemoModel {
     @Expose
     public long id;
-    @SerializedName("plant")
-    public ItemModel plant;
+    @SerializedName("plantName")
+    public String plantName;
     @SerializedName("water")
     public Boolean water;
     @SerializedName("branch")
@@ -22,7 +22,7 @@ public class MemoModel {
     public Boolean memo;
 
     public long getId() { return id; }
-    public ItemModel getPlant() { return plant; }
+    public String getPlantName() { return plantName; }
     public Boolean getWater() { return water; }
     public Boolean getBranch() { return branch;}
     public Boolean getNutrients() { return nutrients; }
