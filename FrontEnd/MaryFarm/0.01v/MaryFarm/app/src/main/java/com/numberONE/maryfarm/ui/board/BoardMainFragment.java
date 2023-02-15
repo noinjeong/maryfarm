@@ -96,13 +96,13 @@ public class BoardMainFragment extends Fragment {
                         Log.d(TAG, " 지역에 맞는 게시글들 불러오기 " );
                         Log.d(TAG, "postRegion res.code : " + response.code());
                         Log.d(TAG, "postRegion res body : " + response.body());
-                        if(response.isSuccessful()){
+                        if(response.isSuccessful() ){
                             article=response.body();
                             Log.d(TAG, "isSuccessful article"+ article.toString());
                             Log.d(TAG, "postRegion 서버 통신 완료");
                             Log.d(TAG, "postRegion 서버 코드 " +response.code());
 
-                            //      -------    리사이클러 뷰 아이템  커스텀 클릭 리스너 처리 ----
+                            //      --------    리사이클러 뷰 아이템  커스텀 클릭 리스너 처리 --------
                             BoardAdapter boardAdapter = new BoardAdapter(article);
                             recyclerView_board.setAdapter(boardAdapter);
                             boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListner() {
@@ -116,11 +116,17 @@ public class BoardMainFragment extends Fragment {
                                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
                                 }
                             });
-                            //      -------    리사이클러 뷰 아이템 클릭 리스너 처리 ----
+                            //      --------    리사이클러 뷰 아이템 클릭 리스너 처리 끝 --------
 
                         }
                         if(response.code()==500){
                             if(article!=null){
+                                if(response.body()==null){
+                                    Log.d(TAG, "500에러 : article : "+ article);
+//                                  아직 게시물이 없으면 boardadapter에 빈 리스트 넘겨주기 (생성자에서 초기화 )
+//                                    BoardAdapter boardAdapter=new BoardAdapter();
+//                                    recyclerView_board.setAdapter(boardAdapter);
+                                }
                                 Log.d(TAG, "500에러 : article : "+ article);
                             }else{
                                 Log.d(TAG, "500에러 아티클 null ");
@@ -149,31 +155,14 @@ public class BoardMainFragment extends Fragment {
                 BoardWriteFragment fragment =new BoardWriteFragment();
                 FragmentManager fragmentManager= getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
-
             }
         });
 //        ---- 게시판 글 작성 버튼 종료 -----
 
 
-
-
         ViewGroup view =binding.getRoot();
         return view;
     }
-
-//         -------- 리사이클러 뷰  -----------
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        recyclerView_board=binding.boardRecycler;
-//        layoutManager_board=new LinearLayoutManager(getActivity());
-//        recyclerView_board.setLayoutManager(layoutManager_board);
-//
-//        adapter_board=new BoardAdapter(article);
-//        recyclerView_board.setAdapter(adapter_board);
-//    }
-//         -------- 리사이클러 뷰 종료 -----------
 
 
     // 글 작성 후 해당 게시판 매칭 메서드

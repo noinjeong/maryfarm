@@ -2,6 +2,7 @@ package com.numberONE.maryfarm.ui.diary;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Diary.DiaryInit;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
@@ -259,59 +261,75 @@ public class AddFragment extends Fragment {
 
         binding.editBtn.setOnClickListener(view -> {
 
-            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImgPath.compress(Bitmap.CompressFormat.PNG,20,stream);
-            byte[] bytes= stream.toByteArray();
+            //  ---------------- intent 로직 안할 경우 지워도 되는 코드 --------------------------
 
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),filePath);
-            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", filePath ,requestBody);
+            SharedPreferences preferences= getActivity().getSharedPreferences("write",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences.edit();
+            editor.putString("code","100");
+            editor.putBoolean("flag",true);
+            editor.commit();
 
-            //SharedPreferences 아이디 가져오기
-//            SharedPreferences preferences = getActivity().getSharedPreferences("writeSP", Context.MODE_PRIVATE);
-//            String id = preferences.getString("user_id",null);
-
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),binding.plantsType.getText().toString());
-            RequestBody title = RequestBody.create(MediaType.parse("text/plain"),binding.title.getText().toString());
-            RequestBody content = RequestBody.create(MediaType.parse("text/plain"),binding.content.getText().toString());
-            RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),"1234");
-//          RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),id);
-
-            HashMap<String, RequestBody> input =new HashMap<>();
-            input.put("name",name);
-            input.put("title",title);
-            input.put("content",content);
-            input.put("userid",userid);
-
-
-            Log.d(TAG, "image " + uploadFile.body());
-            Log.d(TAG, "image " + uploadFile);
-            Log.d(TAG, "image " + uploadFile.headers());
-
-            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
-            Log.d(TAG, "service create ? : "+service);
-            service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
-                @Override
-                public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
-                    Log.d(TAG, "일지 추가 response body :" + response.body());
-                    Log.d(TAG, "일지 추가 응답코드 :" + response.code());
-
-                    if (response.isSuccessful() ) {
-                        Log.d(TAG, "일지 추가 isSuccessful response body :" + response.body());
-                        Log.d(TAG, "일지 추가 isSuccessful 응답코드 :" + response.code());
-                        Log.d(TAG, "서버로 전송 성공 ");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<DiaryInit> call, Throwable t) {
-                    t.printStackTrace();
-                    Log.d(TAG, "서버로 전송 실패 ");
-                }
-            });
-
-            Log.d("onCreate: ","데이터 전송완료" );
+            Intent intent=new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
+//  ---------------- intent 로직 안할 경우 지워도 되는 코드 마지막 줄 -----------------
+
+
+
+
+//        // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            ImgPath.compress(Bitmap.CompressFormat.PNG,20,stream);
+//            byte[] bytes= stream.toByteArray();
+//
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),filePath);
+//            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", filePath ,requestBody);
+//
+//            //SharedPreferences 아이디 가져오기
+////            SharedPreferences preferences = getActivity().getSharedPreferences("writeSP", Context.MODE_PRIVATE);
+////            String id = preferences.getString("user_id",null);
+//
+//            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),binding.plantsType.getText().toString());
+//            RequestBody title = RequestBody.create(MediaType.parse("text/plain"),binding.title.getText().toString());
+//            RequestBody content = RequestBody.create(MediaType.parse("text/plain"),binding.content.getText().toString());
+//            RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),"1234");
+////          RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),id);
+//
+//            HashMap<String, RequestBody> input =new HashMap<>();
+//            input.put("name",name);
+//            input.put("title",title);
+//            input.put("content",content);
+//            input.put("userid",userid);
+//
+//
+//            Log.d(TAG, "image " + uploadFile.body());
+//            Log.d(TAG, "image " + uploadFile);
+//            Log.d(TAG, "image " + uploadFile.headers());
+//
+//            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
+//            Log.d(TAG, "service create ? : "+service);
+//            service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
+//                @Override
+//                public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
+//                    Log.d(TAG, "일지 추가 response body :" + response.body());
+//                    Log.d(TAG, "일지 추가 응답코드 :" + response.code());
+//
+//                    if (response.isSuccessful() ) {
+//                        Log.d(TAG, "일지 추가 isSuccessful response body :" + response.body());
+//                        Log.d(TAG, "일지 추가 isSuccessful 응답코드 :" + response.code());
+//                        Log.d(TAG, "서버로 전송 성공 ");
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<DiaryInit> call, Throwable t) {
+//                    t.printStackTrace();
+//                    Log.d(TAG, "서버로 전송 실패 ");
+//                }
+//            });
+//
+//            Log.d("onCreate: ","데이터 전송완료" );
+//        });
 
         ViewGroup view =binding.getRoot();
         return view;

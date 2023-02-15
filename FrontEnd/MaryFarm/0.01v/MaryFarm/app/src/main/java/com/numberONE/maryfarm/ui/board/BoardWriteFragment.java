@@ -89,7 +89,8 @@ public class BoardWriteFragment extends Fragment {
                         Log.d(TAG, "onResponse: + call : "+ call.toString().trim() );
                         Log.d(TAG, "글작성 api : onResponse res.body"+response.body() );
                         Log.d(TAG, "글작성 res.code "+response.code());
-                        if(response.isSuccessful()){
+
+                        if(response.isSuccessful() && !region.equals("지역 선택")){
                             Log.d(TAG, " 게시판 글 작성 서버 통신 성공 ");
                             // 게시판 메인으로 이동하기
                             FragmentManager manager =getActivity().getSupportFragmentManager();
@@ -100,7 +101,7 @@ public class BoardWriteFragment extends Fragment {
                             editor.putString("type",region);
                             editor.commit();
                         }
-                        if(response.code() == 500){
+                        if(response.code() == 500 || region.equals("지역 선택")){
                             Toast.makeText(getActivity(),"지역을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
                         }
                     }

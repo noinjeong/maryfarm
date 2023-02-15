@@ -97,7 +97,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items!=null ? items.size() : 0 ;
     }
 
 

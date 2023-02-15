@@ -41,6 +41,10 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
 //    ------ 어댑터 밖으로 리스너를 빼서 활용하기 위한 로직 끝 -----------
 
+    public BoardAdapter(){
+        List<BoardArticle> list =new ArrayList<>();
+        this.article=list;
+    }
 
     public BoardAdapter(List<BoardArticle> article){
         this.article=article;
@@ -66,6 +70,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 //       sharedpreferences 는 어댑터에서 사용하려고 하면 로직이 복잡해져서 외부로 빼서 사용하기 위해
 //            커스텀 리스너 만든 후 외부에서 꺼내서 사용
 //           리사이클러뷰에서 아이템 하나 클릭 시 리스너에 담아주기
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
