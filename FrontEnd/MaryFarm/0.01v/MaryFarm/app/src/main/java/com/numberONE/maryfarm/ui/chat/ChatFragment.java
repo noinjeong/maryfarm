@@ -53,7 +53,7 @@ public class ChatFragment extends Fragment {
     TextView chatContent;
     ImageView chat_new;
     TextView chatDate;
-    String roomId = "1";
+    String roomId = "2c92808c86489b5101864939e4150002";
     //프래그먼트 전환용
     FragmentTransaction ft;
     //리사이클러뷰
@@ -68,14 +68,14 @@ public class ChatFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentChatBinding.inflate(inflater, container, false);
         ViewGroup view = binding.getRoot();
-        Log.i(TAG, "onCreateView: 야");
-        userId = "2626273196";
+        userId = "111111";
         // 레트로핏으로 채팅방 목록 가져오기
         RetrofitChatService networkService = RetrofitChatFactory.create();
         networkService.getChat(userId)
                 .enqueue(new Callback<RoomListDTO>() {
                     @Override
                     public void onResponse(Call<RoomListDTO> call, Response<RoomListDTO> response) {
+                        Log.i(TAG, "onCreateView: 야"+response);
                         if(response.isSuccessful()){
                             Log.i(TAG, "onResponse: 서버와 연결");
                             List<RoomDTO> list = response.body().getRooms();
@@ -99,7 +99,11 @@ public class ChatFragment extends Fragment {
         chat_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                activity.onChatFragmentChange(1, roomId);
+
+                ((MainActivity)getActivity()).onChatFragmentChange(1, roomId);
+
             }
         });
 

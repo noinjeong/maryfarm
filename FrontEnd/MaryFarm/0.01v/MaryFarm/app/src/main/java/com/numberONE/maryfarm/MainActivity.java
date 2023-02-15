@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationBarView;
@@ -31,6 +32,7 @@ import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
+import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
@@ -181,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
 //       검색창 클릭 후 다른 위치 클릭시 키보드 감추기 코드
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.main_activity, new ChatFragment());
 
     } // onCreate 끝
 
@@ -250,4 +253,16 @@ public class MainActivity extends AppCompatActivity {
         }
         inputmanager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
+    public void onChatFragmentChange(Integer index, String roomId) {
+        if(index == 1) {
+            Bundle bundle = new Bundle();
+            bundle.putString("roomId", roomId);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            ChatRoomFragment chatRoomFragment = new ChatRoomFragment();//프래그먼트2 선언
+            chatRoomFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.main_activity, chatRoomFragment)
+//                    .setReorderingAllowed(true)
+//                    .addToBackStack("ChatList")
+                    .commit();
+        }}
 }

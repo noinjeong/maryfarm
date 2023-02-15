@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Diary.UserItem;
+import com.numberONE.maryfarm.Retrofit.dto.FirstHomeView.HomeFollowerImageDTO;
 
 import java.util.List;
 
@@ -23,14 +24,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // 상단 팔로워 피드 리사이클러뷰 adapter
 public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdapter.ViewHolder> {
 
-    private List<UserItem> userItemList ;
+    private List<HomeFollowerImageDTO> items ;
     private Context context;
 
     ViewHolder viewHolder;
 
-    public FeedFollowersAdapter(Context context, List<UserItem> list){
-        this.context =context;
-        this.userItemList=list;
+    public FeedFollowersAdapter(List<HomeFollowerImageDTO> items, Context context) {
+        this.items = items;
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -58,14 +59,14 @@ public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
             Glide.with(context)
-                    .load(userItemList.get(position).getImagepath())
+                    .load(items.get(position).getLatestDiaryImagePath())
                     .skipMemoryCache(true)
                     .error(R.drawable.full_heart_icon)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(holder.image);
 
             Glide.with(context)
-                    .load(userItemList.get(position).getUserlist().get(position).getProfilepath())
+                    .load(items.get(position).getProfilePath())
                     .skipMemoryCache(true)
                     .error(R.drawable.full_heart_icon)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -92,7 +93,7 @@ public class FeedFollowersAdapter extends RecyclerView.Adapter<FeedFollowersAdap
 
     @Override
     public int getItemCount() {
-        return userItemList!=null ? userItemList.size() : 0 ;
+        return items!=null ? items.size() : 0 ;
      }
 
 

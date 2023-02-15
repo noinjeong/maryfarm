@@ -14,9 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
+
 //    private static final String BASE_URL ="http://i8b308.p.ssafy.io:8000/";
 //    private static final String BASE_URL ="http://192.168.31.244:8000/";
     private static final String BASE_URL = "https://maryfarm.shop/";
+
     private static Retrofit retrofit;
 
     public static Retrofit getInstance() {

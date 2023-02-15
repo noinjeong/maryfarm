@@ -1,5 +1,6 @@
 package com.numberONE.maryfarm.ui.chat;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,7 +41,7 @@ public class ChatRoomFragment extends Fragment {
 
     private FragmentChatroomBinding binding;
     private static final String TAG = "ChatRoomFragment";
-    private static String roomId = "40289f7486399d57018639a02e010002";
+    private static String roomId = "2c92808c86489b5101864939e4150002";
     private Adapter mAdapter;
     private List<String> mDataSet = new ArrayList<>();
     private StompClient mStompClient;
@@ -51,36 +52,44 @@ public class ChatRoomFragment extends Fragment {
 
     private CompositeDisposable compositeDisposable;
 
+    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        ChatViewModel dashboardViewModel =
-//                new ViewModelProvider(this).get(ChatViewModel.class);
-
         binding = FragmentChatroomBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        if (getArguments() != null)
-        {
+        if (getArguments() != null) {
             roomId = getArguments().getString("roomId"); // 프래그먼트1에서 받아온 값 넣기
         }
 
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://http://192.168.31.244:8000/maryfarm-chat-service/ws-chat/websocket");
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://i8b308.p.ssafy.io:8000/maryfarm-chat-service/ws-chat/websocket");
+        mStompClient.lifecycle().subscribe(lifecycleEvent -> {
+            switch (lifecycleEvent.getType()) {
+                case OPENED:
+                    Log.d(TAG, "Stomp connection opened");
+                    break;
+                case ERROR:
+                    Log.e(TAG, "Error", lifecycleEvent.getException());
+                    break;
+                case CLOSED:
+                    Log.d(TAG, "Stomp connection closed");
+                    break;
+                case FAILED_SERVER_HEARTBEAT:
+//                    toast("Stomp failed server heartbeat");
+                    break;
+            }
+        });
         mStompClient.connect();
-
+//
         mStompClient.topic("/topic/group/"+roomId).subscribe(topicMessage -> {
-            Log.d(TAG, topicMessage.getPayload());
+            Log.d(TAG+"토픽", topicMessage.getPayload());
+//            JSONParser parser=new JSONParser();
+//            Object obj=parser.parse(topicMessage.getPayload());
         });
 
         mStompClient.send("/api/message/send", "My first STOMP message!").subscribe();
-
-        // ...
-
-//        mStompClient.disconnect();
-
-
-
-
+//        stompClient.send("send할 주소", jsonObject.toJSONString()).subscribe();
 
 //        mRecyclerView = binding.recyclerView;
 //        // 리스트뷰에 보여줄 목록 데이트 (테스트 용)

@@ -2,6 +2,10 @@ package com.numberONE.maryfarm.ui.myfarm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +19,19 @@ import com.bumptech.glide.Glide;
 import com.numberONE.maryfarm.Diary.DiaryDetailActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Thumbnail;
-import com.numberONE.maryfarm.Retrofit.UserPlant;
 import com.numberONE.maryfarm.Retrofit.dto.DetailDiariesPerPlantView.DetailDiariesPerPlantDTO;
 
+import java.net.URL;
 import java.util.List;
+
+import retrofit2.http.HEAD;
 
 public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHolder>{
 
     Context context;
-    List<UserPlant> items;
+    List<Thumbnail> items;
+
+    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
 
     public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
@@ -38,6 +46,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
 //        holder.title.setText((items.get(position).getTitle()));
 //        Glide.with(context)
 //                .load(items.get(position).getThumbImg1())
@@ -54,6 +63,24 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 //        } else {
 //            holder.thumbnailEndDate.setText("ing");
 //        }
+
+        holder.title.setText((items.get(position).getTitle()));
+        Glide.with(context)
+                .load(URL + items.get(position).getThumbImg1())
+                .into(holder.first_photo);
+        Glide.with(context)
+                .load(URL + items.get(position).getThumbImg2())
+                .into(holder.second_photo);
+        Glide.with(context)
+                .load(URL + items.get(position).getThumbImg3())
+                .into(holder.third_photo);
+        holder.thumbnailStartDate.setText(items.get(position).getPlantCreatedDate().substring(0,10));
+        if (items.get(position).getHarvestDate() != null) {
+            holder.thumbnailEndDate.setText(items.get(position).getHarvestDate().substring(0,10));
+        } else {
+            holder.thumbnailEndDate.setText("ing");
+        }
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

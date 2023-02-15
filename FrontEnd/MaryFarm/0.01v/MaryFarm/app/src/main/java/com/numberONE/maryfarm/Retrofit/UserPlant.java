@@ -7,4 +7,11 @@ public class UserPlant {
     public String getPlantId() {
         return plantId;
     }
+
+    @Override
+    public String toString() {
+        return "UserPlant{" +
+                "plantId='" + plantId + '\'' +
+                '}';
+    }
 }

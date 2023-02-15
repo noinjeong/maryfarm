@@ -5,6 +5,7 @@ import com.numberONE.maryfarm.Retrofit.Board.BoardWrite;
 import com.numberONE.maryfarm.Retrofit.Diary.DiaryInit;
 import com.numberONE.maryfarm.Retrofit.Diary.DiaryTopRecommend;
 import com.numberONE.maryfarm.Retrofit.Diary.UserItem;
+import com.numberONE.maryfarm.Retrofit.dto.FirstHomeView.FirstHomeViewDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,9 @@ public interface RetrofitApiSerivce {
             , @PartMap Map<String,RequestBody> params);
 
     // 팔로워 피드 가져오기
-    @GET("maryfarm-plant-service/api/diary/follower/{userid}")
-    Call<List<UserItem>> getFollowerFeed(@Path("userid") String userid);
+    //@GET("maryfarm-plant-service/api/user/home/{userid}")
+    @GET("maryfarm-user-service/api/user/home/{userid}")
+    Call<FirstHomeViewDTO> getFollowerFeed(@Path("userid") String userid);
 
     // 하단 추천 피드 가져오기
     @GET("maryfarm-plant-service/api/diary/top")
