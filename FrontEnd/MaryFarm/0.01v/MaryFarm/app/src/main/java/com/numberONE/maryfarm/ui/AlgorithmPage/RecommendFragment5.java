@@ -2,8 +2,6 @@ package com.numberONE.maryfarm.ui.AlgorithmPage;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +12,9 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.numberONE.maryfarm.R;
+import com.numberONE.maryfarm.ui.AlgorithmPage.sample.RecommendSample1;
 
 public class RecommendFragment5 extends Fragment {
     private ImageButton mButtonlightHigh;
@@ -53,11 +51,15 @@ public class RecommendFragment5 extends Fragment {
         mButtonlightNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                recommendActivity.setButtonValue5(55002);
+//                Log.i(TAG, "onClick: 밝음을 선택함, 055002");
+//
+//                recommendActivity.makeApiCall();
+//                Log.i(TAG, "요청 가즈아~ JSON은 뭐야!!");
+
                 recommendActivity.setButtonValue5(55002);
                 Log.i(TAG, "onClick: 밝음을 선택함, 055002");
 
-                recommendActivity.makeApiCall();
-                Log.i(TAG, "요청 가즈아~ JSON은 뭐야!!");
             }
         });
 

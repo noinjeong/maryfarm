@@ -4,6 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -19,24 +24,19 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.numberONE.maryfarm.R;
-import com.numberONE.maryfarm.Retrofit.FollowFollowing;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class RecommendActivity extends AppCompatActivity {
@@ -135,8 +135,6 @@ public class RecommendActivity extends AppCompatActivity {
     public void setButtonValue1(int value) {
         buttonValue1 = value;
     }
-
-    //
     public void setButtonValue2(int value) {
         buttonValue2 = value;
     }
@@ -158,14 +156,73 @@ public class RecommendActivity extends AppCompatActivity {
         Call<ResponseBody> getData(
                 @Query("apiKey") String apiKey,
                 @Query("lightChkVal") String lightChkVal,
-//                @Query("flclrChkVal") String flclrChkVal,
-//                @Query("lefcolrChkVal") String lefcolrChkVal,
+                @Query("flclrChkVal") String flclrChkVal,
+                @Query("lefcolrChkVal") String lefcolrChkVal,
                 @Query("ignSeasonChkVal") String ignSeasonChkVal,
                 @Query("waterCtcleSel") String waterCtcleSel
         );
 
         // 이후 POST 요청도 넣어야 합니다.
     }
+
+    public abstract class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView cntntsNoTextView;
+        private TextView cntntsSjTextView;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            cntntsNoTextView = itemView.findViewById(R.id.cntntsNoTextView);
+            cntntsSjTextView = itemView.findViewById(R.id.cntntsSjTextView);
+        }
+
+        public void setCntntsNo(String cntntsNo) {
+            cntntsNoTextView.setText(cntntsNo);
+        }
+
+        public void setCntntsSj(String cntntsSj) {
+            cntntsSjTextView.setText(cntntsSj);
+        }
+
+        @NonNull
+        public abstract MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType);
+    }
+
+
+    // 리사이클러뷰용 어댑터
+    public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+        private List<String> cntntsNoList;
+        private List<String> cntntsSjList;
+
+        public MyAdapter(List<String> cntntsNoList, List<String> cntntsSjList) {
+            this.cntntsNoList = cntntsNoList;
+            this.cntntsSjList = cntntsSjList;
+        }
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_view, parent, false);
+            return new MyViewHolder(view) {
+                @NonNull
+                @Override
+                public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    return null;
+                }
+            };
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            holder.cntntsNoTextView.setText(cntntsNoList.get(position));
+            holder.cntntsSjTextView.setText(cntntsSjList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return cntntsNoList.size();
+        }
+    }
+
 
 
     // 참고용 url 목록
@@ -190,31 +247,54 @@ public class RecommendActivity extends AppCompatActivity {
         Call<ResponseBody> call = recommendApi.getData(
                 "20230207XQ7NCQDMG0SKVFKAW0YHNQ",
                 "0" + buttonValue5,
-//                "0" + buttonValue2,
-//                "0" + buttonValue3,
+                "0" + buttonValue2,
+                "0" + buttonValue3,
                 "0" + buttonValue1,
                 "0" + buttonValue4
-
         );
+
+        // button_1 : 73001
+        // button_2 : 71001
+        // button_3 : 69001
+        // button_4 : 53001
+        // button_5 : 55001
+
 
         Log.d("", "makeApiCall: !!!"+call.toString());
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<RecommendData>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<RecommendData> call, Response<RecommendData> response) {
                 Log.d(TAG, "makeApiCall onresponse" + response.code());
                 Log.d(TAG, "makeApiCall onresponse" + response);
                 Log.d(TAG, "makeApiCall onresponse" + response.body());
 
                 if (response.isSuccessful()) {
+                                        /// 2안 로직 retrofit
+//                    RecommendData result = response.body();
+//                    if (result != null) {
+//                        List<RecommendData> item = result'.body.items;
+//                        // cntntsNo와Comn tntsSj 값을 추출하여 리스트에 추가
+//                        List<String> cntntsNoList = new ArrayList<>();
+//                        List<String> cntntsSjList = new ArrayList<>();
+//                        for (RecommendData item : item) {
+//                            cntntsNoList.add(item.getCntntsNo());
+//                            cntntsSjList.add(item.getCntntsSj());
+//                        }
+//                        // 어댑터에 리스트를 연결
+//                        MyAdapter adapter = new MyAdapter(cntntsNoList, cntntsSjList);
+//                        AlertDialog.Builder recyclerView;
+//                        recyclerView.setAdapter(adapter);
+//                    }
+//                    / 1안 로직 retrofit
                     ArrayList<RecommendData> resultList = new ArrayList<>();
                     try {
-                        String responseString = response.body().string();
+
                         Gson gson = new Gson();
-                        RecommendData[] data = gson.fromJson(responseString,RecommendData[].class);
+                        RecommendData[] data = gson.fromJson(String.valueOf(resultList), RecommendData[].class);
                         resultList = new ArrayList<>(Arrays.asList(data));
                         Log.d(TAG, "onResponse: 자, 이것은 리저트 리스트여 =  " + resultList);
-                        Log.d(TAG, "onResponse: 자, 이것은 리스폰스 스트링이여" + responseString);
+                        Log.d(TAG, "onResponse: 자, 이것은 리스폰스 스트링이여" + resultList);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -223,8 +303,8 @@ public class RecommendActivity extends AppCompatActivity {
                 }
             }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            public void onFailure(Call<RecommendData> call, Throwable t) {
                 t.printStackTrace();
                 Log.e("API Response", "Request failed with error: " + t.getMessage());
             }

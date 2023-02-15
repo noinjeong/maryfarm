@@ -48,7 +48,7 @@ public class RecommendFragment1 extends Fragment {
         mButtonSpring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue1(073001);
+                recommendActivity.setButtonValue1(73001);
                 Log.i(TAG, "onClick: 봄을 선택함, 073001");
 
                 // 프래그먼트 교체
@@ -76,7 +76,7 @@ public class RecommendFragment1 extends Fragment {
         mButtonAutumn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue1(073003);
+                recommendActivity.setButtonValue1(73003);
                 Log.i(TAG, "onClick: 가을을 선택함, 073003");
 
                 // 프래그먼트 교체
@@ -89,7 +89,7 @@ public class RecommendFragment1 extends Fragment {
         mButtonWinter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendActivity.setButtonValue1(073004);
+                recommendActivity.setButtonValue1(73004);
                 Log.i(TAG, "onClick: 겨울을 선택함, 073004");
 
                 // 프래그먼트 교체

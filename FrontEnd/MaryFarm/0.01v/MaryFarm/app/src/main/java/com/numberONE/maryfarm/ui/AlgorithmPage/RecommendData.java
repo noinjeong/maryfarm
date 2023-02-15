@@ -49,6 +49,10 @@ public class RecommendData {
         this.cntntsSj = cntntsSj;
     }
 
+    public String string() {
+        return null;
+    }
+
 //    public String getCntntsPt() {
 //        Log.d(TAG, "setCntntsPt: " + cntntsPt);
 //        Log.d(TAG, "setCntntsPt URL : " + "http://www.nongsaro.go.kr/cms_contents/301/" + cntntsNo + "_MF_ATTACH_01.jpg");
