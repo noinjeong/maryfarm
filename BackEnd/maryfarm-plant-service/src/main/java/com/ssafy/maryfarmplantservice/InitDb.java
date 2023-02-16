@@ -33,14 +33,13 @@ public class InitDb {
 //            User user2 = User.of("1234567", "seung", Tier.씨앗);
 //            User saveUser2 = userService.saveUser(user2);
 //            followService.saveFollow(saveUser1.getId(),saveUser2.getId());
-            Plant plant1 = Plant.of("123456", "왕감자 일지 시작!", "감자");
-            Plant savePlant1 = plantRepository.save(plant1);
-            Plant plant2 = Plant.of("1234567", "왕딸기 일지 시작!", "딸기");
-            Plant savePlant2 = plantRepository.save(plant2);
-            Diary diary1 = Diary.of(plant1, "#왕감자 심기 시작함!", "010101","123456","baek","0101010",plant1.getTitle(),plant1.getCreatedDate(),plant1.getHarvestDate());
-            Diary diary2 = Diary.of(plant2, "#왕딸기 심기 시작함!", "01010123","123456","baek","1212121",plant2.getTitle(),plant2.getCreatedDate(),plant2.getHarvestDate());
-            diaryRepository.save(diary1);
-            diaryRepository.save(diary2);
+            for(int i=0;i<100;i++) {
+                Plant plant1 = Plant.of("user"+i, "왕감자 일지 시작!", "감자");
+                Plant savePlant1 = plantRepository.save(plant1);
+                Diary diary1 = Diary.of(savePlant1,"안녕","1111","user"+i,"baek"+i,"1212","왕감자심기",plant1.getCreatedDate(),null);
+                diaryRepository.save(diary1);
+
+            }
         }
     }
 }
