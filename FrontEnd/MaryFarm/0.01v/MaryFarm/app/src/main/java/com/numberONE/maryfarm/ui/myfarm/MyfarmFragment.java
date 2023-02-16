@@ -96,8 +96,8 @@ public class MyfarmFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         Retrofit retrofit1 = new Retrofit.Builder()
-                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                //.baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
+                //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -200,6 +200,7 @@ public class MyfarmFragment extends Fragment {
 
                                     Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, null,detailDiariesPerPlantDTO);
                                     planThumbnails.add(thumbnail);
+                                    Log.d("", "onResponse: ~~~~~~~"+planThumbnails);
 
                                     recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                                 }

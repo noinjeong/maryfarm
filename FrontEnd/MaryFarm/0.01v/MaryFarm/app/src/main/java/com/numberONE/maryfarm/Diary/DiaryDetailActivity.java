@@ -216,8 +216,8 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
 
         // sharedpreference practice
         pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        userId = pref.getString("userNickname", "Null");
-        userImg = pref.getString("userImg", "Null");
+        userId = pref.getString("pref_name", "Null");
+        userImg = pref.getString("pref_img", "Null");
 
         commentImgView = findViewById(id.commentProfile);
         Glide.with(DiaryDetailActivity.this).load(URL + userImg).into(commentImgView);
