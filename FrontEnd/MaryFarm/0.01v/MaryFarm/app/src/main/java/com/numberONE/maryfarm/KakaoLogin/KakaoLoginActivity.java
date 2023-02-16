@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -45,6 +46,12 @@ public class KakaoLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kakao_login);
+        //상단 메뉴 배경색 지정
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFFF));
+        // 상단 로고
+        getSupportActionBar().setIcon(R.drawable.logo_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);  //홈 아이콘을 숨김처리합니다.
 
         ImageButton kakao_login_button = (ImageButton)findViewById(R.id.kakao_login_btn);
         kakao_login_button.setOnClickListener(new View.OnClickListener(){

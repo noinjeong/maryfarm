@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,6 +35,8 @@ import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
+import com.numberONE.maryfarm.ui.board.SchoolFragment;
+import com.numberONE.maryfarm.ui.board.WordsFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
 import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.AddFragment;
@@ -174,28 +177,23 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.hamburger_1:
-                        Toast.makeText(MainActivity.this,"이장님 말씀", Toast.LENGTH_SHORT).show();
-                        InformMainFragment informMainFragment=new InformMainFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,informMainFragment).commitAllowingStateLoss();
+                        WordsFragment wordFragment=new WordsFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,wordFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_2:
-                        Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
-                        BoardDetailFragment fragment=new BoardDetailFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
+                        SchoolFragment schoolfragment=new SchoolFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,schoolfragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_3:
-                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
                         BoardMainFragment boardFragment=new BoardMainFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,boardFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_4:
-                        Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         MarketMainFragment marketMainFragment=new MarketMainFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,marketMainFragment).commitAllowingStateLoss();
                         break;
 
                     case R.id.hamburger_5:
-                        Toast.makeText(MainActivity.this,"작물 추천", Toast.LENGTH_SHORT).show();
                         Intent recommend = new Intent(getApplicationContext(), RecommendActivity.class);
                         startActivity(recommend);
                         break;
@@ -347,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
         }
         inputmanager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
+    // 채팅 알람 화면 전환용
     public void onChatFragmentChange(Integer index, String roomId) {
         int idx;
         idx = Integer.parseInt(roomId);
@@ -357,21 +356,11 @@ public class MainActivity extends AppCompatActivity {
             ChatRoomFragment chatRoomFragment = new ChatRoomFragment();//프래그먼트2 선언
             chatRoomFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
             transaction.replace(R.id.main_activity, chatRoomFragment)
-//                    .setReorderingAllowed(true)
-//                    .addToBackStack("ChatList")
+                    .setReorderingAllowed(true)
+                    .addToBackStack("ChatList")
                     .commit();
         } else if (index == 2) {
-            if (idx == 0 || idx == 3) {
-                Bundle bundle = new Bundle();
-                bundle.putString("roomId", roomId);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                MyfarmFragment myfarmFragment = new MyfarmFragment();//프래그먼트2 선언
-                myfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
-                transaction.replace(R.id.main_activity, myfarmFragment)
-//                    .setReorderingAllowed(true)
-//                    .addToBackStack("ChatList")
-                        .commit();
-            } else if (idx == 1) {
+            if (idx == 2) {
                 Bundle bundle = new Bundle();
                 bundle.putString("roomId", roomId);
                 bundle.putString("nickname", "김차분팬1호");
@@ -383,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                         .commit();
-            } else if (idx == 2) {
+            } else if (idx == 3) {
                 Bundle bundle = new Bundle();
                 bundle.putString("roomId", roomId);
                 bundle.putString("nickname", "왕감자");
@@ -395,7 +384,17 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                         .commit();
-            }
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("roomId", roomId);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                MyfarmFragment myfarmFragment = new MyfarmFragment();//프래그먼트2 선언
+                myfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+                transaction.replace(R.id.main_activity, myfarmFragment)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("ChatList")
+                        .commit();
         }
+    // 채팅 알람 화면 전환 끝
     }
-}
+}}
