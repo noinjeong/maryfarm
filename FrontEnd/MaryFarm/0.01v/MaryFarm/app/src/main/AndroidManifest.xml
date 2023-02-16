@@ -42,7 +42,12 @@
                 android:resource="@xml/widget_mary_info" />
         </receiver>
 
-
+        <activity android:name=".ui.AlgorithmPage.sample.RecommendSample1"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.AlgorithmPage.RecommendActivity"
             android:exported="false" >
