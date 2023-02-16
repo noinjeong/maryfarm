@@ -39,7 +39,6 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_below="@id/messages_chat_list"
-        android:gravity="center"
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -50,7 +49,8 @@
             android:layout_marginTop="7.5dp"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="7.5dp"
-            android:src="@drawable/profilecalm" />
+            android:src="@drawable/profilecalm"
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,6 +59,7 @@
             android:background="@drawable/chat_border"
             android:padding="7dp"
             android:text=""
+            android:textColor="@color/black"
             android:layout_toLeftOf="@+id/profilecalm"
             android:layout_centerVertical="true"
             />
