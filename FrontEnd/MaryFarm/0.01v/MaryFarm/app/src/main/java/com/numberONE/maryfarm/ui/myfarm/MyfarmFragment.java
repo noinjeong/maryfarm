@@ -77,9 +77,9 @@ public class MyfarmFragment extends Fragment {
         String userId, userNickname, userImage;
 
         pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        userId = pref.getString("userId", "Null");
-        userNickname = pref.getString("userNickname", "Null");
-        userImage = pref.getString("userImg","Null");
+        userId = pref.getString("pref_id", "Null");
+        userNickname = pref.getString("pref_name", "Null");
+        userImage = pref.getString("pref_img","Null");
 
 
         recommendBtn = (ImageButton) view.findViewById(R.id.recommendBtn);
@@ -106,6 +106,15 @@ public class MyfarmFragment extends Fragment {
         call1.enqueue(new Callback<FollowFollowing>() {
             @Override
             public void onResponse(Call<FollowFollowing> call1, Response<FollowFollowing> response) {
+//                Integer followerNumber=response.body().getFollowerCount();
+//                Integer followingNumber=response.body().getFollowingCount();
+//               ----- nullPointerException 피하기 위한 로직 -----
+//                if(followingNumber==null || followerNumber==null){
+//                    followerNumber=0;
+//                    followingNumber=0;
+//                }
+                Log.d("userID ",userId);
+
                 followerCnt.setText(response.body().getFollowerCount()+"");
                 followingCnt.setText(response.body().getFollowingCount()+"");
 
@@ -168,26 +177,25 @@ public class MyfarmFragment extends Fragment {
                             @Override
                             public void onResponse(Call<DetailDiariesPerPlantDTO> call2, Response<DetailDiariesPerPlantDTO> response) {
                                 if (response.body() != null) {
-                                    DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
-                                    String title = response.body().getTitle();
-                                    String plantId = response.body().getPlantId();
-                                    String thumbImg1 = null;
-                                    String thumbImg2 = null;
-                                    String thumbImg3 = null;
-                                    String plantCreatedDate = response.body().getPlantCreatedDate();
-                                    String harvestDate = response.body().getHarvestDate();
+                                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
+                                String title = response.body().getTitle();
+                                String plantId = response.body().getPlantId();
+                                String thumbImg1 = null;
+                                String thumbImg2 = null;
+                                String thumbImg3 = null;
+                                String plantCreatedDate = response.body().getPlantCreatedDate();
+                                String harvestDate = response.body().getHarvestDate();
 
-                                    for (int j = response.body().getDiaries().size() - 1; j >= 0; j--) {
-                                        List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
-                                        DetailDiaryDTO diary = diaries.get(j);
+                                for (int j = response.body().getDiaries().size() - 1; j >= 0; j--) {
+                                    List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
+                                    DetailDiaryDTO diary = diaries.get(j);
 
-                                        if (j == response.body().getDiaries().size() - 1) {
-                                            thumbImg1 = diary.getImagePath();
-                                        } else if (j == response.body().getDiaries().size() - 2) {
-                                            thumbImg2 = diary.getImagePath();
-                                        } else if (j == response.body().getDiaries().size() - 3) {
-                                            thumbImg3 = diary.getImagePath();
-                                        }
+                                    if (j == 2) {
+                                        thumbImg1 = diary.getImagePath();
+                                    } else if (j == 1) {
+                                        thumbImg2 = diary.getImagePath();
+                                    } else {
+                                        thumbImg3 = diary.getImagePath();
                                     }
 
                                     Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, null,detailDiariesPerPlantDTO);
@@ -196,6 +204,7 @@ public class MyfarmFragment extends Fragment {
                                     recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                                 }
                             }
+                        }
 
 
                             @Override

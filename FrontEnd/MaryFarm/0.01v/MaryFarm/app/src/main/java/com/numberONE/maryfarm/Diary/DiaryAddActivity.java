@@ -1,6 +1,8 @@
 package com.numberONE.maryfarm.Diary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
 import com.numberONE.maryfarm.Retrofit.RetrofitClient;
@@ -229,33 +232,22 @@ public class DiaryAddActivity extends AppCompatActivity {
         });
 
         binding.editBtn.setOnClickListener(view -> {
-            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
-//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//            ImgPath.compress(Bitmap.CompressFormat.PNG,100,stream);
-//            byte[] bytes= stream.toByteArray();
-            HashMap<String,Object> input =new HashMap<>();
-            input.put("userid","1234");
-            input.put("title",binding.title.toString());
-            input.put("content",binding.content.toString());
-            input.put("name",binding.ImageSpinner.toString());
 
-            //url 설정된 retrofit 객체 생성 후 retrofitapi서비스 인터페이스와 연결
-            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
-//            Call<DiaryInit> call =service.postInitFeed(filePath,);
+            //  ---------------- intent 로직 안할 경우 지워도 되는 코드 --------------------------
 
-            Log.d(TAG, filePath+ ": 파일 path ");
+            SharedPreferences preferences= getSharedPreferences("write", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor =preferences.edit();
+            editor.putString("code","100");
+            editor.putBoolean("flag",true);
+            editor.commit();
 
-
-//            Intent intent = new Intent(getActivity() , WriteFragment.class ); // 작성한 내용 기반 완료 화면으로 넘어가게 수정 필요
-//            intent.putExtra("image",bytes );
-//            intent.putExtra("title",binding.title.getText().toString());
-//            intent.putExtra("plants_type",binding.plantsTypeSpinner.getSelectedItem().toString());
-//            intent.putExtra("content",binding.content.getText().toString());
-//            startActivity(intent);
-            Log.d("onCreate: ","데이터 전송완료" );
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
         });
+//  ---------------- intent 로직 안할 경우 지워도 되는 코드 마지막 줄 -----------------
 
     }
+
 
     private int calculateInSampleSize(Uri fileUri, int reqWidth, int reqHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();

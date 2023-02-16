@@ -21,7 +21,8 @@ import java.util.List;
 
 // 일자 선택 시 해당 일자에 키우고 있는 작물 정보 리스트 반환하는 리싸이클러뷰 어댑터~
 public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickPlantAdapter.ViewHolder> {
-    private List<MemoModel> memo;
+//    private List<MemoModel> memo;
+    public static String[] plantName, createdAt, harvestTime;
     ViewHolder viewHolder;
     static int water = 0;
     static int scissors = 0;
@@ -30,10 +31,15 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
     static int note = 0;
 
     // 리사이클러 뷰로 들어갈 내용들 받는 부분
-    public CalendarPickPlantAdapter(List<MemoModel> memo){
-        this.memo = memo;
-        Log.i(TAG, "CalendarPickPlantAdapter: "+memo.get(0).division);
+    public CalendarPickPlantAdapter(String[] plantName, String[] createdAt, String[] harvestTime){
+        CalendarPlantsAdapter.plantName = plantName;
+        CalendarPlantsAdapter.createdAt = createdAt;
+        CalendarPlantsAdapter.harvestTime = harvestTime;
     }
+//    public CalendarPickPlantAdapter(List<MemoModel> memo){
+//        this.memo = memo;
+//        Log.i(TAG, "CalendarPickPlantAdapter: "+memo.get(0).division);
+//    }
     //인터페이스 선언
     public interface OnItemClickListener{
         //클릭시 동작할 함수
@@ -137,7 +143,7 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
                                 }
                                 onItemClickListener.onItemClick(v, pos, note);
                                 break;
-//                            case R.id.calendar_memo_save_btn:
+                            case R.id.calendar_memo_save_btn:
 
                         }
                     }
@@ -162,8 +168,14 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder mainHolder, int i) {
-        mainHolder.plantsNameTextView.setText(this.memo.get(i).getPlant().getPlantName() +"\n"+this.memo.get(i).getPlant().getCreatedAt().toString().substring(0, 10));
-        Log.i(TAG, "onBindViewHolder:" + this.memo.get(i).getPlant().getPlantName());
+//        mainHolder.plantsNameTextView.setText(this.memo.get(i).getPlantName() +"\n"+this.memo.get(i).getCreatedAt().toString().substring(0, 10));
+//        mainHolder.plantsNameTextView.setText(this.plantName[i]+"\n"+this.createdAt[i].substring(0,10));
+//        Log.i(TAG, "onBindViewHolder:" + this.plantName[i]);
+        if (this.plantName[i] != "아직 작물이 없어요!" && this.plantName[i] != null) {
+            mainHolder.plantsNameTextView.setText(this.plantName[i]+"\n"+this.createdAt[i].substring(0,10));
+        } else {
+            mainHolder.plantsNameTextView.setText("아직 작물이 없어요!");
+        }
         //        this.water = get(i).water;
 //        this.water = get(i).water;
 //        this.water = get(i).water;
@@ -173,7 +185,7 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
 
     @Override
     public int getItemCount() {
-        return memo.size();
+        return plantName != null ? plantName.length : 0 ;
     }
 
 }

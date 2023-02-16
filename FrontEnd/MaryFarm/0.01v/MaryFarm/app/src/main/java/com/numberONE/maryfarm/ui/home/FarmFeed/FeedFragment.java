@@ -58,7 +58,7 @@ public class FeedFragment extends Fragment {
         follower_call.enqueue(new Callback<FirstHomeViewDTO>() {
             @Override
             public void onResponse(Call<FirstHomeViewDTO> call, Response<FirstHomeViewDTO> response) {
-                Log.d(TAG, "onResponse: !!!!!!!!!!!!!!!!!!!"+response.body().getUserId());
+                //Log.d(TAG, "onResponse: !!!!!!!!!!!!!!!!!!!"+response.body().getUserId());
                 if(response.isSuccessful()) {
                     Log.d(TAG, "onResponse: "+response.body().getFollowers());
                     List<HomeFollowerImageDTO> homeFollowerImageDTO = (List) response.body().getFollowers();
