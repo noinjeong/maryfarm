@@ -25,7 +25,7 @@ public class BoardComments {
     @Expose
     private int likes;
 
-//    @SerializedName("") 프로필 ~
+    @SerializedName("profilePath")
     @Expose
     private String profile;
 

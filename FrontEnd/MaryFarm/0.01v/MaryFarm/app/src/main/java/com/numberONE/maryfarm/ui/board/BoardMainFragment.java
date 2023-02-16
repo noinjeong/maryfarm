@@ -162,13 +162,13 @@ public class BoardMainFragment extends Fragment implements MainActivity.OnBackPr
     private int spinnerDefaultType(String name){
         int num=0;
         switch (name){
-            case "서울": num=1; break;
-            case "인천": num=2; break;
-            case "강원": num=3; break;
-            case "충청": num=4; break;
-            case "경상": num=5; break;
-            case "전라": num=6; break;
-            case "제주": num=7; break;
+            case "서울": num=0; break;
+            case "인천": num=1; break;
+            case "강원": num=2; break;
+            case "충청": num=3; break;
+            case "경상": num=4; break;
+            case "전라": num=5; break;
+            case "제주": num=6; break;
         }
         return num;
     }

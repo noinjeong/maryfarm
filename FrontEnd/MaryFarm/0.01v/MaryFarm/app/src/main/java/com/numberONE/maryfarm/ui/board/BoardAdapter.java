@@ -67,53 +67,53 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 //            this.image=itemView.findViewById(R.id.board_item_image);
         }
 
-        public RelativeLayout getLayout() {
-            return layout;
-        }
-
-        public void setLayout(RelativeLayout layout) {
-            this.layout = layout;
-        }
-
-        public TextView getTitle() {
-            return title;
-        }
-
-        public void setTitle(TextView title) {
-            this.title = title;
-        }
-
-        public TextView getUserName() {
-            return userName;
-        }
-
-        public void setUserName(TextView userName) {
-            this.userName = userName;
-        }
-
-        public TextView getDate() {
-            return date;
-        }
-
-        public void setDate(TextView date) {
-            this.date = date;
-        }
-
-        public TextView getViewCnt() {
-            return viewCnt;
-        }
-
-        public void setViewCnt(TextView viewCnt) {
-            this.viewCnt = viewCnt;
-        }
-
-        public TextView getCommentCnt() {
-            return commentCnt;
-        }
-
-        public void setCommentCnt(TextView commentCnt) {
-            this.commentCnt = commentCnt;
-        }
+//        public RelativeLayout getLayout() {
+//            return layout;
+//        }
+//
+//        public void setLayout(RelativeLayout layout) {
+//            this.layout = layout;
+//        }
+//
+//        public TextView getTitle() {
+//            return title;
+//        }
+//
+//        public void setTitle(TextView title) {
+//            this.title = title;
+//        }
+//
+//        public TextView getUserName() {
+//            return userName;
+//        }
+//
+//        public void setUserName(TextView userName) {
+//            this.userName = userName;
+//        }
+//
+//        public TextView getDate() {
+//            return date;
+//        }
+//
+//        public void setDate(TextView date) {
+//            this.date = date;
+//        }
+//
+//        public TextView getViewCnt() {
+//            return viewCnt;
+//        }
+//
+//        public void setViewCnt(TextView viewCnt) {
+//            this.viewCnt = viewCnt;
+//        }
+//
+//        public TextView getCommentCnt() {
+//            return commentCnt;
+//        }
+//
+//        public void setCommentCnt(TextView commentCnt) {
+//            this.commentCnt = commentCnt;
+//        }
     }
 
     @NonNull

@@ -1,5 +1,6 @@
 package com.numberONE.maryfarm.ui.board;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapter.ViewHolder> {
 
-    static List<BoardComments> boardComments =new ArrayList<>();
+    static List<BoardComments> boardComments;
     ViewHolder viewHolder;
     int view_cnt;
-    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
 
     public BoardCommentAdapter(List<BoardComments> list) {
         this.boardComments=list;
@@ -55,6 +55,8 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
                 .inflate(R.layout.recycler_board_comment,parent,false);
 
         viewHolder=new ViewHolder(view);
+
+
         return viewHolder;
     }
 
@@ -65,28 +67,8 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
             holder.nickname.setText(boardComments.get(position).getUserName());
             holder.like.setText(boardComments.get(position).getLikes()+"");
             holder.content.setText(view_cnt+"");
-            Glide.with(holder.profile).load(URL+boardComments.get(position).getProfile());
-            Glide.with(holder.empty).load(URL+boardComments.get(position).getProfile());
-
-            holder.empty.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                   TextView cnt = (TextView) view.findViewById(R.id.board_recycler_comment_like);
-                    cnt.setText(++view_cnt);
-                    view.findViewById(R.id.board_recycler_fullIcon).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.board_recycler_emptyIcon).setVisibility(View.INVISIBLE);
-                }
-            });
-
-            holder.full.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView cnt = (TextView) view.findViewById(R.id.board_recycler_comment_like);
-                    cnt.setText(--view_cnt);
-                    view.findViewById(R.id.board_recycler_fullIcon).setVisibility(View.INVISIBLE);
-                    view.findViewById(R.id.board_recycler_emptyIcon).setVisibility(View.VISIBLE);
-                }
-            });
+            Glide.with(holder.profile).load(boardComments.get(position).getProfile());
+            Glide.with(holder.empty).load(boardComments.get(position).getProfile());
 
         }catch (Exception e){
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.numberONE.maryfarm.ui.board;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,7 +57,6 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding =FragmentBoardDetailBinding.inflate(inflater,container,false);
 
         hideBottomNavigation(true); // 바텀 네비 비활성화
@@ -85,7 +86,7 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
                     binding.boardDetailType.setText(boardArticle.getType());
                     binding.boardDetailTitle.setText(boardArticle.getTitle());
-                    Glide.with(getActivity()).load(URL+boardArticle.getProfilePath()).into(binding.boardDetailProfile);
+                    Glide.with(getActivity()).load(boardArticle.getProfilePath()).into(binding.boardDetailProfile);
                     binding.boardDetailNickname.setText(boardArticle.getUserName());
                     String date =DateToString(response.body().getLastModifiedDate());
                     binding.boardDetailDate.setText(date); // 날짜 처리 ( 작성일 ? 수정일 ? 무엇인지 체크 )
@@ -150,6 +151,11 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
                 //               댓글창 비워주기
                 binding.boardDetailCommentInput.setText("");
+
+                // 댓글 작성시 자기 자신으로 다시 오기 ( 리로딩 )
+                BoardDetailFragment boardDetailFragment=new BoardDetailFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .detach(boardDetailFragment).attach(boardDetailFragment).commit();
 
             }
         });
