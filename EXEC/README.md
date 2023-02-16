@@ -1,5 +1,5 @@
 포팅 메뉴얼 :  
-<https://www.notion.so/101129b329e34609bd7b12fb41683bf8?pvs=4>  
+[개발환경 및 프로젝트 기술 스택](https://www.notion.so/101129b329e34609bd7b12fb41683bf8?pvs=4)  
 <https://www.notion.so/Server-Port-3e30211860ca43fda3ebd5c7325781d9?pvs=4>  
 <https://www.notion.so/086cb8266e3a40ab97f3172bac7345be?pvs=4>  
 <https://www.notion.so/948b7d60922e46789aeeeff70ecb127b?pvs=4>  
