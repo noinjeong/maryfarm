@@ -2,6 +2,7 @@ package com.numberONE.maryfarm.ui.AlgorithmPage;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,9 @@ public class RecommendFragment5 extends Fragment {
 
                 recommendActivity.makeApiCall();
                 Log.i(TAG, "요청 가즈아~ JSON은 뭐야!!");
+
+                Intent intent_1=new Intent(getActivity(),RecommendSample1.class);
+                startActivity(intent_1);
 
 //                RecommendActivity recommendActivity = (RecommendActivity) getActivity();
 //                ViewPager2 recommendViewPager = recommendActivity.findViewById(R.layout.fragment_recommend_example1);
