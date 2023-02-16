@@ -27,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 // 달력 진입 시 키우고 있는 작물 리스트 체크박스 반환~
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-//    public static List<RoomDTO> chatList;
+    //    public static List<RoomDTO> chatList;
     private String[] nickname, content, date;
     private int[] profile, tier;
     ViewHolder viewHolder;
@@ -55,13 +55,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     // 리스너 객체 참조를 저장하는 변수
     static OnChatClickListener onChatClickListener = null;
-// 서버 통신으로 받는 코드
+    // 서버 통신으로 받는 코드
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
     public static void setOnChatClickListener(OnChatClickListener listener) {
         onChatClickListener = listener;
     }
 
-// 뷰홀더
+    // 뷰홀더
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public String roomId;
         public String OpponentId;

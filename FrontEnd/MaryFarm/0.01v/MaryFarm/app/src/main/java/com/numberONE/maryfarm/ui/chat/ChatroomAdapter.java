@@ -22,10 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 // 달력 진입 시 키우고 있는 작물 리스트 체크박스 반환~
 public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.ViewHolder> {
-//    private String[] nickname, date;
+    //    private String[] nickname, date;
 //    private String[][] content;
     private int roomId;
-//    private int[] profile, tier;
+    //    private int[] profile, tier;
     String[] nickname = {"왕감자", "블루베리맘", "당근전문가", "성주꿀참외"};
     String[][] content = {{"영양제 뭐 쓰세요?"}, {"주무세요..?"}, {"제가 당근이 풍년이라 나눠드릴게요~", "네! 당근이랑 좀 교환해요"}, {"우리 힘내자", "이 편지는 영국에서 시작하여 행운을 뿌리는 중"}};
     String[][] date = {{"9:02am"}, {"3:45am"}, {"1일 전", "1일 전"}, {"5일 전", "4일 전"}};
@@ -49,13 +49,13 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.ViewHo
         onChatClickListener = listener;
     }
 
-// 뷰홀더
+    // 뷰홀더
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public RelativeLayout leftchat, rightchat;
         public CircleImageView chatoppoProfileImg, chatmyProfileImg;
         public TextView chatopponame, chatoppoContent, chatoppoDate, chatmyContent, chatmyDate;
 
-//    Date date = new Date(now);
+        //    Date date = new Date(now);
 //    SimpleDateFormat sdf = new SimpleDateFormat(“yyyy-MM-dd”);
 //    String getTime = sdf.format(date);
         public ViewHolder(View view){

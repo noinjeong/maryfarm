@@ -66,7 +66,7 @@ import retrofit2.Response;
 
 public class CalendarFragment extends Fragment {
     private FragmentCalendarBinding binding;
-// 변수 선언
+    // 변수 선언
     public String userId = "2626273196";                        // 사용자 아이디
     public static Integer userSelectCheckbokPosition = 0;       // 사용자가 선택한 체크박스
     private final String TAG = this.getClass().getSimpleName();
@@ -107,51 +107,51 @@ public class CalendarFragment extends Fragment {
 //        Log.i(TAG, "userSelectDate:" + userSelectDate);
         RetrofitService networkService = RetrofitFactory.create();
         networkService.getList(calendarDate)
-            .enqueue(new Callback<List<ItemModel>>() {
-            @Override
-            public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
-                if(response.isSuccessful()){
-                    Log.i(TAG, "onResponse: 서버와 연결");
-                    // 리싸이클러뷰 만들어서 정보 주기 다른 파일에 안 쓰고 여기에 바로 쓸 때
-                    // Myadapter adapter = new Myadapter(response.body());
-                    // binding.calendarPlantsType.setAdapter(adapter);
-                    List<ItemModel> body = response.body();
-                    if (body.size() != 0) {
-                        for (ItemModel m : body) {
-                            plantNameList.add(m.getPlantName());
-                            plantCreatedAtList.add(m.getCreatedAt());
-                            plantHarvestTimeList.add(m.getHarvestTime());
-                        }
-                        plantName[0] = plantNameList.stream().toArray(String[]::new);
-                        plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
-                        plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
-                        Log.i(TAG, "onResponse: " + plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
+                .enqueue(new Callback<List<ItemModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
+                        if(response.isSuccessful()){
+                            Log.i(TAG, "onResponse: 서버와 연결");
+                            // 리싸이클러뷰 만들어서 정보 주기 다른 파일에 안 쓰고 여기에 바로 쓸 때
+                            // Myadapter adapter = new Myadapter(response.body());
+                            // binding.calendarPlantsType.setAdapter(adapter);
+                            List<ItemModel> body = response.body();
+                            if (body.size() != 0) {
+                                for (ItemModel m : body) {
+                                    plantNameList.add(m.getPlantName());
+                                    plantCreatedAtList.add(m.getCreatedAt());
+                                    plantHarvestTimeList.add(m.getHarvestTime());
+                                }
+                                plantName[0] = plantNameList.stream().toArray(String[]::new);
+                                plantCreatedAt[0] = plantCreatedAtList.stream().toArray(String[]::new);
+                                plantHarvestTime[0] = plantHarvestTimeList.stream().toArray(String[]::new);
+                                Log.i(TAG, "onResponse: " + plantName[0][0] + plantCreatedAt[0][0] + plantHarvestTime[0][0]);
 
-                        // 어댑터 연결
-                        recyclerView_plants = binding.calendarPlantsType;
-                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-                        recyclerView_plants.setLayoutManager(layoutManager_plants);
-                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
-                        recyclerView_plants.setAdapter(adapter_plants);
-                    } else {
-                        // 어댑터 연결
-                        plantNameList.add("아직 작물이 없어요!");
-                        plantCreatedAtList.add("0000.00.00.");
-                        plantHarvestTimeList.add("0000.00.00.");
-                        recyclerView_plants = binding.calendarPlantsType;
-                        layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-                        recyclerView_plants.setLayoutManager(layoutManager_plants);
-                        adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
-                        recyclerView_plants.setAdapter(adapter_plants);
+                                // 어댑터 연결
+                                recyclerView_plants = binding.calendarPlantsType;
+                                layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                                recyclerView_plants.setLayoutManager(layoutManager_plants);
+                                adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                                recyclerView_plants.setAdapter(adapter_plants);
+                            } else {
+                                // 어댑터 연결
+                                plantNameList.add("아직 작물이 없어요!");
+                                plantCreatedAtList.add("0000.00.00.");
+                                plantHarvestTimeList.add("0000.00.00.");
+                                recyclerView_plants = binding.calendarPlantsType;
+                                layoutManager_plants = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                                recyclerView_plants.setLayoutManager(layoutManager_plants);
+                                adapter_plants = new CalendarPlantsAdapter(plantName[0], plantCreatedAt[0], plantHarvestTime[0]);
+                                recyclerView_plants.setAdapter(adapter_plants);
+                            }
+                        }
                     }
-                }
-            }
-                @Override
-                public void onFailure(Call<List<ItemModel>> call, Throwable t){
-                    Log.e(TAG, "onFailure: 작물 목록 서버 연결 실패");
-                    Log.e(TAG, "onFailure:", t);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<List<ItemModel>> call, Throwable t){
+                        Log.e(TAG, "onFailure: 작물 목록 서버 연결 실패");
+                        Log.e(TAG, "onFailure:", t);
+                    }
+                });
 //식물 목록 레트로핏 끝
 // 달이 변경될 때
         widget.setOnMonthChangedListener(new OnMonthChangedListener() {
@@ -334,7 +334,7 @@ public class CalendarFragment extends Fragment {
 //                }
             }
         });
-    // 작물 메모 클릭
+        // 작물 메모 클릭
         CalendarPickPlantAdapter.setOnItemClickListener(new CalendarPickPlantAdapter.OnItemClickListener() {
             //동작 구현
             @Override
@@ -429,10 +429,10 @@ public class CalendarFragment extends Fragment {
             }
         });
 // 달력 커스텀 끝
-     return view;
+        return view;
     }
 
-// 날짜 찾기 버튼 클릭 시
+    // 날짜 찾기 버튼 클릭 시
     @OnClick(R.id.pick_date)
     void onSelectedClicked() {
         showDatePickerDialog(getActivity(), widget.getSelectedDate(),
@@ -453,7 +453,7 @@ public class CalendarFragment extends Fragment {
         dialog.show();
     }
 
-// 아래로 데코레이터
+    // 아래로 데코레이터
     // 하루 표시
     private static class DayDecorator implements DayViewDecorator {
         private final Drawable drawable;

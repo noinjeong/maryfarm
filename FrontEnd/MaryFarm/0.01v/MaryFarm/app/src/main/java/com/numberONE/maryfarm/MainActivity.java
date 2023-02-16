@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.kakao.sdk.user.UserApiClient;
 import com.numberONE.maryfarm.KakaoLogin.KakaoLoginActivity;
 import com.numberONE.maryfarm.databinding.ActivityMainBinding;
+import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
@@ -38,6 +39,8 @@ import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.AddFragment;
 import com.numberONE.maryfarm.ui.diary.WriteFragment;
 import com.numberONE.maryfarm.ui.home.HomeFragment;
+import com.numberONE.maryfarm.ui.inform.InformMainFragment;
+import com.numberONE.maryfarm.ui.market.MarketMainFragment;
 import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 import com.numberONE.maryfarm.ui.myfarm.OtherfarmFragment;
 import com.numberONE.maryfarm.ui.search.SearchMainFragment;
@@ -129,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
 
             //화면 전환
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,myfarmFragment).commitAllowingStateLoss();
-
         }
+        //       -------------- 글 작성 시 강제로 하단 버튼 클릭 한것 처럼 표시 및 상세 페이지로 프래그먼트 전환 끝 
             binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -172,13 +175,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.hamburger_1:
                         Toast.makeText(MainActivity.this,"이장님 말씀", Toast.LENGTH_SHORT).show();
-                        AddFragment fragment2=new AddFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment2).commitAllowingStateLoss();
+                        InformMainFragment informMainFragment=new InformMainFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,informMainFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_2:
                         Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
-//                        FragmentManager fragmentManager=getSupportFragmentManager();
-//                        fragmentManager.beginTransaction().add(R.id.main_activity,searchFragment).commit();
                         BoardDetailFragment fragment=new BoardDetailFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
                         break;
@@ -189,12 +190,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.hamburger_4:
                         Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
+                        MarketMainFragment marketMainFragment=new MarketMainFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,marketMainFragment).commitAllowingStateLoss();
                         break;
 
                     case R.id.hamburger_5:
                         Toast.makeText(MainActivity.this,"작물 추천", Toast.LENGTH_SHORT).show();
+                        Intent recommend = new Intent(getApplicationContext(), RecommendActivity.class);
+                        startActivity(recommend);
                         break;
-
 
                     // 로그아웃 ( sharedPreferences - 시작 시 값 초기화하는 방식 할지 ,로그아웃 할 때 값 초기화하는 방식 할지 )
                     case R.id.logout:
@@ -250,6 +254,12 @@ public class MainActivity extends AppCompatActivity {
     SearchView.OnQueryTextListener queryTextListener =new SearchView.OnQueryTextListener() {
         @Override // 최종 검색을 위해 제출버튼 눌렀을 때
         public boolean onQueryTextSubmit(String query) {
+//           검색어 입력시 sheared에 담아주기
+            SharedPreferences preferences_search = getSharedPreferences("search",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor_search= preferences_search.edit();
+            editor_search.putString("query",query);
+
+//            화면 전환
             SearchMainFragment searchFragment=new SearchMainFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,searchFragment).commitAllowingStateLoss();
             searchView.setQuery("",false); // 검색 후 검색창 공백 상태로
@@ -389,4 +399,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-

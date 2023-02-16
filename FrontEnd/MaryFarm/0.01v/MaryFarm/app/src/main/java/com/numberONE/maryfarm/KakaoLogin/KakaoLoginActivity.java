@@ -133,12 +133,13 @@ public class KakaoLoginActivity extends AppCompatActivity {
                             ServerAPI serverAPI1 = retrofit1.create(ServerAPI.class);
 
                             Signup signup = new Signup(user_id, user_name);
-
+                            Log.d(TAG, "onResponse: Signup"+ signup.getUserName());
                             // 회원 가입 하기
                             Call<Signup> call1 = serverAPI1.postUserInfo(signup);
                             call1.enqueue(new Callback<Signup>() {
                                 @Override
                                 public void onResponse(Call<Signup> call1, Response<Signup> response) {
+                                    Log.d(TAG, "회원가입 onResponse " + response.body().toString());
                                     Log.d(TAG, "회원가입 성공!" + response.body().getUserName());
                                     addSharedPreferences(user_id, user_name, user_image);
                                     Intent intent = new Intent(KakaoLoginActivity.this, MainActivity.class);

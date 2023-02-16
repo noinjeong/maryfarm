@@ -21,7 +21,7 @@ import java.util.List;
 
 // 일자 선택 시 해당 일자에 키우고 있는 작물 정보 리스트 반환하는 리싸이클러뷰 어댑터~
 public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickPlantAdapter.ViewHolder> {
-//    private List<MemoModel> memo;
+    //    private List<MemoModel> memo;
     public static String[] plantName, createdAt, harvestTime;
     ViewHolder viewHolder;
     static int water = 0;
@@ -36,7 +36,7 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
         CalendarPlantsAdapter.createdAt = createdAt;
         CalendarPlantsAdapter.harvestTime = harvestTime;
     }
-//    public CalendarPickPlantAdapter(List<MemoModel> memo){
+    //    public CalendarPickPlantAdapter(List<MemoModel> memo){
 //        this.memo = memo;
 //        Log.i(TAG, "CalendarPickPlantAdapter: "+memo.get(0).division);
 //    }
@@ -52,7 +52,7 @@ public class CalendarPickPlantAdapter extends RecyclerView.Adapter<CalendarPickP
     public static void setOnItemClickListener(OnItemClickListener listener){
         onItemClickListener = listener;
     }
-// 뷰홀더
+    // 뷰홀더
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         public TextView plantsNameTextView;
         public ImageButton calendar_water;
