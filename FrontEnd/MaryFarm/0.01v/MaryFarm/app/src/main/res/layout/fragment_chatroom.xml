@@ -6,37 +6,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.chat.ChatRoomFragment">
-    <TextView
-        android:id="@+id/chat_room_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColorHighlight="@color/purple_200"
-        android:layout_centerHorizontal="true"
-        android:text="채팅방"
-        android:layout_alignParentTop="true"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messages_list_view"
+    <LinearLayout
+        android:id="@+id/chat_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chat_room_name"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/chat_room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColorHighlight="@color/purple_200"
+            android:layout_centerHorizontal="true"
+            android:text="채팅방"
+            android:layout_alignParentTop="true"/>
+        <ImageView
+            android:id="@+id/chat_title_tier"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messages_chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_title"
         />
     <RelativeLayout
         android:id="@+id/chatsendvisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:visibility="gone"
-        android:layout_below="@id/messages_list_view"
+        android:layout_below="@id/messages_chat_list"
+        android:gravity="center"
         >
         <de.hdodenhof.circleimageview.CircleImageView
             android:src="@drawable/profilecalm"
             android:id="@+id/profilecalm"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="7.5dp"
             android:layout_marginTop="7.5dp"
             android:layout_marginEnd="7.5dp"
@@ -46,20 +55,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chatsendContent"
-            android:textColor="#ACACAC"
+            android:background="@drawable/chat_border"
+            android:padding="7dp"
             android:text=""
             android:layout_toLeftOf="@+id/profilecalm"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:id="@+id/chatsendDate"
             android:text=""
             android:textColor="#ACACAC"
-            android:layout_marginHorizontal="15dp"
+            android:textSize="10dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@id/profilecalm"
+            android:layout_marginHorizontal="15dp"
             />
     </RelativeLayout>
 
