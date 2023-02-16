@@ -27,7 +27,7 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
     }
     // 커스텀 리스너 인터페이스 정의
     public interface OnPlantCheckListener {
-    // 클릭 시 동작할 함수
+        // 클릭 시 동작할 함수
         void onPlantCheck(View v, int position, Boolean isChecked, String createdAt, String harvestTime, Integer checkboxId) ;
     }
 
@@ -38,7 +38,7 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
     public static void setOnPlantCheckListener(OnPlantCheckListener listener) {
         onPlantCheckListener = listener;
     }
-// 뷰홀더
+    // 뷰홀더
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         public TextView checkboxtitle;
         public CheckBox checkbox;
@@ -61,7 +61,7 @@ public class CalendarPlantsAdapter extends RecyclerView.Adapter<CalendarPlantsAd
                             // 날짜 표시하러 ㄱㄱ
                             Boolean checked = checkbox.isChecked();
                             onPlantCheckListener.onPlantCheck(v, pos, checked, createdAt[pos], harvestTime[pos], checkbox.getId());
-                }}}
+                        }}}
             });
         }
     }

@@ -32,7 +32,7 @@ import retrofit2.Response;
  */
 public class WidgetMary extends AppWidgetProvider {
     public String userId = "2626273197";
-//    위젯의 크기 및 옵션이 변결될 때마다 호출되는 함수
+    //    위젯의 크기 및 옵션이 변결될 때마다 호출되는 함수
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         //위젯 클릭시 앱을 띄우고 MainActivity 로 이동
@@ -44,7 +44,7 @@ public class WidgetMary extends AppWidgetProvider {
 //        views.setOnClickPendingIntent(R.id.appwidget_text, pi);
     }
 
-//    위젯이 업데이트 될 때마다 호출되는 함수
+    //    위젯이 업데이트 될 때마다 호출되는 함수
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
@@ -69,7 +69,7 @@ public class WidgetMary extends AppWidgetProvider {
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
-//    @Override
+    //    @Override
 //    public void onReceive(Context context, Intent intent) {
 //
 //        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
@@ -87,7 +87,7 @@ public class WidgetMary extends AppWidgetProvider {
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
     }
-//    위젯이 제거되는 순간 호출되는 함수
+    //    위젯이 제거되는 순간 호출되는 함수
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled

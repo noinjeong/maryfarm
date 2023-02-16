@@ -41,16 +41,17 @@
         android:layout_below="@id/messages_chat_list"
         android:gravity="center"
         >
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/profilecalm"
             android:id="@+id/profilecalm"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="7.5dp"
             android:layout_marginTop="7.5dp"
-            android:layout_marginEnd="7.5dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginBottom="7.5dp"
-            android:layout_alignParentEnd="true"/>
+            android:src="@drawable/profilecalm" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

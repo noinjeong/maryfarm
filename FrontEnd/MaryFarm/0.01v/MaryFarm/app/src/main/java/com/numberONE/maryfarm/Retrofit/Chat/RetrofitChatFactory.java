@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitChatFactory {
-//    private static String BASE_URL="http://i8b308.p.ssafy.io:8000/";
+    //    private static String BASE_URL="http://i8b308.p.ssafy.io:8000/";
     private static String BASE_URL="https://maryfarm.shop/";
 
     public static RetrofitChatService create() {
