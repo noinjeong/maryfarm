@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_green"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_yellow"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_white"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_grey"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_red"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -185,7 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/noneed"
+                    android:src="@drawable/leaf_color_mix"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -207,6 +207,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
+            android:visibility="gone"
             >
             <ImageButton
                 android:id="@+id/section_7"

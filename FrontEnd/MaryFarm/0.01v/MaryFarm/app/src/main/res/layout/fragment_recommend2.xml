@@ -52,7 +52,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed"
+                android:src="@drawable/flower_blue"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed"
+                android:src="@drawable/flower_purple"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed"
+                android:src="@drawable/flower_pink"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -134,7 +134,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed"
+                android:src="@drawable/flower_red"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -161,7 +161,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed" />
+                android:src="@drawable/flower_orange" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -185,7 +185,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/noneed"
+                android:src="@drawable/flower_yellow"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -215,7 +215,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/noneed"
+            android:src="@drawable/flower_white"
             />
         <TextView
             android:layout_width="match_parent"
@@ -241,7 +241,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/noneed"
+            android:src="@drawable/flower_mix"
             />
         <TextView
             android:layout_width="match_parent"
@@ -266,7 +266,7 @@ tools:context=".ui.AlgorithmPage.RecommendFragment2">
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/noneed"
+            android:src="@drawable/flower_random"
             />
         <TextView
             android:layout_width="match_parent"

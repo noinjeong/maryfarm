@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.myfarm.MyfarmFragment"
     android:orientation="vertical"
-    android:background="@drawable/tier1"
     >
 
     <LinearLayout

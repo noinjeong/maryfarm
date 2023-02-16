@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.ui.AlgorithmPage.sample.RecommendSample1;
@@ -45,6 +46,9 @@ public class RecommendFragment5 extends Fragment {
 
                 recommendActivity.makeApiCall();
                 Log.i(TAG, "요청 가즈아~ JSON은 뭐야!!");
+
+//                RecommendActivity recommendActivity = (RecommendActivity) getActivity();
+//                ViewPager2 recommendViewPager = recommendActivity.findViewById(R.layout.fragment_recommend_example1);
             }
         });
 
@@ -60,6 +64,9 @@ public class RecommendFragment5 extends Fragment {
                 recommendActivity.setButtonValue5(55002);
                 Log.i(TAG, "onClick: 밝음을 선택함, 055002");
 
+//                RecommendActivity recommendActivity = (RecommendActivity) getActivity();
+//                ViewPager2 recommendViewPager = recommendActivity.findViewById(R.layout.fragment_recommend_example1);
+
             }
         });
 
@@ -71,6 +78,9 @@ public class RecommendFragment5 extends Fragment {
 
                 recommendActivity.makeApiCall();
                 Log.i(TAG, "요청 가즈아~ JSON은 뭐야!!");
+
+//                RecommendActivity recommendActivity = (RecommendActivity) getActivity();
+//                ViewPager2 recommendViewPager = recommendActivity.findViewById(R.layout.fragment_recommend_example1);
             }
         });
         return view;

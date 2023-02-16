@@ -262,9 +262,9 @@ public class RecommendActivity extends AppCompatActivity {
 
         Log.d("", "makeApiCall: !!!"+call.toString());
 
-        call.enqueue(new Callback<RecommendData>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<RecommendData> call, Response<RecommendData> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "makeApiCall onresponse" + response.code());
                 Log.d(TAG, "makeApiCall onresponse" + response);
                 Log.d(TAG, "makeApiCall onresponse" + response.body());
@@ -287,24 +287,20 @@ public class RecommendActivity extends AppCompatActivity {
 //                        recyclerView.setAdapter(adapter);
 //                    }
 //                    / 1안 로직 retrofit
-                    ArrayList<RecommendData> resultList = new ArrayList<>();
-                    try {
+                    ArrayList<ResponseBody> resultList = new ArrayList<>();
 
-                        Gson gson = new Gson();
-                        RecommendData[] data = gson.fromJson(String.valueOf(resultList), RecommendData[].class);
-                        resultList = new ArrayList<>(Arrays.asList(data));
-                        Log.d(TAG, "onResponse: 자, 이것은 리저트 리스트여 =  " + resultList);
-                        Log.d(TAG, "onResponse: 자, 이것은 리스폰스 스트링이여" + resultList);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Gson gson = new Gson();
+                    RecommendData[] data = gson.fromJson(String.valueOf(resultList), RecommendData[].class);
+                    resultList = new ArrayList<ResponseBody>();
+                    Log.d(TAG, "onResponse: 자, 이것은 리저트 리스트여 =  " + resultList);
+                    Log.d(TAG, "onResponse: 자, 이것은 리스폰스 스트링이여" + resultList);
                 } else {
                     Log.e("API Response", "Request failed with code: " + response.code());
                 }
             }
 
 
-            public void onFailure(Call<RecommendData> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
                 Log.e("API Response", "Request failed with error: " + t.getMessage());
             }

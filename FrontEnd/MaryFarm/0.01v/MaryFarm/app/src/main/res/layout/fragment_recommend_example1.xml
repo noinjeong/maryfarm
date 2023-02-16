@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,12 +26,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bSPR_flower_1_neolegelia" />
+                    android:src="@drawable/spr_flower_1_neolegelia" />
                 <!-- 첫 번째 열, 두 번째 행 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="네오 레겔리아" />
+                    android:text="네오 레겔리아"
+                    android:fontFamily="@font/baemin_jua"
+                    android:layout_gravity="center"
+                    android:textSize="15dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -42,12 +45,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bSPR_flower_1_neolegelia" />
+                    android:src="@drawable/spr_flower_2_newginiabongsunhwa" />
                 <!-- 첫 번째 열, 두 번째 행 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="네오 레겔리아" />
+                    android:text="네오 레겔리아"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/baemin_jua"
+                    android:textSize="15dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,13 +64,120 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bSPR_flower_1_neolegelia" />
+                    android:src="@drawable/spr_flower_3_bawuichui" />
                 <!-- 첫 번째 열, 두 번째 행 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="네오 레겔리아" />
+                    android:text="네오 레겔리아"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/baemin_jua"
+                    android:textSize="15dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/spr_flower_4_uluckjajudalgebi" />
+                <!-- 첫 번째 열, 두 번째 행 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="울룩 자주 달개비"
+                    android:fontFamily="@font/baemin_jua"
+                    android:layout_gravity="center"
+                    android:textSize="15dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/spr_flower_5_ecumeapaciata" />
+                <!-- 첫 번째 열, 두 번째 행 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="에크메아 파시아타"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/baemin_jua"
+                    android:textSize="15dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/spr_flower_6_sarangcho" />
+                <!-- 첫 번째 열, 두 번째 행 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사랑초"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/baemin_jua"
+                    android:textSize="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/spr_flower_7phypo_estes" />
+                <!-- 첫 번째 열, 두 번째 행 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="하이포 에스테스"
+                    android:fontFamily="@font/baemin_jua"
+                    android:layout_gravity="center"
+                    android:textSize="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
