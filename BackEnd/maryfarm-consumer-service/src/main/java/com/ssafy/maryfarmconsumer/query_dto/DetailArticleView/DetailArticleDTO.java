@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
-@Document(collection = "DetailArticle") 
+@Document(collection = "DetailArticle")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
