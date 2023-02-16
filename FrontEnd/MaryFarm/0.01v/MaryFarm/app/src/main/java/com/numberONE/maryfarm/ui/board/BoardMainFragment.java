@@ -1,7 +1,6 @@
 package com.numberONE.maryfarm.ui.board;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +43,9 @@ public class BoardMainFragment extends Fragment implements MainActivity.OnBackPr
     List<BoardArticle> article;
 
     String region;
+
+
+
     private SharedPreferences preferences;
 
     public BoardMainFragment() {
@@ -102,28 +100,31 @@ public class BoardMainFragment extends Fragment implements MainActivity.OnBackPr
                                 public void onItemClick(View v, int position, String articleId) {
                                     preferences=getActivity().getSharedPreferences("board", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor=preferences.edit();
+                                    Log.d(TAG, "클릭시 articleId 넘겨주기 :" + articleId );
                                     editor.putString("board_articleId",articleId); // 아티클 아이디 저장 후 intent로 화면 전환
                                     editor.commit();
                                     BoardDetailFragment fragment=new BoardDetailFragment();
                                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
                                 }
                             });
+//                            recyclerView_board.setAdapter(boardAdapter);
                             //      --------    리사이클러 뷰 아이템 클릭 리스너 처리 끝 --------
 
                         }
-                        if(response.code()==500){
+
                             if(article!=null){
                                 if(response.body()==null){
-                                    Log.d(TAG, "500에러 : article : "+ article);
+                                    Log.d(TAG, " res.body is null: "+ article);
 //                                  아직 게시물이 없으면 boardadapter에 빈 리스트 넘겨주기 (생성자에서 초기화 )
-//                                    BoardAdapter boardAdapter=new BoardAdapter();
-//                                    recyclerView_board.setAdapter(boardAdapter);
+                                    BoardAdapter boardAdapter=new BoardAdapter();
+                                    recyclerView_board.setAdapter(boardAdapter);
                                 }
-                                Log.d(TAG, "500에러 : article : "+ article);
+                                Log.d(TAG, " article body is not null  "+ article);
                             }else{
-                                Log.d(TAG, "500에러 아티클 null ");
+                                Log.d(TAG, "아티클 null ");
+                                BoardAdapter boardAdapter=new BoardAdapter();
+                                recyclerView_board.setAdapter(boardAdapter);
                             }
-                        }
                     }
 
                     @Override
@@ -161,13 +162,13 @@ public class BoardMainFragment extends Fragment implements MainActivity.OnBackPr
     private int spinnerDefaultType(String name){
         int num=0;
         switch (name){
-            case "서울": num=0; break;
-            case "인천": num=1; break;
-            case "강원": num=2; break;
-            case "충청": num=3; break;
-            case "경상": num=4; break;
-            case "전라": num=5; break;
-            case "제주": num=6; break;
+            case "서울": num=1; break;
+            case "인천": num=2; break;
+            case "강원": num=3; break;
+            case "충청": num=4; break;
+            case "경상": num=5; break;
+            case "전라": num=6; break;
+            case "제주": num=7; break;
         }
         return num;
     }
