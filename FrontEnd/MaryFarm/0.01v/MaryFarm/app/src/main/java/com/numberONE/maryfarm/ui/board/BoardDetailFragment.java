@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.numberONE.maryfarm.Diary.CommentAdapter;
+import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Board.BoardArticle;
 import com.numberONE.maryfarm.Retrofit.Board.BoardComments;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardDetailFragment extends Fragment {
+public class BoardDetailFragment extends Fragment implements MainActivity.OnBackPressedListener{
 
     private static final String TAG = "BoardDetailFragment";
 
@@ -58,7 +59,7 @@ public class BoardDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding=FragmentBoardDetailBinding.inflate(inflater,container,false);
+        binding =FragmentBoardDetailBinding.inflate(inflater,container,false);
 
         hideBottomNavigation(true); // 바텀 네비 비활성화
 
@@ -66,7 +67,7 @@ public class BoardDetailFragment extends Fragment {
         // BoardMainFragment에서 넘겨준 articleId 가져오기
         SharedPreferences preferences= getActivity().getSharedPreferences("board", Context.MODE_PRIVATE);
         String articleId=preferences.getString("board_articleId","board_articleId_isNull");
-
+        Log.d(TAG, "onCreateView : articleId  : " + articleId);
         service.getArticles(articleId).enqueue(new Callback<BoardArticle>() {
             @Override
             public void onResponse(Call<BoardArticle> call, Response<BoardArticle> response) {
@@ -74,13 +75,15 @@ public class BoardDetailFragment extends Fragment {
                 Log.d(TAG, "BoardDetail res.body : "+ response.body());
                 if(response.isSuccessful()){
                     boardArticle = response.body();
+                    Log.d(TAG, "boardArticle :"+ boardArticle.toString());
+
                     binding.boardDetailType.setText(boardArticle.getType());
                     binding.boardDetailTitle.setText(boardArticle.getTitle());
                     Glide.with(getActivity()).load(boardArticle.getProfilePath()).into(binding.boardDetailProfile);
                     binding.boardDetailNickname.setText(boardArticle.getUserName());
                     String date =DateToString(response.body().getLastModifiedDate());
                     binding.boardDetailDate.setText(date); // 날짜 처리 ( 작성일 ? 수정일 ? 무엇인지 체크 )
-                    binding.boardDetailViewCnt.setText(boardArticle.getViews());
+                    binding.boardDetailViewCnt.setText(boardArticle.getViews()+"");
                     binding.boardDetailContent.setText(boardArticle.getContent());
                     comments=boardArticle.getComments(); // 리스트로 댓글들 받아오기
                 }
@@ -133,8 +136,6 @@ public class BoardDetailFragment extends Fragment {
                 });
             }
         });
-
-
 
 //      ---------- 게시글 댓글 작성  로직 끝----------------
 
@@ -196,4 +197,27 @@ public class BoardDetailFragment extends Fragment {
         }
         return sb.toString().trim();
     }
+
+//    ---- 뒤로가기 버튼 로직 (몸통은 메인액티비티에 ) -------
+//    @Override
+    public void onBack() {
+        BoardMainFragment fragment =new BoardMainFragment();
+        Log.d(TAG, " 뒤로가기 버튼 실행  ");
+        //리스너를 설정하기 위해 Activity 받아오기
+        MainActivity activity = (MainActivity)getActivity();
+        // 한번 뒤로가기 버튼을 눌렀다면 Listener를 null 로 해제
+        activity.setOnBackPressedListener(null);
+        // 보드 메인으로 이동
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_activity,fragment).commit();
+    }
+
+//   Fragment 호출 시 반드시 호출되는 오바라이드 메소드
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
+        ((MainActivity)context).setOnBackPressedListener(this);
+    }
 }
+
