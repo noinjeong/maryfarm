@@ -269,7 +269,7 @@ public class ChatRoomFragment extends Fragment {
 //            mStompClient.disconnect();
 //            if (mRestPingDisposable != null) mRestPingDisposable.dispose();
 //            if (compositeDisposable != null) compositeDisposable.dispose();
-            super.onDestroy();
+        super.onDestroy();
         binding = null;
     }
 }
