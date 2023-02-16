@@ -220,7 +220,7 @@ public class DiaryDetailActivity extends AppCompatActivity implements PopupMenu.
         userImg = pref.getString("userImg", "Null");
 
         commentImgView = findViewById(id.commentProfile);
-        Glide.with(DiaryDetailActivity.this).load(URL + plantAllInfo.getProfilePath()).into(commentImgView);
+        Glide.with(DiaryDetailActivity.this).load(URL + userImg).into(commentImgView);
 
         nicknameView = findViewById(id.inputComment);
         nicknameView.setHint(userId + "(으)로 댓글 달기...");

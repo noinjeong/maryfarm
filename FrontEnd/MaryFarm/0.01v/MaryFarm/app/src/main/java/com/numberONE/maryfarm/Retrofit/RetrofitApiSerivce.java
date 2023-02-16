@@ -39,7 +39,7 @@ public interface RetrofitApiSerivce {
 
     // 팔로워 피드 가져오기
     //@GET("maryfarm-plant-service/api/user/home/{userid}")
-    @GET("maryfarm-user-service/api/user/home/{userid}")
+    @GET("api/user/home/{userid}")
     Call<FirstHomeViewDTO> getFollowerFeed(@Path("userid") String userid);
 
     // 하단 추천 피드 가져오기
