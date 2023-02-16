@@ -36,6 +36,7 @@ import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
 import com.numberONE.maryfarm.ui.board.SchoolFragment;
+import com.numberONE.maryfarm.ui.board.WordsFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
 import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.AddFragment;
@@ -176,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.hamburger_1:
-                        InformMainFragment informMainFragment=new InformMainFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,informMainFragment).commitAllowingStateLoss();
+                        WordsFragment wordFragment=new WordsFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,wordFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_2:
                         SchoolFragment schoolfragment=new SchoolFragment();
@@ -359,17 +360,7 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack("ChatList")
                     .commit();
         } else if (index == 2) {
-            if (idx == 0 || idx == 3) {
-                Bundle bundle = new Bundle();
-                bundle.putString("roomId", roomId);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                MyfarmFragment myfarmFragment = new MyfarmFragment();//프래그먼트2 선언
-                myfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
-                transaction.replace(R.id.main_activity, myfarmFragment)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("ChatList")
-                    .commit();
-            } else if (idx == 1) {
+            if (idx == 2) {
                 Bundle bundle = new Bundle();
                 bundle.putString("roomId", roomId);
                 bundle.putString("nickname", "김차분팬1호");
@@ -381,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                         .commit();
-            } else if (idx == 2) {
+            } else if (idx == 3) {
                 Bundle bundle = new Bundle();
                 bundle.putString("roomId", roomId);
                 bundle.putString("nickname", "왕감자");
@@ -393,8 +384,17 @@ public class MainActivity extends AppCompatActivity {
 //                    .setReorderingAllowed(true)
 //                    .addToBackStack("ChatList")
                         .commit();
-            }
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("roomId", roomId);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                MyfarmFragment myfarmFragment = new MyfarmFragment();//프래그먼트2 선언
+                myfarmFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+                transaction.replace(R.id.main_activity, myfarmFragment)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("ChatList")
+                        .commit();
         }
     // 채팅 알람 화면 전환 끝
     }
-}
+}}
