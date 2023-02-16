@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.databinding.FragmentChatroomBinding;
 
 import java.text.SimpleDateFormat;
@@ -49,6 +51,7 @@ public class ChatRoomFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager_chatroom;
     RecyclerView.Adapter adapter_chatroom;
     TextView chatRoomName;
+    ImageView chattier;
     Button chatsend;
 
     //@SuppressLint("NewApi")는 해당 프로젝트의 설정 된 minSdkVersion 이후에 나온 API를 사용할때  warning을 없애고 개발자가 해당 APi를 사용할 수 있게 합니다.
@@ -64,10 +67,15 @@ public class ChatRoomFragment extends Fragment {
             Log.i(TAG, "onCreateView: "+roomId);
         }
         String[] nickname = {"왕감자", "블루베리맘", "당근전문가", "성주꿀참외"};
+        int[] tier = {R.drawable.tier1,R.drawable.tier2,R.drawable.tier5,R.drawable.tier8};
+
         chatRoomName = binding.chatRoomName;
         chatRoomName.setText(nickname[Integer.parseInt(roomId)]);
+        chattier = binding.chatTitleTier;
+        chattier.setImageResource(tier[Integer.parseInt(roomId)]);
+
         // 어댑터 연결
-        recyclerView_chatroom = binding.messagesListView;
+        recyclerView_chatroom = binding.messagesChatList;
         layoutManager_chatroom = new LinearLayoutManager(getActivity());
         recyclerView_chatroom.setLayoutManager(layoutManager_chatroom);
         adapter_chatroom = new ChatroomAdapter(roomId);
