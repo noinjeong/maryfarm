@@ -28,7 +28,7 @@ public class TotalArticleViewListener {
     public void articleGroupByTypeListen(String message) throws JsonProcessingException {
         log.info("Kafka Message: ->" + message);
 
-        Map<Object, Object> map = new HashMap<>(); 
+        Map<Object, Object> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         map = mapper.readValue(message, new TypeReference<Map<Object, Object>>() {});
         Map<Object, Object> payload = (Map<Object, Object>) map.get("payload");
