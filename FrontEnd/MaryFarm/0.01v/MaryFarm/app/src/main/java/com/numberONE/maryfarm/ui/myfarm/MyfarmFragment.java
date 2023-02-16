@@ -96,8 +96,8 @@ public class MyfarmFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         Retrofit retrofit1 = new Retrofit.Builder()
-                //.baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
-                .baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
+                .baseUrl("https://985e5bce-3b72-4068-8079-d7591e5374c9.mock.pstmn.io/api/")
+                //.baseUrl("https://maryfarm.shop/maryfarm-user-service/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -108,6 +108,12 @@ public class MyfarmFragment extends Fragment {
             public void onResponse(Call<FollowFollowing> call1, Response<FollowFollowing> response) {
                 followerCnt.setText(response.body().getFollowerCount()+"");
                 followingCnt.setText(response.body().getFollowingCount()+"");
+
+                Bundle bundle=getArguments();// 번들 받기
+                if(bundle!=null){
+                    String param=bundle.getString("parameter");
+                    Log.d("MyfarmFragment", "write로 부터 넘어온 값"+ param);
+                }
             }
 
             @Override
@@ -161,32 +167,34 @@ public class MyfarmFragment extends Fragment {
                         call2.enqueue(new Callback<DetailDiariesPerPlantDTO>() {
                             @Override
                             public void onResponse(Call<DetailDiariesPerPlantDTO> call2, Response<DetailDiariesPerPlantDTO> response) {
-                                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
-                                String title = response.body().getTitle();
-                                String plantId = response.body().getPlantId();
-                                String thumbImg1 = null;
-                                String thumbImg2 = null;
-                                String thumbImg3 = null;
-                                String plantCreatedDate = response.body().getPlantCreatedDate();
-                                String harvestDate = response.body().getHarvestDate();
+                                if (response.body() != null) {
+                                    DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = response.body();
+                                    String title = response.body().getTitle();
+                                    String plantId = response.body().getPlantId();
+                                    String thumbImg1 = null;
+                                    String thumbImg2 = null;
+                                    String thumbImg3 = null;
+                                    String plantCreatedDate = response.body().getPlantCreatedDate();
+                                    String harvestDate = response.body().getHarvestDate();
 
-                                for (int j=response.body().getDiaries().size()-1; j>=0; j--){
-                                    List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
-                                    DetailDiaryDTO diary = diaries.get(j);
+                                    for (int j = response.body().getDiaries().size() - 1; j >= 0; j--) {
+                                        List<DetailDiaryDTO> diaries = (List) response.body().getDiaries();
+                                        DetailDiaryDTO diary = diaries.get(j);
 
-                                    if (j==2){
-                                        thumbImg1 = diary.getImagePath();
-                                    } else if (j==1) {
-                                        thumbImg2 = diary.getImagePath();
-                                    } else {
-                                        thumbImg3 = diary.getImagePath();
+                                        if (j == response.body().getDiaries().size() - 1) {
+                                            thumbImg1 = diary.getImagePath();
+                                        } else if (j == response.body().getDiaries().size() - 2) {
+                                            thumbImg2 = diary.getImagePath();
+                                        } else if (j == response.body().getDiaries().size() - 3) {
+                                            thumbImg3 = diary.getImagePath();
+                                        }
                                     }
+
+                                    Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, null,detailDiariesPerPlantDTO);
+                                    planThumbnails.add(thumbnail);
+
+                                    recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                                 }
-
-                                Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, detailDiariesPerPlantDTO);
-                                planThumbnails.add(thumbnail);
-
-                                recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                             }
 
 

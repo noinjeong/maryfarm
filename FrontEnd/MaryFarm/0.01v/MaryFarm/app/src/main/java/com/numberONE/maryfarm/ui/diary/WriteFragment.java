@@ -30,6 +30,7 @@ import com.numberONE.maryfarm.Retrofit.Diary.DiaryInit;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
 import com.numberONE.maryfarm.Retrofit.RetrofitClient;
 import com.numberONE.maryfarm.databinding.FragmentWriteBinding;
+import com.numberONE.maryfarm.ui.myfarm.MyfarmFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -261,70 +262,87 @@ public class WriteFragment extends Fragment {
 
         binding.writeBtn.setOnClickListener(view -> {
 
-            input_title=binding.title.getText().toString();
-            input_name=binding.plantsTypeSpinner.getSelectedItem().toString();
-            input_content=binding.content.getText().toString();
+//  ---------------- intent 로직 안할 경우 지워도 되는 코드 마지막 줄 -----------------
+            MyfarmFragment myfarmFragment =new MyfarmFragment();
 
-            Log.d(TAG, "input_title_  " + input_title );
-            Log.d(TAG, "input_plant_option  " + input_name );
-            Log.d(TAG, "input_content  " + input_content );
+            Bundle bundle=new Bundle();
+            bundle.putString("parameter","100");
+            myfarmFragment.setArguments(bundle);
 
-            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImgPath.compress(Bitmap.CompressFormat.PNG,20,stream);
-            byte[] bytes= stream.toByteArray();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,myfarmFragment).commitAllowingStateLoss();
 
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),filePath);
-            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", filePath ,requestBody);
-
-            //SharedPreferences 아이디 가져오기
-//            SharedPreferences preferences = getActivity().getSharedPreferences("writeSP", Context.MODE_PRIVATE);
-//            String id = preferences.getString("user_id",null);
-
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),input_name);
-            RequestBody title = RequestBody.create(MediaType.parse("text/plain"),input_title);
-            RequestBody content = RequestBody.create(MediaType.parse("text/plain"),input_content);
-            RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),"1234");
-//          RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),id);
-
-            HashMap<String, RequestBody> input =new HashMap<>();
-            input.put("name",name);
-            input.put("title",title);
-            input.put("content",content);
-            input.put("userid",userid);
-
-            Log.d(TAG, "entrySet"+input.entrySet());
-            Log.d(TAG, "이름 input :"+input.get("name"));
-            Log.d(TAG, "타이틀 input : "+input.get("title"));
-
-            Log.d(TAG, "image " + uploadFile.body());
-            Log.d(TAG, "image " + uploadFile);
-            Log.d(TAG, "image " + uploadFile.headers());
-
-            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
-            Log.d(TAG, "onCreateView: !!!!"+service);
-            service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
-                @Override
-                public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
-                    Log.d(TAG, " 일지 작성 response body :" + response.body());
-                    Log.d(TAG, " 일지 작성 응답코드 :" + response.code());
-                    if (response.isSuccessful() ) {
-                        Log.d(TAG, "일지 작성 isSuccessful 응답코드 :" + response.code());
-                        Log.d(TAG, "서버로 전송 성공 ");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<DiaryInit> call, Throwable t) {
-                    t.printStackTrace();
-                    Log.d(TAG, "서버로 전송 실패 ");
-                }
-            });
-
-            Log.d(TAG, filePath+ ": 파일 path ");
-
-            Log.d("onCreate: ","데이터 전송완료" );
         });
+
+//  ---------------- intent 로직 안할 경우 지워도 되는 코드 마지막 줄 -----------------
+
+////          --- 일단 서버 전송  스탑 --------------------------
+////            input_title=binding.title.getText().toString();
+////            input_name=binding.plantsTypeSpinner.getSelectedItem().toString();
+////            input_content=binding.content.getText().toString();
+////
+////            Log.d(TAG, "input_title_  " + input_title );
+////            Log.d(TAG, "input_plant_option  " + input_name );
+////            Log.d(TAG, "input_content  " + input_content );
+////
+////            // 비트맵 put할 때 40kb넘어가면 오류생겨서 byte배열로 압축해서 넘겨주기
+////            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+////            ImgPath.compress(Bitmap.CompressFormat.PNG,20,stream);
+////            byte[] bytes= stream.toByteArray();
+////
+////            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),filePath);
+////            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", filePath ,requestBody);
+////
+////            //SharedPreferences 아이디 가져오기
+//////            SharedPreferences preferences = getActivity().getSharedPreferences("writeSP", Context.MODE_PRIVATE);
+//////            String id = preferences.getString("user_id",null);
+////
+////            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),input_name);
+////            RequestBody title = RequestBody.create(MediaType.parse("text/plain"),input_title);
+////            RequestBody content = RequestBody.create(MediaType.parse("text/plain"),input_content);
+////            RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),"1234");
+//////          RequestBody userid = RequestBody.create(MediaType.parse("text/plain"),id);
+////
+////            HashMap<String, RequestBody> input =new HashMap<>();
+////            input.put("name",name);
+////            input.put("title",title);
+////            input.put("content",content);
+////            input.put("userid",userid);
+////
+////            Log.d(TAG, "entrySet"+input.entrySet());
+////            Log.d(TAG, "이름 input :"+input.get("name"));
+////            Log.d(TAG, "타이틀 input : "+input.get("title"));
+////
+////            Log.d(TAG, "image " + uploadFile.body());
+////            Log.d(TAG, "image " + uploadFile);
+////            Log.d(TAG, "image " + uploadFile.headers());
+////
+////            RetrofitApiSerivce service= RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
+////            Log.d(TAG, "onCreateView: !!!!"+service);
+////            service.postInitFeed(uploadFile,input).enqueue(new Callback<DiaryInit>() {
+////                @Override
+////                public void onResponse(Call<DiaryInit> call, Response<DiaryInit> response) {
+////                    Log.d(TAG, " 일지 작성 response body :" + response.body());
+////                    Log.d(TAG, " 일지 작성 응답코드 :" + response.code());
+////                    if (response.isSuccessful() ) {
+////                        Log.d(TAG, "일지 작성 isSuccessful 응답코드 :" + response.code());
+////                        Log.d(TAG, "서버로 전송 성공 ");
+////                    }
+////                }
+////
+////                @Override
+////                public void onFailure(Call<DiaryInit> call, Throwable t) {
+////                    t.printStackTrace();
+////                    Log.d(TAG, "서버로 전송 실패 ");
+////                }
+////            });
+////
+////            Log.d(TAG, filePath+ ": 파일 path ");
+////
+////            Log.d("onCreate: ","데이터 전송완료" );
+////        });
+//////       --------------일단 서버 전송 중단 마지막 코드 -------------------------
+
+
 
         //식물타입 콤보박스
         ArrayAdapter<CharSequence> adapter =ArrayAdapter.createFromResource(getActivity(),
@@ -394,3 +412,4 @@ public class WriteFragment extends Fragment {
     }
 
 }
+
