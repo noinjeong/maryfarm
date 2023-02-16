@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.databinding.FragmentAlarmBinding;
 
@@ -25,6 +26,7 @@ public class AlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAlarmBinding.inflate(inflater,container,false);
+        ViewGroup view = binding.getRoot();
 
         recyclerView_alarms = binding.alarmNoti;
         layoutManager_alarms = new LinearLayoutManager(getActivity());
@@ -36,10 +38,15 @@ public class AlarmFragment extends Fragment {
         int[] profile = {R.drawable.profilebaek,R.drawable.b,R.drawable.profilebaek,R.drawable.pumpkin};
 
         adapter_alarms = new AlarmItemsAdapter(nickname, date, content, profile);
-
         recyclerView_alarms.setAdapter(adapter_alarms);
 
-        ViewGroup view = binding.getRoot();
+        AlarmItemsAdapter.setOnPlantCheckListener(new AlarmItemsAdapter.OnChatClickListener() {
+            @Override
+            public void onChatClick(View v, int position) {
+                ((MainActivity)getActivity()).onChatFragmentChange(2, ""+position+"");
+            }
+        });
+
         return view;
     }
 
