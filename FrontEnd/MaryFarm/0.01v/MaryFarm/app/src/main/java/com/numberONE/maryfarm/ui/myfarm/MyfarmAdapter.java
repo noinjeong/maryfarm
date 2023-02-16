@@ -35,7 +35,7 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
     public MyfarmAdapter(Context context, List<Thumbnail> items) {
         this.context = context;
-//        this.items = items;
+        this.items = items;
     }
 
     @NonNull
@@ -66,13 +66,13 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
 
         holder.title.setText((items.get(position).getTitle()));
         Glide.with(context)
-                .load(URL + items.get(position).getThumbImg1())
+                .load(URL + items.get(position).getThumbImg3())
                 .into(holder.third_photo);
         Glide.with(context)
                 .load(URL + items.get(position).getThumbImg2())
                 .into(holder.second_photo);
         Glide.with(context)
-                .load(URL + items.get(position).getThumbImg3())
+                .load(URL + items.get(position).getThumbImg1())
                 .into(holder.first_photo);
         holder.thumbnailStartDate.setText(items.get(position).getPlantCreatedDate().substring(0,10));
         if (items.get(position).getHarvestDate() != null) {
@@ -87,9 +87,9 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DiaryDetailActivity.class); //fragment라서 activity intent와는 다른 방식
-//                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = (DetailDiariesPerPlantDTO) items.get(holder.getAdapterPosition()).getDetailDiariesPerPlantDTO();
+                DetailDiariesPerPlantDTO detailDiariesPerPlantDTO = (DetailDiariesPerPlantDTO) items.get(holder.getAdapterPosition()).getDetailDiariesPerPlantDTO();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                intent.putExtra("detailDiariesPerPlantDTO", detailDiariesPerPlantDTO);
+                intent.putExtra("detailDiariesPerPlantDTO", detailDiariesPerPlantDTO);
                 context.startActivity(intent);
             }
         });

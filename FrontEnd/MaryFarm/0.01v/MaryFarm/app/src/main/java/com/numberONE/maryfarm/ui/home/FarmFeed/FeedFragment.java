@@ -49,16 +49,16 @@ public class FeedFragment extends Fragment {
         String userId, userNickname, userImage;
 
         pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        userId = pref.getString("userId", "Null");
-        userNickname = pref.getString("userNickname", "Null");
-        userImage = pref.getString("userImg","Null");
+        userId = pref.getString("pref_id", "Null");
+        userNickname = pref.getString("pref_name", "Null");
+        userImage = pref.getString("pref_img","Null");
 
         RetrofitApiSerivce service = RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
         Call<FirstHomeViewDTO> follower_call = service.getFollowerFeed(userId);
         follower_call.enqueue(new Callback<FirstHomeViewDTO>() {
             @Override
             public void onResponse(Call<FirstHomeViewDTO> call, Response<FirstHomeViewDTO> response) {
-                //Log.d(TAG, "onResponse: !!!!!!!!!!!!!!!!!!!"+response.body().getUserId());
+                Log.d(TAG, "onResponse: !!!!!!!!!!!!!!!!!!!"+response.body().getUserId());
                 if(response.isSuccessful()) {
                     Log.d(TAG, "onResponse: "+response.body().getFollowers());
                     List<HomeFollowerImageDTO> homeFollowerImageDTO = (List) response.body().getFollowers();
