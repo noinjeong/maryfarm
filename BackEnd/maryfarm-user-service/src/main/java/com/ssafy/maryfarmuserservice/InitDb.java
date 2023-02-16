@@ -27,10 +27,13 @@ public class InitDb {
         private final UserCService userCService;
         private final FollowCService followCService;
         public void dbInit() {
-            User user = User.of("123456", "baek", Tier.씨앗);
-            User saveUser1 = userCService.saveUser(user);
-            User user2 = User.of("1234567", "seung", Tier.씨앗);
+            User user2 = User.of("15571557", "seung", Tier.씨앗);
             User saveUser2 = userCService.saveUser(user2);
+            for(int i=0;i<100;i++) {
+                User user = User.of("user"+i, "baek"+i, Tier.씨앗);
+                User saveUser1 = userCService.saveUser(user);
+                followCService.saveFollow(saveUser2.getId(),saveUser1.getId());
+            }
         }
     }
 }
