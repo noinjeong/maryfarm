@@ -58,6 +58,7 @@ public class FeedFragment extends Fragment {
         follower_call.enqueue(new Callback<FirstHomeViewDTO>() {
             @Override
             public void onResponse(Call<FirstHomeViewDTO> call, Response<FirstHomeViewDTO> response) {
+                //Log.d(TAG, "onResponse: !!!!!!!!!!!!!!!!!!!"+response.body().getUserId());
                 if(response.isSuccessful()) {
                     Log.d(TAG, "onResponse: "+response.body().getFollowers());
                     List<HomeFollowerImageDTO> homeFollowerImageDTO = (List) response.body().getFollowers();
@@ -73,6 +74,7 @@ public class FeedFragment extends Fragment {
                         String thumbImg3 = null;
                         String plantCreatedDate = homeDiaryImageDTOS.get(j).getCreatedDate();
                         String harvestDate = null;
+                        String profilepath = homeDiaryImageDTOS.get(j).getProfilePath();
 
                         for (int k=homeDiaryImageDTOS.get(j).getOtherDiaryImagePath().size()-1; k>=0; k--){
                             if (k==homeDiaryImageDTOS.get(j).getOtherDiaryImagePath().size()-1){
@@ -83,7 +85,7 @@ public class FeedFragment extends Fragment {
                                 thumbImg1 = homeDiaryImageDTOS.get(j).getOtherDiaryImagePath().get(k);
                             }
                         }
-                        Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, null);
+                        Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, profilepath, null);
                         planThumbnails.add(thumbnail);
                     }
                     othersDataList(planThumbnails);
