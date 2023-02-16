@@ -40,7 +40,7 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:entries="@array/board_spinner"
+            android:entries="@array/board_write_spinner"
             android:layout_marginStart="20dp" />
 
         <Button

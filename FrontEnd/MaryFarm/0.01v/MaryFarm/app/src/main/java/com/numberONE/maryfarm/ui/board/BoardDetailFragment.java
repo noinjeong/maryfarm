@@ -3,22 +3,18 @@ package com.numberONE.maryfarm.ui.board;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.numberONE.maryfarm.Diary.CommentAdapter;
 import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Board.BoardArticle;
@@ -27,12 +23,9 @@ import com.numberONE.maryfarm.Retrofit.Board.BoardWrite;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
 import com.numberONE.maryfarm.Retrofit.RetrofitClient;
 import com.numberONE.maryfarm.databinding.FragmentBoardDetailBinding;
-import com.numberONE.maryfarm.ui.home.FarmFeed.FeedFollowersAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +43,10 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
     BoardArticle boardArticle=new BoardArticle();
     List<BoardComments> comments = new ArrayList<>();
+
+    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
+
+    String region="";
 
     public BoardDetailFragment() {
     }
@@ -88,14 +85,16 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
                     binding.boardDetailType.setText(boardArticle.getType());
                     binding.boardDetailTitle.setText(boardArticle.getTitle());
-                    Glide.with(getActivity()).load(boardArticle.getProfilePath()).into(binding.boardDetailProfile);
+                    Glide.with(getActivity()).load(URL+boardArticle.getProfilePath()).into(binding.boardDetailProfile);
                     binding.boardDetailNickname.setText(boardArticle.getUserName());
                     String date =DateToString(response.body().getLastModifiedDate());
                     binding.boardDetailDate.setText(date); // 날짜 처리 ( 작성일 ? 수정일 ? 무엇인지 체크 )
                     binding.boardDetailViewCnt.setText(boardArticle.getViews()+"");
                     binding.boardDetailContent.setText(boardArticle.getContent());
                     comments=boardArticle.getComments(); // 리스트로 댓글들 받아오기
-
+//                    Log.d(TAG, "댓글 리스트 :  " + comments.get(0).toString());
+//                    Log.d(TAG, "댓글 리스트 이름 :  " + comments.get(0).getUserName());
+//                    Log.d(TAG, "댓글 리스트 프로필 사진 :  " + comments.get(0).getProfile());
                     // 댓글 리사이클러 뷰 어댑터 연결
                     adapter_comment=new BoardCommentAdapter(comments);
                     recyclerView_comment.setAdapter(adapter_comment);
@@ -109,7 +108,7 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
             }
         });
 
-//      ---------- 게시글 댓글 작성  로직 ----------------
+//      ---------- 게시글 댓글 작성 로직 ----------------
 
         binding.boardDetailCommentAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +132,7 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
-                        Log.d(TAG, "onResponse: "+boardWrite.toString().trim());
+                        Log.d(TAG, "댓글 작성 서버 전송 boardWrite : "+boardWrite.toString().trim());
                         Log.d(TAG, "댓글 작성 onResponse code:" +response.code());
                         Log.d(TAG, "댓글 작성 res.body: "+response.body());
                         if(response.isSuccessful()){
@@ -208,6 +207,10 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
     public void onBack() {
         BoardMainFragment fragment =new BoardMainFragment();
         Log.d(TAG, " 뒤로가기 버튼 실행  ");
+        SharedPreferences preferences= getActivity().getSharedPreferences("board",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =preferences.edit();
+        editor.putString("region",region);
+        editor.commit();
         //리스너를 설정하기 위해 Activity 받아오기
         MainActivity activity = (MainActivity)getActivity();
         // 한번 뒤로가기 버튼을 눌렀다면 Listener를 null 로 해제

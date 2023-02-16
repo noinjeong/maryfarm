@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
     private static final String TAG = " BoardAdapter";
-    static List<BoardArticle> article=new ArrayList<>();
+    static List<BoardArticle> article;
 
 
     ViewHolder viewHolder;
@@ -65,23 +65,54 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
             this.commentCnt = itemView.findViewById(R.id.board_item_commentCnt);
             this.layout = itemView.findViewById(R.id.recycler_board_layout);
 //            this.image=itemView.findViewById(R.id.board_item_image);
+        }
 
+        public RelativeLayout getLayout() {
+            return layout;
+        }
 
-//       sharedpreferences 는 어댑터에서 사용하려고 하면 로직이 복잡해져서 외부로 빼서 사용하기 위해
-//            커스텀 리스너 만든 후 외부에서 꺼내서 사용
-//           리사이클러뷰에서 아이템 하나 클릭 시 리스너에 담아주기
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    if(pos!=RecyclerView.NO_POSITION){
-                        if(listener!=null){
-                            listener.onItemClick(view,pos,article.get(pos).getArticleId());
-                        }
-                    }
-                }
-            });
-//    --------     클릭리스너 로직 끝  -------------
+        public void setLayout(RelativeLayout layout) {
+            this.layout = layout;
+        }
+
+        public TextView getTitle() {
+            return title;
+        }
+
+        public void setTitle(TextView title) {
+            this.title = title;
+        }
+
+        public TextView getUserName() {
+            return userName;
+        }
+
+        public void setUserName(TextView userName) {
+            this.userName = userName;
+        }
+
+        public TextView getDate() {
+            return date;
+        }
+
+        public void setDate(TextView date) {
+            this.date = date;
+        }
+
+        public TextView getViewCnt() {
+            return viewCnt;
+        }
+
+        public void setViewCnt(TextView viewCnt) {
+            this.viewCnt = viewCnt;
+        }
+
+        public TextView getCommentCnt() {
+            return commentCnt;
+        }
+
+        public void setCommentCnt(TextView commentCnt) {
+            this.commentCnt = commentCnt;
         }
     }
 
@@ -92,6 +123,24 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
                 .inflate(R.layout.recycler_board,parent,false);
 
         viewHolder=new ViewHolder(view);
+
+        ViewHolder viewHolder = new BoardAdapter.ViewHolder(view);
+        //       sharedpreferences 는 어댑터에서 사용하려고 하면 로직이 복잡해져서 외부로 빼서 사용하기 위해
+//            커스텀 리스너 만든 후 외부에서 꺼내서 사용
+//           리사이클러뷰에서 아이템 하나 클릭 시 리스너에 담아주기
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = viewHolder.getAdapterPosition();
+                if(pos!=RecyclerView.NO_POSITION){
+                    if(listener!=null){
+                        listener.onItemClick(view,pos,article.get(pos).getArticleId());
+                    }
+                }
+            }
+        });
+//    --------     클릭리스너 로직 끝  -------------
+
         return viewHolder;
     }
 
@@ -102,7 +151,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
             holder.title.setText(article.get(position).getTitle());
             holder.userName.setText(article.get(position).getUserName());
             holder.date.setText(article.get(position).getCreatedDate());
-            holder.viewCnt.setText(article.get(position).getViews());
+            holder.viewCnt.setText(article.get(position).getViews()+"");
 //            holder.commentCnt.setText(article.get(position).getCommentCnt()); // 댓글 받을 수 있는 지 체크 후 댓글의 length 넣어주기
 //            viewHolder.image.setImageResource(article.get.); // 이미지 넣을거면 api 수정 요청하기
 
