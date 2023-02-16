@@ -35,6 +35,7 @@ import com.numberONE.maryfarm.ui.AlgorithmPage.RecommendActivity;
 import com.numberONE.maryfarm.ui.alarm.AlarmFragment;
 import com.numberONE.maryfarm.ui.board.BoardDetailFragment;
 import com.numberONE.maryfarm.ui.board.BoardMainFragment;
+import com.numberONE.maryfarm.ui.board.SchoolFragment;
 import com.numberONE.maryfarm.ui.chat.ChatFragment;
 import com.numberONE.maryfarm.ui.chat.ChatRoomFragment;
 import com.numberONE.maryfarm.ui.diary.AddFragment;
@@ -175,28 +176,23 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.hamburger_1:
-                        Toast.makeText(MainActivity.this,"이장님 말씀", Toast.LENGTH_SHORT).show();
                         InformMainFragment informMainFragment=new InformMainFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,informMainFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_2:
-                        Toast.makeText(MainActivity.this,"텃밭학교 ", Toast.LENGTH_SHORT).show();
-                        BoardDetailFragment fragment=new BoardDetailFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
+                        SchoolFragment schoolfragment=new SchoolFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,schoolfragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_3:
-                        Toast.makeText(MainActivity.this,"마을회관", Toast.LENGTH_SHORT).show();
                         BoardMainFragment boardFragment=new BoardMainFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,boardFragment).commitAllowingStateLoss();
                         break;
                     case R.id.hamburger_4:
-                        Toast.makeText(MainActivity.this,"직거래 장터", Toast.LENGTH_SHORT).show();
                         MarketMainFragment marketMainFragment=new MarketMainFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity,marketMainFragment).commitAllowingStateLoss();
                         break;
 
                     case R.id.hamburger_5:
-                        Toast.makeText(MainActivity.this,"작물 추천", Toast.LENGTH_SHORT).show();
                         Intent recommend = new Intent(getApplicationContext(), RecommendActivity.class);
                         startActivity(recommend);
                         break;
