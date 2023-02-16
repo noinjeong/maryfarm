@@ -80,6 +80,7 @@
             android:background="@drawable/chat_border"
             android:padding="7dp"
             android:text=""
+            android:textColor="@color/black"
             android:layout_toLeftOf="@+id/chatmyProfileImg"
             android:layout_centerVertical="true"/>
 
