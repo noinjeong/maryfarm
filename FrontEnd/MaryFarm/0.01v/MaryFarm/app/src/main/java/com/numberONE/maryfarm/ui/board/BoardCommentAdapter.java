@@ -25,6 +25,7 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
     static List<BoardComments> boardComments =new ArrayList<>();
     ViewHolder viewHolder;
     int view_cnt;
+    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
 
     public BoardCommentAdapter(List<BoardComments> list) {
         this.boardComments=list;
@@ -62,10 +63,10 @@ public class BoardCommentAdapter extends RecyclerView.Adapter<BoardCommentAdapte
         try {
             view_cnt =boardComments.get(position).getLikes();
             holder.nickname.setText(boardComments.get(position).getUserName());
-            holder.like.setText(boardComments.get(position).getLikes());
-            holder.content.setText(view_cnt);
-            Glide.with(holder.profile).load(boardComments.get(position).getProfile());
-            Glide.with(holder.empty).load(boardComments.get(position).getProfile());
+            holder.like.setText(boardComments.get(position).getLikes()+"");
+            holder.content.setText(view_cnt+"");
+            Glide.with(holder.profile).load(URL+boardComments.get(position).getProfile());
+            Glide.with(holder.empty).load(URL+boardComments.get(position).getProfile());
 
             holder.empty.setOnClickListener(new View.OnClickListener() {
                 @Override
