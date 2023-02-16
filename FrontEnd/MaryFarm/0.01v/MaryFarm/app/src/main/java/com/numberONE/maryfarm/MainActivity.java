@@ -49,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.http.HEAD;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String URL = "https://s3.ap-northeast-2.amazonaws.com/maryfarm.bucket/";
     private static String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         CircleImageView user_profile= (CircleImageView) binding.drawerNav.getHeaderView(0).findViewById(R.id.hamburger_user_profile);
 
         GlideApp.with(this)
-                .load(pref_textUrl)
+                .load(URL + pref_textUrl)
                 .skipMemoryCache(true)
                 .error(R.drawable.loading_icon)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)

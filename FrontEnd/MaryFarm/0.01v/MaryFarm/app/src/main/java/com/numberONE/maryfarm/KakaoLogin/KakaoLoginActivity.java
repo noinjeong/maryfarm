@@ -99,8 +99,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 Log.d(TAG, "로그인 성공 후 로직 시작 ! ");
                 Log.d(TAG, "getUserInfo:" + user.toString());
                 user_id = user.getId() + " "; // 사용자 고유번호
-                user_name = user.getKakaoAccount().getProfile().getNickname(); // 이름
-                user_image = user.getKakaoAccount().getProfile().getProfileImageUrl(); // 프로필 주소 https:// ~~
+                //user_name = user.getKakaoAccount().getProfile().getNickname(); // 이름
+                //user_image = user.getKakaoAccount().getProfile().getProfileImageUrl(); // 프로필 주소 https:// ~~
 
                 // # 1-1. 기회원인지 확인
                 Retrofit retrofit = new Retrofit.Builder()
@@ -119,6 +119,9 @@ public class KakaoLoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                         UserInfo userInfo = response.body();
+
+                        user_name = userInfo.getUserName(); // 이름
+                        user_image = userInfo.getProfilePath(); // 프로필 주소 https:// ~~
 
                         // # 1-2. 기회원이 아닌 경우, Sign up 진행
                         if (userInfo == null) {
