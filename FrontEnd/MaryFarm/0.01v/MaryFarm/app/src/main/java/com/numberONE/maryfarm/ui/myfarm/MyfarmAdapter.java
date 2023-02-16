@@ -67,13 +67,13 @@ public class MyfarmAdapter extends RecyclerView.Adapter<MyfarmAdapter.MyViewHold
         holder.title.setText((items.get(position).getTitle()));
         Glide.with(context)
                 .load(URL + items.get(position).getThumbImg1())
-                .into(holder.first_photo);
+                .into(holder.third_photo);
         Glide.with(context)
                 .load(URL + items.get(position).getThumbImg2())
                 .into(holder.second_photo);
         Glide.with(context)
                 .load(URL + items.get(position).getThumbImg3())
-                .into(holder.third_photo);
+                .into(holder.first_photo);
         holder.thumbnailStartDate.setText(items.get(position).getPlantCreatedDate().substring(0,10));
         if (items.get(position).getHarvestDate() != null) {
             holder.thumbnailEndDate.setText(items.get(position).getHarvestDate().substring(0,10));

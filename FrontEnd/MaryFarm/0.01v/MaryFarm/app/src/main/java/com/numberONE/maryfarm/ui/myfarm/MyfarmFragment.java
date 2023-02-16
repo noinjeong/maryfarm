@@ -120,10 +120,9 @@ public class MyfarmFragment extends Fragment {
 
                 Bundle bundle=getArguments();// 번들 받기
                 if(bundle!=null){
-                    String param=bundle.getString("code");
+                    String param=bundle.getString("parameter");
                     Log.d("MyfarmFragment", "write로 부터 넘어온 값"+ param);
                 }
-//              ------------ write로부터 넘겨받은 로직 끝  -----------------
             }
 
             @Override
@@ -198,12 +197,12 @@ public class MyfarmFragment extends Fragment {
                                     } else {
                                         thumbImg3 = diary.getImagePath();
                                     }
+
+                                    Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, null,detailDiariesPerPlantDTO);
+                                    planThumbnails.add(thumbnail);
+
+                                    recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                                 }
-
-                                Thumbnail thumbnail = new Thumbnail(title, thumbImg1, thumbImg2, thumbImg3, plantId, plantCreatedDate, harvestDate, detailDiariesPerPlantDTO);
-                                planThumbnails.add(thumbnail);
-
-                                recyclerView.setAdapter(new MyfarmAdapter(getContext(), planThumbnails));
                             }
                         }
 
