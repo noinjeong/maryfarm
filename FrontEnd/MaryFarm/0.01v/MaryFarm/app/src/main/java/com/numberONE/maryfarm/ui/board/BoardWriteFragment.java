@@ -92,14 +92,15 @@ public class BoardWriteFragment extends Fragment {
 
                         if(response.isSuccessful() && !region.equals("지역 선택")){
                             Log.d(TAG, " 게시판 글 작성 서버 통신 성공 ");
-                            // 게시판 메인으로 이동하기
-                            FragmentManager manager =getActivity().getSupportFragmentManager();
-                            manager.beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
                             // 게시판 메인으로 가서 글 작성한 지역 게시판으로 가기위해 정보 넘겨주기
                             SharedPreferences preferences= getActivity().getSharedPreferences("board",Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("type",region);
                             editor.commit();
+                            // 게시판 메인으로 이동하기
+                            FragmentManager manager =getActivity().getSupportFragmentManager();
+                            manager.beginTransaction().replace(R.id.main_activity,fragment).commitAllowingStateLoss();
+
                         }
                         if(response.code() == 500 || region.equals("지역 선택")){
                             Toast.makeText(getActivity(),"지역을 선택해야 합니다.", Toast.LENGTH_SHORT).show();

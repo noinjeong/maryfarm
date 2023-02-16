@@ -20,11 +20,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.numberONE.maryfarm.MainActivity;
 import com.numberONE.maryfarm.R;
 import com.numberONE.maryfarm.Retrofit.Board.BoardArticle;
 import com.numberONE.maryfarm.Retrofit.RetrofitApiSerivce;
 import com.numberONE.maryfarm.Retrofit.RetrofitClient;
 import com.numberONE.maryfarm.databinding.FragmentBoardMainBinding;
+import com.numberONE.maryfarm.ui.home.HomeFragment;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardMainFragment extends Fragment {
+public class BoardMainFragment extends Fragment implements MainActivity.OnBackPressedListener{
     private static final String TAG = "BoardMainFragment";
 
     FragmentBoardMainBinding binding;
@@ -56,15 +58,6 @@ public class BoardMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =FragmentBoardMainBinding.inflate(inflater,container,false);
 
-//        region = binding.boardSpinner.getSelectedItem().toString();
-
-//      ------- 스피너 설정 --------
-//        spinnerAdapter=ArrayAdapter.createFromResource(getActivity(),
-//                R.array.board_spinner,R.layout.custom_spinner_layout);
-//        spinnerAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-//        binding.boardSpinner.setAdapter(spinnerAdapter);
-        //      -------- 스피너 설정 끝 --------
-
 //      ------------ 게시글 작성 후 해당 게시판으로 설정 -------------
         preferences=getActivity().getSharedPreferences("board",Context.MODE_PRIVATE);
         region = preferences.getString("type","type is null");
@@ -74,7 +67,6 @@ public class BoardMainFragment extends Fragment {
         editor.clear();
         editor.commit();
 //      ------------- 게시글 작성 후 해당 게시판으로 설정 끝 -----------
-
 
         recyclerView_board=binding.boardRecycler;
         layoutManager_board=new LinearLayoutManager(getActivity());
@@ -194,4 +186,24 @@ public class BoardMainFragment extends Fragment {
         return str;
     }
 
+    //    ---- 뒤로가기 버튼 로직 (몸통은 메인액티비티에 ) -------
+    @Override
+    public void onBack() {
+        HomeFragment fragment =new HomeFragment();
+        Log.d(TAG, " 뒤로가기 버튼 실행  ");
+        //리스너를 설정하기 위해 Activity 받아오기
+        MainActivity activity = (MainActivity)getActivity();
+        // 한번 뒤로가기 버튼을 눌렀다면 Listener를 null 로 해제
+        activity.setOnBackPressedListener(null);
+        // 보드 메인으로 이동
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_activity,fragment).commit();
+    }
+
+    //   Fragment 호출 시 반드시 호출되는 오바라이드 메소드
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity)context).setOnBackPressedListener(this);
+    }
 }

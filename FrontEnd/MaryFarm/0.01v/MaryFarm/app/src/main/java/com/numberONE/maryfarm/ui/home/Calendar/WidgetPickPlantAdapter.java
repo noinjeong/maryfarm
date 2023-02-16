@@ -38,22 +38,22 @@ public class WidgetPickPlantAdapter implements RemoteViewsService.RemoteViewsFac
     public void setData() {
         RetrofitService networkService = RetrofitFactory.create();
         networkService.getWidget(userId)
-            .enqueue(new Callback<List<ItemModel>>() {
-                @Override
-                public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
-                    Log.i(TAG, "onResponse 오늘의 작물: "+response.body().get(0));
-                    if(response.isSuccessful()){
-                        Log.i(TAG, "onResponse: 캘린더 서버 연결");
-                        List<ItemModel> body = response.body();
-                        arrayList = body;
+                .enqueue(new Callback<List<ItemModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ItemModel>> call, Response<List<ItemModel>> response){
+                        Log.i(TAG, "onResponse 오늘의 작물: "+response.body().get(0));
+                        if(response.isSuccessful()){
+                            Log.i(TAG, "onResponse: 캘린더 서버 연결");
+                            List<ItemModel> body = response.body();
+                            arrayList = body;
+                        }
                     }
-                }
-                @Override
-                public void onFailure(Call<List<ItemModel>> call, Throwable t){
-                    Log.e(TAG, "onFailure: 서버 연결 실패");
-                    Log.e(TAG, "onFailure:", t);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<List<ItemModel>> call, Throwable t){
+                        Log.e(TAG, "onFailure: 서버 연결 실패");
+                        Log.e(TAG, "onFailure:", t);
+                    }
+                });
     }
 
     //이 모든게 필수 오버라이드 메소드
@@ -80,7 +80,7 @@ public class WidgetPickPlantAdapter implements RemoteViewsService.RemoteViewsFac
     // 항목 개수를 반환하는 함수
     @Override
     public int getCount() {
-    // arrayList nullException 오류 나서 삼항연산자로 처리
+        // arrayList nullException 오류 나서 삼항연산자로 처리
         return arrayList!=null ? arrayList.size() : 0 ;
     }
 

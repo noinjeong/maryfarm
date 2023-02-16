@@ -122,6 +122,9 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <!--     board 끝    -->
-<!--  위젯  -->
+
+    <!--  위젯  -->
     <string name="emoji">오늘도 잘 자라거라 &#127793;</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

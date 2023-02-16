@@ -63,6 +63,15 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
         hideBottomNavigation(true); // 바텀 네비 비활성화
 
+//      -- 댓글 리사이클러뷰 --
+
+        recyclerView_comment=binding.boardDetailCommentRecyclerView;
+        layoutManager_comment=new LinearLayoutManager(getActivity());
+        recyclerView_comment.setLayoutManager(layoutManager_comment);
+
+//      -- 댓글 리사이클러뷰 끝 --
+
+
         RetrofitApiSerivce service = RetrofitClient.getInstance().create(RetrofitApiSerivce.class);
         // BoardMainFragment에서 넘겨준 articleId 가져오기
         SharedPreferences preferences= getActivity().getSharedPreferences("board", Context.MODE_PRIVATE);
@@ -86,6 +95,10 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
                     binding.boardDetailViewCnt.setText(boardArticle.getViews()+"");
                     binding.boardDetailContent.setText(boardArticle.getContent());
                     comments=boardArticle.getComments(); // 리스트로 댓글들 받아오기
+
+                    // 댓글 리사이클러 뷰 어댑터 연결
+                    adapter_comment=new BoardCommentAdapter(comments);
+                    recyclerView_comment.setAdapter(adapter_comment);
                 }
             }
 
@@ -119,7 +132,8 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
                 service.writeCommnet(boardWrite).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.d(TAG, "onResponse: "+boardWrite.toString());
+
+                        Log.d(TAG, "onResponse: "+boardWrite.toString().trim());
                         Log.d(TAG, "댓글 작성 onResponse code:" +response.code());
                         Log.d(TAG, "댓글 작성 res.body: "+response.body());
                         if(response.isSuccessful()){
@@ -134,6 +148,10 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
                         Log.d(TAG, "댓글 작성 서버 전송 실패 ");
                     }
                 });
+
+                //               댓글창 비워주기
+                binding.boardDetailCommentInput.setText("");
+
             }
         });
 
@@ -141,20 +159,6 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
 
         ViewGroup view =binding.getRoot();
         return view;
-    }
-
-    // 댓글 리사이클러 뷰
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        recyclerView_comment=binding.boardDetailCommentRecyclerView;
-        layoutManager_comment=new LinearLayoutManager(getActivity());
-        recyclerView_comment.setLayoutManager(layoutManager_comment);
-
-        // 댓글 리사이클러 뷰 어댑터 연결
-        adapter_comment=new BoardCommentAdapter(comments);
-        recyclerView_comment.setAdapter(adapter_comment);
     }
 
     // 이 프래그먼트에서 넘어갈 때 다시 바텀 네비 활성화
@@ -199,7 +203,8 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
     }
 
 //    ---- 뒤로가기 버튼 로직 (몸통은 메인액티비티에 ) -------
-//    @Override
+
+    @Override
     public void onBack() {
         BoardMainFragment fragment =new BoardMainFragment();
         Log.d(TAG, " 뒤로가기 버튼 실행  ");
@@ -216,7 +221,6 @@ public class BoardDetailFragment extends Fragment implements MainActivity.OnBack
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
         ((MainActivity)context).setOnBackPressedListener(this);
     }
 }
