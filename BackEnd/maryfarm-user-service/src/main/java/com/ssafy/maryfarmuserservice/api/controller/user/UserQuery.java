@@ -77,7 +77,10 @@ public class UserQuery {
     })
     @GetMapping("/user/home/{userId}")
     public ResponseEntity<?> searchHome(@PathVariable("userId") String userId) {
+        long start = System.currentTimeMillis();
         Optional<FirstHomeViewDTO> resultDto = firstHomeViewDTORepository.findByUserId(userId);
+        long end = System.currentTimeMillis();
+        log.info("searchHome 수행시간 : " + (end-start));
         return ResponseEntity.ok(resultDto.get());
     }
 

@@ -64,7 +64,7 @@ public class UserCommand {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PutMapping("/user/modify")
+    @PostMapping("/user/modify")
     public ResponseEntity<?> modifyUser(@RequestPart MultipartFile image, @RequestPart ModifyUserRequestDTO dto) {
         FileDetail saveFile = fileUploadService.save(image);
         User user = userCService.updateUser(dto.getUserId(), dto.getUserName(),saveFile.getPath());
