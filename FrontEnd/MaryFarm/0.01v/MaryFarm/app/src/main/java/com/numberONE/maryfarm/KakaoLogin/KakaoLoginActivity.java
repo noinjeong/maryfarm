@@ -105,7 +105,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
             } else {
                 Log.d(TAG, "로그인 성공 후 로직 시작 ! ");
                 Log.d(TAG, "getUserInfo:" + user.toString());
-                user_id = user.getId() + " "; // 사용자 고유번호
+//                user_id = user.getId() + " "; // 사용자 고유번호
+                user_id = "2626273196"; // 사용자 고유번호
                 //user_name = user.getKakaoAccount().getProfile().getNickname(); // 이름
                 //user_image = user.getKakaoAccount().getProfile().getProfileImageUrl(); // 프로필 주소 https:// ~~
 
@@ -126,9 +127,13 @@ public class KakaoLoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                         UserInfo userInfo = response.body();
+                        Log.d(TAG, "onResponse: "+userInfo.getUserName());
+//                        user_name = userInfo.getUserName(); // 이름
+//                        user_image = userInfo.getProfilePath(); // 프로필 주소 https:// ~~
 
-                        user_name = userInfo.getUserName(); // 이름
-                        user_image = userInfo.getProfilePath(); // 프로필 주소 https:// ~~
+                        user_name = "김차분"; // 이름
+                        user_image ="maryfarm/c3054490-8cd3-4965-b335-e70d7fdbc158.jpeg" ; // 프로필 주소 https:// ~~
+
 
                         // # 1-2. 기회원이 아닌 경우, Sign up 진행
                         if (userInfo == null) {
