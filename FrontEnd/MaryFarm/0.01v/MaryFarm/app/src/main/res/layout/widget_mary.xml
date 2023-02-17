@@ -1,22 +1,69 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.MaryFarm.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.MaryFarm.AppWidgetContainer">
+    android:theme="@style/Theme.MaryFarm.AppWidgetContainer"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/appwidget_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/emoji"/>
-    <ListView
-        android:id="@+id/widget_pick_date"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/appwidget_text"
-        android:scrollbarFadeDuration="0"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@android:color/darker_gray"
-        android:divider="@android:color/transparent"
-        />
+        android:text="@string/emoji"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="코스모스\n( D + 2 )"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="3dp"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar_water"
+            android:background="@android:color/transparent"
+            android:layout_marginHorizontal="10dp"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar_scissors"
+            android:background="@android:color/transparent"
+            android:layout_marginHorizontal="10dp"
+            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar_pill"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:color/transparent"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar_shovel"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:color/transparent"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar_note"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+<!--    <ListView-->
+<!--        android:id="@+id/widget_pick_date"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/appwidget_text"-->
+<!--        android:scrollbarFadeDuration="0"-->
+<!--        android:scrollbarSize="5dp"-->
+<!--        android:scrollbarThumbVertical="@android:color/darker_gray"-->
+<!--        android:divider="@android:color/transparent"-->
+<!--        />-->
 
-</RelativeLayout>
+</LinearLayout>

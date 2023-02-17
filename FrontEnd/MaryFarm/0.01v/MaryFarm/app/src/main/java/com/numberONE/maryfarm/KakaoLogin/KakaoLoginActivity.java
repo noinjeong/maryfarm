@@ -106,6 +106,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
                 Log.d(TAG, "로그인 성공 후 로직 시작 ! ");
                 Log.d(TAG, "getUserInfo:" + user.toString());
                 user_id = user.getId() + " "; // 사용자 고유번호
+//                user_id = "2626273196"; // 사용자 고유번호
+                Log.d(TAG, "getUserInfo: !!!!!!"+user_id);
                 //user_name = user.getKakaoAccount().getProfile().getNickname(); // 이름
                 //user_image = user.getKakaoAccount().getProfile().getProfileImageUrl(); // 프로필 주소 https:// ~~
 
@@ -125,6 +127,8 @@ public class KakaoLoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                        Log.d(TAG, "onResponse: !!!!!"+user_id);
+                        Log.d(TAG, "onResponse: !!!!!"+response.body().getUserName());
                         UserInfo userInfo = response.body();
 
                         user_name = userInfo.getUserName(); // 이름

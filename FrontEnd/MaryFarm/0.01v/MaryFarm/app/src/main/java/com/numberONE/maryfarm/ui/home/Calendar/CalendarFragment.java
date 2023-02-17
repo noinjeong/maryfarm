@@ -378,10 +378,10 @@ public class CalendarFragment extends Fragment {
                         } break;
                 }
                 // 위젯에 data change 알림
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
-                int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
-                        new ComponentName(getActivity(), WidgetMary.class));
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_pick_date);
+//                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+//                int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
+//                        new ComponentName(getActivity(), WidgetMary.class));
+//                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_pick_date);
             }
         });
 // 달력 커스텀
