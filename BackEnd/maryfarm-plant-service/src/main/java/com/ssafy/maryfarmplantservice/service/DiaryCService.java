@@ -33,11 +33,15 @@ import java.util.regex.Pattern;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryService.java
 public class DiaryService {
 =======
 public class DiaryCService {
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryCService.java
+=======
+public class DiaryCService {
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     private final RedisTemplate redisTemplate;
     private final DiaryRepository diaryRepository;
     private final PlantRepository plantRepository;
@@ -200,10 +204,14 @@ public class DiaryCService {
     @Transactional
     @Scheduled(cron = "0 0/1 * * * ?")
     public void deleteLikeCntCacheFromRedis() {
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryService.java
 =======
         log.info("-----------update likeCntFromRedis run--------");
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryCService.java
+=======
+        log.info("-----------update likeCntFromRedis run--------");
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
         Set<String> redisKeys = redisTemplate.keys("diaryLikeCnt*");
         Iterator<String> it = redisKeys.iterator();
         while (it.hasNext()) {
@@ -216,11 +224,17 @@ public class DiaryCService {
             redisTemplate.delete(data);
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryService.java
 =======
+=======
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 
     public Diary searchDiaryById(String diaryId) {
         return diaryRepository.findById(diaryId).get();
     }
+<<<<<<< HEAD
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/service/DiaryCService.java
+=======
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 }

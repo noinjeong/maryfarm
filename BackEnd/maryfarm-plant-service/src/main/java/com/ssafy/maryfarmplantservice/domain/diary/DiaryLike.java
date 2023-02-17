@@ -12,11 +12,15 @@ import java.io.Serializable;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/domain/diary/DiaryLike.java
 public class DiaryLike implements Serializable {
 =======
 public class DiaryLike extends BaseTimeEntity implements Serializable {
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/domain/diary/DiaryLike.java
+=======
+public class DiaryLike extends BaseTimeEntity implements Serializable {
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "diary_like_id")

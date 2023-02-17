@@ -56,6 +56,7 @@ public class UserCommand {
         else return ResponseEntity.ok(1);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-user-service/src/main/java/com/ssafy/maryfarmuserservice/api/controller/user/UserController.java
     @Operation(summary = "회원 조회", description = "특정 회원을 조회합니다.", tags = { "User Controller" })
     @ApiResponses({
@@ -94,6 +95,9 @@ public class UserCommand {
 =======
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = { "User Command" })
 >>>>>>> back:BackEnd/maryfarm-user-service/src/main/java/com/ssafy/maryfarmuserservice/api/controller/user/UserCommand.java
+=======
+    @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = { "User Command" })
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),

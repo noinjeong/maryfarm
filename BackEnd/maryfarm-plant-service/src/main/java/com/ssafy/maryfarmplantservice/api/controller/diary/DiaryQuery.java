@@ -61,6 +61,7 @@ public class DiaryQuery {
         return ResponseEntity.ok(resultDto);
     }
 
+<<<<<<< HEAD
     @Operation(summary = "일지 추가", description = "일지를 추가로 등록합니다.", tags = { "Diary Controller" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -130,6 +131,9 @@ public class DiaryQuery {
     }
 
     @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Controller" })
+=======
+    @Operation(summary = "일지 태그 검색", description = "일지 태그를 검색합니다.", tags = { "Diary Query" })
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(schema = @Schema(implementation = DiarySearchResponseDTO.class))),

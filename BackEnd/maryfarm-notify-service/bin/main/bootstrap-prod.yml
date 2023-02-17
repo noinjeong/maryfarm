@@ -3,6 +3,7 @@ spring:
     refresh:
       extra-refreshable: com.zaxxer.hikari.HikariDataSource
     config:
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-discovery-service/src/main/resources/bootstrap-prod.yml
       uri: http://172.26.1.228:8888
       name: maryfarm-discovery-service
@@ -10,3 +11,7 @@ spring:
       uri: https://172.26.1.228:8888
       name: maryfarm-notify-service
 >>>>>>> back:BackEnd/maryfarm-notify-service/bin/main/bootstrap-prod.yml
+=======
+      uri: https://172.26.1.228:8888
+      name: maryfarm-notify-service
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8

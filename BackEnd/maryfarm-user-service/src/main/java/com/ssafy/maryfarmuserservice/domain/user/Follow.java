@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.io.Serializable;
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-user-service/src/main/java/com/ssafy/maryfarmuserservice/domain/user/Follow.java
 
 @Entity
@@ -16,11 +17,16 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow implements Serializable {
 =======
+=======
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow extends BaseTimeEntity implements Serializable {
+<<<<<<< HEAD
 >>>>>>> back:BackEnd/maryfarm-user-service/src/main/java/com/ssafy/maryfarmuserservice/domain/user/Follow.java
+=======
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     /*
         Follow의 sender와 receiver 조합이 중복되는 경우는
         프론트엔드에서 팔로우 버튼을 누르면 언팔로우 버튼으로 바뀌는

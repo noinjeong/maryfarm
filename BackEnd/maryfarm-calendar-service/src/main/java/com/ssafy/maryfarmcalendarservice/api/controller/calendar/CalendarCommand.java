@@ -1,9 +1,13 @@
 package com.ssafy.maryfarmcalendarservice.api.controller.calendar;
 
+<<<<<<< HEAD
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.RegistCalendarRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.request.SearchCalendarRequestDTO;
 import com.ssafy.maryfarmcalendarservice.api.dto.calendar.response.SearchCalendarResponseDTO;
 import com.ssafy.maryfarmcalendarservice.client.dto.plant.PlantResponseDTO;
+=======
+import com.ssafy.maryfarmcalendarservice.api.dto.calendar.RegistCalendarRequestDTO;
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 import com.ssafy.maryfarmcalendarservice.client.service.plant.PlantServiceClient;
 import com.ssafy.maryfarmcalendarservice.domain.calendar.Calendar;
 import com.ssafy.maryfarmcalendarservice.kafka.producer.calendar.CalendarProducer;
@@ -35,6 +39,7 @@ public class CalendarCommand {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
+<<<<<<< HEAD
     @PostMapping("/calendar/search")
     public ResponseEntity<?> SearchCalendar(@RequestBody SearchCalendarRequestDTO dto) {
         List<Calendar> list = calendarService.searchCalendar(dto);
@@ -54,6 +59,8 @@ public class CalendarCommand {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
+=======
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
     @PostMapping("/calendar/regist")
     public ResponseEntity<?> RegistCalendar(@RequestBody RegistCalendarRequestDTO dto) {
         Calendar calendar = calendarCService.registCalendar(dto);

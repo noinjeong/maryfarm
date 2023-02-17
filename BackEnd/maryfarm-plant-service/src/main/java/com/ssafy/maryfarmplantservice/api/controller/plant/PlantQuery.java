@@ -1,14 +1,26 @@
 package com.ssafy.maryfarmplantservice.api.controller.plant;
 
+<<<<<<< HEAD
 import com.ssafy.maryfarmplantservice.api.dto.plant.request.MonthPlantSearchRequestDTO;
 import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantResponseDTO;
 import com.ssafy.maryfarmplantservice.api.dto.plant.response.PlantSearchByMonthResponseDTO;
+=======
+import com.ssafy.maryfarmplantservice.api.dto.plant.MonthPlantSearchRequestDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.DiaryToHomeResponseDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.PlantResponseDTO;
+import com.ssafy.maryfarmplantservice.api.dto.query.response.PlantSearchByMonthResponseDTO;
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 import com.ssafy.maryfarmplantservice.client.dto.user.UserResponseDTO;
 import com.ssafy.maryfarmplantservice.client.service.user.UserServiceClient;
+import com.ssafy.maryfarmplantservice.domain.diary.Diary;
 import com.ssafy.maryfarmplantservice.domain.plant.Plant;
+<<<<<<< HEAD
 import com.ssafy.maryfarmplantservice.kafka.dto.Status;
 import com.ssafy.maryfarmplantservice.kafka.producer.plant.PlantProducer;
 import com.ssafy.maryfarmplantservice.service.PlantService;
+=======
+import com.ssafy.maryfarmplantservice.service.PlantCService;
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -63,11 +75,15 @@ public class PlantQuery {
     })
     @PostMapping("/plant/month/search")
     public ResponseEntity<?> searchPlant(@RequestBody MonthPlantSearchRequestDTO dto) throws IOException {
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/api/controller/plant/PlantController.java
         List<Plant> list = plantService.searchPlantByMonth(dto.getUserId(),dto.getYear(),dto.getMonth());
 =======
         List<Plant> list = plantCService.searchPlantByMonth(dto.getUserId(),dto.getYear(),dto.getMonth());
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/api/controller/plant/PlantQuery.java
+=======
+        List<Plant> list = plantCService.searchPlantByMonth(dto.getUserId(),dto.getYear(),dto.getMonth());
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
         List<PlantSearchByMonthResponseDTO> resultDtos = new ArrayList<>();
         for(Plant p : list) {
             resultDtos.add(PlantSearchByMonthResponseDTO.of(p));

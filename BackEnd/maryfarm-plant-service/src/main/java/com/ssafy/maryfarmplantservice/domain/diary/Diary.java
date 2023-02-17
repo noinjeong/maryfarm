@@ -14,10 +14,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+<<<<<<< HEAD
 <<<<<<< HEAD:BackEnd/microfarmK/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/domain/diary/Diary.java
 =======
 import java.time.LocalDateTime;
 >>>>>>> back:BackEnd/maryfarm-plant-service/src/main/java/com/ssafy/maryfarmplantservice/domain/diary/Diary.java
+=======
+import java.time.LocalDateTime;
+>>>>>>> 3413e9b185e651b91a370b6adee82037c2fd68a8
 import java.util.ArrayList;
 import java.util.List;
 
