@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
+    config:
+<<<<<<< HEAD:BackEnd/microfarmK/maryfarm-calendar-service/src/main/resources/bootstrap-prod.yml
+      uri: http://172.26.1.228:8888
+      name: maryfarm-calendar-service
+=======
+      uri: https://172.26.1.228:8888
+      name: maryfarm-user-service
+>>>>>>> back:BackEnd/maryfarm-user-service/bin/main/bootstrap-prod.yml
