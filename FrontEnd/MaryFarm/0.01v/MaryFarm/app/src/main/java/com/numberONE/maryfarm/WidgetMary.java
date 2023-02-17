@@ -52,9 +52,9 @@ public class WidgetMary extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId);
 
             // RemoteViewsService 실행 등록시키는 함수
-            Intent serviceIntent = new Intent(context, MyRemoteViewsService.class);
-            RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.widget_mary);
-            widget.setRemoteAdapter(R.id.widget_pick_date, serviceIntent);
+//            Intent serviceIntent = new Intent(context, MyRemoteViewsService.class);
+//            RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.widget_mary);
+//            widget.setRemoteAdapter(R.id.widget_pick_date, serviceIntent);
             //클릭이벤트
             //Listview 클릭 이벤트를 위한 코드. -> 원리는 pendingIntent 부여 -> 하나씩 부여하기에는 부담이 되어서 각 항목의 클릭이 아닌 위젯 자체에 대한 클릭
 //            Intent toastIntent = new Intent(context, WidgetMary.class);
@@ -65,7 +65,7 @@ public class WidgetMary extends AppWidgetProvider {
 //                    PendingIntent.FLAG_UPDATE_CURRENT);
 //            widget.setPendingIntentTemplate(R.id.widget_pick_date, toastPendingIntent);
             //보내기
-            appWidgetManager.updateAppWidget(appWidgetIds, widget);
+//            appWidgetManager.updateAppWidget(appWidgetIds, widget);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

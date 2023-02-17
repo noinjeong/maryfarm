@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="5개의 항목으로 \n작물을 추천 받아 보세요!"
-        android:textSize="40dp"
+        android:textSize="35dp"
         android:fontFamily="@font/baemin_jua"
         android:padding="10dp"
         />

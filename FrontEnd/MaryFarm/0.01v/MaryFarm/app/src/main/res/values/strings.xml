@@ -57,7 +57,7 @@
 
     <string-array name="plants_type">
         <item>-선택-</item>
-        <item>딸기</item>
+        <item>호박</item>
         <item>수박</item>
         <item>해바라기</item>
         <item>선인장</item>

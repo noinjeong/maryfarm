@@ -18,16 +18,16 @@ public interface ServerAPI {
     @POST("auth/user/signup")
     Call<Signup> postUserInfo(@Body Signup signup);
 
-    @GET("diary/user/{userId}")
+    @GET("diary/user/{userId}/")
     Call<List<UserPlant>> getUserPlant(@Path("userId") String userId);
 
     @GET("diary/group/{plantId}/")
     Call<DetailDiariesPerPlantDTO> getDiaries(@Path("plantId") String plantId);
 
-    @GET("user/farm/{userId}/")
+    @GET("user/farm/{userId}")
     Call<FollowFollowing> getFollowInfo(@Path("userId") String userId);
 
-    @POST("diary/comment/")
+    @POST("diary/comment")
     Call<AddComment> postComment(@Body AddComment addComment);
 }
 
