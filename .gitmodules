@@ -1,0 +1,3 @@
+[submodule "MaryFarm"]
+	path = MaryFarm
+	url = https://github.com/bamm2/MaryFarm.git
